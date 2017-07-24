@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="HTTP," />
+  <meta name="keywords" content="sort," />
 
 
 
@@ -95,18 +95,20 @@
 
 
 
-<meta name="description" content="你好这是我的第一篇文章">
-<meta name="keywords" content="HTTP">
+<meta name="description" content="前言好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下,快速排序是基于分治算法的。 基本步骤如下：  选择一个基准元素，通常选择第一个元素或者最后一个元素； 通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大； 此时基准元素在其排好序后的正确位置； 然后分别对这两部分记录用同样的方法继续进行排序，直到整个">
+<meta name="keywords" content="sort">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTTP协议">
-<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/23/HTTP协议/index.html">
+<meta property="og:title" content="快速排序">
+<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/24/快速排序/index.html">
 <meta property="og:site_name" content="指向指针的指针-博客">
-<meta property="og:description" content="你好这是我的第一篇文章">
+<meta property="og:description" content="前言好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下,快速排序是基于分治算法的。 基本步骤如下：  选择一个基准元素，通常选择第一个元素或者最后一个元素； 通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大； 此时基准元素在其排好序后的正确位置； 然后分别对这两部分记录用同样的方法继续进行排序，直到整个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-23T11:06:25.301Z">
+<meta property="og:image" content="https://zhang0chao0.github.io/images/qsort.png">
+<meta property="og:updated_time" content="2017-07-24T05:30:45.309Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTTP协议">
-<meta name="twitter:description" content="你好这是我的第一篇文章">
+<meta name="twitter:title" content="快速排序">
+<meta name="twitter:description" content="前言好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下,快速排序是基于分治算法的。 基本步骤如下：  选择一个基准元素，通常选择第一个元素或者最后一个元素； 通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大； 此时基准元素在其排好序后的正确位置； 然后分别对这两部分记录用同样的方法继续进行排序，直到整个">
+<meta name="twitter:image" content="https://zhang0chao0.github.io/images/qsort.png">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/23/HTTP协议/"/>
+  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/24/快速排序/"/>
 
 
 
 
 
-  <title>HTTP协议 | 指向指针的指针-博客</title>
+  <title>快速排序 | 指向指针的指针-博客</title>
   
 
 
@@ -279,7 +281,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/23/HTTP协议/">
+    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/24/快速排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="指向指针的指针">
@@ -296,7 +298,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HTTP协议</h1>
+          <h1 class="post-title" itemprop="name headline">快速排序</h1>
         
 
         <div class="post-meta">
@@ -308,8 +310,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-23T15:01:54+08:00">
-                2017-07-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T13:01:20+08:00">
+                2017-07-24
               </time>
             
 
@@ -331,8 +333,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
+                  <a href="/categories/排序算法/" itemprop="url" rel="index">
+                    <span itemprop="name">排序算法</span>
                   </a>
                 </span>
 
@@ -365,7 +367,39 @@
       
 
       
-        <h1 id="你好"><a href="#你好" class="headerlink" title="你好"></a>你好</h1><p>这是我的第一篇文章</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下,快速排序是基于分治算法的。</p>
+<p>基本步骤如下：</p>
+<ol>
+<li>选择一个基准元素，通常选择第一个元素或者最后一个元素；</li>
+<li>通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大；</li>
+<li>此时基准元素在其排好序后的正确位置；</li>
+<li>然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序为止。<a id="more"></a>
+用一张很好的图来说明：<div align="center"><br><img src="/images/qsort.png" alt="qsort"><br></div>
+
+</li>
+</ol>
+<p>上图中，演示的是第一轮快速排序的过程，首先将第一个元素选为基准点，从右端第一个元素开始扫描，找到第一个比57小的元素（19）时停止，两者交换位置，然后从左端开始扫描，找到第一个比57大的元素（68）时停止，两者交换位置，周而复始，直到57找不到可交换的元素为止，至此一轮快速排序结束。这时，比57小的元素都在左边，比57大的元素都在右边，分别对两边的数组段继续进行快速排序，依次类推，最终使整个数组有序。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>时间复杂度：O(nlogn)，是一种不稳定的排序；</li>
+<li>效率问题：基准的选择，选择不当严重影响效率，若数组元素中重复的较多，也影响效率。</li>
+</ol>
+<h3 id="手撸代码"><a href="#手撸代码" class="headerlink" title="手撸代码"></a>手撸代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> sort;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/15.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Qsort</span> </span>&#123;</div><div class="line">    <span class="comment">//数组元素的交换</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> temp=arr[a];</div><div class="line">        arr[a]=arr[b];</div><div class="line">        arr[b]=temp;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> begin,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">        <span class="comment">//返回条件</span></div><div class="line">        <span class="keyword">if</span>(begin&gt;=end)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="comment">//基准</span></div><div class="line">        <span class="keyword">int</span> key=arr[begin];</div><div class="line">        <span class="keyword">int</span> a=begin;<span class="comment">//保存下来</span></div><div class="line">        <span class="keyword">int</span> b=end;</div><div class="line">        <span class="keyword">int</span> flag=<span class="number">0</span>;<span class="comment">//flag=0,从后往前找；flag=1,从前往后找</span></div><div class="line">        <span class="keyword">while</span> (a&lt;=b)&#123;</div><div class="line">            <span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</div><div class="line">                <span class="comment">//找到合适的位置</span></div><div class="line">                <span class="keyword">int</span> i;</div><div class="line">                <span class="keyword">for</span>(i=b;arr[i]&gt;key;i--,b--);</div><div class="line">                <span class="keyword">if</span>(arr[i]==key)<span class="comment">//一轮排序已结束</span></div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="comment">//交换</span></div><div class="line">                swap(arr,a,b);</div><div class="line">                flag=<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(flag==<span class="number">1</span>)&#123;</div><div class="line">                <span class="keyword">int</span> i;</div><div class="line">                <span class="keyword">for</span>(i=a;arr[i]&lt;key;i++,a++);</div><div class="line">                <span class="keyword">if</span>(arr[i]==key)</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                swap(arr,a,b);</div><div class="line">                flag=<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> index=a;</div><div class="line">        qsort(arr,begin,a-<span class="number">1</span>);</div><div class="line">        qsort(arr,a+<span class="number">1</span>,end);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> arr[]=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">7</span>&#125;;</div><div class="line">        qsort(arr,<span class="number">0</span>,arr.length-<span class="number">1</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i:arr)&#123;</div><div class="line">            System.out.print(i+<span class="string">" "</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+
+
+
+
+
+
+
 
       
     </div>
@@ -395,7 +429,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+            <a href="/tags/sort/" rel="tag"># sort</a>
           
         </div>
       
@@ -408,15 +442,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/07/23/HTTP协议/" rel="next" title="HTTP协议">
+                <i class="fa fa-chevron-left"></i> HTTP协议
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/24/快速排序/" rel="prev" title="快速排序">
-                快速排序 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -578,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#你好"><span class="nav-number">1.</span> <span class="nav-text">你好</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手撸代码"><span class="nav-number">3.</span> <span class="nav-text">手撸代码</span></a></li></ol></div>
             
 
           </div>

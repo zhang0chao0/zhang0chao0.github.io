@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang0chao0.github.io/"/>
-  <updated>2017-07-23T11:06:25.301Z</updated>
+  <updated>2017-07-24T05:30:45.309Z</updated>
   <id>https://zhang0chao0.github.io/</id>
   
   <author>
@@ -14,6 +14,67 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>快速排序</title>
+    <link href="https://zhang0chao0.github.io/2017/07/24/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
+    <id>https://zhang0chao0.github.io/2017/07/24/快速排序/</id>
+    <published>2017-07-24T05:01:20.000Z</published>
+    <updated>2017-07-24T05:30:45.309Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下,快速排序是基于分治算法的。</p>
+<p>基本步骤如下：</p>
+<ol>
+<li>选择一个基准元素，通常选择第一个元素或者最后一个元素；</li>
+<li>通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大；</li>
+<li>此时基准元素在其排好序后的正确位置；</li>
+<li>然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序为止。<a id="more"></a>
+用一张很好的图来说明：<div align="center"><br><img src="/images/qsort.png" alt="qsort"><br></div>
+
+</li>
+</ol>
+<p>上图中，演示的是第一轮快速排序的过程，首先将第一个元素选为基准点，从右端第一个元素开始扫描，找到第一个比57小的元素（19）时停止，两者交换位置，然后从左端开始扫描，找到第一个比57大的元素（68）时停止，两者交换位置，周而复始，直到57找不到可交换的元素为止，至此一轮快速排序结束。这时，比57小的元素都在左边，比57大的元素都在右边，分别对两边的数组段继续进行快速排序，依次类推，最终使整个数组有序。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>时间复杂度：O(nlogn)，是一种不稳定的排序；</li>
+<li>效率问题：基准的选择，选择不当严重影响效率，若数组元素中重复的较多，也影响效率。</li>
+</ol>
+<h3 id="手撸代码"><a href="#手撸代码" class="headerlink" title="手撸代码"></a>手撸代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> sort;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/15.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Qsort</span> </span>&#123;</div><div class="line">    <span class="comment">//数组元素的交换</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> temp=arr[a];</div><div class="line">        arr[a]=arr[b];</div><div class="line">        arr[b]=temp;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> begin,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">        <span class="comment">//返回条件</span></div><div class="line">        <span class="keyword">if</span>(begin&gt;=end)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="comment">//基准</span></div><div class="line">        <span class="keyword">int</span> key=arr[begin];</div><div class="line">        <span class="keyword">int</span> a=begin;<span class="comment">//保存下来</span></div><div class="line">        <span class="keyword">int</span> b=end;</div><div class="line">        <span class="keyword">int</span> flag=<span class="number">0</span>;<span class="comment">//flag=0,从后往前找；flag=1,从前往后找</span></div><div class="line">        <span class="keyword">while</span> (a&lt;=b)&#123;</div><div class="line">            <span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</div><div class="line">                <span class="comment">//找到合适的位置</span></div><div class="line">                <span class="keyword">int</span> i;</div><div class="line">                <span class="keyword">for</span>(i=b;arr[i]&gt;key;i--,b--);</div><div class="line">                <span class="keyword">if</span>(arr[i]==key)<span class="comment">//一轮排序已结束</span></div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="comment">//交换</span></div><div class="line">                swap(arr,a,b);</div><div class="line">                flag=<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(flag==<span class="number">1</span>)&#123;</div><div class="line">                <span class="keyword">int</span> i;</div><div class="line">                <span class="keyword">for</span>(i=a;arr[i]&lt;key;i++,a++);</div><div class="line">                <span class="keyword">if</span>(arr[i]==key)</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                swap(arr,a,b);</div><div class="line">                flag=<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> index=a;</div><div class="line">        qsort(arr,begin,a-<span class="number">1</span>);</div><div class="line">        qsort(arr,a+<span class="number">1</span>,end);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> arr[]=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">7</span>&#125;;</div><div class="line">        qsort(arr,<span class="number">0</span>,arr.length-<span class="number">1</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i:arr)&#123;</div><div class="line">            System.out.print(i+<span class="string">" "</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+
+
+
+
+
+
+
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下,快速排序是基于分治算法的。&lt;/p&gt;
+&lt;p&gt;基本步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;选择一个基准元素，通常选择第一个元素或者最后一个元素；&lt;/li&gt;
+&lt;li&gt;通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大；&lt;/li&gt;
+&lt;li&gt;此时基准元素在其排好序后的正确位置；&lt;/li&gt;
+&lt;li&gt;然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序为止。
+    
+    </summary>
+    
+      <category term="排序算法" scheme="https://zhang0chao0.github.io/categories/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="sort" scheme="https://zhang0chao0.github.io/tags/sort/"/>
+    
+  </entry>
   
   <entry>
     <title>HTTP协议</title>
@@ -36,33 +97,6 @@
     
     
       <category term="HTTP" scheme="https://zhang0chao0.github.io/tags/HTTP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://zhang0chao0.github.io/2017/07/22/hello-world/"/>
-    <id>https://zhang0chao0.github.io/2017/07/22/hello-world/</id>
-    <published>2017-07-22T05:54:17.990Z</published>
-    <updated>2017-07-22T05:54:17.990Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
-    
     
   </entry>
   
