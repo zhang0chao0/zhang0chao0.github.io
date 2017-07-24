@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Think in Java," />
 
 
 
@@ -95,19 +95,18 @@
 
 
 
-<meta name="description" content="个人理解一句话，一个类有且仅有一个实例，单例模式也分懒汉式和恶汉式，看代码就可以了。 类图">
+<meta name="description" content="前言众所周知，Java语言除了8种基本的数据类型以外，处处皆对象，Java中所有的类都是继承于Object类（包括你自己写的），而finalize()是Object类中的一个方法，这个方法在垃圾内存回收中被用到。 finalize当一个对象A的内存要被回收时，会调用其finalize()方法，如果A对象没有该方法，对不起，这块内存会直接被释放掉，如果在A这个方法内，A对象又被新的对象引用，那么A对">
+<meta name="keywords" content="Think in Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单例模式">
-<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/24/单例模式/index.html">
+<meta property="og:title" content="finalize与finally">
+<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/24/finalize与finally/index.html">
 <meta property="og:site_name" content="指向指针的指针-博客">
-<meta property="og:description" content="个人理解一句话，一个类有且仅有一个实例，单例模式也分懒汉式和恶汉式，看代码就可以了。 类图">
+<meta property="og:description" content="前言众所周知，Java语言除了8种基本的数据类型以外，处处皆对象，Java中所有的类都是继承于Object类（包括你自己写的），而finalize()是Object类中的一个方法，这个方法在垃圾内存回收中被用到。 finalize当一个对象A的内存要被回收时，会调用其finalize()方法，如果A对象没有该方法，对不起，这块内存会直接被释放掉，如果在A这个方法内，A对象又被新的对象引用，那么A对">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://zhang0chao0.github.io/images/singleton.PNG">
-<meta property="og:updated_time" content="2017-07-24T12:14:47.378Z">
+<meta property="og:updated_time" content="2017-07-24T12:50:37.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单例模式">
-<meta name="twitter:description" content="个人理解一句话，一个类有且仅有一个实例，单例模式也分懒汉式和恶汉式，看代码就可以了。 类图">
-<meta name="twitter:image" content="https://zhang0chao0.github.io/images/singleton.PNG">
+<meta name="twitter:title" content="finalize与finally">
+<meta name="twitter:description" content="前言众所周知，Java语言除了8种基本的数据类型以外，处处皆对象，Java中所有的类都是继承于Object类（包括你自己写的），而finalize()是Object类中的一个方法，这个方法在垃圾内存回收中被用到。 finalize当一个对象A的内存要被回收时，会调用其finalize()方法，如果A对象没有该方法，对不起，这块内存会直接被释放掉，如果在A这个方法内，A对象又被新的对象引用，那么A对">
 
 
 
@@ -135,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/24/单例模式/"/>
+  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/24/finalize与finally/"/>
 
 
 
 
 
-  <title>单例模式 | 指向指针的指针-博客</title>
+  <title>finalize与finally | 指向指针的指针-博客</title>
   
 
 
@@ -280,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/24/单例模式/">
+    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/24/finalize与finally/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="指向指针的指针">
@@ -297,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">单例模式</h1>
+          <h1 class="post-title" itemprop="name headline">finalize与finally</h1>
         
 
         <div class="post-meta">
@@ -309,7 +308,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T16:02:34+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T20:23:07+08:00">
                 2017-07-24
               </time>
             
@@ -332,8 +331,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -366,15 +365,17 @@
       
 
       
-        <h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>一句话，一个类<code>有且仅有一个实例</code>，单例模式也分懒汉式和恶汉式，看代码就可以了。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/singleton.PNG" alt="singleton"><br></div>
-
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>众所周知，Java语言除了8种基本的数据类型以外，处处皆对象，Java中所有的类都是继承于Object类（包括你自己写的），而finalize()是Object类中的一个方法，这个方法在垃圾内存回收中被用到。</p>
+<h3 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h3><p>当一个对象A的内存要被回收时，会调用其finalize()方法，如果A对象没有该方法，对不起，这块内存会直接被释放掉，如果在A这个方法内，A对象又被新的对象引用，那么A对象将重生了！即A对象的内存不会被释放。<br><strong>注意</strong>：不要把finalize()与C++中的析构函数相提并论，因为它们不是同一个玩意，一个对象被析构了，它不一定会被内存回收。</p>
 <a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 饿汉式单例模式</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungrySingleton</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HungrySingleton</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> HungrySingleton singleton=<span class="keyword">new</span> HungrySingleton();</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungrySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> singleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 懒汉式单例模式</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingleton</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazySingleton</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton singleton=<span class="keyword">null</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(singleton==<span class="keyword">null</span>)&#123;</div><div class="line">            singleton=<span class="keyword">new</span> LazySingleton();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> singleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton=<span class="keyword">null</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(singleton==<span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">synchronized</span> (singleton)&#123;</div><div class="line">                <span class="keyword">if</span>(singleton==<span class="keyword">null</span>)</div><div class="line">                    singleton=<span class="keyword">new</span> Singleton();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> singleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> clear;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/24.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> checkOut=<span class="keyword">false</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">(<span class="keyword">boolean</span> checkOut)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.checkOut = checkOut;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">        <span class="keyword">if</span>(checkOut)</div><div class="line">            System.out.println(<span class="string">"err:checked out"</span>);</div><div class="line">        <span class="comment">//super.finalize();</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">new</span> Book(<span class="keyword">true</span>);</div><div class="line">        <span class="comment">//强制调用垃圾内存回收</span></div><div class="line">        System.gc();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看看这个代码，当我调用gc()时，Book类的一个对象的finalize()方法被执行，所以控制台会打印出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">err:checked out</div></pre></td></tr></table></figure></p>
+<h3 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h3><p>这个用于Java的异常处理，与try catch连用，用于哪呢？比如我有一个需求连接数据库，可是连接数据库不一定会成功，但是有一点我们是知道的，无论数据库连接是否成功，我们都要关闭这个连接！（避免资源的浪费）那么close()这个方法我就写在finally块里面，因为：无论是否发生异常，finally块中的代码都会被执行。<br>可以明确告诉你，1.txt这个文件是不存在的，所以这个语句一定会发生异常，大家可以猜猜最后的结果readFile()的返回值是多少。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> clear;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/24.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">readFile</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            FileInputStream is=<span class="keyword">new</span> FileInputStream(<span class="string">"1.txt"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</div><div class="line">            <span class="comment">//e.printStackTrace();</span></div><div class="line">            System.out.println(<span class="string">"file not found"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            System.out.println(<span class="string">"finally..."</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        System.out.println(readFile());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>控制台：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">file not found</div><div class="line">finally...</div><div class="line">false</div></pre></td></tr></table></figure></p>
+<p>惊不惊喜！？意不意外？这样就可以证明finally块是最后被调用的。</p>
 <!--畅言代码-->
-<p><div id="SOHUCS" sid="单例模式"></div></p>
+<p><div id="SOHUCS" sid="finalize与finally"></div></p>
 <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
 <script type="text/javascript">
 window.changyan.api.config({
@@ -409,6 +410,12 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Think-in-Java/" rel="tag"># Think in Java</a>
+          
+        </div>
+      
 
       
       
@@ -418,8 +425,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/24/抽象工厂模式/" rel="next" title="抽象工厂模式">
-                <i class="fa fa-chevron-left"></i> 抽象工厂模式
+              <a href="/2017/07/24/适配器模式/" rel="next" title="适配器模式">
+                <i class="fa fa-chevron-left"></i> 适配器模式
               </a>
             
           </div>
@@ -428,8 +435,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/24/原型模式/" rel="prev" title="原型模式">
-                原型模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/24/String类/" rel="prev" title="String类">
+                String类 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -592,7 +599,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">1.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图"><span class="nav-number">2.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finalize"><span class="nav-number">2.</span> <span class="nav-text">finalize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finally"><span class="nav-number">3.</span> <span class="nav-text">finally</span></a></li></ol></div>
             
 
           </div>

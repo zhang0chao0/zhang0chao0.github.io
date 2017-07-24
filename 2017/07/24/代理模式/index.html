@@ -103,7 +103,7 @@
 <meta property="og:description" content="个人理解老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。 好处秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。 AOP面向切面编程Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/proxy.PNG">
-<meta property="og:updated_time" content="2017-07-24T10:30:19.864Z">
+<meta property="og:updated_time" content="2017-07-24T12:14:47.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="代理模式">
 <meta name="twitter:description" content="个人理解老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。 好处秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。 AOP面向切面编程Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为">
@@ -377,7 +377,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Assistant</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Leader leader;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Assistant</span><span class="params">(Leader leader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.leader = leader;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"before sign,do something"</span>);</div><div class="line">        leader.sign();</div><div class="line">        System.out.println(<span class="string">"end sign,do something"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Leader ceo=<span class="keyword">new</span> CEO();</div><div class="line">        Leader assistant=<span class="keyword">new</span> Assistant(ceo);</div><div class="line">        assistant.sign();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <!--畅言代码-->
-<p><div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div></p>
+<p><div id="SOHUCS" sid="代理模式"></div></p>
 <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
 <script type="text/javascript">
 window.changyan.api.config({
@@ -506,7 +506,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -517,7 +517,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -528,7 +528,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

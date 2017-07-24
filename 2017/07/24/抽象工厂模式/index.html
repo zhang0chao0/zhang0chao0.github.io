@@ -103,7 +103,7 @@
 <meta property="og:description" content="个人理解工厂方法模式只能造出一维的实例，例如车工厂，造火车、汽车等。但是抽象工厂模式可以造出多维的实例，火车、汽车也分华北的和东北的，这样就是二维的属性两两组合了（华北火车、华北汽车、东北火车、东北汽车）。抽象工厂也是工厂三兄弟中最不好理解的一个。 类图">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/abstractfactory.PNG">
-<meta property="og:updated_time" content="2017-07-24T08:00:19.317Z">
+<meta property="og:updated_time" content="2017-07-24T12:16:47.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="抽象工厂模式">
 <meta name="twitter:description" content="个人理解工厂方法模式只能造出一维的实例，例如车工厂，造火车、汽车等。但是抽象工厂模式可以造出多维的实例，火车、汽车也分华北的和东北的，这样就是二维的属性两两组合了（华北火车、华北汽车、东北火车、东北汽车）。抽象工厂也是工厂三兄弟中最不好理解的一个。 类图">
@@ -378,7 +378,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> abstractfactory;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 第一工厂（华北）</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OneFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">createTrain</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"华北火车"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OneTrain();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">createTractor</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"华北拖拉机"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OneTractor();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> abstractfactory;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 第二工厂（东北）</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TwoFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">createTrain</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"东北火车"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TwoTrain();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">createTractor</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"东北拖拉机"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TwoTractor();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <!--畅言代码-->
-<p><div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div></p>
+<p><div id="SOHUCS" sid="抽象工厂模式"></div></p>
 <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
 <script type="text/javascript">
 window.changyan.api.config({
@@ -508,7 +508,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -519,7 +519,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -530,7 +530,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

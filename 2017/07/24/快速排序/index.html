@@ -104,7 +104,7 @@
 <meta property="og:description" content="前言好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下，快速排序是基于分治算法的。 基本步骤如下：  选择一个基准元素，通常选择第一个元素或者最后一个元素； 通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大； 此时基准元素在其排好序后的正确位置； 然后分别对这两部分记录用同样的方法继续进行排序，直到整个">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/qsort.png">
-<meta property="og:updated_time" content="2017-07-24T07:35:47.468Z">
+<meta property="og:updated_time" content="2017-07-24T12:16:47.452Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速排序">
 <meta name="twitter:description" content="前言好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下，快速排序是基于分治算法的。 基本步骤如下：  选择一个基准元素，通常选择第一个元素或者最后一个元素； 通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大； 此时基准元素在其排好序后的正确位置； 然后分别对这两部分记录用同样的方法继续进行排序，直到整个">
@@ -385,7 +385,7 @@
 </ol>
 <h3 id="手撸代码"><a href="#手撸代码" class="headerlink" title="手撸代码"></a>手撸代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> sort;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/15.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Qsort</span> </span>&#123;</div><div class="line">    <span class="comment">//数组元素的交换</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> temp=arr[a];</div><div class="line">        arr[a]=arr[b];</div><div class="line">        arr[b]=temp;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> begin,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">        <span class="comment">//返回条件</span></div><div class="line">        <span class="keyword">if</span>(begin&gt;=end)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="comment">//基准</span></div><div class="line">        <span class="keyword">int</span> key=arr[begin];</div><div class="line">        <span class="keyword">int</span> a=begin;<span class="comment">//保存下来</span></div><div class="line">        <span class="keyword">int</span> b=end;</div><div class="line">        <span class="keyword">int</span> flag=<span class="number">0</span>;<span class="comment">//flag=0,从后往前找；flag=1,从前往后找</span></div><div class="line">        <span class="keyword">while</span> (a&lt;=b)&#123;</div><div class="line">            <span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</div><div class="line">                <span class="comment">//找到合适的位置</span></div><div class="line">                <span class="keyword">int</span> i;</div><div class="line">                <span class="keyword">for</span>(i=b;arr[i]&gt;key;i--,b--);</div><div class="line">                <span class="keyword">if</span>(arr[i]==key)<span class="comment">//一轮排序已结束</span></div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="comment">//交换</span></div><div class="line">                swap(arr,a,b);</div><div class="line">                flag=<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(flag==<span class="number">1</span>)&#123;</div><div class="line">                <span class="keyword">int</span> i;</div><div class="line">                <span class="keyword">for</span>(i=a;arr[i]&lt;key;i++,a++);</div><div class="line">                <span class="keyword">if</span>(arr[i]==key)</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                swap(arr,a,b);</div><div class="line">                flag=<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> index=a;</div><div class="line">        qsort(arr,begin,a-<span class="number">1</span>);</div><div class="line">        qsort(arr,a+<span class="number">1</span>,end);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> arr[]=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">7</span>&#125;;</div><div class="line">        qsort(arr,<span class="number">0</span>,arr.length-<span class="number">1</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i:arr)&#123;</div><div class="line">            System.out.print(i+<span class="string">" "</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <!--畅言代码-->
-<p><div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div></p>
+<p><div id="SOHUCS" sid="快速排序"></div></p>
 <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
 <script type="text/javascript">
 window.changyan.api.config({
@@ -522,7 +522,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -533,7 +533,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -544,7 +544,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
