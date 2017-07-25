@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang0chao0.github.io/"/>
-  <updated>2017-07-24T13:12:38.527Z</updated>
+  <updated>2017-07-25T10:37:06.730Z</updated>
   <id>https://zhang0chao0.github.io/</id>
   
   <author>
@@ -16,11 +16,151 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>HTTP状态码</title>
+    <link href="https://zhang0chao0.github.io/2017/07/25/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/"/>
+    <id>https://zhang0chao0.github.io/2017/07/25/HTTP状态码/</id>
+    <published>2017-07-25T09:44:11.000Z</published>
+    <updated>2017-07-25T10:37:06.730Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>本文总结于网络</strong>，总结一下HTTP返回的状态码。</p>
+<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><ul>
+<li>100-199 用于指定客户端应相应的某些动作。</li>
+<li>200-299 用于表示请求成功。</li>
+<li>300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。</li>
+<li>400-499 用于指出客户端的错误。</li>
+<li>500-599 用于支持服务器错误。</li>
+</ul>
+<h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><h6 id="100"><a href="#100" class="headerlink" title="100"></a>100</h6><p>客户端询问服务器是否在后续的请求中可以发送附件，会在请求头中加上100-continue，如果服务器同意，返回status 100，如果不同意，则返回417 (Expectation Failed)。</p>
+<h6 id="101"><a href="#101" class="headerlink" title="101"></a>101</h6><p>(Switching Protocols/转换协议)不太明白。</p>
+<h6 id="200"><a href="#200" class="headerlink" title="200"></a>200</h6><p>最熟悉了，代表OK、正确。</p>
+<a id="more"></a>
+<h6 id="201"><a href="#201" class="headerlink" title="201"></a>201</h6><p>(SC_CREATED)表示服务器在请求的响应中建立了新文档。</p>
+<h6 id="202"><a href="#202" class="headerlink" title="202"></a>202</h6><p>(SC_ACCEPTED)告诉客户端请求正在被执行，但还没有处理完。</p>
+<h6 id="203"><a href="#203" class="headerlink" title="203"></a>203</h6><p>(SC_NON_AUTHORITATIVE_INFORMATION)是表示文档被正常的返回，但是由于正在使用的是文档副本所以某些响应头信息可能不正确。</p>
+<h6 id="204"><a href="#204" class="headerlink" title="204"></a>204</h6><p>无文档，(SC_NO_CONTENT)确保浏览器继续显示先前的文档。</p>
+<h6 id="205"><a href="#205" class="headerlink" title="205"></a>205</h6><p>(SC_RESET_CONTENT)的意思是虽然没有新文档但浏览器要重置文档显示。这个状态码用于强迫浏览器清除表单域。</p>
+<h6 id="300"><a href="#300" class="headerlink" title="300"></a>300</h6><p>(SC_MULTIPLE_CHOICES)表示被请求的文档可以在多个地方找到，并将在返回的文档中列出来。如果服务器有首选设置，首选项将会被列于定位响应头信息中。</p>
+<h6 id="301"><a href="#301" class="headerlink" title="301"></a>301</h6><p>(SC_MOVED_PERMANENTLY)状态是指所请求的文档在别的地方。文档新的URL会在定位响应头信息中给出，浏览器会自动连接到新的URL。</p>
+<h6 id="302"><a href="#302" class="headerlink" title="302"></a>302</h6><p>与301有些类似，只是定位头信息中所给的URL应被理解为临时交换地址而不是永久的。</p>
+<h6 id="303"><a href="#303" class="headerlink" title="303"></a>303</h6><p>如果之前用post方式请求文档，那么之后要用get方式请求。（不知道理解的对不对，可能有错误）。</p>
+<h6 id="304"><a href="#304" class="headerlink" title="304"></a>304</h6><p>熟悉，表示资源没有被修改，如果你请求一个接口两次就会返回这个。</p>
+<h6 id="305"><a href="#305" class="headerlink" title="305"></a>305</h6><p>(SC_USE_PROXY)表示所请求的文档要通过定位头信息中的代理服务器获得。</p>
+<h6 id="307"><a href="#307" class="headerlink" title="307"></a>307</h6><p>(Temporary Redirect/临时重定向)在响应为303时按照GET和POST请求转向，在307响应时则按照GET请求转向而不是POST请求。</p>
+<h6 id="400"><a href="#400" class="headerlink" title="400"></a>400</h6><p>错误请求（语法错误）。</p>
+<h6 id="401"><a href="#401" class="headerlink" title="401"></a>401</h6><p>未授权请求，请求时要在头部加上授权信息。</p>
+<h6 id="403"><a href="#403" class="headerlink" title="403"></a>403</h6><p>禁止访问，(SC_FORBIDDEN)的意思是除非拥有授权否则服务器拒绝提供所请求的资源。这个状态经常会由于服务器上的损坏文件或目录许可而引起。</p>
+<h6 id="404"><a href="#404" class="headerlink" title="404"></a>404</h6><p>很熟悉，未找到页面。一般是请求的url错误。</p>
+<h6 id="405"><a href="#405" class="headerlink" title="405"></a>405</h6><p>(SC_METHOD_NOT_ALLOWED)指出请求方法(GET, POST, HEAD, PUT, DELETE, 等)对某些特定的资源不允许使用。</p>
+<h6 id="406"><a href="#406" class="headerlink" title="406"></a>406</h6><p>无法访问，(SC_NOT_ACCEPTABLE)表示请求资源的MIME类型与客户端中Accept头信息中指定的类型不一致。</p>
+<h6 id="407"><a href="#407" class="headerlink" title="407"></a>407</h6><p>这个状态用于代理服务器，该状态指出客户端必须通过代理服务器的认证。</p>
+<h6 id="408"><a href="#408" class="headerlink" title="408"></a>408</h6><p>请求超时，time out。</p>
+<h6 id="409"><a href="#409" class="headerlink" title="409"></a>409</h6><p>请求冲突，(SC_CONFLICT)状态常被用于试图上传版本不正确的文件时。</p>
+<h6 id="410"><a href="#410" class="headerlink" title="410"></a>410</h6><p>请求文件已经被移走了，不存在了。</p>
+<h6 id="411"><a href="#411" class="headerlink" title="411"></a>411</h6><p>(SC_LENGTH_REQUIRED)表示服务器不能处理请求（假设为带有附件的POST请求），除非客户端发送Content-Length头信息指出发送给服务器的数据的大小。</p>
+<h6 id="412"><a href="#412" class="headerlink" title="412"></a>412</h6><p>(SC_PRECONDITION_FAILED)状态指出请求头信息中的某些先决条件是错误的。</p>
+<h6 id="413"><a href="#413" class="headerlink" title="413"></a>413</h6><p>请求实体过大，(SC_REQUEST_ENTITY_TOO_LARGE)告诉客户端现在所请求的文档比服务器现在想要处理的要大。如果服务器认为能够过一段时间处理，则会包含一个Retry-After的响应头信息。</p>
+<h6 id="414"><a href="#414" class="headerlink" title="414"></a>414</h6><p>请求url过长。</p>
+<h6 id="415"><a href="#415" class="headerlink" title="415"></a>415</h6><p>不支持的媒体格式。</p>
+<h6 id="416"><a href="#416" class="headerlink" title="416"></a>416</h6><p>(Requested Range Not Satisfiable/请求范围无法满足)</p>
+<h6 id="417"><a href="#417" class="headerlink" title="417"></a>417</h6><p>(Expectation Failed/期望失败)，参考status 100。</p>
+<h6 id="500"><a href="#500" class="headerlink" title="500"></a>500</h6><p>服务器内部错误，服务器端代码写错了。</p>
+<h6 id="501"><a href="#501" class="headerlink" title="501"></a>501</h6><p>(SC_NOT_IMPLEMENTED)状态告诉客户端服务器不支持请求中要求的功能。例如，客户端执行了如PUT这样的服务器并不支持的命令。</p>
+<h6 id="502"><a href="#502" class="headerlink" title="502"></a>502</h6><p>错误的网关。</p>
+<h6 id="503"><a href="#503" class="headerlink" title="503"></a>503</h6><p>(SC_SERVICE_UNAVAILABLE)表示服务器由于在维护或已经超载而无法响应。例如，如果某些线程或数据库连接池已经没有空闲则servlet会返回这个头信息。服务器可提供一个Retry-After头信息告诉客户端什么时候可以在试一次。</p>
+<h6 id="504"><a href="#504" class="headerlink" title="504"></a>504</h6><p>(Gateway Timeout/网关超时)</p>
+<h6 id="505"><a href="#505" class="headerlink" title="505"></a>505</h6><p>不支持的HTTP协议版本。</p>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="HTTP状态码"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;本文总结于网络&lt;/strong&gt;，总结一下HTTP返回的状态码。&lt;/p&gt;
+&lt;h3 id=&quot;基本&quot;&gt;&lt;a href=&quot;#基本&quot; class=&quot;headerlink&quot; title=&quot;基本&quot;&gt;&lt;/a&gt;基本&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;100-199 用于指定客户端应相应的某些动作。&lt;/li&gt;
+&lt;li&gt;200-299 用于表示请求成功。&lt;/li&gt;
+&lt;li&gt;300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。&lt;/li&gt;
+&lt;li&gt;400-499 用于指出客户端的错误。&lt;/li&gt;
+&lt;li&gt;500-599 用于支持服务器错误。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;细节&quot;&gt;&lt;a href=&quot;#细节&quot; class=&quot;headerlink&quot; title=&quot;细节&quot;&gt;&lt;/a&gt;细节&lt;/h3&gt;&lt;h6 id=&quot;100&quot;&gt;&lt;a href=&quot;#100&quot; class=&quot;headerlink&quot; title=&quot;100&quot;&gt;&lt;/a&gt;100&lt;/h6&gt;&lt;p&gt;客户端询问服务器是否在后续的请求中可以发送附件，会在请求头中加上100-continue，如果服务器同意，返回status 100，如果不同意，则返回417 (Expectation Failed)。&lt;/p&gt;
+&lt;h6 id=&quot;101&quot;&gt;&lt;a href=&quot;#101&quot; class=&quot;headerlink&quot; title=&quot;101&quot;&gt;&lt;/a&gt;101&lt;/h6&gt;&lt;p&gt;(Switching Protocols/转换协议)不太明白。&lt;/p&gt;
+&lt;h6 id=&quot;200&quot;&gt;&lt;a href=&quot;#200&quot; class=&quot;headerlink&quot; title=&quot;200&quot;&gt;&lt;/a&gt;200&lt;/h6&gt;&lt;p&gt;最熟悉了，代表OK、正确。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="HTTP" scheme="https://zhang0chao0.github.io/categories/HTTP/"/>
+    
+    
+      <category term="HTTP" scheme="https://zhang0chao0.github.io/tags/HTTP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>公钥-私钥</title>
+    <link href="https://zhang0chao0.github.io/2017/07/24/%E5%85%AC%E9%92%A5-%E7%A7%81%E9%92%A5/"/>
+    <id>https://zhang0chao0.github.io/2017/07/24/公钥-私钥/</id>
+    <published>2017-07-24T13:56:19.000Z</published>
+    <updated>2017-07-24T14:47:34.939Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。</p>
+<h3 id="发送电子邮件"><a href="#发送电子邮件" class="headerlink" title="发送电子邮件"></a>发送电子邮件</h3><p>使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：</p>
+<ol>
+<li>我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。</li>
+<li>必须保证是我发送的邮件，不是别人冒充我的。</li>
+</ol>
+<p>要达到这样的目标必须发送邮件的两人都有公钥和私钥。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>公钥，就是给大家用的，私钥，就是自己的，必须非常小心保存，私钥只有个人拥有。<br>作用：用公钥加密的内容只能用私钥解密，而用私钥加密的内容只能用公钥解密。</p>
+<ul>
+<li>正确性：我用你的公钥给这个邮件加密，这样就保证这个邮件不被别人看到，而且保证这个邮件在传送过程中没有被修改。你收到邮件后，用你的私钥就可以解密，就能看到内容。</li>
+<li>防伪造：我用我的私钥给这个邮件加密，发送到你手里后，你可以用我的公钥解密。因为私钥只有我手里有，这样就保证了这个邮件是我发送的。</li>
+</ul>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li>当A向B资料时，A会使用B的公钥加密，这样才能确保只有B能解开，否则普罗大众都能解开加密的讯息，就是去了资料的保密性。</li>
+<li>当A传资料给大家时，会以自己的私钥做加密，如此所有收到讯息的人都可以用A的公钥进行解密，便可确认讯息是由A发出来的了。</li>
+</ul>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>用户可以采用自己的私钥对信息加以处理，由于密钥仅为本人所有，这样就产生了别人无法生成的文件，也就形成了数字签名。采用数字签名，能够确认以下两点：</p>
+<ol>
+<li>保证信息是由签名者自己签名发送的，签名者不能否认或难以否认；</li>
+<li>保证信息自签发后到收到为止未曾作过任何修改，签发的文件是真实文件。</li>
+</ol>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="公钥-私钥"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。&lt;/p&gt;
+&lt;h3 i
+    
+    </summary>
+    
+      <category term="计算机网络" scheme="https://zhang0chao0.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="网络" scheme="https://zhang0chao0.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>网页显示</title>
     <link href="https://zhang0chao0.github.io/2017/07/24/%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/网页显示/</id>
     <published>2017-07-24T13:09:47.000Z</published>
-    <updated>2017-07-24T13:12:38.527Z</updated>
+    <updated>2017-07-24T13:20:01.317Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>打开一个浏览器，输入www.baidu.com， 回车，就会显示出网页，那么里面到底发生了什么？</p>
 <ol>
@@ -39,8 +179,9 @@
 <li>智能DNS负载均衡系统解析域名，把对用户响应速度最快的IP节点返回给用户。</li>
 <li>用户向该IP节点（CDN服务器）发出请求。</li>
 <li>由于是第一次访问，CDN服务器会向原web站点请求，并缓存内容。</li>
-<li>然后进入步骤7。<br>没错，其实干了这么多事，当然我还有总结的不全的地方，欢迎指出。</li>
+<li>然后进入步骤7。</li>
 </ol>
+<p>没错，其实干了这么多事，当然我还有总结的不全的地方，欢迎指出。</p>
 <!--畅言代码-->
 <p><div id="SOHUCS" sid="网页显示"></div></p>
 <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
@@ -787,15 +928,53 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/23/HTTP%E5%8D%8F%E8%AE%AE/"/>
     <id>https://zhang0chao0.github.io/2017/07/23/HTTP协议/</id>
     <published>2017-07-23T07:01:54.000Z</published>
-    <updated>2017-07-23T11:06:25.301Z</updated>
+    <updated>2017-07-25T09:43:15.198Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="你好"><a href="#你好" class="headerlink" title="你好"></a>你好</h1><p>这是我的第一篇文章</p>
-]]></content>
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>谈到<code>HTTP协议</code>，就不得不提谷歌浏览器的一个插件<code>postman</code>，无论你是做<code>前端</code>还是做<code>后端</code>的，这个工具都能发挥作用。建议程序员小伙伴安装使用（谷歌浏览器程序员必备就不用说了吧）。</p>
+<div align="center"><br><img src="/images/postman.PNG" alt="postman"><br></div>
+
+<p>我通过简单的GET、POST请求为大家讲解：</p>
+<a id="more"></a>
+<h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><div align="center"><br><img src="/images/GET.PNG" alt="GET"><br></div>
+
+<p>这是我本地的一个GET请求：localhost:3000/adcreate/application?application_id=1497002130351668，通过<code>code</code>可以方便的查看<code>HTTP代码</code>，包括各种语言的请求代码都能生成（postman的好用之处）。</p>
+<p>通过code可以看出http请求代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">GET /adcreate/application?application_id=1497002130351668 HTTP/1.1</div><div class="line">Host: localhost:3000</div><div class="line">Cache-Control: no-cache</div><div class="line">Postman-Token: b3c12acc-642b-f772-7960-fbf0cad53f8b</div></pre></td></tr></table></figure>
+<p>用的是<code>http1.1</code>的协议，这段代码可能是最简单的http代码了（最好背下来，面试可能会让手写），注意<code>GET传参</code>方式是<code>url传参</code>。</p>
+<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><div align="center"><br><img src="/images/POST.PNG" alt="POST"><br></div>
+
+<p>这是我本地的一个POST请求：localhost:3000/aduser/login，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">POST /aduser/login HTTP/1.1</div><div class="line">Host: localhost:3000</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line">Cache-Control: no-cache</div><div class="line">Postman-Token: aeaca64f-ba58-633d-07bb-dc977c2390f9</div><div class="line"></div><div class="line">account=tangjing&amp;password=123456  //POST传参</div></pre></td></tr></table></figure>
+<p>POST传参我目前用到的有两种：</p>
+<ol>
+<li>参数在formData中，以表单的形式传参，可以用来传文件，如图片中的1；</li>
+<li>参数在body中，如图片中的2，其中2用的更多。</li>
+</ol>
+<div align="center"><br><img src="/images/post1.PNG" alt="post1"><br></div>
+
+<h3 id="浏览器调试"><a href="#浏览器调试" class="headerlink" title="浏览器调试"></a>浏览器调试</h3><p>谷歌浏览器F12进入调试状态（或者右键菜单，点击<code>检查</code>），找到属性页<code>Network</code>,现在，你每在页面上发送一次请求都会被捕获到。</p>
+<h3 id="GET示例"><a href="#GET示例" class="headerlink" title="GET示例"></a>GET示例</h3><div align="center"><br><img src="/images/get1.PNG" alt="get1"><br></div>
+
+<p>查看返回值：</p>
+<div align="center"><br><img src="/images/get2.PNG" alt="get2"><br></div>
+
+<p>可以看到，还有更多参数，比postman上面的复杂多了。</p>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="HTTP协议"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;你好&quot;&gt;&lt;a href=&quot;#你好&quot; class=&quot;headerlink&quot; title=&quot;你好&quot;&gt;&lt;/a&gt;你好&lt;/h1&gt;&lt;p&gt;这是我的第一篇文章&lt;/p&gt;
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;谈到&lt;code&gt;HTTP协议&lt;/code&gt;，就不得不提谷歌浏览器的一个插件&lt;code&gt;postman&lt;/code&gt;，无论你是做&lt;code&gt;前端&lt;/code&gt;还是做&lt;code&gt;后端&lt;/code&gt;的，这个工具都能发挥作用。建议程序员小伙伴安装使用（谷歌浏览器程序员必备就不用说了吧）。&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/postman.PNG&quot; alt=&quot;postman&quot;&gt;&lt;br&gt;&lt;/div&gt;
 
+&lt;p&gt;我通过简单的GET、POST请求为大家讲解：&lt;/p&gt;
     
     </summary>
     
