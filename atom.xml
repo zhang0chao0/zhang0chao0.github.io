@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang0chao0.github.io/"/>
-  <updated>2017-07-25T10:37:06.730Z</updated>
+  <updated>2017-07-28T09:41:39.975Z</updated>
   <id>https://zhang0chao0.github.io/</id>
   
   <author>
@@ -14,6 +14,244 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搭建hexo博客(1)</title>
+    <link href="https://zhang0chao0.github.io/2017/07/28/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/"/>
+    <id>https://zhang0chao0.github.io/2017/07/28/搭建hexo博客-1/</id>
+    <published>2017-07-28T08:42:49.000Z</published>
+    <updated>2017-07-28T09:41:39.975Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress<code>很难移植</code>，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。</p>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ol>
+<li>玩过github，至少上传过一个自己的项目/工程。</li>
+<li>有一定的node.js基础，至少安装过node环境，熟悉npm命令。</li>
+</ol>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="安装hexo："><a href="#安装hexo：" class="headerlink" title="安装hexo："></a>安装hexo：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
+<p>-g是全局安装，安装成功后可以使用<code>hexo</code>指令。</p>
+<a id="more"></a>
+<p>PS：我第一次安装时安装失败，尽管我配置过VPN，此时可以进入电脑<code>C:\Users\xxx</code>（本人Win10），找到<code>.npmrc</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">proxy=http://127.0.0.1:1080/</div><div class="line">registry=http://registry.npmjs.org/</div><div class="line">https-proxy=http://127.0.0.1:1080</div></pre></td></tr></table></figure></p>
+<p>我是用的代理访问的国外仓库，也可以改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure></p>
+<p>国内的淘宝仓库。</p>
+<h4 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure>
+<h4 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo server</div></pre></td></tr></table></figure>
+<p>这时在浏览器中输入localhost:4000/就可以看到本地的博客了。</p>
+<h3 id="关联github"><a href="#关联github" class="headerlink" title="关联github"></a>关联github</h3><h4 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h4><p>仓库名一定是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zhang0chao0.github.io  //zhang0chao0换成yourname</div></pre></td></tr></table></figure></p>
+<h4 id="编辑配置"><a href="#编辑配置" class="headerlink" title="编辑配置"></a>编辑配置</h4><p>在你的hexo根目录下有一个_config_yml文件，就是站点的配置文件，在最后加上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repository: git@github.com:zhang0chao0/zhang0chao0.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
+<p>zhang0chao0换成yourname即可。</p>
+<h4 id="上传博客"><a href="#上传博客" class="headerlink" title="上传博客"></a>上传博客</h4><p>在hexo根目录下，用指令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo deploy</div></pre></td></tr></table></figure></p>
+<p>即可，然后在浏览器输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yourname.github.io</div></pre></td></tr></table></figure></p>
+<p>就能看到你自己的的博客了~</p>
+<p>搭建博客已完成，后续会写怎么切换主题以及写文章。</p>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="搭建hexo博客1"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress&lt;code&gt;很难移植&lt;/code&gt;，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。&lt;/p&gt;
+&lt;h3 id=&quot;基础&quot;&gt;&lt;a href=&quot;#基础&quot; class=&quot;headerlink&quot; title=&quot;基础&quot;&gt;&lt;/a&gt;基础&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;玩过github，至少上传过一个自己的项目/工程。&lt;/li&gt;
+&lt;li&gt;有一定的node.js基础，至少安装过node环境，熟悉npm命令。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;搭建&quot;&gt;&lt;a href=&quot;#搭建&quot; class=&quot;headerlink&quot; title=&quot;搭建&quot;&gt;&lt;/a&gt;搭建&lt;/h3&gt;&lt;h4 id=&quot;安装hexo：&quot;&gt;&lt;a href=&quot;#安装hexo：&quot; class=&quot;headerlink&quot; title=&quot;安装hexo：&quot;&gt;&lt;/a&gt;安装hexo：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;npm install -g hexo&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;-g是全局安装，安装成功后可以使用&lt;code&gt;hexo&lt;/code&gt;指令。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="博客搭建" scheme="https://zhang0chao0.github.io/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="hexo" scheme="https://zhang0chao0.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建wordpress博客</title>
+    <link href="https://zhang0chao0.github.io/2017/07/26/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://zhang0chao0.github.io/2017/07/26/搭建wordpress博客/</id>
+    <published>2017-07-26T03:54:12.000Z</published>
+    <updated>2017-07-28T08:40:02.522Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我只会教大家<code>傻瓜式</code>的搭建博客，不用配任何环境，如果你是大神，会配任何环境，就不用往下看了。听起来是不是有点小激动~</p>
+<h2 id="1-阿里云-wordpress"><a href="#1-阿里云-wordpress" class="headerlink" title="1.阿里云 + wordpress"></a>1.阿里云 + wordpress</h2><p>首先买一个属于自己的服务器，也就是属于自己的IP。阿里云或腾讯云都可以，阿里云学生机地址<a href="http://click.aliyun.com/m/12564/" target="_blank" rel="external">链接</a>。</p>
+<div align="center"><br><img src="/images/ali_machine.PNG" alt="ali_machine"><br></div>
+
+<a id="more"></a>
+<p>wordpress博客需要php，mysql等环境，现在啥也不用装，买一个机器就自带了。</p>
+<h3 id="辅助软件"><a href="#辅助软件" class="headerlink" title="辅助软件"></a>辅助软件</h3><p>没有这两类软件，不要说你玩服务器。</p>
+<ol>
+<li><code>xshell</code>：用于与服务器建立ssh连接，<a href="https://xshell.en.softonic.com/" target="_blank" rel="external">下载</a>。</li>
+<li><code>winSCP</code>：用于把文件上传到服务器上，<a href="https://sourceforge.net/projects/winscp/" target="_blank" rel="external">下载</a>。</li>
+</ol>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><div align="center"><br><img src="/images/xshell.PNG" alt="xshell"><br></div>
+
+<div align="center"><br><img src="/images/winSCP.PNG" alt="winSCP"><br></div>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><a href="https://cn.wordpress.org/" target="_blank" rel="external">下载</a>wordpress，解压后用<code>winSCP</code>把文件上传至阿里云的网站根目录（/data/wwwroot/default）。<br>然后用<code>xshell</code>登录阿里云，登录数据库（用命令行操作数据库即可，关于数据库的初始化密码查看服务器上的文档pdf），新建一个名为wordpress的数据库（其实名字可以随意）。</p>
+<div align="center"><br><img src="/images/winSCP2.PNG" alt="winSCP2"><br></div>
+
+<p>最后在浏览器上输入你的IP地址，就能看到wordpress的安装界面了，按提示填写信息即可（数据库名与你新建的数据库名字保持一致）。安装成功~</p>
+<h2 id="2-docker快速搭建"><a href="#2-docker快速搭建" class="headerlink" title="2.docker快速搭建"></a>2.docker快速搭建</h2><p><code>xshell</code>登录阿里云/腾讯云后，输入<code>docker</code>，回车。如果没有docker环境会提示你找不到命令，并给了一段指令让你安装docker，这时你只需要复制这段指令，执行一下，即完成了docker的安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-236-110-ubuntu:~$ docker</div><div class="line">The program &apos;docker&apos; is currently not installed. You can install it by typing:</div><div class="line">sudo apt install docker.io</div><div class="line">ubuntu@VM-236-110-ubuntu:~$</div></pre></td></tr></table></figure>
+<p>然后我执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install docker.io</div></pre></td></tr></table></figure></p>
+<p>即可安装docer。</p>
+<p>docker安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-236-110-ubuntu:~$ su</div><div class="line">Password:</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# docker</div><div class="line">Usage: docker [OPTIONS] COMMAND [arg...]</div><div class="line">       docker [ --help | -v | --version ]</div><div class="line"></div><div class="line">A self-sufficient runtime for containers.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">  --config=~/.docker              Location of client config files</div><div class="line">  -D, --debug                     Enable debug mode</div><div class="line">  -H, --host=[]                   Daemon socket(s) to connect to</div><div class="line">  -h, --help                      Print usage</div><div class="line">......</div></pre></td></tr></table></figure>
+<p>PS：<code>最好先执行su指令，以管理员的方式运行docker</code>。</p>
+<h3 id="阿里docker仓库"><a href="#阿里docker仓库" class="headerlink" title="阿里docker仓库"></a>阿里docker仓库</h3><p>国内比较好的docker仓库，选择阿里云docker仓库即可，<a href="https://dev.aliyun.com/search.html" target="_blank" rel="external">链接</a>。搜索wordpress、mysql，找到指令后即可安装。</p>
+<p>下载wordpress：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress</div></pre></td></tr></table></figure>
+<p>下载mysql：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql</div></pre></td></tr></table></figure>
+<p>查看下载的镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# docker images</div><div class="line">REPOSITORY                                               TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress   latest              d9bae06617c0        13 months ago       547.2 MB</div><div class="line">registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql    latest              ec7e75e5260c        20 months ago       359.9 MB</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu#</div></pre></td></tr></table></figure></p>
+<p>运行mysql：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name yourname -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -v /data/mysql:/var/lib/mysql -d registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql</div></pre></td></tr></table></figure></p>
+<p>此时控制台会打印出一段Id，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4a17847f9a0bb1618e4fb0ceacabeb3d042dd06f2b63f31d8dce386153bf5748</div></pre></td></tr></table></figure></p>
+<p>Linux原则：没有错误就是运行成功，说明运行成功~</p>
+<p>连接数据库测试，并新建一个数据库<code>wordpress</code>：</p>
+<div align="center"><br><img src="/images/mysql_con.PNG" alt="mysql_con"><br></div>
+
+<div align="center"><br><img src="/images/mysql_new.PNG" alt="mysql_new"><br></div>
+
+<p>除了utf-8编码，其余的我都摒弃，不要问我为什么，最开始玩mysql的时候踩了不少中文乱码的坑。</p>
+<p>运行wordpress：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name zc -p 80:80 -v /home/ubuntu/wordpress:/var/www/html  -d registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress</div></pre></td></tr></table></figure></p>
+<p>查看运行的镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# docker ps -a</div><div class="line">CONTAINER ID        IMAGE                                                    COMMAND                  CREATED             STATUS                          PORTS                    NAMES</div><div class="line">ce66e7cdb67c        registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress   &quot;/entry.sh apache2-fo&quot;   2 minutes ago       Exited (0) About a minute ago                            zc</div><div class="line">4a17847f9a0b        registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql    &quot;/entrypoint.sh mysql&quot;   12 minutes ago      Up 12 minutes                   0.0.0.0:3306-&gt;3306/tcp   yourname</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu#</div></pre></td></tr></table></figure></p>
+<p>还有一些基本命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">停止运行：docker stop 容器ID</div><div class="line">重启容器：docker restart 容器ID</div></pre></td></tr></table></figure></p>
+<p>在浏览器中输入IP地址，就能看到wordpress的安装界面了~</p>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="搭建wordpress博客"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;我只会教大家&lt;code&gt;傻瓜式&lt;/code&gt;的搭建博客，不用配任何环境，如果你是大神，会配任何环境，就不用往下看了。听起来是不是有点小激动~&lt;/p&gt;
+&lt;h2 id=&quot;1-阿里云-wordpress&quot;&gt;&lt;a href=&quot;#1-阿里云-wordpress&quot; class=&quot;headerlink&quot; title=&quot;1.阿里云 + wordpress&quot;&gt;&lt;/a&gt;1.阿里云 + wordpress&lt;/h2&gt;&lt;p&gt;首先买一个属于自己的服务器，也就是属于自己的IP。阿里云或腾讯云都可以，阿里云学生机地址&lt;a href=&quot;http://click.aliyun.com/m/12564/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;链接&lt;/a&gt;。&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/ali_machine.PNG&quot; alt=&quot;ali_machine&quot;&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="博客搭建" scheme="https://zhang0chao0.github.io/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="wordpress" scheme="https://zhang0chao0.github.io/tags/wordpress/"/>
+    
+      <category term="docker入门" scheme="https://zhang0chao0.github.io/tags/docker%E5%85%A5%E9%97%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JVM</title>
+    <link href="https://zhang0chao0.github.io/2017/07/26/JVM/"/>
+    <id>https://zhang0chao0.github.io/2017/07/26/JVM/</id>
+    <published>2017-07-26T02:02:58.000Z</published>
+    <updated>2017-07-26T03:38:36.193Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>JVM模型定义了一些内存区域，有的在程序运行时产生，在程序结束时销毁，称之为<code>全局区域</code>，有的在线程运行时创建，线程结束时销毁，称之为 <code>线程私有</code>的内存区域。</p>
+<p>内存结构分区图：</p>
+<div align="center"><br><img src="/images/JVM.png" alt="JVM"><br></div>
+
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器是一块比较小的内存区域，用来存放当前线程<code>执行字节码的行号</code>，许多基础的功能例如分支、循环都要依赖它。<br>由于Java多线程是轮流切换并分配处理器执行时间的方式来实现的，所以在一个确定的时刻，CPU只能处理一个线程。为了每个线程运行互不干扰，所以程序计数器是<code>线程私有的</code>。</p>
+<p>PS：</p>
+<ul>
+<li>如果线程正在执行的是一个<code>Java方法</code>，这个计数器记录的是正在执行的虚拟机字节码指令的地址；</li>
+<li>如果正在执行的是<code>Natvie方法</code>，这个计数器值则为空。</li>
+</ul>
+<a id="more"></a>
+<h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><p><code>线程私有</code>，用来存放程序运行过程中的<code>局部变量</code>，什么是局部变量就不多解释了。随着局部变量的产生和销毁对应着一个入栈和出栈的过程。</p>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>和虚拟机栈一样，只不过前者是执行Java程序，而本地方法栈是执行<code>本地Native</code>程序。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆为JVM管理的<code>全局</code>内存，几乎所有的对象实例都在这里分配内存，这里也是垃圾内存回收的主要场所。GC算法主要是分代回收算法，这里谈谈<code>新生代</code>和<code>老年代</code>。</p>
+<ul>
+<li>新生代：程序<code>新创建</code>的对象都是从新生代分配内存。</li>
+<li>老年代：用于存放经过多次新生代GC仍然<code>存活</code>的对象。当然，有些特殊情况刚创建的对象也会进入老年代：大对象的创建，</li>
+</ul>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>线程共享的<code>全局内存</code>，用来存放<code>类型信息</code>。类型信息是由类加载器在类加载时从类文件中提取出来的。类（静态）变量也存储在方法区中。<br>简单说方法区用来存储类型的元数据信息，一个.class文件是类被java虚拟机使用之前的表现形式，一旦这个类要被使用，java虚拟机就会对其进行装载、连接（验证、准备、解析）和初始化。而装载后的所有信息都存在方法区中。</p>
+<p>方法区主要有以下几个特点：</p>
+<ol>
+<li>方法区是<code>线程安全的</code>。由于所有的线程都共享方法区，所以，方法区里的数据访问必须被设计成线程安全的。</li>
+<li>方法区的大小不必是固定的，JVM可根据应用需要动态调整。同时，方法区也不一定是连续的，方法区可以在一个堆(甚至是JVM自己的堆)中自由分配。</li>
+<li>方法区也<code>可被垃圾收集</code>，当某个类不在被使用时，JVM将卸载这个类。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">特征</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">程序计数器</td>
+<td style="text-align:center">占用内存小，线程私有，生命周期与线程相同</td>
+<td style="text-align:center">字节码行号指示器</td>
+</tr>
+<tr>
+<td style="text-align:center">虚拟机栈</td>
+<td style="text-align:center">线程私有，生命周期与线程相同，使用连续的内存空间</td>
+<td style="text-align:center">Java 方法执行的内存模型，存储局部变量表、操作栈、动态链接、方法出口等信息</td>
+</tr>
+<tr>
+<td style="text-align:center">java堆</td>
+<td style="text-align:center">线程共享，生命周期与虚拟机相同，可以不使用连续的内存地址</td>
+<td style="text-align:center">保存对象实例，所有对象实例（包括数组）都要在堆上分配</td>
+</tr>
+<tr>
+<td style="text-align:center">方法区</td>
+<td style="text-align:center">线程共享，生命周期与虚拟机相同，可以不使用连续的内存地址</td>
+<td style="text-align:center">存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据</td>
+</tr>
+<tr>
+<td style="text-align:center">运行时常量池</td>
+<td style="text-align:center">方法区的一部分，具有动态性</td>
+<td style="text-align:center">存放字面量及符号引用</td>
+</tr>
+</tbody>
+</table>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="JVM"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;JVM模型定义了一些内存区域，有的在程序运行时产生，在程序结束时销毁，称之为&lt;code&gt;全局区域&lt;/code&gt;，有的在线程运行时创建，线程结束时销毁，称之为 &lt;code&gt;线程私有&lt;/code&gt;的内存区域。&lt;/p&gt;
+&lt;p&gt;内存结构分区图：&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/JVM.png&quot; alt=&quot;JVM&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;程序计数器&quot;&gt;&lt;a href=&quot;#程序计数器&quot; class=&quot;headerlink&quot; title=&quot;程序计数器&quot;&gt;&lt;/a&gt;程序计数器&lt;/h3&gt;&lt;p&gt;程序计数器是一块比较小的内存区域，用来存放当前线程&lt;code&gt;执行字节码的行号&lt;/code&gt;，许多基础的功能例如分支、循环都要依赖它。&lt;br&gt;由于Java多线程是轮流切换并分配处理器执行时间的方式来实现的，所以在一个确定的时刻，CPU只能处理一个线程。为了每个线程运行互不干扰，所以程序计数器是&lt;code&gt;线程私有的&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;PS：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果线程正在执行的是一个&lt;code&gt;Java方法&lt;/code&gt;，这个计数器记录的是正在执行的虚拟机字节码指令的地址；&lt;/li&gt;
+&lt;li&gt;如果正在执行的是&lt;code&gt;Natvie方法&lt;/code&gt;，这个计数器值则为空。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+    
+    
+      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+    
+  </entry>
   
   <entry>
     <title>HTTP状态码</title>
@@ -107,7 +345,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/%E5%85%AC%E9%92%A5-%E7%A7%81%E9%92%A5/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/公钥-私钥/</id>
     <published>2017-07-24T13:56:19.000Z</published>
-    <updated>2017-07-24T14:47:34.939Z</updated>
+    <updated>2017-07-25T10:44:43.976Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。</p>
 <h3 id="发送电子邮件"><a href="#发送电子邮件" class="headerlink" title="发送电子邮件"></a>发送电子邮件</h3><p>使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：</p>
@@ -116,6 +354,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <li>必须保证是我发送的邮件，不是别人冒充我的。</li>
 </ol>
 <p>要达到这样的目标必须发送邮件的两人都有公钥和私钥。</p>
+<a id="more"></a>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>公钥，就是给大家用的，私钥，就是自己的，必须非常小心保存，私钥只有个人拥有。<br>作用：用公钥加密的内容只能用私钥解密，而用私钥加密的内容只能用公钥解密。</p>
 <ul>
 <li>正确性：我用你的公钥给这个邮件加密，这样就保证这个邮件不被别人看到，而且保证这个邮件在传送过程中没有被修改。你收到邮件后，用你的私钥就可以解密，就能看到内容。</li>
@@ -144,7 +383,12 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <summary type="html">
     
       &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。&lt;/p&gt;
-&lt;h3 i
+&lt;h3 id=&quot;发送电子邮件&quot;&gt;&lt;a href=&quot;#发送电子邮件&quot; class=&quot;headerlink&quot; title=&quot;发送电子邮件&quot;&gt;&lt;/a&gt;发送电子邮件&lt;/h3&gt;&lt;p&gt;使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。&lt;/li&gt;
+&lt;li&gt;必须保证是我发送的邮件，不是别人冒充我的。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;要达到这样的目标必须发送邮件的两人都有公钥和私钥。&lt;/p&gt;
     
     </summary>
     
@@ -826,162 +1070,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     
       <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>归并排序</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/归并排序/</id>
-    <published>2017-07-24T06:14:25.000Z</published>
-    <updated>2017-07-24T12:16:47.405Z</updated>
-    
-    <content type="html"><![CDATA[<p>思想不多扯了，也是<code>分治算法</code>的思想，归并排序有一个<code>先分再合</code>的过程。时间复杂度为<code>O(nlogn)</code>，是一个<code>稳定</code>的排序算法。<br>上图看得明白点：</p>
-<div align="center"><br><img src="/images/mergesort.jpg" alt="mergesort"><br></div>
-
-<a id="more"></a>
-<h3 id="手撸代码"><a href="#手撸代码" class="headerlink" title="手撸代码"></a>手撸代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> sort;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/15.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</div><div class="line">    <span class="comment">//合并arr的左右两部分： arr[l..m] 和 arr[m+1..r]</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> l, <span class="keyword">int</span> m, <span class="keyword">int</span> r)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> n1 = m - l + <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> n2 = r - m;</div><div class="line">        <span class="keyword">int</span>[] L=<span class="keyword">new</span> <span class="keyword">int</span>[n1];</div><div class="line">        <span class="keyword">int</span>[] R=<span class="keyword">new</span> <span class="keyword">int</span>[n2];</div><div class="line">        <span class="comment">//复制数据到 L[] 和 R[]</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n1; i++)</div><div class="line">            L[i] = arr[l + i];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n2; j++)</div><div class="line">            R[j] = arr[m + <span class="number">1</span> + j];</div><div class="line">        <span class="comment">//将两部分再合并到 arr[l..r]</span></div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> k = l;</div><div class="line">        <span class="keyword">while</span> (i &lt; n1 &amp;&amp; j &lt; n2) &#123;</div><div class="line">            <span class="keyword">if</span> (L[i] &lt;= R[j]) &#123;</div><div class="line">                arr[k] = L[i];</div><div class="line">                i++;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                arr[k] = R[j];</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">            k++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//复制剩下的部分 L[]</span></div><div class="line">        <span class="keyword">while</span> (i &lt; n1) &#123;</div><div class="line">            arr[k] = L[i];</div><div class="line">            i++;</div><div class="line">            k++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//复制剩下的部分 R[]</span></div><div class="line">        <span class="keyword">while</span> (j &lt; n2) &#123;</div><div class="line">            arr[k] = R[j];</div><div class="line">            j++;</div><div class="line">            k++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//对数据arr排序，从l到r</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (l &lt; r) &#123;</div><div class="line">            <span class="keyword">int</span> m = (l+r)/<span class="number">2</span>;</div><div class="line">            mergeSort(arr, l, m);</div><div class="line">            mergeSort(arr, m + <span class="number">1</span>, r);</div><div class="line">            merge(arr, l, m, r);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span>[] arr=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">7</span>&#125;;</div><div class="line">        mergeSort(arr,<span class="number">0</span>,arr.length-<span class="number">1</span>);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i:arr)&#123;</div><div class="line">            System.out.print(i+<span class="string">" "</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>写了一遍，还是挺经典的，让我想起来了有序链表的排序，一个道理。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="归并排序"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;思想不多扯了，也是&lt;code&gt;分治算法&lt;/code&gt;的思想，归并排序有一个&lt;code&gt;先分再合&lt;/code&gt;的过程。时间复杂度为&lt;code&gt;O(nlogn)&lt;/code&gt;，是一个&lt;code&gt;稳定&lt;/code&gt;的排序算法。&lt;br&gt;上图看得明白点：&lt;/p&gt;
-&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/mergesort.jpg&quot; alt=&quot;mergesort&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="排序算法" scheme="https://zhang0chao0.github.io/categories/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="sort" scheme="https://zhang0chao0.github.io/tags/sort/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>快速排序</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/快速排序/</id>
-    <published>2017-07-24T05:01:20.000Z</published>
-    <updated>2017-07-24T12:16:47.452Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下，快速排序是基于分治算法的。</p>
-<p>基本步骤如下：</p>
-<ol>
-<li>选择一个基准元素，通常选择第一个元素或者最后一个元素；</li>
-<li>通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大；</li>
-<li>此时基准元素在其排好序后的正确位置；</li>
-<li>然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序为止。<a id="more"></a>
-用一张很好的图来说明：<div align="center"><br><img src="/images/qsort.png" alt="qsort"><br></div>
-
-</li>
-</ol>
-<p>上图中，演示的是第一轮快速排序的过程，首先将第一个元素选为基准点，从右端第一个元素开始扫描，找到第一个比57小的元素（19）时停止，两者交换位置，然后从左端开始扫描，找到第一个比57大的元素（68）时停止，两者交换位置，周而复始，直到57找不到可交换的元素为止，至此一轮快速排序结束。这时，比57小的元素都在左边，比57大的元素都在右边，分别对两边的数组段继续进行快速排序，依次类推，最终使整个数组有序。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>时间复杂度：O(nlogn)，是一种不稳定的排序；</li>
-<li>效率问题：基准的选择，选择不当严重影响效率，若数组元素中重复的较多，也影响效率。</li>
-</ol>
-<h3 id="手撸代码"><a href="#手撸代码" class="headerlink" title="手撸代码"></a>手撸代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> sort;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/15.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Qsort</span> </span>&#123;</div><div class="line">    <span class="comment">//数组元素的交换</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> temp=arr[a];</div><div class="line">        arr[a]=arr[b];</div><div class="line">        arr[b]=temp;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> begin,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">        <span class="comment">//返回条件</span></div><div class="line">        <span class="keyword">if</span>(begin&gt;=end)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="comment">//基准</span></div><div class="line">        <span class="keyword">int</span> key=arr[begin];</div><div class="line">        <span class="keyword">int</span> a=begin;<span class="comment">//保存下来</span></div><div class="line">        <span class="keyword">int</span> b=end;</div><div class="line">        <span class="keyword">int</span> flag=<span class="number">0</span>;<span class="comment">//flag=0,从后往前找；flag=1,从前往后找</span></div><div class="line">        <span class="keyword">while</span> (a&lt;=b)&#123;</div><div class="line">            <span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</div><div class="line">                <span class="comment">//找到合适的位置</span></div><div class="line">                <span class="keyword">int</span> i;</div><div class="line">                <span class="keyword">for</span>(i=b;arr[i]&gt;key;i--,b--);</div><div class="line">                <span class="keyword">if</span>(arr[i]==key)<span class="comment">//一轮排序已结束</span></div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="comment">//交换</span></div><div class="line">                swap(arr,a,b);</div><div class="line">                flag=<span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(flag==<span class="number">1</span>)&#123;</div><div class="line">                <span class="keyword">int</span> i;</div><div class="line">                <span class="keyword">for</span>(i=a;arr[i]&lt;key;i++,a++);</div><div class="line">                <span class="keyword">if</span>(arr[i]==key)</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                swap(arr,a,b);</div><div class="line">                flag=<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> index=a;</div><div class="line">        qsort(arr,begin,a-<span class="number">1</span>);</div><div class="line">        qsort(arr,a+<span class="number">1</span>,end);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> arr[]=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">7</span>&#125;;</div><div class="line">        qsort(arr,<span class="number">0</span>,arr.length-<span class="number">1</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i:arr)&#123;</div><div class="line">            System.out.print(i+<span class="string">" "</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="快速排序"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
-
-
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下，快速排序是基于分治算法的。&lt;/p&gt;
-&lt;p&gt;基本步骤如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;选择一个基准元素，通常选择第一个元素或者最后一个元素；&lt;/li&gt;
-&lt;li&gt;通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的元素值比基准值大；&lt;/li&gt;
-&lt;li&gt;此时基准元素在其排好序后的正确位置；&lt;/li&gt;
-&lt;li&gt;然后分别对这两部分记录用同样的方法继续进行排序，直到整个序列有序为止。
-    
-    </summary>
-    
-      <category term="排序算法" scheme="https://zhang0chao0.github.io/categories/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="sort" scheme="https://zhang0chao0.github.io/tags/sort/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP协议</title>
-    <link href="https://zhang0chao0.github.io/2017/07/23/HTTP%E5%8D%8F%E8%AE%AE/"/>
-    <id>https://zhang0chao0.github.io/2017/07/23/HTTP协议/</id>
-    <published>2017-07-23T07:01:54.000Z</published>
-    <updated>2017-07-25T09:43:15.198Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>谈到<code>HTTP协议</code>，就不得不提谷歌浏览器的一个插件<code>postman</code>，无论你是做<code>前端</code>还是做<code>后端</code>的，这个工具都能发挥作用。建议程序员小伙伴安装使用（谷歌浏览器程序员必备就不用说了吧）。</p>
-<div align="center"><br><img src="/images/postman.PNG" alt="postman"><br></div>
-
-<p>我通过简单的GET、POST请求为大家讲解：</p>
-<a id="more"></a>
-<h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><div align="center"><br><img src="/images/GET.PNG" alt="GET"><br></div>
-
-<p>这是我本地的一个GET请求：localhost:3000/adcreate/application?application_id=1497002130351668，通过<code>code</code>可以方便的查看<code>HTTP代码</code>，包括各种语言的请求代码都能生成（postman的好用之处）。</p>
-<p>通过code可以看出http请求代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">GET /adcreate/application?application_id=1497002130351668 HTTP/1.1</div><div class="line">Host: localhost:3000</div><div class="line">Cache-Control: no-cache</div><div class="line">Postman-Token: b3c12acc-642b-f772-7960-fbf0cad53f8b</div></pre></td></tr></table></figure>
-<p>用的是<code>http1.1</code>的协议，这段代码可能是最简单的http代码了（最好背下来，面试可能会让手写），注意<code>GET传参</code>方式是<code>url传参</code>。</p>
-<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><div align="center"><br><img src="/images/POST.PNG" alt="POST"><br></div>
-
-<p>这是我本地的一个POST请求：localhost:3000/aduser/login，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">POST /aduser/login HTTP/1.1</div><div class="line">Host: localhost:3000</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line">Cache-Control: no-cache</div><div class="line">Postman-Token: aeaca64f-ba58-633d-07bb-dc977c2390f9</div><div class="line"></div><div class="line">account=tangjing&amp;password=123456  //POST传参</div></pre></td></tr></table></figure>
-<p>POST传参我目前用到的有两种：</p>
-<ol>
-<li>参数在formData中，以表单的形式传参，可以用来传文件，如图片中的1；</li>
-<li>参数在body中，如图片中的2，其中2用的更多。</li>
-</ol>
-<div align="center"><br><img src="/images/post1.PNG" alt="post1"><br></div>
-
-<h3 id="浏览器调试"><a href="#浏览器调试" class="headerlink" title="浏览器调试"></a>浏览器调试</h3><p>谷歌浏览器F12进入调试状态（或者右键菜单，点击<code>检查</code>），找到属性页<code>Network</code>,现在，你每在页面上发送一次请求都会被捕获到。</p>
-<h3 id="GET示例"><a href="#GET示例" class="headerlink" title="GET示例"></a>GET示例</h3><div align="center"><br><img src="/images/get1.PNG" alt="get1"><br></div>
-
-<p>查看返回值：</p>
-<div align="center"><br><img src="/images/get2.PNG" alt="get2"><br></div>
-
-<p>可以看到，还有更多参数，比postman上面的复杂多了。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="HTTP协议"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;谈到&lt;code&gt;HTTP协议&lt;/code&gt;，就不得不提谷歌浏览器的一个插件&lt;code&gt;postman&lt;/code&gt;，无论你是做&lt;code&gt;前端&lt;/code&gt;还是做&lt;code&gt;后端&lt;/code&gt;的，这个工具都能发挥作用。建议程序员小伙伴安装使用（谷歌浏览器程序员必备就不用说了吧）。&lt;/p&gt;
-&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/postman.PNG&quot; alt=&quot;postman&quot;&gt;&lt;br&gt;&lt;/div&gt;
-
-&lt;p&gt;我通过简单的GET、POST请求为大家讲解：&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="HTTP" scheme="https://zhang0chao0.github.io/categories/HTTP/"/>
-    
-    
-      <category term="HTTP" scheme="https://zhang0chao0.github.io/tags/HTTP/"/>
     
   </entry>
   

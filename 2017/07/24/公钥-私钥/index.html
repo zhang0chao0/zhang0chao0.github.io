@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="前言在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。 发送电子邮件使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：  我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。 必须保证是我发送的邮件，不是别人冒充我的。  要达到这样的目标必须发送邮件的两人都有公钥和私钥。 解决公钥，就是给大家用的，私钥，就是">
+<meta name="description" content="前言在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。 发送电子邮件使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：  我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。 必须保证是我发送的邮件，不是别人冒充我的。  要达到这样的目标必须发送邮件的两人都有公钥和私钥。">
 <meta name="keywords" content="网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="公钥-私钥">
 <meta property="og:url" content="https://zhang0chao0.github.io/2017/07/24/公钥-私钥/index.html">
 <meta property="og:site_name" content="指向指针的指针-博客">
-<meta property="og:description" content="前言在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。 发送电子邮件使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：  我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。 必须保证是我发送的邮件，不是别人冒充我的。  要达到这样的目标必须发送邮件的两人都有公钥和私钥。 解决公钥，就是给大家用的，私钥，就是">
+<meta property="og:description" content="前言在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。 发送电子邮件使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：  我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。 必须保证是我发送的邮件，不是别人冒充我的。  要达到这样的目标必须发送邮件的两人都有公钥和私钥。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-24T14:47:34.939Z">
+<meta property="og:updated_time" content="2017-07-25T10:44:43.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="公钥-私钥">
-<meta name="twitter:description" content="前言在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。 发送电子邮件使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：  我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。 必须保证是我发送的邮件，不是别人冒充我的。  要达到这样的目标必须发送邮件的两人都有公钥和私钥。 解决公钥，就是给大家用的，私钥，就是">
+<meta name="twitter:description" content="前言在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。 发送电子邮件使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：  我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。 必须保证是我发送的邮件，不是别人冒充我的。  要达到这样的目标必须发送邮件的两人都有公钥和私钥。">
 
 
 
@@ -372,6 +372,7 @@
 <li>必须保证是我发送的邮件，不是别人冒充我的。</li>
 </ol>
 <p>要达到这样的目标必须发送邮件的两人都有公钥和私钥。</p>
+<a id="more"></a>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>公钥，就是给大家用的，私钥，就是自己的，必须非常小心保存，私钥只有个人拥有。<br>作用：用公钥加密的内容只能用私钥解密，而用私钥加密的内容只能用公钥解密。</p>
 <ul>
 <li>正确性：我用你的公钥给这个邮件加密，这样就保证这个邮件不被别人看到，而且保证这个邮件在传送过程中没有被修改。你收到邮件后，用你的私钥就可以解密，就能看到内容。</li>
@@ -522,7 +523,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -533,7 +534,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -544,7 +545,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
