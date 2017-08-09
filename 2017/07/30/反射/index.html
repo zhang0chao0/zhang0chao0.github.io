@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Think in Java," />
 
 
 
@@ -95,19 +95,18 @@
 
 
 
-<meta name="description" content="个人理解老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。 好处秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。 AOP面向切面编程Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为">
+<meta name="description" content="前言反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。 Class类在类加载这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。那么这些信息是有用的，比">
+<meta name="keywords" content="Think in Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="代理模式">
-<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/24/代理模式/index.html">
+<meta property="og:title" content="反射">
+<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/30/反射/index.html">
 <meta property="og:site_name" content="指向指针的指针-博客">
-<meta property="og:description" content="个人理解老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。 好处秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。 AOP面向切面编程Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为">
+<meta property="og:description" content="前言反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。 Class类在类加载这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。那么这些信息是有用的，比">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://zhang0chao0.github.io/images/proxy.PNG">
-<meta property="og:updated_time" content="2017-07-24T12:14:47.529Z">
+<meta property="og:updated_time" content="2017-07-31T08:51:33.397Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="代理模式">
-<meta name="twitter:description" content="个人理解老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。 好处秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。 AOP面向切面编程Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为">
-<meta name="twitter:image" content="https://zhang0chao0.github.io/images/proxy.PNG">
+<meta name="twitter:title" content="反射">
+<meta name="twitter:description" content="前言反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。 Class类在类加载这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。那么这些信息是有用的，比">
 
 
 
@@ -135,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/24/代理模式/"/>
+  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/30/反射/"/>
 
 
 
 
 
-  <title>代理模式 | 指向指针的指针-博客</title>
+  <title>反射 | 指向指针的指针-博客</title>
   
 
 
@@ -314,7 +313,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/24/代理模式/">
+    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/30/反射/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="指向指针的指针">
@@ -331,7 +330,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">代理模式</h1>
+          <h1 class="post-title" itemprop="name headline">反射</h1>
         
 
         <div class="post-meta">
@@ -343,8 +342,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T17:45:05+08:00">
-                2017-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T17:57:39+08:00">
+                2017-07-30
               </time>
             
 
@@ -366,8 +365,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -400,25 +399,8 @@
       
 
       
-        <h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。</p>
-<h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。</p>
-<h3 id="AOP面向切面编程"><a href="#AOP面向切面编程" class="headerlink" title="AOP面向切面编程"></a>AOP面向切面编程</h3><p>Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为什么，因为Spring帮你做了，在调用函数前，打开一个事务，结束函数后，提交一个事务。总之，这个设计模式比较重要，以后我还会写一下JDK的动态代理，也是用到了代理模式。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><h3 id="类图-1"><a href="#类图-1" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/proxy.PNG" alt="proxy"><br></div>
-
-<a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CEO</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"the CEO is signing"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Assistant</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Leader leader;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Assistant</span><span class="params">(Leader leader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.leader = leader;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"before sign,do something"</span>);</div><div class="line">        leader.sign();</div><div class="line">        System.out.println(<span class="string">"end sign,do something"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Leader ceo=<span class="keyword">new</span> CEO();</div><div class="line">        Leader assistant=<span class="keyword">new</span> Assistant(ceo);</div><div class="line">        assistant.sign();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="代理模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。</p>
+<h3 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h3><p>在<code>类加载</code>这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。<br>那么这些信息是有用的，比如反射。可以利用信息产生类对象、获取并执行类方法等。</p>
 
       
     </div>
@@ -446,6 +428,12 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Think-in-Java/" rel="tag"># Think in Java</a>
+          
+        </div>
+      
 
       
       
@@ -455,8 +443,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/24/命令模式/" rel="next" title="命令模式">
-                <i class="fa fa-chevron-left"></i> 命令模式
+              <a href="/2017/07/30/类加载/" rel="next" title="类加载">
+                <i class="fa fa-chevron-left"></i> 类加载
               </a>
             
           </div>
@@ -464,10 +452,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/24/组合模式/" rel="prev" title="组合模式">
-                组合模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -629,7 +613,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">1.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好处"><span class="nav-number">2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP面向切面编程"><span class="nav-number">3.</span> <span class="nav-text">AOP面向切面编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图"><span class="nav-number">4.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图-1"><span class="nav-number">5.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class类"><span class="nav-number">2.</span> <span class="nav-text">Class类</span></a></li></ol></div>
             
 
           </div>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang0chao0.github.io/"/>
-  <updated>2017-07-28T09:41:39.975Z</updated>
+  <updated>2017-07-31T08:51:33.397Z</updated>
   <id>https://zhang0chao0.github.io/</id>
   
   <author>
@@ -14,6 +14,165 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>反射</title>
+    <link href="https://zhang0chao0.github.io/2017/07/30/%E5%8F%8D%E5%B0%84/"/>
+    <id>https://zhang0chao0.github.io/2017/07/30/反射/</id>
+    <published>2017-07-30T09:57:39.000Z</published>
+    <updated>2017-07-31T08:51:33.397Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。</p>
+<h3 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h3><p>在<code>类加载</code>这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。<br>那么这些信息是有用的，比如反射。可以利用信息产生类对象、获取并执行类方法等。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出
+    
+    </summary>
+    
+      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+    
+    
+      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>类加载</title>
+    <link href="https://zhang0chao0.github.io/2017/07/30/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
+    <id>https://zhang0chao0.github.io/2017/07/30/类加载/</id>
+    <published>2017-07-30T09:53:06.000Z</published>
+    <updated>2017-07-31T08:23:06.424Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>要理解<code>RTTI</code>（运行时类型信息）在Java中的工作原理，必须知道<code>类型信息</code>是如何表示的。</p>
+<h3 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h3><p>每个类都有一个<code>Class对象</code>，每当编译了一个类，就会产生一个Class对象，保存在同名的.class文件中。<br>当程序运行时，虚拟机把描述类的数据<code>从class文件中加载到内存</code>，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。</p>
+<p>Java中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的，<strong>以下知识点总结于网络</strong>。</p>
+<a id="more"></a>
+<ul>
+<li><code>引导类加载器</code>（bootstrap class loader）：<br>它用来加载 Java的核心库(jre/lib/rt.jar)，是用原生C++代码来实现的，并不继承自java.lang.ClassLoader。</li>
+<li><code>扩展类加载器</code>（extensions class loader）：<br>它用来加载 Java的扩展库(jre/ext/*.jar)。Java虚拟机的实现会提供一个扩展库目录。该类加载器在此目录里面查找并加载 Java 类。</li>
+<li><code>系统类加载器</code>（system class loader）：<br>它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类。一般来说，Java应用的类都是由它来完成加载的。可以通过 ClassLoader.getSystemClassLoader()来获取它。</li>
+<li><code>自定义类加载器</code>（custom class loader）：<br>除了系统提供的类加载器以外，开发人员可以通过继承java.lang.ClassLoader类的方式实现自己的类加载器，以满足一些特殊的需求。</li>
+</ul>
+<h3 id="三个机制"><a href="#三个机制" class="headerlink" title="三个机制"></a>三个机制</h3><ul>
+<li>委托机制：<br>是指将加载一个类的请求<code>交给父类加载器</code>，如果这个父类加载器不能够找到或者加载这个类，那么再加载它。</li>
+<li>可见性的原理：<br>是<code>子类的加载器</code>可以看见所有的<code>父类加载器加载的类</code>，而<code>父类加载器看不到子类加载器加载的类</code>。</li>
+<li>单一性原理：<br>是指<code>仅加载一个类一次</code>，这是由委托机制确保子类加载器不会再次加载父类加载器加载过的类。</li>
+</ul>
+<h3 id="类加载过程图"><a href="#类加载过程图" class="headerlink" title="类加载过程图"></a>类加载过程图</h3><div align="center"><br><img src="/images/classload.png" alt="classload"><br></div>
+
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><code>装载</code>：<br>查找并加载类的二进制数据。</li>
+<li><code>链接</code>：<br>验证：确保被加载类信息符合JVM规范、没有安全方面的问题。<br>准备：为类的静态变量分配内存，并将其初始化为默认值。<br>解析：把虚拟机常量池（指每个类私有的存放类名、方法名和符号的集合）中的符号引用转换为直接引用。</li>
+<li><code>初始化</code>：<br>为类的静态变量赋予正确的初始值。</li>
+</ol>
+<h5 id="类的初始化步骤："><a href="#类的初始化步骤：" class="headerlink" title="类的初始化步骤："></a>类的初始化步骤：</h5><ol>
+<li>如果这个类还没有被加载和链接，那先进行加载和链接。</li>
+<li>假如这个类存在直接父类，并且这个类还没有被初始化（注意：在一个类加载器中，类只能初始化一次），那就初始化直接的父类（不适用于接口）。</li>
+<li>如果类中存在static标识的块，那就依次执行这些初始化语句。</li>
+</ol>
+<h3 id="类加载器的工作原理"><a href="#类加载器的工作原理" class="headerlink" title="类加载器的工作原理"></a>类加载器的工作原理</h3><h5 id="委托机制"><a href="#委托机制" class="headerlink" title="委托机制"></a>委托机制</h5><p>当一个类加载和初始化的时候，类仅在有需要加载的时候被加载。假设你有一个应用需要的类叫作Abc.class，首先加载这个类的请求由Application类加载器委托给它的父类加载器Extension类加载器，然后再委托给Bootstrap类加载器。Bootstrap类加载器会先看看rt.jar中有没有这个类，因为并没有这个类，所以这个请求由回到Extension类加载器，它会查看jre/lib/ext目录下有没有这个类，如果这个类被Extension类加载器找到了，那么它将被加载，而Application类加载器不会加载这个类；而如果这个类没有被Extension类加载器找到，那么再由Application类加载器从classpath中寻找。记住classpath定义的是类文件的加载目录，而PATH是定义的是可执行程序如javac，java等的执行路径。</p>
+<h5 id="可见性机制"><a href="#可见性机制" class="headerlink" title="可见性机制"></a>可见性机制</h5><p>根据可见性机制，子类加载器可以看到父类加载器加载的类，而反之则不行。所以下面的例子中，当Abc.class已经被Application类加载器加载过了，然后如果想要使用Extension类加载器加载这个类，将会抛出java.lang.ClassNotFoundException异常。</p>
+<h5 id="单一性机制"><a href="#单一性机制" class="headerlink" title="单一性机制"></a>单一性机制</h5><p>根据这个机制，父加载器加载过的类不能被子加载器加载第二次。虽然重写违反委托和单一性机制的类加载器是可能的，但这样做并不可取。你写自己的类加载器的时候应该严格遵守这三条机制。</p>
+<h3 id="ClassLoader类"><a href="#ClassLoader类" class="headerlink" title="ClassLoader类"></a>ClassLoader类</h3><p>java.lang.ClassLoader类的基本职责就是根据一个指定的类的名称，找到或者生成其对应的字节代码，然后从这些字节代码中定义出一个Java类，即java.lang.Class类的一个实例。</p>
+<p>ClassLoader提供了一系列的方法，比较重要的方法如：</p>
+<div align="center"><br><img src="/images/classload2.png" alt="classload2"><br></div>
+
+
+<p><div id="SOHUCS" sid="类加载"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;要理解&lt;code&gt;RTTI&lt;/code&gt;（运行时类型信息）在Java中的工作原理，必须知道&lt;code&gt;类型信息&lt;/code&gt;是如何表示的。&lt;/p&gt;
+&lt;h3 id=&quot;类加载机制&quot;&gt;&lt;a href=&quot;#类加载机制&quot; class=&quot;headerlink&quot; title=&quot;类加载机制&quot;&gt;&lt;/a&gt;类加载机制&lt;/h3&gt;&lt;p&gt;每个类都有一个&lt;code&gt;Class对象&lt;/code&gt;，每当编译了一个类，就会产生一个Class对象，保存在同名的.class文件中。&lt;br&gt;当程序运行时，虚拟机把描述类的数据&lt;code&gt;从class文件中加载到内存&lt;/code&gt;，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。&lt;/p&gt;
+&lt;p&gt;Java中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的，&lt;strong&gt;以下知识点总结于网络&lt;/strong&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+    
+    
+      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>垃圾内存回收</title>
+    <link href="https://zhang0chao0.github.io/2017/07/30/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/"/>
+    <id>https://zhang0chao0.github.io/2017/07/30/垃圾内存回收/</id>
+    <published>2017-07-30T09:03:47.000Z</published>
+    <updated>2017-07-30T09:49:59.738Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。</p>
+<h3 id="找出回收的内存"><a href="#找出回收的内存" class="headerlink" title="找出回收的内存"></a>找出回收的内存</h3><ol>
+<li><code>标记计数法</code>：<br>给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。<br>缺点：无法解决循环引用的问题。</li>
+<li><code>根搜索算法</code>：<br>从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。</li>
+</ol>
+<a id="more"></a>
+<h3 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h3><ol>
+<li><code>标记清除算法</code>：<br>把需要回收的对象统一标记，然后统一清除。<br>缺点：容易产生大量的空间碎片。</li>
+<li><code>复制算法</code>：<br>将内存分为两块区域，先使用第1块，用到无法再用时，将第1块内存中有效的内存复制到第2块，然后清除第1块剩下的内存。<br>缺点：内存的使用效率不高，频繁的复制也浪费CPU的使用。</li>
+<li><code>标记整理算法</code>：<br>将所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。</li>
+</ol>
+<h3 id="分代回收算法"><a href="#分代回收算法" class="headerlink" title="分代回收算法"></a>分代回收算法</h3><p>在Java虚拟机<code>分代垃圾回收</code>机制中，应用程序可用的<code>堆空间</code>可以分为<code>年轻代</code>与<code>老年代</code>，年轻代又被分为<code>Eden区</code>，<code>From区</code>与<code>To区</code>。</p>
+<div align="center"><br><img src="/images/gc1.jpg" alt="gc1"><br></div>
+
+<p>当系统创建一个对象的时候，总是在<code>Eden区</code>操作，当这个区满了，那么就会触发一次<code>YoungGC</code>，也就是年轻代的垃圾回收。<br>一般来说这时候不是所有的对象都没用了，所以就会把还能用的对象复制到From区。</p>
+<div align="center"><br><img src="/images/gc2.jpg" alt="gc2"><br></div>
+
+<p>这样整个Eden区就被清理干净了，可以继续创建新的对象，当Eden区再次被用完，就再触发一次YoungGC，然后呢，注意，这个时候跟刚才稍稍有点区别。这次触发YoungGC后，会将Eden区与From区还在被使用的对象复制到To区。</p>
+<div align="center"><br><img src="/images/gc3.jpg" alt="gc3"><br></div>
+
+<p>再下一次YoungGC的时候，则是将Eden区与To区中的还在被使用的对象复制到From区。</p>
+<div align="center"><br><img src="/images/gc4.jpg" alt="gc4"><br></div>
+
+<p>经过若干次YoungGC后，有些对象在From与To之间来回游荡，若这些对象还没死，就会进入老年代了。</p>
+<div align="center"><br><img src="/images/gc5.jpg" alt="gc5"><br></div>
+
+<p>如果老年代也满了，就会进行全体GC（full gc），全体回收。</p>
+<h3 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h3><ul>
+<li>强引用：<br>new出来的对象就属于强引用，不会gc掉。</li>
+<li>软引用：<br>平时不会回收，只有在JVM内存不足的时候才会被回收。</li>
+<li>弱引用：<br>一旦被JVM发现，就会被回收。</li>
+<li>虚引用：<br>虚引用是每次垃圾回收的时候都会被回收，虚引用主要用于检测对象是否已经从内存中删除。</li>
+</ul>
+<!--畅言代码-->
+<p><div id="SOHUCS" sid="垃圾内存回收"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。&lt;/p&gt;
+&lt;h3 id=&quot;找出回收的内存&quot;&gt;&lt;a href=&quot;#找出回收的内存&quot; class=&quot;headerlink&quot; title=&quot;找出回收的内存&quot;&gt;&lt;/a&gt;找出回收的内存&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;标记计数法&lt;/code&gt;：&lt;br&gt;给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。&lt;br&gt;缺点：无法解决循环引用的问题。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;根搜索算法&lt;/code&gt;：&lt;br&gt;从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+    
+    
+      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+    
+  </entry>
   
   <entry>
     <title>搭建hexo博客(1)</title>
@@ -910,161 +1069,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     
       &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;工厂方法模式只能造出一维的实例，例如车工厂，造火车、汽车等。但是抽象工厂模式可以造出多维的实例，火车、汽车也分华北的和东北的，这样就是二维的属性两两组合了（华北火车、华北汽车、东北火车、东北汽车）。抽象工厂也是工厂三兄弟中最不好理解的一个。&lt;/p&gt;
 &lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/abstractfactory.PNG&quot; alt=&quot;abstractfactory&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>工厂方法模式</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/工厂方法模式/</id>
-    <published>2017-07-24T07:40:45.000Z</published>
-    <updated>2017-07-24T12:16:47.674Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>工厂方法模式就是在简单工厂模式的基础上，把工厂也给抽象了。有一个抽象（接口）工厂，然后具体的实现工厂implements这个接口，这样的话，具体的工厂实现具体的实例了。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/factorymethod.PNG" alt="factorymethod"><br></div>
-
-<a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 抽象的工厂</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">creator</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"><span class="keyword">import</span> simplefactory.Train;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 火车工厂</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TrainFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">creator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Train();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.Tractor;</div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 拖拉机工厂</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TractorFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">creator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Tractor();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.Automobile;</div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 汽车工厂</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutomobileFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">creator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Automobile();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateInstance</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TrafficMachine <span class="title">createor</span><span class="params">(String type)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span> (type.equals(<span class="string">"Automobile"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> AutomobileFactory().creator();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"Tractor"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> TractorFactory().creator();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"Train"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> TrainFactory().creator();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="工厂方法模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;工厂方法模式就是在简单工厂模式的基础上，把工厂也给抽象了。有一个抽象（接口）工厂，然后具体的实现工厂implements这个接口，这样的话，具体的工厂实现具体的实例了。&lt;/p&gt;
-&lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/factorymethod.PNG&quot; alt=&quot;factorymethod&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>简单工厂模式</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/简单工厂模式/</id>
-    <published>2017-07-24T07:19:12.000Z</published>
-    <updated>2017-07-24T12:18:14.869Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>一个类专门负责创建其他类的实例，具体创建什么实例由传入的参数而决定，并且这些类都共同继承于一个父类或者有共同的接口。一句话来描述就是：<code>根据参数的不同创造不同的实例对象</code>。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/simplefactory.PNG" alt="simplefactory"><br></div>
-
-<a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> simplefactory;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/8.</div><div class="line"> * 抽象类：车</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TrafficMachine</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">traffic</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> simplefactory;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/8.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Train</span> <span class="keyword">implements</span> <span class="title">TrafficMachine</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">traffic</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"火车"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> simplefactory;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/8.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tractor</span> <span class="keyword">implements</span> <span class="title">TrafficMachine</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">traffic</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"拖拉机"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> simplefactory;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/8.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Automobile</span> <span class="keyword">implements</span> <span class="title">TrafficMachine</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">traffic</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"汽车"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> simplefactory;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/8.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TrafficMachine <span class="title">creator</span><span class="params">(String type)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (type.equals(<span class="string">"Automobile"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Automobile();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"Tractor"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Tractor();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"Train"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Train();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>工厂模式在Spring框架中有很多的应用，例如通过配置文件xml来注入实例对象等。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="简单工厂模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
-
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;一个类专门负责创建其他类的实例，具体创建什么实例由传入的参数而决定，并且这些类都共同继承于一个父类或者有共同的接口。一句话来描述就是：&lt;code&gt;根据参数的不同创造不同的实例对象&lt;/code&gt;。&lt;/p&gt;
-&lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/simplefactory.PNG&quot; alt=&quot;simplefactory&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式概述</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/设计模式概述/</id>
-    <published>2017-07-24T06:34:55.000Z</published>
-    <updated>2017-07-24T12:18:14.763Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>本文总结于网络</strong>。软件设计的核心在于提高软件的<code>可复用性</code>和<code>可维护性</code>。设计模式就用于解决这一问题。</p>
-<h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
-<li>开闭原则，简称OCP。即软件实体对扩展是开放的，对修改是闭合的。</li>
-<li>里氏替换原则，简称LSP。即任何父类出现的地方都可以被子类代替。</li>
-<li>依赖倒转原则，简称DIP。即要依赖于抽象而不要依赖于具体实现。</li>
-<li>接口隔离原则，简称ISP。即为客户端尽可能提供小的、单独的接口，而不是提供更大的接口。</li>
-<li>组合/聚合复用原则，简称CARP。即尽量使用组合、聚合来达到复用的目的，而不是利用继承。</li>
-<li>迪米特法则，简称LOD，讲的是一个软件实体应当与尽可能少的其他软件实体发生相互作用。</li>
-</ul>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
-<li>创建模式</li>
-<li>结构模式</li>
-<li>行为模式</li>
-</ul>
-<a id="more"></a>
-<h3 id="创建模式"><a href="#创建模式" class="headerlink" title="创建模式"></a>创建模式</h3><p>对类的实例化过程的抽象化。在一些系统里，可能需要动态的决定怎样创建对象，创建哪些对象，以及如何组合和表示这些对象。创建模式描述了怎么构造和封装这些动态的决定。创建模式分为类的创建模式和对象的创建模式两种。</p>
-<ul>
-<li>类的创建模式：类的创建模式使用继承关系，把类的创建延迟到子类，从而封装了客户端将得到哪些具体类的信息，并且影藏了这些类的实例是如何被创建和放在一起的。</li>
-<li>对象的创建模式：对象的创建模式描述的是把对象的创建过程动态地委派给另外一个对象，从而动态地决定客户端讲得到哪些具体的类的实例，以及这些类的实例是如何被创建和组合在一起的。</li>
-</ul>
-<p>创建模式主要包括：简单工厂模式，工厂方法模式，抽象工厂模式，单例模式，多例模式，建造模式，原始模式。</p>
-<h3 id="结构模式"><a href="#结构模式" class="headerlink" title="结构模式"></a>结构模式</h3><p>描述如何将类或对象结合在一起形成更大的结构，结构模式也包括类的结构模式和对象的结构模式。</p>
-<ul>
-<li>类的结构模式：类的结构模式使用继承把类、接口等组合在一起，以形成更大的结构。当一个类从父类继承并实现某接口时，这个新的类就把父类的结构和接口的结构结合起来。类的结构模式是静态的，一个类的结构模式的经典列子就是适配器模式。</li>
-<li>对象的结构模式：对象的结构模式描述怎么把各种不同的类型的对象组合在一起，以实现新的功能的方法。对象的结构模式是动态的。</li>
-</ul>
-<p>结构模式主要包括：适配器模式，缺省适配器模式，合成模式，装饰模式，代理模式，享元模式，门面模式，桥模式。</p>
-<h3 id="行为模式"><a href="#行为模式" class="headerlink" title="行为模式"></a>行为模式</h3><p>行为模式是对在不同的对象之间划分责任和算法的抽象化。行为模式不仅仅是关于类和对象的，而且是关于它们之间相互作用的。</p>
-<ul>
-<li>类的行为模式：类的行为模式使用继承关系在几个类之间分配行为。</li>
-<li>对象的行为模式：对象的行为模式是使用对象聚合类分配行为的。</li>
-</ul>
-<p>行为模式主要包括：不变模式，策略模式，模板方法模式，观察者模式，迭代子模式，责任链模式，命令模式，备忘录模式，状态模式，访问者模式，解释器模式，调停者模式。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="设计模式概述"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;本文总结于网络&lt;/strong&gt;。软件设计的核心在于提高软件的&lt;code&gt;可复用性&lt;/code&gt;和&lt;code&gt;可维护性&lt;/code&gt;。设计模式就用于解决这一问题。&lt;/p&gt;
-&lt;h3 id=&quot;设计原则&quot;&gt;&lt;a href=&quot;#设计原则&quot; class=&quot;headerlink&quot; title=&quot;设计原则&quot;&gt;&lt;/a&gt;设计原则&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;开闭原则，简称OCP。即软件实体对扩展是开放的，对修改是闭合的。&lt;/li&gt;
-&lt;li&gt;里氏替换原则，简称LSP。即任何父类出现的地方都可以被子类代替。&lt;/li&gt;
-&lt;li&gt;依赖倒转原则，简称DIP。即要依赖于抽象而不要依赖于具体实现。&lt;/li&gt;
-&lt;li&gt;接口隔离原则，简称ISP。即为客户端尽可能提供小的、单独的接口，而不是提供更大的接口。&lt;/li&gt;
-&lt;li&gt;组合/聚合复用原则，简称CARP。即尽量使用组合、聚合来达到复用的目的，而不是利用继承。&lt;/li&gt;
-&lt;li&gt;迪米特法则，简称LOD，讲的是一个软件实体应当与尽可能少的其他软件实体发生相互作用。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;分类&quot;&gt;&lt;a href=&quot;#分类&quot; class=&quot;headerlink&quot; title=&quot;分类&quot;&gt;&lt;/a&gt;分类&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;创建模式&lt;/li&gt;
-&lt;li&gt;结构模式&lt;/li&gt;
-&lt;li&gt;行为模式&lt;/li&gt;
-&lt;/ul&gt;
     
     </summary>
     

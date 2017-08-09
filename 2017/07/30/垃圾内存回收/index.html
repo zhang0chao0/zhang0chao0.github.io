@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Think in Java," />
 
 
 
@@ -95,19 +95,24 @@
 
 
 
-<meta name="description" content="个人理解老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。 好处秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。 AOP面向切面编程Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为">
+<meta name="description" content="前言Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。 找出回收的内存 标记计数法：给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。缺点：无法解决循环引用的问题。 根搜索算法：从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。">
+<meta name="keywords" content="Think in Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="代理模式">
-<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/24/代理模式/index.html">
+<meta property="og:title" content="垃圾内存回收">
+<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/30/垃圾内存回收/index.html">
 <meta property="og:site_name" content="指向指针的指针-博客">
-<meta property="og:description" content="个人理解老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。 好处秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。 AOP面向切面编程Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为">
+<meta property="og:description" content="前言Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。 找出回收的内存 标记计数法：给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。缺点：无法解决循环引用的问题。 根搜索算法：从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://zhang0chao0.github.io/images/proxy.PNG">
-<meta property="og:updated_time" content="2017-07-24T12:14:47.529Z">
+<meta property="og:image" content="https://zhang0chao0.github.io/images/gc1.jpg">
+<meta property="og:image" content="https://zhang0chao0.github.io/images/gc2.jpg">
+<meta property="og:image" content="https://zhang0chao0.github.io/images/gc3.jpg">
+<meta property="og:image" content="https://zhang0chao0.github.io/images/gc4.jpg">
+<meta property="og:image" content="https://zhang0chao0.github.io/images/gc5.jpg">
+<meta property="og:updated_time" content="2017-07-30T09:49:59.738Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="代理模式">
-<meta name="twitter:description" content="个人理解老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。 好处秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。 AOP面向切面编程Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为">
-<meta name="twitter:image" content="https://zhang0chao0.github.io/images/proxy.PNG">
+<meta name="twitter:title" content="垃圾内存回收">
+<meta name="twitter:description" content="前言Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。 找出回收的内存 标记计数法：给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。缺点：无法解决循环引用的问题。 根搜索算法：从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。">
+<meta name="twitter:image" content="https://zhang0chao0.github.io/images/gc1.jpg">
 
 
 
@@ -135,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/24/代理模式/"/>
+  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/30/垃圾内存回收/"/>
 
 
 
 
 
-  <title>代理模式 | 指向指针的指针-博客</title>
+  <title>垃圾内存回收 | 指向指针的指针-博客</title>
   
 
 
@@ -314,7 +319,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/24/代理模式/">
+    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/30/垃圾内存回收/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="指向指针的指针">
@@ -331,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">代理模式</h1>
+          <h1 class="post-title" itemprop="name headline">垃圾内存回收</h1>
         
 
         <div class="post-meta">
@@ -343,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T17:45:05+08:00">
-                2017-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T17:03:47+08:00">
+                2017-07-30
               </time>
             
 
@@ -366,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -400,18 +405,41 @@
       
 
       
-        <h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。</p>
-<h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。</p>
-<h3 id="AOP面向切面编程"><a href="#AOP面向切面编程" class="headerlink" title="AOP面向切面编程"></a>AOP面向切面编程</h3><p>Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为什么，因为Spring帮你做了，在调用函数前，打开一个事务，结束函数后，提交一个事务。总之，这个设计模式比较重要，以后我还会写一下JDK的动态代理，也是用到了代理模式。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><h3 id="类图-1"><a href="#类图-1" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/proxy.PNG" alt="proxy"><br></div>
-
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。</p>
+<h3 id="找出回收的内存"><a href="#找出回收的内存" class="headerlink" title="找出回收的内存"></a>找出回收的内存</h3><ol>
+<li><code>标记计数法</code>：<br>给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。<br>缺点：无法解决循环引用的问题。</li>
+<li><code>根搜索算法</code>：<br>从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。</li>
+</ol>
 <a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CEO</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"the CEO is signing"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Assistant</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Leader leader;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Assistant</span><span class="params">(Leader leader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.leader = leader;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"before sign,do something"</span>);</div><div class="line">        leader.sign();</div><div class="line">        System.out.println(<span class="string">"end sign,do something"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Leader ceo=<span class="keyword">new</span> CEO();</div><div class="line">        Leader assistant=<span class="keyword">new</span> Assistant(ceo);</div><div class="line">        assistant.sign();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h3><ol>
+<li><code>标记清除算法</code>：<br>把需要回收的对象统一标记，然后统一清除。<br>缺点：容易产生大量的空间碎片。</li>
+<li><code>复制算法</code>：<br>将内存分为两块区域，先使用第1块，用到无法再用时，将第1块内存中有效的内存复制到第2块，然后清除第1块剩下的内存。<br>缺点：内存的使用效率不高，频繁的复制也浪费CPU的使用。</li>
+<li><code>标记整理算法</code>：<br>将所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。</li>
+</ol>
+<h3 id="分代回收算法"><a href="#分代回收算法" class="headerlink" title="分代回收算法"></a>分代回收算法</h3><p>在Java虚拟机<code>分代垃圾回收</code>机制中，应用程序可用的<code>堆空间</code>可以分为<code>年轻代</code>与<code>老年代</code>，年轻代又被分为<code>Eden区</code>，<code>From区</code>与<code>To区</code>。</p>
+<div align="center"><br><img src="/images/gc1.jpg" alt="gc1"><br></div>
+
+<p>当系统创建一个对象的时候，总是在<code>Eden区</code>操作，当这个区满了，那么就会触发一次<code>YoungGC</code>，也就是年轻代的垃圾回收。<br>一般来说这时候不是所有的对象都没用了，所以就会把还能用的对象复制到From区。</p>
+<div align="center"><br><img src="/images/gc2.jpg" alt="gc2"><br></div>
+
+<p>这样整个Eden区就被清理干净了，可以继续创建新的对象，当Eden区再次被用完，就再触发一次YoungGC，然后呢，注意，这个时候跟刚才稍稍有点区别。这次触发YoungGC后，会将Eden区与From区还在被使用的对象复制到To区。</p>
+<div align="center"><br><img src="/images/gc3.jpg" alt="gc3"><br></div>
+
+<p>再下一次YoungGC的时候，则是将Eden区与To区中的还在被使用的对象复制到From区。</p>
+<div align="center"><br><img src="/images/gc4.jpg" alt="gc4"><br></div>
+
+<p>经过若干次YoungGC后，有些对象在From与To之间来回游荡，若这些对象还没死，就会进入老年代了。</p>
+<div align="center"><br><img src="/images/gc5.jpg" alt="gc5"><br></div>
+
+<p>如果老年代也满了，就会进行全体GC（full gc），全体回收。</p>
+<h3 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h3><ul>
+<li>强引用：<br>new出来的对象就属于强引用，不会gc掉。</li>
+<li>软引用：<br>平时不会回收，只有在JVM内存不足的时候才会被回收。</li>
+<li>弱引用：<br>一旦被JVM发现，就会被回收。</li>
+<li>虚引用：<br>虚引用是每次垃圾回收的时候都会被回收，虚引用主要用于检测对象是否已经从内存中删除。</li>
+</ul>
 <!--畅言代码-->
-<p><div id="SOHUCS" sid="代理模式"></div></p>
+<p><div id="SOHUCS" sid="垃圾内存回收"></div></p>
 <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
 <script type="text/javascript">
 window.changyan.api.config({
@@ -446,6 +474,12 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Think-in-Java/" rel="tag"># Think in Java</a>
+          
+        </div>
+      
 
       
       
@@ -455,8 +489,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/24/命令模式/" rel="next" title="命令模式">
-                <i class="fa fa-chevron-left"></i> 命令模式
+              <a href="/2017/07/28/搭建hexo博客-1/" rel="next" title="搭建hexo博客(1)">
+                <i class="fa fa-chevron-left"></i> 搭建hexo博客(1)
               </a>
             
           </div>
@@ -465,8 +499,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/24/组合模式/" rel="prev" title="组合模式">
-                组合模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/30/类加载/" rel="prev" title="类加载">
+                类加载 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -629,7 +663,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">1.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好处"><span class="nav-number">2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP面向切面编程"><span class="nav-number">3.</span> <span class="nav-text">AOP面向切面编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图"><span class="nav-number">4.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图-1"><span class="nav-number">5.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找出回收的内存"><span class="nav-number">2.</span> <span class="nav-text">找出回收的内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回收算法"><span class="nav-number">3.</span> <span class="nav-text">回收算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分代回收算法"><span class="nav-number">4.</span> <span class="nav-text">分代回收算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种引用类型"><span class="nav-number">5.</span> <span class="nav-text">四种引用类型</span></a></li></ol></div>
             
 
           </div>
