@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-16T16:07:00.119Z">
+<meta property="og:updated_time" content="2017-08-17T03:52:24.045Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事务隔离级别">
 <meta name="twitter:description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
@@ -403,7 +403,7 @@
 <a id="more"></a>
 <h3 id="读已提交"><a href="#读已提交" class="headerlink" title="读已提交"></a>读已提交</h3><p>A发现卡中有1000元，准备消费，此时B转走了1000块并提交了事务；<br>A结账时发现钱已经没有了。<br>A读已提交的事务，说明读已提交的事务不能<code>重复读</code>，否则会出错。</p>
 <h3 id="重复读"><a href="#重复读" class="headerlink" title="重复读"></a>重复读</h3><p>MySQL的默认级别是<code>重复读</code>，重复读可能出现<code>幻读</code>。<br>A读卡中有1000元，当A再次读时，钱已经被B转走了并提交了事务，此时A会产生一种读错数据的幻觉。</p>
-<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serializable是<code>最高</code>的事务隔离级别，同时代价也<code>花费最高</code>，<code>性能很低</code>，一般很少使用，在该级别下，事务顺序执行，不仅可以避免脏读、不可重复读，还避免了幻像读。</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serializable是<code>最高</code>的事务隔离级别，同时代价也<code>花费最高</code>，<code>性能很低</code>，一般很少使用，在该级别下，事务顺序执行，不仅可以避免脏读、不可重复读，还避免了幻读。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
 <thead>
 <tr>
@@ -568,7 +568,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
                alt="指向指针的指针" />
           <p class="site-author-name" itemprop="name">指向指针的指针</p>
            
-              <p class="site-description motion-element" itemprop="description">个人技术博客，欢迎大家交流学习~</p>
+              <p class="site-description motion-element" itemprop="description">一只程序猿~</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -576,7 +576,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

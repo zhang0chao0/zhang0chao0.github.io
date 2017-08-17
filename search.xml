@@ -3,6 +3,61 @@
   
     
     <entry>
+      <title><![CDATA[搭建hexo博客(3)]]></title>
+      <url>/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看了之前的文章，你自己写文章已经OK了，如果你想把博客变得<code>更炫酷</code>（头像旋转、背景动画等），我推荐看<a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="external">这篇文章</a>，我也是看的这个配置的，写的很好。</p>
+<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>打开<code>主题配置文件</code>，找到这个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># Local search</div><div class="line"># Dependencies: https://github.com/flashlab/hexo-generator-search</div><div class="line">local_search:</div><div class="line">  enable: true</div><div class="line">  # if auto, trigger search by changing input</div><div class="line">  # if manual, trigger search by pressing enter key or search button</div><div class="line">  trigger: auto</div><div class="line">  # show top n results per article, show all results by setting to -1</div><div class="line">  top_n_per_article: 1</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><code>enable</code>默认为false，改为true。可以看到本地search依赖一个包，需要<code>npm install</code>一下。</p>
+<p>博客根目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-generator-search --save</div></pre></td></tr></table></figure></p>
+<p>即可安装依赖包。</p>
+<p><code>博客配置文件</code>中加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 微信支付</div><div class="line">#wechatpay: /images/wechat.png</div><div class="line"></div><div class="line"># 自定义站点内容搜索</div><div class="line"># 需要先安装插件：</div><div class="line"># npm install hexo-generator-search --save</div><div class="line">search:</div><div class="line">  path: search.xml</div><div class="line">  # 如只想索引文章，可设置为post</div><div class="line">  field: post</div></pre></td></tr></table></figure>
+<p>PS：顺便提了下如何增加<code>打赏</code>功能，我没开这个功能，因为我觉得没啥意义，不可能会有打赏的，hhh。</p>
+<p>这样<code>搜索功能</code>就神奇的加入了~</p>
+<h3 id="更改访问路径"><a href="#更改访问路径" class="headerlink" title="更改访问路径"></a>更改访问路径</h3><p>现在博客访问都是<code>yourname.github.io</code>，太low了点，我要换成自己的域名（前提是你要自己买域名）。</p>
+<p>本人在<code>腾讯云</code>上买了域名并备案，之前的域名是指向自己的腾讯云IP的，我之前是用的wordpress博客，后来才转github page。</p>
+<p>进入域名解析，并配置：</p>
+<div align="center"><br><img src="/images/zhangchaozc.PNG" alt="zhangchaozc"><br></div>
+
+<p>这样就配置好了，在<code>搭建hexo博客(2)</code>中我贴了博客的目录图，可以看到source文件夹下有一个文件<code>CNAME</code>，没错这个文件里面写自己的域名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zhangchaozc.cn</div></pre></td></tr></table></figure>
+<p>也可以写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">www.zhangchaozc.cn</div></pre></td></tr></table></figure></p>
+<p>都可以。</p>
+<p>重新三个命令一下<code>hexo clean</code>、<code>hexo generate</code>、<code>hexo deploy</code>，就可以用自己的域名访问了（记得清一下浏览器缓存）。</p>
+<h3 id="增加评论"><a href="#增加评论" class="headerlink" title="增加评论"></a>增加评论</h3><p>本人用的是<code>畅言</code>评论插件，当然还有很多评论插件例如多说等。</p>
+<p>前提：你的域名<code>必须备案成功</code>，注册畅言，输入自己的域名，会有一段时间的审核，主要看你的域名是否备案了，审核通过后登陆畅言后台管理：</p>
+<div align="center"><br><img src="/images/changyan.PNG" alt="changyan"><br></div>
+
+<p>把这段代码放在你的文章最后就行了，SourceID必须要唯一确定一篇文章，这里我的SourceID就是文章名（可以支持中文）。</p>
+<p>大家可以自己动手玩自己的博客了哦~</p>
+<p><div id="SOHUCS" sid="搭建hexo博客3"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+]]></content>
+      
+        <categories>
+            
+            <category> 博客搭建 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[搭建hexo博客(2)]]></title>
       <url>/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果看过<code>搭建hexo博客(1)</code>并且成功的，可以往后看，我会教大家一步步把博客变成我现在的样子；<br>如果没有成功，请评论或私聊我。</p>
@@ -67,7 +122,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <a id="more"></a>
 <h3 id="读已提交"><a href="#读已提交" class="headerlink" title="读已提交"></a>读已提交</h3><p>A发现卡中有1000元，准备消费，此时B转走了1000块并提交了事务；<br>A结账时发现钱已经没有了。<br>A读已提交的事务，说明读已提交的事务不能<code>重复读</code>，否则会出错。</p>
 <h3 id="重复读"><a href="#重复读" class="headerlink" title="重复读"></a>重复读</h3><p>MySQL的默认级别是<code>重复读</code>，重复读可能出现<code>幻读</code>。<br>A读卡中有1000元，当A再次读时，钱已经被B转走了并提交了事务，此时A会产生一种读错数据的幻觉。</p>
-<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serializable是<code>最高</code>的事务隔离级别，同时代价也<code>花费最高</code>，<code>性能很低</code>，一般很少使用，在该级别下，事务顺序执行，不仅可以避免脏读、不可重复读，还避免了幻像读。</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serializable是<code>最高</code>的事务隔离级别，同时代价也<code>花费最高</code>，<code>性能很低</code>，一般很少使用，在该级别下，事务顺序执行，不仅可以避免脏读、不可重复读，还避免了幻读。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
 <thead>
 <tr>

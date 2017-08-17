@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang0chao0.github.io/"/>
-  <updated>2017-08-17T03:49:33.487Z</updated>
+  <updated>2017-08-17T07:23:35.815Z</updated>
   <id>https://zhang0chao0.github.io/</id>
   
   <author>
@@ -14,6 +14,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搭建hexo博客(3)</title>
+    <link href="https://zhang0chao0.github.io/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/"/>
+    <id>https://zhang0chao0.github.io/2017/08/17/搭建hexo博客-3/</id>
+    <published>2017-08-17T03:55:53.000Z</published>
+    <updated>2017-08-17T07:23:35.815Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看了之前的文章，你自己写文章已经OK了，如果你想把博客变得<code>更炫酷</code>（头像旋转、背景动画等），我推荐看<a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="external">这篇文章</a>，我也是看的这个配置的，写的很好。</p>
+<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>打开<code>主题配置文件</code>，找到这个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># Local search</div><div class="line"># Dependencies: https://github.com/flashlab/hexo-generator-search</div><div class="line">local_search:</div><div class="line">  enable: true</div><div class="line">  # if auto, trigger search by changing input</div><div class="line">  # if manual, trigger search by pressing enter key or search button</div><div class="line">  trigger: auto</div><div class="line">  # show top n results per article, show all results by setting to -1</div><div class="line">  top_n_per_article: 1</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><code>enable</code>默认为false，改为true。可以看到本地search依赖一个包，需要<code>npm install</code>一下。</p>
+<p>博客根目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-generator-search --save</div></pre></td></tr></table></figure></p>
+<p>即可安装依赖包。</p>
+<p><code>博客配置文件</code>中加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 微信支付</div><div class="line">#wechatpay: /images/wechat.png</div><div class="line"></div><div class="line"># 自定义站点内容搜索</div><div class="line"># 需要先安装插件：</div><div class="line"># npm install hexo-generator-search --save</div><div class="line">search:</div><div class="line">  path: search.xml</div><div class="line">  # 如只想索引文章，可设置为post</div><div class="line">  field: post</div></pre></td></tr></table></figure>
+<p>PS：顺便提了下如何增加<code>打赏</code>功能，我没开这个功能，因为我觉得没啥意义，不可能会有打赏的，hhh。</p>
+<p>这样<code>搜索功能</code>就神奇的加入了~</p>
+<h3 id="更改访问路径"><a href="#更改访问路径" class="headerlink" title="更改访问路径"></a>更改访问路径</h3><p>现在博客访问都是<code>yourname.github.io</code>，太low了点，我要换成自己的域名（前提是你要自己买域名）。</p>
+<p>本人在<code>腾讯云</code>上买了域名并备案，之前的域名是指向自己的腾讯云IP的，我之前是用的wordpress博客，后来才转github page。</p>
+<p>进入域名解析，并配置：</p>
+<div align="center"><br><img src="/images/zhangchaozc.PNG" alt="zhangchaozc"><br></div>
+
+<p>这样就配置好了，在<code>搭建hexo博客(2)</code>中我贴了博客的目录图，可以看到source文件夹下有一个文件<code>CNAME</code>，没错这个文件里面写自己的域名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zhangchaozc.cn</div></pre></td></tr></table></figure>
+<p>也可以写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">www.zhangchaozc.cn</div></pre></td></tr></table></figure></p>
+<p>都可以。</p>
+<p>重新三个命令一下<code>hexo clean</code>、<code>hexo generate</code>、<code>hexo deploy</code>，就可以用自己的域名访问了（记得清一下浏览器缓存）。</p>
+<h3 id="增加评论"><a href="#增加评论" class="headerlink" title="增加评论"></a>增加评论</h3><p>本人用的是<code>畅言</code>评论插件，当然还有很多评论插件例如多说等。</p>
+<p>前提：你的域名<code>必须备案成功</code>，注册畅言，输入自己的域名，会有一段时间的审核，主要看你的域名是否备案了，审核通过后登陆畅言后台管理：</p>
+<div align="center"><br><img src="/images/changyan.PNG" alt="changyan"><br></div>
+
+<p>把这段代码放在你的文章最后就行了，SourceID必须要唯一确定一篇文章，这里我的SourceID就是文章名（可以支持中文）。</p>
+<p>大家可以自己动手玩自己的博客了哦~</p>
+<p><div id="SOHUCS" sid="搭建hexo博客3"></div></p>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyt5L09cj',
+conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
+});
+</script>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;看了之前的文章，你自己写文章已经OK了，如果你想把博客变得&lt;code&gt;更炫酷&lt;/code&gt;（头像旋转、背景动画等），我推荐看&lt;a href=&quot;https://segmentfault.com/a/1190000009544924&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇文章&lt;/a&gt;，我也是看的这个配置的，写的很好。&lt;/p&gt;
+&lt;h3 id=&quot;搜索功能&quot;&gt;&lt;a href=&quot;#搜索功能&quot; class=&quot;headerlink&quot; title=&quot;搜索功能&quot;&gt;&lt;/a&gt;搜索功能&lt;/h3&gt;&lt;p&gt;打开&lt;code&gt;主题配置文件&lt;/code&gt;，找到这个：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;# Local search&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;# Dependencies: https://github.com/flashlab/hexo-generator-search&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;local_search:&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  enable: true&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  # if auto, trigger search by changing input&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  # if manual, trigger search by pressing enter key or search button&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  trigger: auto&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  # show top n results per article, show all results by setting to -1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  top_n_per_article: 1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="博客搭建" scheme="https://zhang0chao0.github.io/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="hexo" scheme="https://zhang0chao0.github.io/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>搭建hexo博客(2)</title>
@@ -80,14 +139,14 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/08/16/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
     <id>https://zhang0chao0.github.io/2017/08/16/事务隔离级别/</id>
     <published>2017-08-16T07:32:04.000Z</published>
-    <updated>2017-08-16T16:07:00.119Z</updated>
+    <updated>2017-08-17T03:52:24.045Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>数据库事务的隔离级别有<code>4</code>个，由低到高依次为<code>Read uncommitted</code>（读未提交）、<code>Read committed</code>（读已提交）、<code>Repeatable read</code>（重复读）、<code>Serializable</code>（序列化）。</p>
 <h3 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h3><p>A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；<br>但A发现打错了，<code>回滚</code>了事务，B再查看就发现钱没有了。<br>B之前读了未提交的事务，出现了<code>脏读</code>。</p>
 <a id="more"></a>
 <h3 id="读已提交"><a href="#读已提交" class="headerlink" title="读已提交"></a>读已提交</h3><p>A发现卡中有1000元，准备消费，此时B转走了1000块并提交了事务；<br>A结账时发现钱已经没有了。<br>A读已提交的事务，说明读已提交的事务不能<code>重复读</code>，否则会出错。</p>
 <h3 id="重复读"><a href="#重复读" class="headerlink" title="重复读"></a>重复读</h3><p>MySQL的默认级别是<code>重复读</code>，重复读可能出现<code>幻读</code>。<br>A读卡中有1000元，当A再次读时，钱已经被B转走了并提交了事务，此时A会产生一种读错数据的幻觉。</p>
-<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serializable是<code>最高</code>的事务隔离级别，同时代价也<code>花费最高</code>，<code>性能很低</code>，一般很少使用，在该级别下，事务顺序执行，不仅可以避免脏读、不可重复读，还避免了幻像读。</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serializable是<code>最高</code>的事务隔离级别，同时代价也<code>花费最高</code>，<code>性能很低</code>，一般很少使用，在该级别下，事务顺序执行，不仅可以避免脏读、不可重复读，还避免了幻读。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
 <thead>
 <tr>
@@ -1109,48 +1168,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
       &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;我要写一个文件，文件分为xml文件和txt文件，文件都有的特性：文件头header，文件内容body，文件为footer。我肯定要用一个抽象的builder接口（有builder文件的方法），然后用具体的实现类去实现builder。还要有一个director类来控制整个builde流程。&lt;/p&gt;
 &lt;h3 id=&quot;好处&quot;&gt;&lt;a href=&quot;#好处&quot; class=&quot;headerlink&quot; title=&quot;好处&quot;&gt;&lt;/a&gt;好处&lt;/h3&gt;&lt;p&gt;使用builder模式，所有的控制权都在director上，一个大系统有很多零件，director可以决定哪个零件要，哪个零件不要，以及零件的组装顺序。万一有一天系统中的某个零件不要了或者零件的安装顺序变了，只用修改director类，其它都不用变。&lt;/p&gt;
 &lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/builder.PNG&quot; alt=&quot;builder&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>原型模式</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/原型模式/</id>
-    <published>2017-07-24T08:17:54.000Z</published>
-    <updated>2017-07-24T12:14:47.593Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>一句话，对象的复制。但对象的复制也要分为深拷贝和浅拷贝（默认为浅拷贝），这也是需要注意的。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/prototype.PNG" alt="prototype"><br></div>
-
-<a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> prototype;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 原型接口</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Prototype</span> <span class="keyword">extends</span> <span class="title">Cloneable</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> prototype;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 实现接口</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototype</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.clone();</div><div class="line">        &#125; <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> prototype;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 客户端</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Prototype prototype;</div><div class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">getNewPrototype</span><span class="params">(Prototype prototype)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (Prototype)prototype.clone();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Client client=<span class="keyword">new</span> Client();</div><div class="line">        <span class="comment">//客户端</span></div><div class="line">        client.prototype=client.getNewPrototype(<span class="keyword">new</span> ConcretePrototype());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以上代码简单描述了原型模式的实现，说到原型模式不能不说的问题是java的深拷贝和浅拷贝，那下面我们就来讨论下深拷贝和浅拷贝。</p>
-<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p>拷贝出来的东西和被拷贝者完全独立，相互没有影响。</p>
-<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>指拷贝引用，实际内容并没有复制，改变后者等于改变前者。</p>
-<h3 id="clone"><a href="#clone" class="headerlink" title="clone()"></a>clone()</h3><p>java语言提供Cloneable接口，在运行时通知虚拟机可以安全的在这个类上使用clone()方法，通过这个方法可以复制一个对象，但是Object并没有实现这个接口，所以在拷贝是必须实现此标识接口，否则会抛出CloneNotSupportedException。但是clone()方法出来的默认都是浅拷贝，如果要深拷贝，那么可以考虑自己编写clone方法。</p>
-<h3 id="序列化实现深拷贝"><a href="#序列化实现深拷贝" class="headerlink" title="序列化实现深拷贝"></a>序列化实现深拷贝</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> prototype;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/10.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Deep</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">deepClone</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Object test=<span class="keyword">new</span> Object();</div><div class="line">        ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();</div><div class="line">        ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(bos);</div><div class="line">        oos.writeObject(test);</div><div class="line">        ByteArrayInputStream bis = <span class="keyword">new</span> ByteArrayInputStream(bos.toByteArray());</div><div class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(bis);</div><div class="line">        Object test2=ois.readObject();</div><div class="line">        <span class="keyword">return</span> test2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="原型模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;一句话，对象的复制。但对象的复制也要分为深拷贝和浅拷贝（默认为浅拷贝），这也是需要注意的。&lt;/p&gt;
-&lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/prototype.PNG&quot; alt=&quot;prototype&quot;&gt;&lt;br&gt;&lt;/div&gt;
     
     </summary>
     
