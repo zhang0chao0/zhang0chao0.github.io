@@ -95,19 +95,17 @@
 
 
 
-<meta name="description" content="个人理解工厂方法模式就是在简单工厂模式的基础上，把工厂也给抽象了。有一个抽象（接口）工厂，然后具体的实现工厂implements这个接口，这样的话，具体的工厂实现具体的实例了。 类图">
+<meta name="description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工厂方法模式">
-<meta property="og:url" content="https://zhang0chao0.github.io/2017/07/24/工厂方法模式/index.html">
+<meta property="og:title" content="事务隔离级别">
+<meta property="og:url" content="https://zhang0chao0.github.io/2017/08/16/事务隔离级别/index.html">
 <meta property="og:site_name" content="指向指针的指针-博客">
-<meta property="og:description" content="个人理解工厂方法模式就是在简单工厂模式的基础上，把工厂也给抽象了。有一个抽象（接口）工厂，然后具体的实现工厂implements这个接口，这样的话，具体的工厂实现具体的实例了。 类图">
+<meta property="og:description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://zhang0chao0.github.io/images/factorymethod.PNG">
-<meta property="og:updated_time" content="2017-07-24T12:16:47.674Z">
+<meta property="og:updated_time" content="2017-08-16T16:07:00.119Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工厂方法模式">
-<meta name="twitter:description" content="个人理解工厂方法模式就是在简单工厂模式的基础上，把工厂也给抽象了。有一个抽象（接口）工厂，然后具体的实现工厂implements这个接口，这样的话，具体的工厂实现具体的实例了。 类图">
-<meta name="twitter:image" content="https://zhang0chao0.github.io/images/factorymethod.PNG">
+<meta name="twitter:title" content="事务隔离级别">
+<meta name="twitter:description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
 
 
 
@@ -135,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://zhang0chao0.github.io/2017/07/24/工厂方法模式/"/>
+  <link rel="canonical" href="https://zhang0chao0.github.io/2017/08/16/事务隔离级别/"/>
 
 
 
 
 
-  <title>工厂方法模式 | 指向指针的指针-博客</title>
+  <title>事务隔离级别 | 指向指针的指针-博客</title>
   
 
 
@@ -314,7 +312,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/07/24/工厂方法模式/">
+    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/08/16/事务隔离级别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="指向指针的指针">
@@ -331,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">工厂方法模式</h1>
+          <h1 class="post-title" itemprop="name headline">事务隔离级别</h1>
         
 
         <div class="post-meta">
@@ -343,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T15:40:45+08:00">
-                2017-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T15:32:04+08:00">
+                2017-08-16
               </time>
             
 
@@ -366,8 +364,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
                   </a>
                 </span>
 
@@ -400,17 +398,56 @@
       
 
       
-        <h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>工厂方法模式就是在简单工厂模式的基础上，把工厂也给抽象了。有一个抽象（接口）工厂，然后具体的实现工厂implements这个接口，这样的话，具体的工厂实现具体的实例了。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/factorymethod.PNG" alt="factorymethod"><br></div>
-
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>数据库事务的隔离级别有<code>4</code>个，由低到高依次为<code>Read uncommitted</code>（读未提交）、<code>Read committed</code>（读已提交）、<code>Repeatable read</code>（重复读）、<code>Serializable</code>（序列化）。</p>
+<h3 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h3><p>A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；<br>但A发现打错了，<code>回滚</code>了事务，B再查看就发现钱没有了。<br>B之前读了未提交的事务，出现了<code>脏读</code>。</p>
 <a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 抽象的工厂</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">creator</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"><span class="keyword">import</span> simplefactory.Train;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 火车工厂</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TrainFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">creator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Train();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.Tractor;</div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 拖拉机工厂</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TractorFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">creator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Tractor();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.Automobile;</div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> * 汽车工厂</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutomobileFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> TrafficMachine <span class="title">creator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Automobile();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> factorymethod;</div><div class="line"></div><div class="line"><span class="keyword">import</span> simplefactory.TrafficMachine;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/4/9.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateInstance</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TrafficMachine <span class="title">createor</span><span class="params">(String type)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span> (type.equals(<span class="string">"Automobile"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> AutomobileFactory().creator();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"Tractor"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> TractorFactory().creator();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type.equals(<span class="string">"Train"</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> TrainFactory().creator();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="工厂方法模式"></div></p>
+<h3 id="读已提交"><a href="#读已提交" class="headerlink" title="读已提交"></a>读已提交</h3><p>A发现卡中有1000元，准备消费，此时B转走了1000块并提交了事务；<br>A结账时发现钱已经没有了。<br>A读已提交的事务，说明读已提交的事务不能<code>重复读</code>，否则会出错。</p>
+<h3 id="重复读"><a href="#重复读" class="headerlink" title="重复读"></a>重复读</h3><p>MySQL的默认级别是<code>重复读</code>，重复读可能出现<code>幻读</code>。<br>A读卡中有1000元，当A再次读时，钱已经被B转走了并提交了事务，此时A会产生一种读错数据的幻觉。</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serializable是<code>最高</code>的事务隔离级别，同时代价也<code>花费最高</code>，<code>性能很低</code>，一般很少使用，在该级别下，事务顺序执行，不仅可以避免脏读、不可重复读，还避免了幻像读。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:center">不可重复读</th>
+<th style="text-align:center">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Read uncommitted</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">Read committed</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">Repeatable read</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center">Serializable</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+</tr>
+</tbody>
+</table>
+<h3 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h3><p>数据库的<code>四大特性</code>：</p>
+<ol>
+<li>原子性：<br>指事务包含的所有操作要么全部成功，要么全部失败回滚，<code>不可分割</code>。</li>
+<li>一致性：<br>是指事务必须使数据库从一个<code>一致性状态</code>变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态。例如A-&gt;B转账100，A账户少了100，B账户一定要多100。</li>
+<li>隔离性：<br>隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个<code>并发</code>事务之间要<code>相互隔离</code>。</li>
+<li>持久性：<br>持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是<code>永久性</code>的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。</li>
+</ol>
+<p><div id="SOHUCS" sid="事务隔离级别"></div></p>
 <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
 <script type="text/javascript">
 window.changyan.api.config({
@@ -454,8 +491,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/24/简单工厂模式/" rel="next" title="简单工厂模式">
-                <i class="fa fa-chevron-left"></i> 简单工厂模式
+              <a href="/2017/07/30/反射/" rel="next" title="反射">
+                <i class="fa fa-chevron-left"></i> 反射
               </a>
             
           </div>
@@ -464,8 +501,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/24/抽象工厂模式/" rel="prev" title="抽象工厂模式">
-                抽象工厂模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/17/搭建hexo博客-2/" rel="prev" title="搭建hexo博客(2)">
+                搭建hexo博客(2) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -632,7 +669,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">1.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图"><span class="nav-number">2.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读未提交"><span class="nav-number">2.</span> <span class="nav-text">读未提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读已提交"><span class="nav-number">3.</span> <span class="nav-text">读已提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复读"><span class="nav-number">4.</span> <span class="nav-text">重复读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化"><span class="nav-number">5.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回顾"><span class="nav-number">7.</span> <span class="nav-text">回顾</span></a></li></ol></div>
             
 
           </div>
