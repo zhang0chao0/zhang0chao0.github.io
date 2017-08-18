@@ -13,6 +13,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
 
 
 
@@ -98,7 +105,7 @@
 <meta name="description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="事务隔离级别">
-<meta property="og:url" content="https://zhang0chao0.github.io/2017/08/16/事务隔离级别/index.html">
+<meta property="og:url" content="http://zhangchaozc.cn/2017/08/16/事务隔离级别/index.html">
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
 <meta property="og:locale" content="zh-Hans">
@@ -133,7 +140,7 @@
 
 
 
-  <link rel="canonical" href="https://zhang0chao0.github.io/2017/08/16/事务隔离级别/"/>
+  <link rel="canonical" href="http://zhangchaozc.cn/2017/08/16/事务隔离级别/"/>
 
 
 
@@ -312,7 +319,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zhang0chao0.github.io/2017/08/16/事务隔离级别/">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2017/08/16/事务隔离级别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="指向指针的指针">
@@ -479,6 +486,21 @@
     <div>
       
         
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      指向指针的指针
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://zhangchaozc.cn/2017/08/16/事务隔离级别/" title="事务隔离级别">http://zhangchaozc.cn/2017/08/16/事务隔离级别/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
 
       
     </div>

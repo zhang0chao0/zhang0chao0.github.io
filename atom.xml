@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://zhang0chao0.github.io/"/>
-  <updated>2017-08-18T05:16:18.358Z</updated>
-  <id>https://zhang0chao0.github.io/</id>
+  <link href="http://zhangchaozc.cn/"/>
+  <updated>2017-08-18T08:59:53.570Z</updated>
+  <id>http://zhangchaozc.cn/</id>
   
   <author>
     <name>指向指针的指针</name>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>搭建hexo博客(3)</title>
-    <link href="https://zhang0chao0.github.io/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/"/>
-    <id>https://zhang0chao0.github.io/2017/08/17/搭建hexo博客-3/</id>
+    <link href="http://zhangchaozc.cn/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/"/>
+    <id>http://zhangchaozc.cn/2017/08/17/搭建hexo博客-3/</id>
     <published>2017-08-17T03:55:53.000Z</published>
-    <updated>2017-08-18T05:16:18.358Z</updated>
+    <updated>2017-08-18T08:59:53.570Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看了之前的文章，你自己写文章已经OK了，如果你想把博客变得<code>更炫酷</code>（头像旋转、背景动画等），我推荐看<a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="external">这篇文章</a>，我也是看的这个配置的，写的很好。</p>
 <h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>打开<code>主题配置文件</code>，找到这个：</p>
@@ -45,9 +45,16 @@
 <p>重新三个命令一下<code>hexo clean</code>、<code>hexo generate</code>、<code>hexo deploy</code>，就可以用自己的域名访问了（记得清一下浏览器缓存）。</p>
 <h3 id="增加评论"><a href="#增加评论" class="headerlink" title="增加评论"></a>增加评论</h3><p>本人用的是<code>畅言</code>评论插件，当然还有很多评论插件例如多说等。</p>
 <p>前提：你的域名<code>必须备案成功</code>，注册畅言，输入自己的域名，会有一段时间的审核，主要看你的域名是否备案了，审核通过后登陆畅言后台管理：</p>
-<div align="center"><br><img src="/images/changyan.PNG" alt="changyan"><br></div>
+<h5 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h5><div align="center"><br><img src="/images/changyan.PNG" alt="changyan"><br></div>
 
 <p>把这段代码放在你的文章最后就行了，SourceID必须要唯一确定一篇文章，这里我的SourceID就是文章名（可以支持中文）。</p>
+<h5 id="方法2（推荐）"><a href="#方法2（推荐）" class="headerlink" title="方法2（推荐）"></a>方法2（推荐）</h5><div align="center"><br><img src="/images/changyan2.PNG" alt="changyan2"><br></div>
+
+<p><code>主题配置文件</code>中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># changyan</div><div class="line">changyan:</div><div class="line">  enable: true</div><div class="line">  appid: your_appid</div><div class="line">  appkey: your_appkey</div></pre></td></tr></table></figure>
+<p>这样不用加任何代码，在每一篇博客后面都会出现评论框。<br>但是如果你不想在文章后有评论框，例如<code>分类</code>、<code>标签</code>页面，可以在文章头加上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">comments: false</div></pre></td></tr></table></figure>
+<p>这样就不会出现评论框了。</p>
 <p>大家可以自己动手玩自己的博客了哦~</p>
 ]]></content>
     
@@ -59,17 +66,17 @@
     
     </summary>
     
-      <category term="博客搭建" scheme="https://zhang0chao0.github.io/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+      <category term="博客搭建" scheme="http://zhangchaozc.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="hexo" scheme="https://zhang0chao0.github.io/tags/hexo/"/>
+      <category term="hexo" scheme="http://zhangchaozc.cn/tags/hexo/"/>
     
   </entry>
   
   <entry>
     <title>搭建hexo博客(2)</title>
-    <link href="https://zhang0chao0.github.io/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/"/>
-    <id>https://zhang0chao0.github.io/2017/08/17/搭建hexo博客-2/</id>
+    <link href="http://zhangchaozc.cn/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/"/>
+    <id>http://zhangchaozc.cn/2017/08/17/搭建hexo博客-2/</id>
     <published>2017-08-17T02:48:45.000Z</published>
     <updated>2017-08-18T05:16:18.275Z</updated>
     
@@ -111,17 +118,17 @@
     
     </summary>
     
-      <category term="博客搭建" scheme="https://zhang0chao0.github.io/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+      <category term="博客搭建" scheme="http://zhangchaozc.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="hexo" scheme="https://zhang0chao0.github.io/tags/hexo/"/>
+      <category term="hexo" scheme="http://zhangchaozc.cn/tags/hexo/"/>
     
   </entry>
   
   <entry>
     <title>事务隔离级别</title>
-    <link href="https://zhang0chao0.github.io/2017/08/16/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
-    <id>https://zhang0chao0.github.io/2017/08/16/事务隔离级别/</id>
+    <link href="http://zhangchaozc.cn/2017/08/16/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+    <id>http://zhangchaozc.cn/2017/08/16/事务隔离级别/</id>
     <published>2017-08-16T07:32:04.000Z</published>
     <updated>2017-08-18T05:24:44.615Z</updated>
     
@@ -183,15 +190,15 @@
     
     </summary>
     
-      <category term="数据库" scheme="https://zhang0chao0.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="http://zhangchaozc.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
   </entry>
   
   <entry>
     <title>反射</title>
-    <link href="https://zhang0chao0.github.io/2017/07/30/%E5%8F%8D%E5%B0%84/"/>
-    <id>https://zhang0chao0.github.io/2017/07/30/反射/</id>
+    <link href="http://zhangchaozc.cn/2017/07/30/%E5%8F%8D%E5%B0%84/"/>
+    <id>http://zhangchaozc.cn/2017/07/30/反射/</id>
     <published>2017-07-30T09:57:39.000Z</published>
     <updated>2017-08-18T05:24:44.386Z</updated>
     
@@ -217,17 +224,17 @@
     
     </summary>
     
-      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
     
     
-      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
     
   </entry>
   
   <entry>
     <title>类加载</title>
-    <link href="https://zhang0chao0.github.io/2017/07/30/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
-    <id>https://zhang0chao0.github.io/2017/07/30/类加载/</id>
+    <link href="http://zhangchaozc.cn/2017/07/30/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
+    <id>http://zhangchaozc.cn/2017/07/30/类加载/</id>
     <published>2017-07-30T09:53:06.000Z</published>
     <updated>2017-08-18T05:24:45.093Z</updated>
     
@@ -274,17 +281,17 @@
     
     </summary>
     
-      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
     
     
-      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
     
   </entry>
   
   <entry>
     <title>垃圾内存回收</title>
-    <link href="https://zhang0chao0.github.io/2017/07/30/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/"/>
-    <id>https://zhang0chao0.github.io/2017/07/30/垃圾内存回收/</id>
+    <link href="http://zhangchaozc.cn/2017/07/30/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/"/>
+    <id>http://zhangchaozc.cn/2017/07/30/垃圾内存回收/</id>
     <published>2017-07-30T09:03:47.000Z</published>
     <updated>2017-08-18T05:24:44.798Z</updated>
     
@@ -333,17 +340,17 @@
     
     </summary>
     
-      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
     
     
-      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
     
   </entry>
   
   <entry>
     <title>搭建hexo博客(1)</title>
-    <link href="https://zhang0chao0.github.io/2017/07/28/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/"/>
-    <id>https://zhang0chao0.github.io/2017/07/28/搭建hexo博客-1/</id>
+    <link href="http://zhangchaozc.cn/2017/07/28/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/"/>
+    <id>http://zhangchaozc.cn/2017/07/28/搭建hexo博客-1/</id>
     <published>2017-07-28T08:42:49.000Z</published>
     <updated>2017-08-18T05:16:18.327Z</updated>
     
@@ -385,17 +392,17 @@
     
     </summary>
     
-      <category term="博客搭建" scheme="https://zhang0chao0.github.io/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+      <category term="博客搭建" scheme="http://zhangchaozc.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="hexo" scheme="https://zhang0chao0.github.io/tags/hexo/"/>
+      <category term="hexo" scheme="http://zhangchaozc.cn/tags/hexo/"/>
     
   </entry>
   
   <entry>
     <title>搭建wordpress博客</title>
-    <link href="https://zhang0chao0.github.io/2017/07/26/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://zhang0chao0.github.io/2017/07/26/搭建wordpress博客/</id>
+    <link href="http://zhangchaozc.cn/2017/07/26/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://zhangchaozc.cn/2017/07/26/搭建wordpress博客/</id>
     <published>2017-07-26T03:54:12.000Z</published>
     <updated>2017-08-18T05:24:44.518Z</updated>
     
@@ -454,19 +461,19 @@
     
     </summary>
     
-      <category term="博客搭建" scheme="https://zhang0chao0.github.io/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+      <category term="博客搭建" scheme="http://zhangchaozc.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="wordpress" scheme="https://zhang0chao0.github.io/tags/wordpress/"/>
+      <category term="wordpress" scheme="http://zhangchaozc.cn/tags/wordpress/"/>
     
-      <category term="docker入门" scheme="https://zhang0chao0.github.io/tags/docker%E5%85%A5%E9%97%A8/"/>
+      <category term="docker入门" scheme="http://zhangchaozc.cn/tags/docker%E5%85%A5%E9%97%A8/"/>
     
   </entry>
   
   <entry>
     <title>JVM</title>
-    <link href="https://zhang0chao0.github.io/2017/07/26/JVM/"/>
-    <id>https://zhang0chao0.github.io/2017/07/26/JVM/</id>
+    <link href="http://zhangchaozc.cn/2017/07/26/JVM/"/>
+    <id>http://zhangchaozc.cn/2017/07/26/JVM/</id>
     <published>2017-07-26T02:02:58.000Z</published>
     <updated>2017-08-18T05:24:44.341Z</updated>
     
@@ -548,17 +555,17 @@
     
     </summary>
     
-      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
     
     
-      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
     
   </entry>
   
   <entry>
     <title>HTTP状态码</title>
-    <link href="https://zhang0chao0.github.io/2017/07/25/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/"/>
-    <id>https://zhang0chao0.github.io/2017/07/25/HTTP状态码/</id>
+    <link href="http://zhangchaozc.cn/2017/07/25/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/"/>
+    <id>http://zhangchaozc.cn/2017/07/25/HTTP状态码/</id>
     <published>2017-07-25T09:44:11.000Z</published>
     <updated>2017-08-18T05:24:44.750Z</updated>
     
@@ -627,17 +634,17 @@
     
     </summary>
     
-      <category term="HTTP" scheme="https://zhang0chao0.github.io/categories/HTTP/"/>
+      <category term="HTTP" scheme="http://zhangchaozc.cn/categories/HTTP/"/>
     
     
-      <category term="HTTP" scheme="https://zhang0chao0.github.io/tags/HTTP/"/>
+      <category term="HTTP" scheme="http://zhangchaozc.cn/tags/HTTP/"/>
     
   </entry>
   
   <entry>
     <title>公钥-私钥</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E5%85%AC%E9%92%A5-%E7%A7%81%E9%92%A5/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/公钥-私钥/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/%E5%85%AC%E9%92%A5-%E7%A7%81%E9%92%A5/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/公钥-私钥/</id>
     <published>2017-07-24T13:56:19.000Z</published>
     <updated>2017-08-18T05:24:44.886Z</updated>
     
@@ -677,17 +684,17 @@
     
     </summary>
     
-      <category term="计算机网络" scheme="https://zhang0chao0.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+      <category term="计算机网络" scheme="http://zhangchaozc.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
     
-      <category term="网络" scheme="https://zhang0chao0.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+      <category term="网络" scheme="http://zhangchaozc.cn/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
   <entry>
     <title>网页显示</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/网页显示/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/网页显示/</id>
     <published>2017-07-24T13:09:47.000Z</published>
     <updated>2017-08-18T05:24:45.268Z</updated>
     
@@ -729,15 +736,15 @@
     
     </summary>
     
-      <category term="HTTP" scheme="https://zhang0chao0.github.io/categories/HTTP/"/>
+      <category term="HTTP" scheme="http://zhangchaozc.cn/categories/HTTP/"/>
     
     
   </entry>
   
   <entry>
     <title>String,StringBuilder,StringBuffer</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/String-StringBuilder-StringBuffer/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/String-StringBuilder-StringBuffer/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/String-StringBuilder-StringBuffer/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/String-StringBuilder-StringBuffer/</id>
     <published>2017-07-24T12:46:16.000Z</published>
     <updated>2017-08-18T05:24:45.217Z</updated>
     
@@ -762,17 +769,17 @@
     
     </summary>
     
-      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
     
     
-      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
     
   </entry>
   
   <entry>
     <title>String类</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/String%E7%B1%BB/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/String类/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/String%E7%B1%BB/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/String类/</id>
     <published>2017-07-24T12:31:34.000Z</published>
     <updated>2017-08-18T05:24:44.412Z</updated>
     
@@ -801,17 +808,17 @@
     
     </summary>
     
-      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
     
     
-      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
     
   </entry>
   
   <entry>
     <title>finalize与finally</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/finalize%E4%B8%8Efinally/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/finalize与finally/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/finalize%E4%B8%8Efinally/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/finalize与finally/</id>
     <published>2017-07-24T12:23:07.000Z</published>
     <updated>2017-08-18T05:24:45.310Z</updated>
     
@@ -833,17 +840,17 @@
     
     </summary>
     
-      <category term="Java" scheme="https://zhang0chao0.github.io/categories/Java/"/>
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
     
     
-      <category term="Think in Java" scheme="https://zhang0chao0.github.io/tags/Think-in-Java/"/>
+      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
     
   </entry>
   
   <entry>
     <title>适配器模式</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/适配器模式/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/适配器模式/</id>
     <published>2017-07-24T10:36:58.000Z</published>
     <updated>2017-08-18T05:24:45.042Z</updated>
     
@@ -864,15 +871,15 @@
     
     </summary>
     
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
   </entry>
   
   <entry>
     <title>组合模式</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/组合模式/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/组合模式/</id>
     <published>2017-07-24T10:31:44.000Z</published>
     <updated>2017-08-18T05:24:44.974Z</updated>
     
@@ -893,15 +900,15 @@
     
     </summary>
     
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
   </entry>
   
   <entry>
     <title>代理模式</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/代理模式/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/代理模式/</id>
     <published>2017-07-24T09:45:05.000Z</published>
     <updated>2017-08-18T05:24:44.942Z</updated>
     
@@ -926,15 +933,15 @@
     
     </summary>
     
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
   </entry>
   
   <entry>
     <title>命令模式</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/命令模式/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/命令模式/</id>
     <published>2017-07-24T09:36:50.000Z</published>
     <updated>2017-08-18T05:24:44.998Z</updated>
     
@@ -968,15 +975,15 @@
     
     </summary>
     
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
   </entry>
   
   <entry>
     <title>builder模式</title>
-    <link href="https://zhang0chao0.github.io/2017/07/24/builder%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://zhang0chao0.github.io/2017/07/24/builder模式/</id>
+    <link href="http://zhangchaozc.cn/2017/07/24/builder%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://zhangchaozc.cn/2017/07/24/builder模式/</id>
     <published>2017-07-24T08:18:16.000Z</published>
     <updated>2017-08-18T05:24:44.656Z</updated>
     
@@ -1000,7 +1007,7 @@
     
     </summary>
     
-      <category term="设计模式" scheme="https://zhang0chao0.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
   </entry>
