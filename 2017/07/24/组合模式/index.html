@@ -103,7 +103,7 @@
 <meta property="og:description" content="个人理解组合模式比较简单和基础，就是描述对象之间1对多的关系，例如：1个领导有多个下属。这个模式用下Java的集合类就可以实现了。 类图">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/composite.PNG">
-<meta property="og:updated_time" content="2017-07-24T12:18:14.903Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:44.974Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="组合模式">
 <meta name="twitter:description" content="个人理解组合模式比较简单和基础，就是描述对象之间1对多的关系，例如：1个领导有多个下属。这个模式用下Java的集合类就可以实现了。 类图">
@@ -379,6 +379,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/24/组合模式/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/24/组合模式/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -408,15 +419,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 员工类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employe</span> <span class="keyword">implements</span> <span class="title">Worker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employe</span><span class="params">(String name)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.name=name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"I am an Employe:"</span>+name);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 领导类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leader</span> <span class="keyword">implements</span> <span class="title">Worker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> List&lt;Worker&gt;workers=<span class="keyword">new</span> ArrayList&lt;Worker&gt;();</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Leader</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addWorker</span><span class="params">(Worker worker)</span></span>&#123;</div><div class="line">        workers.add(worker);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeWorker</span><span class="params">(Worker worker)</span></span>&#123;</div><div class="line">        workers.remove(worker);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"I am a Leader:"</span>+name+<span class="string">",I have "</span>+workers.size()+<span class="string">" Employe"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 测试类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Leader lead=<span class="keyword">new</span> Leader(<span class="string">"Leader1"</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</div><div class="line">            Worker employe=<span class="keyword">new</span> Employe(<span class="string">"Employe"</span>);</div><div class="line">            lead.addWorker(employe);</div><div class="line">        &#125;</div><div class="line">        lead.doSomething();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="组合模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
+
       
     </div>
 
@@ -489,6 +492,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -798,6 +803,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

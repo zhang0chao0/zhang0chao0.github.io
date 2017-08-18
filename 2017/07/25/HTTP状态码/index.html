@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="前言本文总结于网络，总结一下HTTP返回的状态码。 基本 100-199 用于指定客户端应相应的某些动作。 200-299 用于表示请求成功。 300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。 400-499 用于指出客户端的错误。 500-599 用于支持服务器错误。  细节100客户端询问服务器是否在后续的请求中可以发送附件，会在请求头中加上100-continu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-25T10:37:06.730Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:44.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP状态码">
 <meta name="twitter:description" content="前言本文总结于网络，总结一下HTTP返回的状态码。 基本 100-199 用于指定客户端应相应的某些动作。 200-299 用于表示请求成功。 300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。 400-499 用于指出客户端的错误。 500-599 用于支持服务器错误。  细节100客户端询问服务器是否在后续的请求中可以发送附件，会在请求头中加上100-continu">
@@ -378,6 +378,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/25/HTTP状态码/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/25/HTTP状态码/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -446,15 +457,7 @@
 <h6 id="503"><a href="#503" class="headerlink" title="503"></a>503</h6><p>(SC_SERVICE_UNAVAILABLE)表示服务器由于在维护或已经超载而无法响应。例如，如果某些线程或数据库连接池已经没有空闲则servlet会返回这个头信息。服务器可提供一个Retry-After头信息告诉客户端什么时候可以在试一次。</p>
 <h6 id="504"><a href="#504" class="headerlink" title="504"></a>504</h6><p>(Gateway Timeout/网关超时)</p>
 <h6 id="505"><a href="#505" class="headerlink" title="505"></a>505</h6><p>不支持的HTTP协议版本。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="HTTP状态码"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
+
       
     </div>
 
@@ -533,6 +536,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -842,6 +847,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

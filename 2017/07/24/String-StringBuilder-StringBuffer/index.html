@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="StringString是放在常量池中的常量，所谓常量，就是这个对象一旦产生，它的值就不会变。有人疑问：不是有String a=a+”xx”这样的写法吗，这是因为a在加上”xx”后，已经不是原来的a了，a在加之后又变成了一个新的对象，只不过名字也叫a。 1234567891011121314public final class String        implements java.io.Se">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-24T13:03:33.535Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:45.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="String,StringBuilder,StringBuffer">
 <meta name="twitter:description" content="StringString是放在常量池中的常量，所谓常量，就是这个对象一旦产生，它的值就不会变。有人疑问：不是有String a=a+”xx”这样的写法吗，这是因为a在加上”xx”后，已经不是原来的a了，a在加之后又变成了一个新的对象，只不过名字也叫a。 1234567891011121314public final class String        implements java.io.Se">
@@ -378,6 +378,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/24/String-StringBuilder-StringBuffer/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/24/String-StringBuilder-StringBuffer/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -410,15 +421,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">......</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> value.length;</div><div class="line">&#125;</div><div class="line"></div><div class="line">......</div></pre></td></tr></table></figure>
 <p>可以看到，每个关键的操作函数都加了synchronized关键字修饰，可以看出这是一个线程安全的操作，非静态方法被synchronized修饰后，当有多个线程操作同一个StringBuffer对象时，它们只能有一个操作append方法。所以说StringBuffer是线程安全的StringBuilder，那么在效率上肯定不如StringBuilder了。</p>
 <h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><p>关于synchronized的加锁，在静态方法和非静态方法上加是有区别的。静态方法上加会影响这个类的所有对象，而非静态上加只是影响其中某一个对象。具体看看static关键字的用法，不多解释了。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="String-StringBuilder-StringBuffer"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
+
       
     </div>
 
@@ -497,6 +500,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -806,6 +811,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

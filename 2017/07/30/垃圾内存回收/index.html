@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://zhang0chao0.github.io/images/gc3.jpg">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/gc4.jpg">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/gc5.jpg">
-<meta property="og:updated_time" content="2017-07-30T09:49:59.738Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:44.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="垃圾内存回收">
 <meta name="twitter:description" content="前言Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。 找出回收的内存 标记计数法：给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。缺点：无法解决循环引用的问题。 根搜索算法：从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。">
@@ -384,6 +384,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/30/垃圾内存回收/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/30/垃圾内存回收/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -438,15 +449,6 @@
 <li>弱引用：<br>一旦被JVM发现，就会被回收。</li>
 <li>虚引用：<br>虚引用是每次垃圾回收的时候都会被回收，虚引用主要用于检测对象是否已经从内存中删除。</li>
 </ul>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="垃圾内存回收"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 
       
     </div>
@@ -526,6 +528,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -835,6 +839,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

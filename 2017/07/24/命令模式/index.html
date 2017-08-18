@@ -103,7 +103,7 @@
 <meta property="og:description" content="个人理解命令模式有命令发出者和命令接收者。总体上来说就是：  发出命令； 命令传递； 命令执行。  这三个部分相互解耦，任何一方都不用去依赖其他方，只需要做好自己的事儿就行。 类图">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/command.PNG">
-<meta property="og:updated_time" content="2017-07-24T12:14:47.573Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:44.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="命令模式">
 <meta name="twitter:description" content="个人理解命令模式有命令发出者和命令接收者。总体上来说就是：  发出命令； 命令传递； 命令执行。  这三个部分相互解耦，任何一方都不用去依赖其他方，只需要做好自己的事儿就行。 类图">
@@ -379,6 +379,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/24/命令模式/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/24/命令模式/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -415,15 +426,6 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receicer</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"receive the command"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Invoker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Command command;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCommand</span><span class="params">(Command command)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.command = command;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">executeCommand</span><span class="params">()</span></span>&#123;</div><div class="line">        command.execute();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Receicer receicer=<span class="keyword">new</span> Receicer();</div><div class="line">        Command command=<span class="keyword">new</span> ConcreteCommand(receicer);</div><div class="line">        Invoker invoker=<span class="keyword">new</span> Invoker();</div><div class="line">        invoker.setCommand(command);</div><div class="line">        invoker.executeCommand();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="命令模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 
       
     </div>
@@ -497,6 +499,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -806,6 +810,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

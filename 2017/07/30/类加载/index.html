@@ -105,7 +105,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/classload.png">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/classload2.png">
-<meta property="og:updated_time" content="2017-07-31T08:23:06.424Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:45.093Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="类加载">
 <meta name="twitter:description" content="前言要理解RTTI（运行时类型信息）在Java中的工作原理，必须知道类型信息是如何表示的。 类加载机制每个类都有一个Class对象，每当编译了一个类，就会产生一个Class对象，保存在同名的.class文件中。当程序运行时，虚拟机把描述类的数据从class文件中加载到内存，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。 Java中的类加载">
@@ -381,6 +381,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/30/类加载/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/30/类加载/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -435,16 +446,6 @@
 <h3 id="ClassLoader类"><a href="#ClassLoader类" class="headerlink" title="ClassLoader类"></a>ClassLoader类</h3><p>java.lang.ClassLoader类的基本职责就是根据一个指定的类的名称，找到或者生成其对应的字节代码，然后从这些字节代码中定义出一个Java类，即java.lang.Class类的一个实例。</p>
 <p>ClassLoader提供了一系列的方法，比较重要的方法如：</p>
 <div align="center"><br><img src="/images/classload2.png" alt="classload2"><br></div>
-
-
-<p><div id="SOHUCS" sid="类加载"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 
       
     </div>
@@ -524,6 +525,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -833,6 +836,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

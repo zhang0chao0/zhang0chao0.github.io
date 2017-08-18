@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="前言String类是Java中的常用类，面试也会经常被问到。下面我就一个问题进行切入：问题：String a=new String(“a”) ，这条语句执行后创建了几个对象？ 解答 String的存储：String是保存在常量池中的，何为常量池，这里我又要拉扯到享元模式，多人共享一个东西有什么好处？资源不会被浪费啊，看看共享单车就是这个道理。字符串常量池一句话：如果有，我就从池中拿，如果没有，我就">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-24T12:50:37.798Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:44.412Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="String类">
 <meta name="twitter:description" content="前言String类是Java中的常用类，面试也会经常被问到。下面我就一个问题进行切入：问题：String a=new String(“a”) ，这条语句执行后创建了几个对象？ 解答 String的存储：String是保存在常量池中的，何为常量池，这里我又要拉扯到享元模式，多人共享一个东西有什么好处？资源不会被浪费啊，看看共享单车就是这个道理。字符串常量池一句话：如果有，我就从池中拿，如果没有，我就">
@@ -378,6 +378,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/24/String类/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/24/String类/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -412,15 +423,6 @@
 <li>两个变量是否同一块内存。很明显，两次new出来的内存能一样吗？一样的概率就是你中彩票的概率了，还有就是堆内存和常量池中的内存，肯定是不一样的！结果的话大家可以自己在本地下跑一下，加深印象。</li>
 </ol>
 <h3 id="引申问题"><a href="#引申问题" class="headerlink" title="引申问题"></a>引申问题</h3><p>问题：String a=”a”+”b”+”c”; 内存中会出现几个对象？<br>解答：第一眼会以为是3个，其实就错了，其实就1个对象”abc”在常量池中。为毛？因为编译器很聪明，它在编译的时候就算出”a”+”b”+”c”的值为”abc”了，所以编译器看到的就是”abc”，那么常量池中就1个对象了。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="String类"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 
       
     </div>
@@ -500,6 +502,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -809,6 +813,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

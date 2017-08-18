@@ -103,7 +103,7 @@
 <meta property="og:description" content="个人理解我要写一个文件，文件分为xml文件和txt文件，文件都有的特性：文件头header，文件内容body，文件为footer。我肯定要用一个抽象的builder接口（有builder文件的方法），然后用具体的实现类去实现builder。还要有一个director类来控制整个builde流程。 好处使用builder模式，所有的控制权都在director上，一个大系统有很多零件，director">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/builder.PNG">
-<meta property="og:updated_time" content="2017-07-24T12:14:47.446Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:44.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="builder模式">
 <meta name="twitter:description" content="个人理解我要写一个文件，文件分为xml文件和txt文件，文件都有的特性：文件头header，文件内容body，文件为footer。我肯定要用一个抽象的builder接口（有builder文件的方法），然后用具体的实现类去实现builder。还要有一个director类来控制整个builde流程。 好处使用builder模式，所有的控制权都在director上，一个大系统有很多零件，director">
@@ -379,6 +379,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/24/builder模式/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/24/builder模式/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -410,15 +421,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> builder;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XmlBuilder</span> <span class="keyword">implements</span> <span class="title">Builder</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> StringBuffer buffer=<span class="keyword">new</span> StringBuffer();</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildHeader</span><span class="params">()</span> </span>&#123;</div><div class="line">        buffer.append(<span class="string">"&lt;?xml version='1.0' encoding='gb2312'?&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Report&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Header&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;DepId&gt;一分公司&lt;/DepId&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;ExportDate&gt;2010-05-18&lt;/ExportDate&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Header&gt;\n"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildBody</span><span class="params">()</span> </span>&#123;</div><div class="line">        buffer.append(<span class="string">"&lt;Body&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Datas TableName=\"销售记录表\"&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Data&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;ProductId&gt;产品001号&lt;/ProductId&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Price&gt;100.0&lt;/Price&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Amount&gt;80.0&lt;/Amount&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Data&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Data&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;ProductId&gt;产品002号&lt;/ProductId&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Price&gt;99.0&lt;/Price&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Amount&gt;55.0&lt;/Amount&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Data&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Datas&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Body&gt;\n"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildFooter</span><span class="params">()</span> </span>&#123;</div><div class="line">        buffer.append(<span class="string">"&lt;Footer&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;ExportUser&gt;张三&lt;/ExportUser&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Footer&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Report&gt;\n"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> StringBuffer <span class="title">getResult</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> buffer;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> builder;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Builder builder;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Director</span><span class="params">(Builder builder)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.builder=builder;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">construct</span><span class="params">()</span></span>&#123;</div><div class="line">        builder.buildHeader();</div><div class="line">        builder.buildBody();</div><div class="line">        builder.buildFooter();</div><div class="line">        StringBuffer sb=builder.getResult();</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            File file=<span class="keyword">null</span>;</div><div class="line">            <span class="keyword">if</span>(builder <span class="keyword">instanceof</span> TxtBuilder)&#123;</div><div class="line">                file=<span class="keyword">new</span> File(<span class="string">"test.txt"</span>);</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                file=<span class="keyword">new</span> File(<span class="string">"test.xml"</span>);</div><div class="line">            &#125;</div><div class="line">            FileOutputStream fos=<span class="keyword">new</span> FileOutputStream(file);</div><div class="line">            fos.write(sb.toString().getBytes());</div><div class="line">            fos.close();</div><div class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> builder;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="comment">//Builder builder=new XmlBuilder();</span></div><div class="line">        Builder builder=<span class="keyword">new</span> TxtBuilder();</div><div class="line">        Director director=<span class="keyword">new</span> Director(builder);</div><div class="line">        director.construct();</div><div class="line">        System.out.println(<span class="string">"the end..."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="builder模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
+
       
     </div>
 
@@ -491,6 +494,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -800,6 +805,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

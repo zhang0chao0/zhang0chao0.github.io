@@ -105,7 +105,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/zhangchaozc.PNG">
 <meta property="og:image" content="https://zhang0chao0.github.io/images/changyan.PNG">
-<meta property="og:updated_time" content="2017-08-17T07:23:35.815Z">
+<meta property="og:updated_time" content="2017-08-18T05:16:18.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建hexo博客(3)">
 <meta name="twitter:description" content="前言看了之前的文章，你自己写文章已经OK了，如果你想把博客变得更炫酷（头像旋转、背景动画等），我推荐看这篇文章，我也是看的这个配置的，写的很好。 搜索功能打开主题配置文件，找到这个： 123456789# Local search# Dependencies: https://github.com/flashlab/hexo-generator-searchlocal_search:  enabl">
@@ -381,6 +381,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/08/17/搭建hexo博客-3/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/08/17/搭建hexo博客-3/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -429,14 +440,6 @@
 
 <p>把这段代码放在你的文章最后就行了，SourceID必须要唯一确定一篇文章，这里我的SourceID就是文章名（可以支持中文）。</p>
 <p>大家可以自己动手玩自己的博客了哦~</p>
-<p><div id="SOHUCS" sid="搭建hexo博客3"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 
       
     </div>
@@ -512,6 +515,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -821,6 +826,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

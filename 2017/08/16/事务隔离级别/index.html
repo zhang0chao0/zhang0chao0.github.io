@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-17T03:52:24.045Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:44.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事务隔离级别">
 <meta name="twitter:description" content="前言数据库事务的隔离级别有4个，由低到高依次为Read uncommitted（读未提交）、Read committed（读已提交）、Repeatable read（重复读）、Serializable（序列化）。 读未提交A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；但A发现打错了，回滚了事务，B再查看就发现钱没有了。B之前读了未提交的事务，出现了脏读。">
@@ -377,6 +377,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/08/16/事务隔离级别/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/08/16/事务隔离级别/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -447,14 +458,6 @@
 <li>隔离性：<br>隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个<code>并发</code>事务之间要<code>相互隔离</code>。</li>
 <li>持久性：<br>持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是<code>永久性</code>的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。</li>
 </ol>
-<p><div id="SOHUCS" sid="事务隔离级别"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 
       
     </div>
@@ -528,6 +531,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -837,6 +842,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 

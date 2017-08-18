@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhang0chao0.github.io/"/>
-  <updated>2017-08-17T07:23:35.815Z</updated>
+  <updated>2017-08-18T05:16:18.358Z</updated>
   <id>https://zhang0chao0.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://zhang0chao0.github.io/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/"/>
     <id>https://zhang0chao0.github.io/2017/08/17/搭建hexo博客-3/</id>
     <published>2017-08-17T03:55:53.000Z</published>
-    <updated>2017-08-17T07:23:35.815Z</updated>
+    <updated>2017-08-18T05:16:18.358Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看了之前的文章，你自己写文章已经OK了，如果你想把博客变得<code>更炫酷</code>（头像旋转、背景动画等），我推荐看<a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="external">这篇文章</a>，我也是看的这个配置的，写的很好。</p>
 <h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>打开<code>主题配置文件</code>，找到这个：</p>
@@ -49,14 +49,6 @@
 
 <p>把这段代码放在你的文章最后就行了，SourceID必须要唯一确定一篇文章，这里我的SourceID就是文章名（可以支持中文）。</p>
 <p>大家可以自己动手玩自己的博客了哦~</p>
-<p><div id="SOHUCS" sid="搭建hexo博客3"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -79,7 +71,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/"/>
     <id>https://zhang0chao0.github.io/2017/08/17/搭建hexo博客-2/</id>
     <published>2017-08-17T02:48:45.000Z</published>
-    <updated>2017-08-17T03:49:33.487Z</updated>
+    <updated>2017-08-18T05:16:18.275Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果看过<code>搭建hexo博客(1)</code>并且成功的，可以往后看，我会教大家一步步把博客变成我现在的样子；<br>如果没有成功，请评论或私聊我。</p>
 <h3 id="我的目录结构"><a href="#我的目录结构" class="headerlink" title="我的目录结构"></a>我的目录结构</h3><div align="center"><br><img src="/images/catalog.PNG" alt="catalog"><br></div>
@@ -110,14 +102,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <p>发布前想预览下，可以用<code>hexo server</code>在本地预览。</p>
 <h3 id="常用命令总结"><a href="#常用命令总结" class="headerlink" title="常用命令总结"></a>常用命令总结</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//常用命令</div><div class="line">hexo new &quot;postName&quot; #新建文章</div><div class="line">hexo new page &quot;pageName&quot; #新建页面</div><div class="line">hexo generate #生成静态页面至public目录</div><div class="line">hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）</div><div class="line">hexo deploy #将.deploy目录部署到GitHub</div><div class="line">hexo help  #查看帮助</div><div class="line">hexo version  #查看Hexo的版本</div></pre></td></tr></table></figure>
 <p>好了，基本可以写文章了。如果有困难请评论或联系我。</p>
-<p><div id="SOHUCS" sid="搭建hexo博客2"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -139,7 +123,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/08/16/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
     <id>https://zhang0chao0.github.io/2017/08/16/事务隔离级别/</id>
     <published>2017-08-16T07:32:04.000Z</published>
-    <updated>2017-08-17T03:52:24.045Z</updated>
+    <updated>2017-08-18T05:24:44.615Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>数据库事务的隔离级别有<code>4</code>个，由低到高依次为<code>Read uncommitted</code>（读未提交）、<code>Read committed</code>（读已提交）、<code>Repeatable read</code>（重复读）、<code>Serializable</code>（序列化）。</p>
 <h3 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h3><p>A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；<br>但A发现打错了，<code>回滚</code>了事务，B再查看就发现钱没有了。<br>B之前读了未提交的事务，出现了<code>脏读</code>。</p>
@@ -190,14 +174,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <li>隔离性：<br>隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个<code>并发</code>事务之间要<code>相互隔离</code>。</li>
 <li>持久性：<br>持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是<code>永久性</code>的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。</li>
 </ol>
-<p><div id="SOHUCS" sid="事务隔离级别"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -217,7 +193,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/30/%E5%8F%8D%E5%B0%84/"/>
     <id>https://zhang0chao0.github.io/2017/07/30/反射/</id>
     <published>2017-07-30T09:57:39.000Z</published>
-    <updated>2017-08-12T16:21:18.515Z</updated>
+    <updated>2017-08-18T05:24:44.386Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。</p>
 <h3 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h3><p>在<code>类加载</code>这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。<br>那么这些信息是有用的，比如反射。可以利用信息产生类对象、获取并执行类方法等。下面通过代码来说明。</p>
@@ -232,14 +208,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <p>如果函数有返回值可以用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Object value = method.invoke(p,name);</div></pre></td></tr></table></figure></p>
 <p>来接收。</p>
 <p>还有更多的方法可以查看API文档，我就不一一测试了。<br>总结：有了类信息后，可以动态的对类进行操作，很灵活~</p>
-<p><div id="SOHUCS" sid="反射"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -261,7 +229,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/30/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
     <id>https://zhang0chao0.github.io/2017/07/30/类加载/</id>
     <published>2017-07-30T09:53:06.000Z</published>
-    <updated>2017-07-31T08:23:06.424Z</updated>
+    <updated>2017-08-18T05:24:45.093Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>要理解<code>RTTI</code>（运行时类型信息）在Java中的工作原理，必须知道<code>类型信息</code>是如何表示的。</p>
 <h3 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h3><p>每个类都有一个<code>Class对象</code>，每当编译了一个类，就会产生一个Class对象，保存在同名的.class文件中。<br>当程序运行时，虚拟机把描述类的数据<code>从class文件中加载到内存</code>，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。</p>
@@ -296,16 +264,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <h3 id="ClassLoader类"><a href="#ClassLoader类" class="headerlink" title="ClassLoader类"></a>ClassLoader类</h3><p>java.lang.ClassLoader类的基本职责就是根据一个指定的类的名称，找到或者生成其对应的字节代码，然后从这些字节代码中定义出一个Java类，即java.lang.Class类的一个实例。</p>
 <p>ClassLoader提供了一系列的方法，比较重要的方法如：</p>
 <div align="center"><br><img src="/images/classload2.png" alt="classload2"><br></div>
-
-
-<p><div id="SOHUCS" sid="类加载"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -328,7 +286,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/30/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/"/>
     <id>https://zhang0chao0.github.io/2017/07/30/垃圾内存回收/</id>
     <published>2017-07-30T09:03:47.000Z</published>
-    <updated>2017-07-30T09:49:59.738Z</updated>
+    <updated>2017-08-18T05:24:44.798Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。</p>
 <h3 id="找出回收的内存"><a href="#找出回收的内存" class="headerlink" title="找出回收的内存"></a>找出回收的内存</h3><ol>
@@ -363,15 +321,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <li>弱引用：<br>一旦被JVM发现，就会被回收。</li>
 <li>虚引用：<br>虚引用是每次垃圾回收的时候都会被回收，虚引用主要用于检测对象是否已经从内存中删除。</li>
 </ul>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="垃圾内存回收"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -396,7 +345,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/28/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/"/>
     <id>https://zhang0chao0.github.io/2017/07/28/搭建hexo博客-1/</id>
     <published>2017-07-28T08:42:49.000Z</published>
-    <updated>2017-08-17T02:45:54.583Z</updated>
+    <updated>2017-08-18T05:16:18.327Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress<code>很难移植</code>，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。</p>
 <h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ol>
@@ -422,15 +371,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <p>即可，然后在浏览器输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yourname.github.io</div></pre></td></tr></table></figure></p>
 <p>就能看到你自己的的博客了~</p>
 <p>搭建博客已完成，后续会写怎么切换主题以及写文章。（遇到问题可以评论或者联系我）</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="搭建hexo博客1"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -457,7 +397,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/26/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/"/>
     <id>https://zhang0chao0.github.io/2017/07/26/搭建wordpress博客/</id>
     <published>2017-07-26T03:54:12.000Z</published>
-    <updated>2017-07-28T09:49:08.415Z</updated>
+    <updated>2017-08-18T05:24:44.518Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我只会教大家<code>傻瓜式</code>的搭建博客，不用配任何环境，如果你是大神，会配任何环境，就不用往下看了。听起来是不是有点小激动~</p>
 <h2 id="1-阿里云-wordpress"><a href="#1-阿里云-wordpress" class="headerlink" title="1.阿里云 + wordpress"></a>1.阿里云 + wordpress</h2><p>首先买一个属于自己的服务器，也就是属于自己的IP。阿里云或腾讯云都可以，阿里云学生机地址<a href="http://click.aliyun.com/m/12564/" target="_blank" rel="external">链接</a>。</p>
@@ -504,15 +444,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <p>查看运行的镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# docker ps -a</div><div class="line">CONTAINER ID        IMAGE                                                    COMMAND                  CREATED             STATUS                          PORTS                    NAMES</div><div class="line">ce66e7cdb67c        registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress   &quot;/entry.sh apache2-fo&quot;   2 minutes ago       Exited (0) About a minute ago                            zc</div><div class="line">4a17847f9a0b        registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql    &quot;/entrypoint.sh mysql&quot;   12 minutes ago      Up 12 minutes                   0.0.0.0:3306-&gt;3306/tcp   yourname</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu#</div></pre></td></tr></table></figure></p>
 <p>还有一些基本命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">停止运行：docker stop 容器ID</div><div class="line">重启容器：docker restart 容器ID</div></pre></td></tr></table></figure></p>
 <p>在浏览器中输入IP地址，就能看到wordpress的安装界面了~</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="搭建wordpress博客"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>]]></content>
+]]></content>
     
     <summary type="html">
     
@@ -536,7 +468,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/26/JVM/"/>
     <id>https://zhang0chao0.github.io/2017/07/26/JVM/</id>
     <published>2017-07-26T02:02:58.000Z</published>
-    <updated>2017-07-26T03:38:36.193Z</updated>
+    <updated>2017-08-18T05:24:44.341Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>JVM模型定义了一些内存区域，有的在程序运行时产生，在程序结束时销毁，称之为<code>全局区域</code>，有的在线程运行时创建，线程结束时销毁，称之为 <code>线程私有</code>的内存区域。</p>
 <p>内存结构分区图：</p>
@@ -599,15 +531,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 </tr>
 </tbody>
 </table>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="JVM"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -637,7 +560,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/25/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/"/>
     <id>https://zhang0chao0.github.io/2017/07/25/HTTP状态码/</id>
     <published>2017-07-25T09:44:11.000Z</published>
-    <updated>2017-07-25T10:37:06.730Z</updated>
+    <updated>2017-08-18T05:24:44.750Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>本文总结于网络</strong>，总结一下HTTP返回的状态码。</p>
 <h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><ul>
@@ -686,15 +609,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <h6 id="503"><a href="#503" class="headerlink" title="503"></a>503</h6><p>(SC_SERVICE_UNAVAILABLE)表示服务器由于在维护或已经超载而无法响应。例如，如果某些线程或数据库连接池已经没有空闲则servlet会返回这个头信息。服务器可提供一个Retry-After头信息告诉客户端什么时候可以在试一次。</p>
 <h6 id="504"><a href="#504" class="headerlink" title="504"></a>504</h6><p>(Gateway Timeout/网关超时)</p>
 <h6 id="505"><a href="#505" class="headerlink" title="505"></a>505</h6><p>不支持的HTTP协议版本。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="HTTP状态码"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>]]></content>
+]]></content>
     
     <summary type="html">
     
@@ -724,7 +639,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/%E5%85%AC%E9%92%A5-%E7%A7%81%E9%92%A5/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/公钥-私钥/</id>
     <published>2017-07-24T13:56:19.000Z</published>
-    <updated>2017-07-25T10:44:43.976Z</updated>
+    <updated>2017-08-18T05:24:44.886Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。</p>
 <h3 id="发送电子邮件"><a href="#发送电子邮件" class="headerlink" title="发送电子邮件"></a>发送电子邮件</h3><p>使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：</p>
@@ -748,15 +663,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <li>保证信息是由签名者自己签名发送的，签名者不能否认或难以否认；</li>
 <li>保证信息自签发后到收到为止未曾作过任何修改，签发的文件是真实文件。</li>
 </ol>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="公钥-私钥"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -783,7 +689,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/网页显示/</id>
     <published>2017-07-24T13:09:47.000Z</published>
-    <updated>2017-07-24T13:20:01.317Z</updated>
+    <updated>2017-08-18T05:24:45.268Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>打开一个浏览器，输入www.baidu.com， 回车，就会显示出网页，那么里面到底发生了什么？</p>
 <ol>
@@ -805,15 +711,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <li>然后进入步骤7。</li>
 </ol>
 <p>没错，其实干了这么多事，当然我还有总结的不全的地方，欢迎指出。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="网页显示"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -842,7 +739,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/String-StringBuilder-StringBuffer/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/String-StringBuilder-StringBuffer/</id>
     <published>2017-07-24T12:46:16.000Z</published>
-    <updated>2017-07-24T13:03:33.535Z</updated>
+    <updated>2017-08-18T05:24:45.217Z</updated>
     
     <content type="html"><![CDATA[<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>String是放在常量池中的常量，所谓常量，就是这个对象一旦产生，它的值就不会变。有人疑问：不是有String a=a+”xx”这样的写法吗，这是因为a在加上”xx”后，已经不是原来的a了，a在加之后又变成了一个新的对象，只不过名字也叫a。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></div><div class="line">        <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * The value is used for character storage.</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Cache the hash code for the string</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></div><div class="line"></div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -855,15 +752,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">......</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> value.length;</div><div class="line">&#125;</div><div class="line"></div><div class="line">......</div></pre></td></tr></table></figure>
 <p>可以看到，每个关键的操作函数都加了synchronized关键字修饰，可以看出这是一个线程安全的操作，非静态方法被synchronized修饰后，当有多个线程操作同一个StringBuffer对象时，它们只能有一个操作append方法。所以说StringBuffer是线程安全的StringBuilder，那么在效率上肯定不如StringBuilder了。</p>
 <h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><p>关于synchronized的加锁，在静态方法和非静态方法上加是有区别的。静态方法上加会影响这个类的所有对象，而非静态上加只是影响其中某一个对象。具体看看static关键字的用法，不多解释了。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="String-StringBuilder-StringBuffer"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>]]></content>
+]]></content>
     
     <summary type="html">
     
@@ -885,7 +774,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/String%E7%B1%BB/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/String类/</id>
     <published>2017-07-24T12:31:34.000Z</published>
-    <updated>2017-07-24T12:50:37.798Z</updated>
+    <updated>2017-08-18T05:24:44.412Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>String类是Java中的常用类，面试也会经常被问到。下面我就一个问题进行切入：<br>问题：String a=new String(“a”) ，这条语句执行后创建了几个对象？</p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><ol>
@@ -900,15 +789,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <li>两个变量是否同一块内存。很明显，两次new出来的内存能一样吗？一样的概率就是你中彩票的概率了，还有就是堆内存和常量池中的内存，肯定是不一样的！结果的话大家可以自己在本地下跑一下，加深印象。</li>
 </ol>
 <h3 id="引申问题"><a href="#引申问题" class="headerlink" title="引申问题"></a>引申问题</h3><p>问题：String a=”a”+”b”+”c”; 内存中会出现几个对象？<br>解答：第一眼会以为是3个，其实就错了，其实就1个对象”abc”在常量池中。为毛？因为编译器很聪明，它在编译的时候就算出”a”+”b”+”c”的值为”abc”了，所以编译器看到的就是”abc”，那么常量池中就1个对象了。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="String类"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -933,7 +813,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/finalize%E4%B8%8Efinally/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/finalize与finally/</id>
     <published>2017-07-24T12:23:07.000Z</published>
-    <updated>2017-07-24T12:50:37.936Z</updated>
+    <updated>2017-08-18T05:24:45.310Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>众所周知，Java语言除了8种基本的数据类型以外，处处皆对象，Java中所有的类都是继承于Object类（包括你自己写的），而finalize()是Object类中的一个方法，这个方法在垃圾内存回收中被用到。</p>
 <h3 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h3><p>当一个对象A的内存要被回收时，会调用其finalize()方法，如果A对象没有该方法，对不起，这块内存会直接被释放掉，如果在A这个方法内，A对象又被新的对象引用，那么A对象将重生了！即A对象的内存不会被释放。<br><strong>注意</strong>：不要把finalize()与C++中的析构函数相提并论，因为它们不是同一个玩意，一个对象被析构了，它不一定会被内存回收。</p>
@@ -944,15 +824,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> clear;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/24.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">readFile</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            FileInputStream is=<span class="keyword">new</span> FileInputStream(<span class="string">"1.txt"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</div><div class="line">            <span class="comment">//e.printStackTrace();</span></div><div class="line">            System.out.println(<span class="string">"file not found"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            System.out.println(<span class="string">"finally..."</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        System.out.println(readFile());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>控制台：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">file not found</div><div class="line">finally...</div><div class="line">false</div></pre></td></tr></table></figure></p>
 <p>惊不惊喜！？意不意外？这样就可以证明finally块是最后被调用的。</p>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="finalize与finally"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -974,7 +845,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/适配器模式/</id>
     <published>2017-07-24T10:36:58.000Z</published>
-    <updated>2017-07-24T12:18:14.842Z</updated>
+    <updated>2017-08-18T05:24:45.042Z</updated>
     
     <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>我想实现一个功能，准备自己动手写一个，但是我发现我的同事小张他写过这个功能，那我肯定不想自己写了，我想直接拿过来用。但是他的类函数结构跟我原来设定的结构有些冲突，不能直接拿过来用，怎么办！？自己写一个适配器啊，这就是适配器模式。简单的来说，就是我想用别人的代码，但是函数名什么的要我自己来命名。那就只能在自己的函数中调用别人的函数了。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/adapter.PNG" alt="adapter"><br></div>
@@ -984,15 +855,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> adapter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/13.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">specificOperate1</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is Adaptee specificOperate1"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">specificOperate2</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is Adaptee specificOperate2"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> adapter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/13.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">implements</span> <span class="title">Target</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Adaptee adaptee;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Adapter</span><span class="params">(Adaptee adaptee)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.adaptee = adaptee;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operate1</span><span class="params">()</span> </span>&#123;</div><div class="line">        adaptee.specificOperate1();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operate2</span><span class="params">()</span> </span>&#123;</div><div class="line">        adaptee.specificOperate2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> adapter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/13.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Adaptee adaptee=<span class="keyword">new</span> Adaptee();</div><div class="line">        Target target=<span class="keyword">new</span> Adapter(adaptee);</div><div class="line">        target.operate1();</div><div class="line">        target.operate2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="适配器模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>]]></content>
+]]></content>
     
     <summary type="html">
     
@@ -1011,7 +874,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/组合模式/</id>
     <published>2017-07-24T10:31:44.000Z</published>
-    <updated>2017-07-24T12:18:14.903Z</updated>
+    <updated>2017-08-18T05:24:44.974Z</updated>
     
     <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>组合模式比较简单和基础，就是描述对象之间1对多的关系，例如：1个领导有多个下属。这个模式用下Java的集合类就可以实现了。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/composite.PNG" alt="composite"><br></div>
@@ -1021,15 +884,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 员工类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employe</span> <span class="keyword">implements</span> <span class="title">Worker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employe</span><span class="params">(String name)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.name=name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"I am an Employe:"</span>+name);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 领导类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leader</span> <span class="keyword">implements</span> <span class="title">Worker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> List&lt;Worker&gt;workers=<span class="keyword">new</span> ArrayList&lt;Worker&gt;();</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Leader</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addWorker</span><span class="params">(Worker worker)</span></span>&#123;</div><div class="line">        workers.add(worker);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeWorker</span><span class="params">(Worker worker)</span></span>&#123;</div><div class="line">        workers.remove(worker);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"I am a Leader:"</span>+name+<span class="string">",I have "</span>+workers.size()+<span class="string">" Employe"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 测试类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Leader lead=<span class="keyword">new</span> Leader(<span class="string">"Leader1"</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</div><div class="line">            Worker employe=<span class="keyword">new</span> Employe(<span class="string">"Employe"</span>);</div><div class="line">            lead.addWorker(employe);</div><div class="line">        &#125;</div><div class="line">        lead.doSomething();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="组合模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>]]></content>
+]]></content>
     
     <summary type="html">
     
@@ -1048,7 +903,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/代理模式/</id>
     <published>2017-07-24T09:45:05.000Z</published>
-    <updated>2017-07-24T12:14:47.529Z</updated>
+    <updated>2017-08-18T05:24:44.942Z</updated>
     
     <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。</p>
 <h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。</p>
@@ -1060,15 +915,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CEO</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"the CEO is signing"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Assistant</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Leader leader;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Assistant</span><span class="params">(Leader leader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.leader = leader;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"before sign,do something"</span>);</div><div class="line">        leader.sign();</div><div class="line">        System.out.println(<span class="string">"end sign,do something"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Leader ceo=<span class="keyword">new</span> CEO();</div><div class="line">        Leader assistant=<span class="keyword">new</span> Assistant(ceo);</div><div class="line">        assistant.sign();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="代理模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -1090,7 +936,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/命令模式/</id>
     <published>2017-07-24T09:36:50.000Z</published>
-    <updated>2017-07-24T12:14:47.573Z</updated>
+    <updated>2017-08-18T05:24:44.998Z</updated>
     
     <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>命令模式有命令发出者和命令接收者。总体上来说就是：</p>
 <ol>
@@ -1107,15 +953,6 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receicer</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"receive the command"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Invoker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Command command;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCommand</span><span class="params">(Command command)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.command = command;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">executeCommand</span><span class="params">()</span></span>&#123;</div><div class="line">        command.execute();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Receicer receicer=<span class="keyword">new</span> Receicer();</div><div class="line">        Command command=<span class="keyword">new</span> ConcreteCommand(receicer);</div><div class="line">        Invoker invoker=<span class="keyword">new</span> Invoker();</div><div class="line">        invoker.setCommand(command);</div><div class="line">        invoker.executeCommand();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="命令模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 ]]></content>
     
     <summary type="html">
@@ -1141,7 +978,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
     <link href="https://zhang0chao0.github.io/2017/07/24/builder%E6%A8%A1%E5%BC%8F/"/>
     <id>https://zhang0chao0.github.io/2017/07/24/builder模式/</id>
     <published>2017-07-24T08:18:16.000Z</published>
-    <updated>2017-07-24T12:14:47.446Z</updated>
+    <updated>2017-08-18T05:24:44.656Z</updated>
     
     <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>我要写一个文件，文件分为xml文件和txt文件，文件都有的特性：文件头header，文件内容body，文件为footer。我肯定要用一个抽象的builder接口（有builder文件的方法），然后用具体的实现类去实现builder。还要有一个director类来控制整个builde流程。</p>
 <h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>使用builder模式，所有的控制权都在director上，一个大系统有很多零件，director可以决定哪个零件要，哪个零件不要，以及零件的组装顺序。万一有一天系统中的某个零件不要了或者零件的安装顺序变了，只用修改director类，其它都不用变。</p>
@@ -1153,15 +990,7 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> builder;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XmlBuilder</span> <span class="keyword">implements</span> <span class="title">Builder</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> StringBuffer buffer=<span class="keyword">new</span> StringBuffer();</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildHeader</span><span class="params">()</span> </span>&#123;</div><div class="line">        buffer.append(<span class="string">"&lt;?xml version='1.0' encoding='gb2312'?&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Report&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Header&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;DepId&gt;一分公司&lt;/DepId&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;ExportDate&gt;2010-05-18&lt;/ExportDate&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Header&gt;\n"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildBody</span><span class="params">()</span> </span>&#123;</div><div class="line">        buffer.append(<span class="string">"&lt;Body&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Datas TableName=\"销售记录表\"&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Data&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;ProductId&gt;产品001号&lt;/ProductId&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Price&gt;100.0&lt;/Price&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Amount&gt;80.0&lt;/Amount&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Data&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Data&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;ProductId&gt;产品002号&lt;/ProductId&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Price&gt;99.0&lt;/Price&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;Amount&gt;55.0&lt;/Amount&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Data&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Datas&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Body&gt;\n"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildFooter</span><span class="params">()</span> </span>&#123;</div><div class="line">        buffer.append(<span class="string">"&lt;Footer&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;ExportUser&gt;张三&lt;/ExportUser&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Footer&gt;\n"</span>);</div><div class="line">        buffer.append(<span class="string">"&lt;/Report&gt;\n"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> StringBuffer <span class="title">getResult</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> buffer;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> builder;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Builder builder;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Director</span><span class="params">(Builder builder)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.builder=builder;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">construct</span><span class="params">()</span></span>&#123;</div><div class="line">        builder.buildHeader();</div><div class="line">        builder.buildBody();</div><div class="line">        builder.buildFooter();</div><div class="line">        StringBuffer sb=builder.getResult();</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            File file=<span class="keyword">null</span>;</div><div class="line">            <span class="keyword">if</span>(builder <span class="keyword">instanceof</span> TxtBuilder)&#123;</div><div class="line">                file=<span class="keyword">new</span> File(<span class="string">"test.txt"</span>);</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                file=<span class="keyword">new</span> File(<span class="string">"test.xml"</span>);</div><div class="line">            &#125;</div><div class="line">            FileOutputStream fos=<span class="keyword">new</span> FileOutputStream(file);</div><div class="line">            fos.write(sb.toString().getBytes());</div><div class="line">            fos.close();</div><div class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> builder;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="comment">//Builder builder=new XmlBuilder();</span></div><div class="line">        Builder builder=<span class="keyword">new</span> TxtBuilder();</div><div class="line">        Director director=<span class="keyword">new</span> Director(builder);</div><div class="line">        director.construct();</div><div class="line">        System.out.println(<span class="string">"the end..."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<!--畅言代码-->
-<p><div id="SOHUCS" sid="builder模式"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>]]></content>
+]]></content>
     
     <summary type="html">
     

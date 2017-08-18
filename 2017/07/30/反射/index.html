@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="前言反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。 Class类在类加载这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。那么这些信息是有用的，比">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-12T16:21:18.515Z">
+<meta property="og:updated_time" content="2017-08-18T05:24:44.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反射">
 <meta name="twitter:description" content="前言反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。 Class类在类加载这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。那么这些信息是有用的，比">
@@ -378,6 +378,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/07/30/反射/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/07/30/反射/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -412,14 +423,6 @@
 <p>如果函数有返回值可以用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Object value = method.invoke(p,name);</div></pre></td></tr></table></figure></p>
 <p>来接收。</p>
 <p>还有更多的方法可以查看API文档，我就不一一测试了。<br>总结：有了类信息后，可以动态的对类进行操作，很灵活~</p>
-<p><div id="SOHUCS" sid="反射"></div></p>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-appid: 'cyt5L09cj',
-conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
-});
-</script>
 
       
     </div>
@@ -499,6 +502,8 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
           
   <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -808,6 +813,21 @@ conf: 'prod_cada33b805b1f7ba2c8775f16ffbf531'
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 
