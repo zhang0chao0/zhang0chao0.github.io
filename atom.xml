@@ -58,7 +58,7 @@
     <link href="http://zhangchaozc.cn/2017/08/21/git%E5%85%A5%E9%97%A8/"/>
     <id>http://zhangchaozc.cn/2017/08/21/git入门/</id>
     <published>2017-08-21T07:59:35.000Z</published>
-    <updated>2017-08-21T12:13:59.069Z</updated>
+    <updated>2017-08-21T12:15:58.805Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇<code>git入门</code>和<code>node入门</code>来帮助他们。</p>
 <h3 id="git是什么？"><a href="#git是什么？" class="headerlink" title="git是什么？"></a>git是什么？</h3><p>假如多个人共同开发一个项目，怎么确保<code>代码的同步</code>？假如你修改了别人的代码或者别人修改了你的代码，很容易出现<code>冲突</code>的情况。<br>于是git诞生了，如果你找工作不会用<code>git</code>，这是致命的不足。因为没有那个公司不用它！</p>
@@ -79,7 +79,7 @@
 <div align="center"><br><img src="/images/git21.PNG" alt="git21"><br></div>
 
 <p>进入<code>C:\Users\xx\.ssh</code>文件夹，把<code>id_rsa.pub</code>里面的密钥贴到你的github上，这是你和github通信的凭证，不然会出权限错误。一旦通信成功，会生成<code>known_hosts</code>文件，里面存放了你哪些仓库建立过链接。</p>
-<div align="center"><br><img src="/images/git22.PNG" alt="git22"><br></div>
+<div align="center"><br><img src="/images/git22.png" alt="git22"><br></div>
 
 <div align="center"><br><img src="/images/git3.PNG" alt="git3"><br></div>
 

@@ -54,7 +54,7 @@
 <div align="center"><br><img src="/images/git21.PNG" alt="git21"><br></div>
 
 <p>进入<code>C:\Users\xx\.ssh</code>文件夹，把<code>id_rsa.pub</code>里面的密钥贴到你的github上，这是你和github通信的凭证，不然会出权限错误。一旦通信成功，会生成<code>known_hosts</code>文件，里面存放了你哪些仓库建立过链接。</p>
-<div align="center"><br><img src="/images/git22.PNG" alt="git22"><br></div>
+<div align="center"><br><img src="/images/git22.png" alt="git22"><br></div>
 
 <div align="center"><br><img src="/images/git3.PNG" alt="git3"><br></div>
 
