@@ -3,6 +3,121 @@
   
     
     <entry>
+      <title><![CDATA[node入门]]></title>
+      <url>/2017/08/21/node%E5%85%A5%E9%97%A8/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为啥会入node，我也不知道，实习中公司用我就学着写了。写了node还是有好处的，至少我几个小时就用<code>github pages</code>搭建了博客。</p>
+<h3 id="安装node环境"><a href="#安装node环境" class="headerlink" title="安装node环境"></a>安装node环境</h3><p>不想重复造轮子了，直接推荐看<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">这篇文章</a>，和git一样，傻瓜式双击安装。</p>
+<h3 id="node项目"><a href="#node项目" class="headerlink" title="node项目"></a>node项目</h3><p>我github上有一个入门的项目，用node写的一个RESTful API，我能去公司实习就是写了这个给别人看了，就通过考核了。<br>欢迎<a href="https://github.com/zhang0chao0/NodeHelloWorld" target="_blank" rel="external">下载</a>来看。</p>
+<a id="more"></a>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>检查环境：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node -v</div></pre></td></tr></table></figure></p>
+<p>安装一个依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install xxx --save</div></pre></td></tr></table></figure></p>
+<p>这个包会安装到项目的<code>node_modules</code>文件夹中，具体依赖会写到<code>package.json</code>中。<br>有点类似maven，当项目部署时，我们不需要node_modules文件夹，也不能要它。在线上只需要<code>npm install</code>一下，所有的依赖包就会从package.json中读取并安装好，自动生成node_modules在线上。</p>
+<p>安装一个依赖（全局）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install xxx -g</div></pre></td></tr></table></figure></p>
+<p>这个包会安装到<code>C:\Users\xx\AppData\Roaming\npm\node_modules</code>中，对所有的node项目都有效。</p>
+<p>安装包默认在国外的仓库下载，如果你下载不成功（一般都会不成功），有两种方法：</p>
+<ol>
+<li>配置代理。</li>
+<li>更改仓库为国内的淘宝npm库。</li>
+</ol>
+<p>如何配置请看<code>搭建hexo博客(1)</code>，里面有讲到。</p>
+<p>好了，写node就是写js，一样的，函数什么的看<a href="http://nodejs.cn/api/addons.html" target="_blank" rel="external">官方文档</a>，语法什么的跟js一样~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> node </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[git入门]]></title>
+      <url>/2017/08/21/git%E5%85%A5%E9%97%A8/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇<code>git入门</code>和<code>node入门</code>来帮助他们。</p>
+<h3 id="git是什么？"><a href="#git是什么？" class="headerlink" title="git是什么？"></a>git是什么？</h3><p>假如多个人共同开发一个项目，怎么确保<code>代码的同步</code>？假如你修改了别人的代码或者别人修改了你的代码，很容易出现<code>冲突</code>的情况。<br>于是git诞生了，如果你找工作不会用<code>git</code>，这是致命的不足。因为没有那个公司不用它！</p>
+<h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>github=git+hub，即git仓库。git仓库有很多，github或者国内的<a href="https://coding.net/" target="_blank" rel="external">码云</a>，它是一个云仓库，相当于一个<code>中介</code>，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。<br>而且仓库自己带有<code>解决冲突</code>的机制，帮助我们解决代码冲突！</p>
+<a id="more"></a>
+<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>本人是win10电脑，直接去官网<a href="https://git-for-windows.github.io/" target="_blank" rel="external">下载</a>，点击download。下载后是一个exe文件，双击傻瓜式安装即可。<br>安装完后，随便进入一个文件夹（包括桌面），右键：</p>
+<div align="center"><br><img src="/images/git1.png" alt="git1"><br></div>
+
+<p>只有傻瓜才用1，点击2，进入命令行，随便打个linux的命令：</p>
+<div align="center"><br><img src="/images/git2.PNG" alt="git2"><br></div>
+
+<p>你会发现<code>ls</code>列出了当前目录的所有文件和文件夹，这个命令在win10 <code>cmd</code>下是无法解析的，也就是说，git完全可以代替你的windows cmd命令行，而且可以把windows当linux来耍！</p>
+<h3 id="玩github"><a href="#玩github" class="headerlink" title="玩github"></a>玩github</h3><p>注册一个github账号。然后生成你的专属SSH key，随便进入一个目录，利用git：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;your email&quot;</div></pre></td></tr></table></figure></p>
+<p>“your email”填你的邮箱地址，进入<code>C:\Users\xx\.ssh</code>文件夹（你会发现多了<code>.ssh</code>文件夹），里面有两个文件是你的<code>公钥</code>和<code>私钥</code>。</p>
+<p>进入github，把<code>id_rsa.pub</code>里面的密钥贴到你的github上，这是你和github通信的凭证，不然会出权限错误：</p>
+<div align="center"><br><img src="/images/git3.PNG" alt="git3"><br></div>
+
+<h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><div align="center"><br><img src="/images/git4.PNG" alt="git4"><br></div>
+
+<p>把远程项目克隆到本地，复制链接（建议用ssh）：</p>
+<div align="center"><br><img src="/images/git5.PNG" alt="git5"><br></div>
+
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><p>随便进入一个文件夹：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone url</div></pre></td></tr></table></figure></p>
+<p>把项目拉下来（url为你复制的链接）。</p>
+<p>接下来就可以对项目进行开发了，开发完后提交仓库（依次命令）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add *</div><div class="line">git commit -m &quot;第一次提交&quot;</div><div class="line">git push</div></pre></td></tr></table></figure></p>
+<p>如果提交成功，那么github上相应的就有这个项目了。</p>
+<p>自己动手试一下吧~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> git </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> github </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[nodejs中http请求timeout]]></title>
+      <url>/2017/08/21/nodejs%E4%B8%ADhttp%E8%AF%B7%E6%B1%82timeout/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末一个线上测试的脚本跑了两天，一直报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2017-08-19T06:32:00.021Z - error:  Error: socket hang up</div><div class="line">    at createHangUpError (_http_client.js:345:15)</div><div class="line">    at Socket.socketOnEnd (_http_client.js:437:23)</div><div class="line">    at emitNone (events.js:110:20)</div><div class="line">    at Socket.emit (events.js:207:7)</div><div class="line">    at endReadableNT (_stream_readable.js:1045:12)</div><div class="line">    at _combinedTickCallback (internal/process/next_tick.js:138:11)</div><div class="line">    at process._tickDomainCallback (internal/process/next_tick.js:218:9)</div></pre></td></tr></table></figure></p>
+<p>很明显，这是一个<code>http</code>的错误。</p>
+<h3 id="联想"><a href="#联想" class="headerlink" title="联想"></a>联想</h3><p>之前也遇到过这个问题，原因是http请求<code>端口号</code>写错了，导致不能发起连接。</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>在本地测试后（主要是打log），发现获取数据正在进行时，脚本就返回了这个错误。因为获取数据的时间太长了，http请求的默认超时时间是<code>2分钟</code>，所以导致http请求超时了。<br>解决思路：自定义http请求的超时时间。</p>
+<a id="more"></a>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
+<ol>
+<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
+<ol>
+<li>在需要设置超时时间的接口里面，加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>只对此接口有效。</p>
+<p>这样这个问题就解决了~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> node </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> HTTP </tag>
+            
+            <tag> timeout </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[初识maven]]></title>
       <url>/2017/08/20/%E5%88%9D%E8%AF%86maven/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>很久之前用过maven开发项目，但这几个月一直在公司写node.js，很少碰Java，为了不生疏，就写一系列的博客加强记忆，顺便教下小白（PS：我自己也是小白）。</p>
@@ -356,6 +471,7 @@
 <li>玩过github，至少上传过一个自己的项目/工程。</li>
 <li>有一定的node.js基础，至少安装过node环境，熟悉npm命令。</li>
 </ol>
+<p>如果没有基础的请看<code>git入门</code>和<code>node入门</code>两篇文章。</p>
 <h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="安装hexo："><a href="#安装hexo：" class="headerlink" title="安装hexo："></a>安装hexo：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
 <p>-g是全局安装，安装成功后可以使用<code>hexo</code>指令。</p>
 <a id="more"></a>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2017-08-20T16:06:38.389Z</updated>
+  <updated>2017-08-21T09:49:28.903Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,138 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>node入门</title>
+    <link href="http://zhangchaozc.cn/2017/08/21/node%E5%85%A5%E9%97%A8/"/>
+    <id>http://zhangchaozc.cn/2017/08/21/node入门/</id>
+    <published>2017-08-21T07:59:52.000Z</published>
+    <updated>2017-08-21T09:49:28.903Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为啥会入node，我也不知道，实习中公司用我就学着写了。写了node还是有好处的，至少我几个小时就用<code>github pages</code>搭建了博客。</p>
+<h3 id="安装node环境"><a href="#安装node环境" class="headerlink" title="安装node环境"></a>安装node环境</h3><p>不想重复造轮子了，直接推荐看<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">这篇文章</a>，和git一样，傻瓜式双击安装。</p>
+<h3 id="node项目"><a href="#node项目" class="headerlink" title="node项目"></a>node项目</h3><p>我github上有一个入门的项目，用node写的一个RESTful API，我能去公司实习就是写了这个给别人看了，就通过考核了。<br>欢迎<a href="https://github.com/zhang0chao0/NodeHelloWorld" target="_blank" rel="external">下载</a>来看。</p>
+<a id="more"></a>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>检查环境：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node -v</div></pre></td></tr></table></figure></p>
+<p>安装一个依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install xxx --save</div></pre></td></tr></table></figure></p>
+<p>这个包会安装到项目的<code>node_modules</code>文件夹中，具体依赖会写到<code>package.json</code>中。<br>有点类似maven，当项目部署时，我们不需要node_modules文件夹，也不能要它。在线上只需要<code>npm install</code>一下，所有的依赖包就会从package.json中读取并安装好，自动生成node_modules在线上。</p>
+<p>安装一个依赖（全局）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install xxx -g</div></pre></td></tr></table></figure></p>
+<p>这个包会安装到<code>C:\Users\xx\AppData\Roaming\npm\node_modules</code>中，对所有的node项目都有效。</p>
+<p>安装包默认在国外的仓库下载，如果你下载不成功（一般都会不成功），有两种方法：</p>
+<ol>
+<li>配置代理。</li>
+<li>更改仓库为国内的淘宝npm库。</li>
+</ol>
+<p>如何配置请看<code>搭建hexo博客(1)</code>，里面有讲到。</p>
+<p>好了，写node就是写js，一样的，函数什么的看<a href="http://nodejs.cn/api/addons.html" target="_blank" rel="external">官方文档</a>，语法什么的跟js一样~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;为啥会入node，我也不知道，实习中公司用我就学着写了。写了node还是有好处的，至少我几个小时就用&lt;code&gt;github pages&lt;/code&gt;搭建了博客。&lt;/p&gt;
+&lt;h3 id=&quot;安装node环境&quot;&gt;&lt;a href=&quot;#安装node环境&quot; class=&quot;headerlink&quot; title=&quot;安装node环境&quot;&gt;&lt;/a&gt;安装node环境&lt;/h3&gt;&lt;p&gt;不想重复造轮子了，直接推荐看&lt;a href=&quot;http://www.runoob.com/nodejs/nodejs-install-setup.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇文章&lt;/a&gt;，和git一样，傻瓜式双击安装。&lt;/p&gt;
+&lt;h3 id=&quot;node项目&quot;&gt;&lt;a href=&quot;#node项目&quot; class=&quot;headerlink&quot; title=&quot;node项目&quot;&gt;&lt;/a&gt;node项目&lt;/h3&gt;&lt;p&gt;我github上有一个入门的项目，用node写的一个RESTful API，我能去公司实习就是写了这个给别人看了，就通过考核了。&lt;br&gt;欢迎&lt;a href=&quot;https://github.com/zhang0chao0/NodeHelloWorld&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载&lt;/a&gt;来看。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>git入门</title>
+    <link href="http://zhangchaozc.cn/2017/08/21/git%E5%85%A5%E9%97%A8/"/>
+    <id>http://zhangchaozc.cn/2017/08/21/git入门/</id>
+    <published>2017-08-21T07:59:35.000Z</published>
+    <updated>2017-08-21T09:25:25.344Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇<code>git入门</code>和<code>node入门</code>来帮助他们。</p>
+<h3 id="git是什么？"><a href="#git是什么？" class="headerlink" title="git是什么？"></a>git是什么？</h3><p>假如多个人共同开发一个项目，怎么确保<code>代码的同步</code>？假如你修改了别人的代码或者别人修改了你的代码，很容易出现<code>冲突</code>的情况。<br>于是git诞生了，如果你找工作不会用<code>git</code>，这是致命的不足。因为没有那个公司不用它！</p>
+<h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>github=git+hub，即git仓库。git仓库有很多，github或者国内的<a href="https://coding.net/" target="_blank" rel="external">码云</a>，它是一个云仓库，相当于一个<code>中介</code>，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。<br>而且仓库自己带有<code>解决冲突</code>的机制，帮助我们解决代码冲突！</p>
+<a id="more"></a>
+<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>本人是win10电脑，直接去官网<a href="https://git-for-windows.github.io/" target="_blank" rel="external">下载</a>，点击download。下载后是一个exe文件，双击傻瓜式安装即可。<br>安装完后，随便进入一个文件夹（包括桌面），右键：</p>
+<div align="center"><br><img src="/images/git1.png" alt="git1"><br></div>
+
+<p>只有傻瓜才用1，点击2，进入命令行，随便打个linux的命令：</p>
+<div align="center"><br><img src="/images/git2.PNG" alt="git2"><br></div>
+
+<p>你会发现<code>ls</code>列出了当前目录的所有文件和文件夹，这个命令在win10 <code>cmd</code>下是无法解析的，也就是说，git完全可以代替你的windows cmd命令行，而且可以把windows当linux来耍！</p>
+<h3 id="玩github"><a href="#玩github" class="headerlink" title="玩github"></a>玩github</h3><p>注册一个github账号。然后生成你的专属SSH key，随便进入一个目录，利用git：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;your email&quot;</div></pre></td></tr></table></figure></p>
+<p>“your email”填你的邮箱地址，进入<code>C:\Users\xx\.ssh</code>文件夹（你会发现多了<code>.ssh</code>文件夹），里面有两个文件是你的<code>公钥</code>和<code>私钥</code>。</p>
+<p>进入github，把<code>id_rsa.pub</code>里面的密钥贴到你的github上，这是你和github通信的凭证，不然会出权限错误：</p>
+<div align="center"><br><img src="/images/git3.PNG" alt="git3"><br></div>
+
+<h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><div align="center"><br><img src="/images/git4.PNG" alt="git4"><br></div>
+
+<p>把远程项目克隆到本地，复制链接（建议用ssh）：</p>
+<div align="center"><br><img src="/images/git5.PNG" alt="git5"><br></div>
+
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><p>随便进入一个文件夹：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone url</div></pre></td></tr></table></figure></p>
+<p>把项目拉下来（url为你复制的链接）。</p>
+<p>接下来就可以对项目进行开发了，开发完后提交仓库（依次命令）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add *</div><div class="line">git commit -m &quot;第一次提交&quot;</div><div class="line">git push</div></pre></td></tr></table></figure></p>
+<p>如果提交成功，那么github上相应的就有这个项目了。</p>
+<p>自己动手试一下吧~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇&lt;code&gt;git入门&lt;/code&gt;和&lt;code&gt;node入门&lt;/code&gt;来帮助他们。&lt;/p&gt;
+&lt;h3 id=&quot;git是什么？&quot;&gt;&lt;a href=&quot;#git是什么？&quot; class=&quot;headerlink&quot; title=&quot;git是什么？&quot;&gt;&lt;/a&gt;git是什么？&lt;/h3&gt;&lt;p&gt;假如多个人共同开发一个项目，怎么确保&lt;code&gt;代码的同步&lt;/code&gt;？假如你修改了别人的代码或者别人修改了你的代码，很容易出现&lt;code&gt;冲突&lt;/code&gt;的情况。&lt;br&gt;于是git诞生了，如果你找工作不会用&lt;code&gt;git&lt;/code&gt;，这是致命的不足。因为没有那个公司不用它！&lt;/p&gt;
+&lt;h3 id=&quot;github仓库&quot;&gt;&lt;a href=&quot;#github仓库&quot; class=&quot;headerlink&quot; title=&quot;github仓库&quot;&gt;&lt;/a&gt;github仓库&lt;/h3&gt;&lt;p&gt;github=git+hub，即git仓库。git仓库有很多，github或者国内的&lt;a href=&quot;https://coding.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;码云&lt;/a&gt;，它是一个云仓库，相当于一个&lt;code&gt;中介&lt;/code&gt;，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。&lt;br&gt;而且仓库自己带有&lt;code&gt;解决冲突&lt;/code&gt;的机制，帮助我们解决代码冲突！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="git" scheme="http://zhangchaozc.cn/categories/git/"/>
+    
+    
+      <category term="github" scheme="http://zhangchaozc.cn/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nodejs中http请求timeout</title>
+    <link href="http://zhangchaozc.cn/2017/08/21/nodejs%E4%B8%ADhttp%E8%AF%B7%E6%B1%82timeout/"/>
+    <id>http://zhangchaozc.cn/2017/08/21/nodejs中http请求timeout/</id>
+    <published>2017-08-21T03:28:47.000Z</published>
+    <updated>2017-08-21T09:25:25.429Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末一个线上测试的脚本跑了两天，一直报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2017-08-19T06:32:00.021Z - error:  Error: socket hang up</div><div class="line">    at createHangUpError (_http_client.js:345:15)</div><div class="line">    at Socket.socketOnEnd (_http_client.js:437:23)</div><div class="line">    at emitNone (events.js:110:20)</div><div class="line">    at Socket.emit (events.js:207:7)</div><div class="line">    at endReadableNT (_stream_readable.js:1045:12)</div><div class="line">    at _combinedTickCallback (internal/process/next_tick.js:138:11)</div><div class="line">    at process._tickDomainCallback (internal/process/next_tick.js:218:9)</div></pre></td></tr></table></figure></p>
+<p>很明显，这是一个<code>http</code>的错误。</p>
+<h3 id="联想"><a href="#联想" class="headerlink" title="联想"></a>联想</h3><p>之前也遇到过这个问题，原因是http请求<code>端口号</code>写错了，导致不能发起连接。</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>在本地测试后（主要是打log），发现获取数据正在进行时，脚本就返回了这个错误。因为获取数据的时间太长了，http请求的默认超时时间是<code>2分钟</code>，所以导致http请求超时了。<br>解决思路：自定义http请求的超时时间。</p>
+<a id="more"></a>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
+<ol>
+<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
+<ol>
+<li>在需要设置超时时间的接口里面，加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>只对此接口有效。</p>
+<p>这样这个问题就解决了~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;周末一个线上测试的脚本跑了两天，一直报错：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;2017-08-19T06:32:00.021Z - error:  Error: socket hang up&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at createHangUpError (_http_client.js:345:15)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at Socket.socketOnEnd (_http_client.js:437:23)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at emitNone (events.js:110:20)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at Socket.emit (events.js:207:7)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at endReadableNT (_stream_readable.js:1045:12)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at _combinedTickCallback (internal/process/next_tick.js:138:11)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at process._tickDomainCallback (internal/process/next_tick.js:218:9)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;很明显，这是一个&lt;code&gt;http&lt;/code&gt;的错误。&lt;/p&gt;
+&lt;h3 id=&quot;联想&quot;&gt;&lt;a href=&quot;#联想&quot; class=&quot;headerlink&quot; title=&quot;联想&quot;&gt;&lt;/a&gt;联想&lt;/h3&gt;&lt;p&gt;之前也遇到过这个问题，原因是http请求&lt;code&gt;端口号&lt;/code&gt;写错了，导致不能发起连接。&lt;/p&gt;
+&lt;h3 id=&quot;调试&quot;&gt;&lt;a href=&quot;#调试&quot; class=&quot;headerlink&quot; title=&quot;调试&quot;&gt;&lt;/a&gt;调试&lt;/h3&gt;&lt;p&gt;在本地测试后（主要是打log），发现获取数据正在进行时，脚本就返回了这个错误。因为获取数据的时间太长了，http请求的默认超时时间是&lt;code&gt;2分钟&lt;/code&gt;，所以导致http请求超时了。&lt;br&gt;解决思路：自定义http请求的超时时间。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
+    
+    
+      <category term="HTTP" scheme="http://zhangchaozc.cn/tags/HTTP/"/>
+    
+      <category term="timeout" scheme="http://zhangchaozc.cn/tags/timeout/"/>
+    
+  </entry>
   
   <entry>
     <title>初识maven</title>
@@ -397,13 +529,14 @@
     <link href="http://zhangchaozc.cn/2017/07/28/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/"/>
     <id>http://zhangchaozc.cn/2017/07/28/搭建hexo博客-1/</id>
     <published>2017-07-28T08:42:49.000Z</published>
-    <updated>2017-08-18T05:16:18.327Z</updated>
+    <updated>2017-08-21T09:52:12.767Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress<code>很难移植</code>，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。</p>
 <h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ol>
 <li>玩过github，至少上传过一个自己的项目/工程。</li>
 <li>有一定的node.js基础，至少安装过node环境，熟悉npm命令。</li>
 </ol>
+<p>如果没有基础的请看<code>git入门</code>和<code>node入门</code>两篇文章。</p>
 <h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="安装hexo："><a href="#安装hexo：" class="headerlink" title="安装hexo："></a>安装hexo：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
 <p>-g是全局安装，安装成功后可以使用<code>hexo</code>指令。</p>
 <a id="more"></a>
@@ -432,6 +565,7 @@
 &lt;li&gt;玩过github，至少上传过一个自己的项目/工程。&lt;/li&gt;
 &lt;li&gt;有一定的node.js基础，至少安装过node环境，熟悉npm命令。&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;如果没有基础的请看&lt;code&gt;git入门&lt;/code&gt;和&lt;code&gt;node入门&lt;/code&gt;两篇文章。&lt;/p&gt;
 &lt;h3 id=&quot;搭建&quot;&gt;&lt;a href=&quot;#搭建&quot; class=&quot;headerlink&quot; title=&quot;搭建&quot;&gt;&lt;/a&gt;搭建&lt;/h3&gt;&lt;h4 id=&quot;安装hexo：&quot;&gt;&lt;a href=&quot;#安装hexo：&quot; class=&quot;headerlink&quot; title=&quot;安装hexo：&quot;&gt;&lt;/a&gt;安装hexo：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;npm install -g hexo&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;-g是全局安装，安装成功后可以使用&lt;code&gt;hexo&lt;/code&gt;指令。&lt;/p&gt;
     
@@ -913,110 +1047,6 @@
     
       &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;我想实现一个功能，准备自己动手写一个，但是我发现我的同事小张他写过这个功能，那我肯定不想自己写了，我想直接拿过来用。但是他的类函数结构跟我原来设定的结构有些冲突，不能直接拿过来用，怎么办！？自己写一个适配器啊，这就是适配器模式。简单的来说，就是我想用别人的代码，但是函数名什么的要我自己来命名。那就只能在自己的函数中调用别人的函数了。&lt;/p&gt;
 &lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/adapter.PNG&quot; alt=&quot;adapter&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>组合模式</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/组合模式/</id>
-    <published>2017-07-24T10:31:44.000Z</published>
-    <updated>2017-08-18T05:24:44.974Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>组合模式比较简单和基础，就是描述对象之间1对多的关系，例如：1个领导有多个下属。这个模式用下Java的集合类就可以实现了。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/composite.PNG" alt="composite"><br></div>
-
-<a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 接口：工人类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Worker</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 员工类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employe</span> <span class="keyword">implements</span> <span class="title">Worker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employe</span><span class="params">(String name)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.name=name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"I am an Employe:"</span>+name);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 领导类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leader</span> <span class="keyword">implements</span> <span class="title">Worker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> List&lt;Worker&gt;workers=<span class="keyword">new</span> ArrayList&lt;Worker&gt;();</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Leader</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addWorker</span><span class="params">(Worker worker)</span></span>&#123;</div><div class="line">        workers.add(worker);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeWorker</span><span class="params">(Worker worker)</span></span>&#123;</div><div class="line">        workers.remove(worker);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"I am a Leader:"</span>+name+<span class="string">",I have "</span>+workers.size()+<span class="string">" Employe"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> composite;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> * 测试类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Leader lead=<span class="keyword">new</span> Leader(<span class="string">"Leader1"</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</div><div class="line">            Worker employe=<span class="keyword">new</span> Employe(<span class="string">"Employe"</span>);</div><div class="line">            lead.addWorker(employe);</div><div class="line">        &#125;</div><div class="line">        lead.doSomething();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;组合模式比较简单和基础，就是描述对象之间1对多的关系，例如：1个领导有多个下属。这个模式用下Java的集合类就可以实现了。&lt;/p&gt;
-&lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/composite.PNG&quot; alt=&quot;composite&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>代理模式</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/代理模式/</id>
-    <published>2017-07-24T09:45:05.000Z</published>
-    <updated>2017-08-18T05:24:44.942Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。</p>
-<h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。</p>
-<h3 id="AOP面向切面编程"><a href="#AOP面向切面编程" class="headerlink" title="AOP面向切面编程"></a>AOP面向切面编程</h3><p>Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为什么，因为Spring帮你做了，在调用函数前，打开一个事务，结束函数后，提交一个事务。总之，这个设计模式比较重要，以后我还会写一下JDK的动态代理，也是用到了代理模式。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><h3 id="类图-1"><a href="#类图-1" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/proxy.PNG" alt="proxy"><br></div>
-
-<a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CEO</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"the CEO is signing"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Assistant</span> <span class="keyword">implements</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Leader leader;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Assistant</span><span class="params">(Leader leader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.leader = leader;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"before sign,do something"</span>);</div><div class="line">        leader.sign();</div><div class="line">        System.out.println(<span class="string">"end sign,do something"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Leader ceo=<span class="keyword">new</span> CEO();</div><div class="line">        Leader assistant=<span class="keyword">new</span> Assistant(ceo);</div><div class="line">        assistant.sign();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。&lt;/p&gt;
-&lt;h3 id=&quot;好处&quot;&gt;&lt;a href=&quot;#好处&quot; class=&quot;headerlink&quot; title=&quot;好处&quot;&gt;&lt;/a&gt;好处&lt;/h3&gt;&lt;p&gt;秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。&lt;/p&gt;
-&lt;h3 id=&quot;AOP面向切面编程&quot;&gt;&lt;a href=&quot;#AOP面向切面编程&quot; class=&quot;headerlink&quot; title=&quot;AOP面向切面编程&quot;&gt;&lt;/a&gt;AOP面向切面编程&lt;/h3&gt;&lt;p&gt;Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为什么，因为Spring帮你做了，在调用函数前，打开一个事务，结束函数后，提交一个事务。总之，这个设计模式比较重要，以后我还会写一下JDK的动态代理，也是用到了代理模式。&lt;/p&gt;
-&lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;h3 id=&quot;类图-1&quot;&gt;&lt;a href=&quot;#类图-1&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/proxy.PNG&quot; alt=&quot;proxy&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>命令模式</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/命令模式/</id>
-    <published>2017-07-24T09:36:50.000Z</published>
-    <updated>2017-08-18T05:24:44.998Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>命令模式有命令发出者和命令接收者。总体上来说就是：</p>
-<ol>
-<li>发出命令；</li>
-<li>命令传递；</li>
-<li>命令执行。</li>
-</ol>
-<p>这三个部分相互解耦，任何一方都不用去依赖其他方，只需要做好自己的事儿就行。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/command.PNG" alt="command"><br></div>
-
-<a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="keyword">protected</span> Receicer receiver;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Command</span><span class="params">(Receicer receiver)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.receiver = receiver;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteCommand</span> <span class="keyword">extends</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteCommand</span><span class="params">(Receicer receiver)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(receiver);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        receiver.action();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receicer</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"receive the command"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Invoker</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Command command;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCommand</span><span class="params">(Command command)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.command = command;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">executeCommand</span><span class="params">()</span></span>&#123;</div><div class="line">        command.execute();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> command;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/4.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Receicer receicer=<span class="keyword">new</span> Receicer();</div><div class="line">        Command command=<span class="keyword">new</span> ConcreteCommand(receicer);</div><div class="line">        Invoker invoker=<span class="keyword">new</span> Invoker();</div><div class="line">        invoker.setCommand(command);</div><div class="line">        invoker.executeCommand();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;命令模式有命令发出者和命令接收者。总体上来说就是：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;发出命令；&lt;/li&gt;
-&lt;li&gt;命令传递；&lt;/li&gt;
-&lt;li&gt;命令执行。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;这三个部分相互解耦，任何一方都不用去依赖其他方，只需要做好自己的事儿就行。&lt;/p&gt;
-&lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/command.PNG&quot; alt=&quot;command&quot;&gt;&lt;br&gt;&lt;/div&gt;
     
     </summary>
     
