@@ -88,9 +88,9 @@
 <a id="more"></a>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
 <ol>
-<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：</li>
+<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
 <ol>
 <li>在需要设置超时时间的接口里面，加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
@@ -478,10 +478,12 @@
 <p>PS：我第一次安装时安装失败，尽管我配置过VPN，此时可以进入电脑<code>C:\Users\xxx</code>（本人Win10），找到<code>.npmrc</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">proxy=http://127.0.0.1:1080/</div><div class="line">registry=http://registry.npmjs.org/</div><div class="line">https-proxy=http://127.0.0.1:1080</div></pre></td></tr></table></figure></p>
 <p>我是用的代理访问的国外仓库，也可以改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure></p>
 <p>国内的淘宝仓库。</p>
-<h4 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h4><p>进入你的博客根目录：</p>
+<h4 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h4><p>进入你想放博客的目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure></p>
+<p>生成博客：</p>
 <div align="center"><br><img src="/images/blogroot.PNG" alt="blogroot"><br></div>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure>
+<p>安装依赖包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure></p>
+<p>生成静态网页：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure></p>
 <h4 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo server</div></pre></td></tr></table></figure>
 <p>这时在浏览器中输入localhost:4000/就可以看到本地的博客了。</p>
 <h3 id="关联github"><a href="#关联github" class="headerlink" title="关联github"></a>关联github</h3><h4 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h4><p>仓库名一定是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zhang0chao0.github.io  //zhang0chao0换成yourname</div></pre></td></tr></table></figure></p>
