@@ -110,7 +110,7 @@
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="前言周末一个线上测试的脚本跑了两天，一直报错：123456782017-08-19T06:32:00.021Z - error:  Error: socket hang up    at createHangUpError (_http_client.js:345:15)    at Socket.socketOnEnd (_http_client.js:437:23)    at emitNon">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-21T10:13:47.118Z">
+<meta property="og:updated_time" content="2017-08-21T10:20:38.471Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nodejs中http请求timeout">
 <meta name="twitter:description" content="前言周末一个线上测试的脚本跑了两天，一直报错：123456782017-08-19T06:32:00.021Z - error:  Error: socket hang up    at createHangUpError (_http_client.js:345:15)    at Socket.socketOnEnd (_http_client.js:437:23)    at emitNon">
@@ -423,15 +423,15 @@
 <h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>在本地测试后（主要是打log），发现获取数据正在进行时，脚本就返回了这个错误。因为获取数据的时间太长了，http请求的默认超时时间是<code>2分钟</code>，所以导致http请求超时了。<br>解决思路：自定义http请求的超时时间。</p>
 <a id="more"></a>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
-<ol>
+<ul>
 <li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
-</ol>
+</ul>
 <p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
-<ol>
+<ul>
 <li>在需要设置超时时间的接口里面，加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
-</ol>
+</ul>
 <p>只对此接口有效。</p>
 <p>这样这个问题就解决了~</p>
 
