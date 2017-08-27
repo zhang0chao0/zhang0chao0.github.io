@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2017-08-21T09:49:28.903Z</updated>
+  <updated>2017-08-27T02:25:32.761Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,118 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git高阶</title>
+    <link href="http://zhangchaozc.cn/2017/08/26/git%E9%AB%98%E9%98%B6/"/>
+    <id>http://zhangchaozc.cn/2017/08/26/git高阶/</id>
+    <published>2017-08-26T11:31:33.000Z</published>
+    <updated>2017-08-27T02:25:32.761Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>网上类似的教程有很多，我仅把我在公司用到的常用的命令做个<code>总结</code>。并且结合项目来说，让大家更清晰一些。</p>
+<h3 id="项目开始"><a href="#项目开始" class="headerlink" title="项目开始"></a>项目开始</h3><p>公司开了一个会，决定我们要开始xxx项目了，此时先把准备工作弄好。项目组会选择一个git平台，例如<a href="https://coding.net/" target="_blank" rel="external">码市</a>，在上面新建一个项目。</p>
+<p>成员登录平台，复制代码的SSH链接，把项目拉倒本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://git.coding.net/xxxxxx/xxxxxx.git</div></pre></td></tr></table></figure></p>
+<p>然后用本地编辑器打开项目，就能进行开发的工作了（若出现权限问题请参考<code>git入门</code>）。</p>
+<a id="more"></a>
+<h3 id="提交前"><a href="#提交前" class="headerlink" title="提交前"></a>提交前</h3><p>当你开发完一个功能，准备提交时，你需要关注：</p>
+<ol>
+<li>线上是否有人提交过。</li>
+<li>会不会出现冲突。</li>
+</ol>
+<p>此时，先用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull</div></pre></td></tr></table></figure></p>
+<p>更新一下线上的代码，若成功，说明没有冲突。</p>
+<p>如果冲突（别人修改了你的代码），也是三步：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git stash</div><div class="line">git pull</div><div class="line">git stash pop</div></pre></td></tr></table></figure></p>
+<p>也就是先暂存一下本地的代码，再拉下来，再从暂存区恢复代码。<br>看看控制台中打印的内容，哪些文件合并了冲突，这些文件一般都有<code>======stash</code>内容，需要你自己删除冲突前的代码区域，留下想要的代码。</p>
+<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><p>三部曲：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add xxx  //xxx为你要提交的文件，*代表所有</div><div class="line">git commit -m &quot;xxx&quot;  //写一段话，你做了何修改</div><div class="line">git push  //推送到线上仓库</div></pre></td></tr></table></figure></p>
+<p>其实这里面有很多<code>规范</code>需要注意，否则会给部署人员带来不必要的麻烦。</p>
+<p>哪些文件该提交，哪些不该提交？<br>这时要充分利用<code>.gitignore</code>文件，例如本地的<code>日志文件</code>、<code>测试文件</code>等，不要提交，把它们写在ignore文件中，<code>git add *</code>的时候就会忽略它们。</p>
+<p>万一add错了咋办？<br>这是一个习惯，提交前（git commit -m “xxx”之前），先用命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status</div></pre></td></tr></table></figure></p>
+<p>看看文件修改情况：</p>
+<div align="center"><br><img src="/images/git6.PNG" alt="git6"><br></div>
+
+<p><code>绿色</code>部分是被修改并且会准备提交到仓库的文件，<code>红色</code>部分是被修改但<code>不会</code>被提交到仓库的文件。此时你需要看一下，绿色部分是不是你想要提交的，如果不是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset xxx  //xxx为文件名</div></pre></td></tr></table></figure></p>
+<p>再<code>git status</code>一下，就会发现该文件已进入红色区域。</p>
+<p>实战技巧：<br>有一次我在本地删除了一个文件，提交后线上的文件却没有删除，此时用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -a -m &quot;xxx&quot;</div></pre></td></tr></table></figure></p>
+<p>提交后就可以保证线上的文件也删除了。</p>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>一般开发会用<code>dev</code>分支，而不是<code>master</code>分支，因为<code>master</code>分支会直接对接线上的代码，安全性极高，不会让人直接修改，我开发都是在dev分支上修改，提交代码后，再由其它人员（权限较高，一般是代码负责人）合并到master分支。</p>
+<p>查看分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch //*为当前所在分支</div></pre></td></tr></table></figure></p>
+<p>切换分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout dev</div></pre></td></tr></table></figure></p>
+<p>推荐一个实用工具<code>SourceTree</code>，git专用，下载后用谷歌邮箱登录即可，<a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">官网</a>。</p>
+<div align="center"><br><img src="/images/git7.PNG" alt="git7"><br></div>
+
+<p>切换分支双击即可，复制分支什么的直接界面就可以完成，还可以只提交一个文件的部分内容。是不是感觉棒棒的~最后推荐阮大神的博客中的<a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="external">git常用命令清单</a>。</p>
+<p>开启你的git之旅吧~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;网上类似的教程有很多，我仅把我在公司用到的常用的命令做个&lt;code&gt;总结&lt;/code&gt;。并且结合项目来说，让大家更清晰一些。&lt;/p&gt;
+&lt;h3 id=&quot;项目开始&quot;&gt;&lt;a href=&quot;#项目开始&quot; class=&quot;headerlink&quot; title=&quot;项目开始&quot;&gt;&lt;/a&gt;项目开始&lt;/h3&gt;&lt;p&gt;公司开了一个会，决定我们要开始xxx项目了，此时先把准备工作弄好。项目组会选择一个git平台，例如&lt;a href=&quot;https://coding.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;码市&lt;/a&gt;，在上面新建一个项目。&lt;/p&gt;
+&lt;p&gt;成员登录平台，复制代码的SSH链接，把项目拉倒本地：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;git clone https://git.coding.net/xxxxxx/xxxxxx.git&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;然后用本地编辑器打开项目，就能进行开发的工作了（若出现权限问题请参考&lt;code&gt;git入门&lt;/code&gt;）。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="git" scheme="http://zhangchaozc.cn/categories/git/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>dynamodb中scan数据不全</title>
+    <link href="http://zhangchaozc.cn/2017/08/26/dynamodb%E4%B8%ADscan%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%85%A8/"/>
+    <id>http://zhangchaozc.cn/2017/08/26/dynamodb中scan数据不全/</id>
+    <published>2017-08-26T11:30:26.000Z</published>
+    <updated>2017-08-26T12:04:39.400Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>来自一个真实测试的<code>bug</code>，在公司实习主要用node开发，数据库是用的<code>dynamodb</code>。这个数据库跟mongodb一样，也属于<code>no sql</code>数据库。但是用的人相对较少，网上的博客也不多，学习只能看官方文档。</p>
+<h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><p>起源于一条记录，在<code>log</code>（文件）中可以看到它，但是查询日志（从数据库中查）时却找不到它。经过排查发现，数据库中有这个数据，但是没查到！</p>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ul>
+<li>是不是查询语句的问题？换了几种查询方式，没用，还是一样。</li>
+<li>是不是数据本身问题？把若干数据<code>人工</code>输入到本地数据库，本地测试，呵呵，本地没问题。</li>
+</ul>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>最后没办法了，问了公司一位老司机（技术某某大牛吧）。指出了两点待改进的错误：</p>
+<ol>
+<li>数据库查询<code>scan</code>的效率极低，每次都会扫描全表，如果一个增长数据很快的数据库，经常用scan的查询效率是极低的，如果你用了scan，只能说明你的表结构设置的不对。</li>
+<li>当scan的结果中有<code>LastEvaluatedKey</code>字段时，说明数据查询并没有结束，还要利用这个字段递归查询。</li>
+</ol>
+<a id="more"></a>
+<p>为什么本地没有这个错误？</p>
+<ol>
+<li>本地的数据库<code>配置</code>和线上有差异。</li>
+<li>本地无法模拟线上的<code>数据量</code>。</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>贴一下<a href="http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination" target="_blank" rel="external">官方文档</a>，可以看到有明确介绍：</p>
+<div align="center"><br><img src="/images/scan.PNG" alt="scan"><br></div>
+
+<p>编码如下，注意写递归有个<code>小技巧</code>，因为js的处处异步性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">exports.queryCampaign = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">let</span> activity_type = data.activity_type;</div><div class="line">        <span class="keyword">let</span> date = data.date;</div><div class="line">        <span class="keyword">if</span> (!activity_type || !date) &#123;</div><div class="line">            reject(error.DB_PARAM_ERROR);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//let startDate = date + ' 00:00:00';</span></div><div class="line">        <span class="comment">//let endDate = date + ' 24:00:00';</span></div><div class="line">        <span class="keyword">let</span> params = &#123;</div><div class="line">            <span class="attr">TableName</span>: config.DBTables.ad_activity,</div><div class="line">            <span class="attr">FilterExpression</span>: <span class="string">'activity_type = :activity_type and contains(activity_time,:date)'</span>,</div><div class="line">            <span class="attr">ExpressionAttributeValues</span>: &#123;</div><div class="line">                <span class="string">':activity_type'</span>: activity_type,</div><div class="line">                <span class="comment">//':startDate': startDate,</span></div><div class="line">                <span class="comment">//':endDate': endDate,</span></div><div class="line">                <span class="string">':date'</span>: date</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        <span class="keyword">let</span> result = [];</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">            dbModel.scan(param).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</div><div class="line">                result = result.concat(res.Items);</div><div class="line">                <span class="keyword">if</span> (res.LastEvaluatedKey) &#123;</div><div class="line">                    param.ExclusiveStartKey = res.LastEvaluatedKey;</div><div class="line">                    getData(param);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    resolve(result);</div><div class="line">                &#125;</div><div class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</div><div class="line">                reject(err);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        getData(params);</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>问题果然就解决了~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;来自一个真实测试的&lt;code&gt;bug&lt;/code&gt;，在公司实习主要用node开发，数据库是用的&lt;code&gt;dynamodb&lt;/code&gt;。这个数据库跟mongodb一样，也属于&lt;code&gt;no sql&lt;/code&gt;数据库。但是用的人相对较少，网上的博客也不多，学习只能看官方文档。&lt;/p&gt;
+&lt;h3 id=&quot;bug&quot;&gt;&lt;a href=&quot;#bug&quot; class=&quot;headerlink&quot; title=&quot;bug&quot;&gt;&lt;/a&gt;bug&lt;/h3&gt;&lt;p&gt;起源于一条记录，在&lt;code&gt;log&lt;/code&gt;（文件）中可以看到它，但是查询日志（从数据库中查）时却找不到它。经过排查发现，数据库中有这个数据，但是没查到！&lt;/p&gt;
+&lt;h3 id=&quot;过程&quot;&gt;&lt;a href=&quot;#过程&quot; class=&quot;headerlink&quot; title=&quot;过程&quot;&gt;&lt;/a&gt;过程&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;是不是查询语句的问题？换了几种查询方式，没用，还是一样。&lt;/li&gt;
+&lt;li&gt;是不是数据本身问题？把若干数据&lt;code&gt;人工&lt;/code&gt;输入到本地数据库，本地测试，呵呵，本地没问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;解决&quot;&gt;&lt;a href=&quot;#解决&quot; class=&quot;headerlink&quot; title=&quot;解决&quot;&gt;&lt;/a&gt;解决&lt;/h3&gt;&lt;p&gt;最后没办法了，问了公司一位老司机（技术某某大牛吧）。指出了两点待改进的错误：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;数据库查询&lt;code&gt;scan&lt;/code&gt;的效率极低，每次都会扫描全表，如果一个增长数据很快的数据库，经常用scan的查询效率是极低的，如果你用了scan，只能说明你的表结构设置的不对。&lt;/li&gt;
+&lt;li&gt;当scan的结果中有&lt;code&gt;LastEvaluatedKey&lt;/code&gt;字段时，说明数据查询并没有结束，还要利用这个字段递归查询。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
+    
+    
+      <category term="dynamodb" scheme="http://zhangchaozc.cn/tags/dynamodb/"/>
+    
+      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
+    
+  </entry>
   
   <entry>
     <title>node入门</title>
@@ -58,11 +170,11 @@
     <link href="http://zhangchaozc.cn/2017/08/21/git%E5%85%A5%E9%97%A8/"/>
     <id>http://zhangchaozc.cn/2017/08/21/git入门/</id>
     <published>2017-08-21T07:59:35.000Z</published>
-    <updated>2017-08-21T12:15:58.805Z</updated>
+    <updated>2017-08-27T01:32:26.570Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇<code>git入门</code>和<code>node入门</code>来帮助他们。</p>
 <h3 id="git是什么？"><a href="#git是什么？" class="headerlink" title="git是什么？"></a>git是什么？</h3><p>假如多个人共同开发一个项目，怎么确保<code>代码的同步</code>？假如你修改了别人的代码或者别人修改了你的代码，很容易出现<code>冲突</code>的情况。<br>于是git诞生了，如果你找工作不会用<code>git</code>，这是致命的不足。因为没有那个公司不用它！</p>
-<h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>github=git+hub，即git仓库。git仓库有很多，github或者国内的<a href="https://coding.net/" target="_blank" rel="external">码云</a>，它是一个云仓库，相当于一个<code>中介</code>，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。<br>而且仓库自己带有<code>解决冲突</code>的机制，帮助我们解决代码冲突！</p>
+<h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>github=git+hub，即git仓库。git仓库有很多，github或者国内的<a href="https://coding.net/" target="_blank" rel="external">码市</a>，它是一个云仓库，相当于一个<code>中介</code>，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。<br>而且仓库自己带有<code>解决冲突</code>的机制，帮助我们解决代码冲突！</p>
 <a id="more"></a>
 <h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>本人是win10电脑，直接去官网<a href="https://git-for-windows.github.io/" target="_blank" rel="external">下载</a>，点击download。下载后是一个exe文件，双击傻瓜式安装即可。<br>安装完后，随便进入一个文件夹（包括桌面），右键：</p>
 <div align="center"><br><img src="/images/git1.png" alt="git1"><br></div>
@@ -99,7 +211,7 @@
     
       &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇&lt;code&gt;git入门&lt;/code&gt;和&lt;code&gt;node入门&lt;/code&gt;来帮助他们。&lt;/p&gt;
 &lt;h3 id=&quot;git是什么？&quot;&gt;&lt;a href=&quot;#git是什么？&quot; class=&quot;headerlink&quot; title=&quot;git是什么？&quot;&gt;&lt;/a&gt;git是什么？&lt;/h3&gt;&lt;p&gt;假如多个人共同开发一个项目，怎么确保&lt;code&gt;代码的同步&lt;/code&gt;？假如你修改了别人的代码或者别人修改了你的代码，很容易出现&lt;code&gt;冲突&lt;/code&gt;的情况。&lt;br&gt;于是git诞生了，如果你找工作不会用&lt;code&gt;git&lt;/code&gt;，这是致命的不足。因为没有那个公司不用它！&lt;/p&gt;
-&lt;h3 id=&quot;github仓库&quot;&gt;&lt;a href=&quot;#github仓库&quot; class=&quot;headerlink&quot; title=&quot;github仓库&quot;&gt;&lt;/a&gt;github仓库&lt;/h3&gt;&lt;p&gt;github=git+hub，即git仓库。git仓库有很多，github或者国内的&lt;a href=&quot;https://coding.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;码云&lt;/a&gt;，它是一个云仓库，相当于一个&lt;code&gt;中介&lt;/code&gt;，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。&lt;br&gt;而且仓库自己带有&lt;code&gt;解决冲突&lt;/code&gt;的机制，帮助我们解决代码冲突！&lt;/p&gt;
+&lt;h3 id=&quot;github仓库&quot;&gt;&lt;a href=&quot;#github仓库&quot; class=&quot;headerlink&quot; title=&quot;github仓库&quot;&gt;&lt;/a&gt;github仓库&lt;/h3&gt;&lt;p&gt;github=git+hub，即git仓库。git仓库有很多，github或者国内的&lt;a href=&quot;https://coding.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;码市&lt;/a&gt;，它是一个云仓库，相当于一个&lt;code&gt;中介&lt;/code&gt;，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。&lt;br&gt;而且仓库自己带有&lt;code&gt;解决冲突&lt;/code&gt;的机制，帮助我们解决代码冲突！&lt;/p&gt;
     
     </summary>
     
@@ -115,7 +227,7 @@
     <link href="http://zhangchaozc.cn/2017/08/21/nodejs%E4%B8%ADhttp%E8%AF%B7%E6%B1%82timeout/"/>
     <id>http://zhangchaozc.cn/2017/08/21/nodejs中http请求timeout/</id>
     <published>2017-08-21T03:28:47.000Z</published>
-    <updated>2017-08-21T10:20:38.471Z</updated>
+    <updated>2017-08-26T12:02:46.870Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末一个线上测试的脚本跑了两天，一直报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2017-08-19T06:32:00.021Z - error:  Error: socket hang up</div><div class="line">    at createHangUpError (_http_client.js:345:15)</div><div class="line">    at Socket.socketOnEnd (_http_client.js:437:23)</div><div class="line">    at emitNone (events.js:110:20)</div><div class="line">    at Socket.emit (events.js:207:7)</div><div class="line">    at endReadableNT (_stream_readable.js:1045:12)</div><div class="line">    at _combinedTickCallback (internal/process/next_tick.js:138:11)</div><div class="line">    at process._tickDomainCallback (internal/process/next_tick.js:218:9)</div></pre></td></tr></table></figure></p>
 <p>很明显，这是一个<code>http</code>的错误。</p>
@@ -124,12 +236,12 @@
 <a id="more"></a>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
 <ul>
-<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
 <ul>
-<li>在需要设置超时时间的接口里面，加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>在需要设置超时时间的接口里面，加上：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>只对此接口有效。</p>
@@ -149,6 +261,8 @@
     
     
       <category term="HTTP" scheme="http://zhangchaozc.cn/tags/HTTP/"/>
+    
+      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
     
       <category term="timeout" scheme="http://zhangchaozc.cn/tags/timeout/"/>
     
@@ -204,7 +318,7 @@
     <link href="http://zhangchaozc.cn/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/"/>
     <id>http://zhangchaozc.cn/2017/08/17/搭建hexo博客-3/</id>
     <published>2017-08-17T03:55:53.000Z</published>
-    <updated>2017-08-18T08:59:53.570Z</updated>
+    <updated>2017-08-27T01:27:40.159Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看了之前的文章，你自己写文章已经OK了，如果你想把博客变得<code>更炫酷</code>（头像旋转、背景动画等），我推荐看<a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="external">这篇文章</a>，我也是看的这个配置的，写的很好。</p>
 <h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>打开<code>主题配置文件</code>，找到这个：</p>
@@ -239,6 +353,8 @@
 <p>这样不用加任何代码，在每一篇博客后面都会出现评论框。<br>但是如果你不想在文章后有评论框，例如<code>分类</code>、<code>标签</code>页面，可以在文章头加上：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">comments: false</div></pre></td></tr></table></figure>
 <p>这样就不会出现评论框了。</p>
+<h3 id="修改字体"><a href="#修改字体" class="headerlink" title="修改字体"></a>修改字体</h3><p>默认的字体太小了，看着不舒服。打开<code>\themes\next\source\css\ _variables\base.styl</code>文件，修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$font-size-base            =16px</div></pre></td></tr></table></figure></p>
+<p>这样好一点。</p>
 <p>大家可以自己动手玩自己的博客了哦~</p>
 ]]></content>
     
@@ -1001,67 +1117,6 @@
     
     
       <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>finalize与finally</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/finalize%E4%B8%8Efinally/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/finalize与finally/</id>
-    <published>2017-07-24T12:23:07.000Z</published>
-    <updated>2017-08-18T05:24:45.310Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>众所周知，Java语言除了8种基本的数据类型以外，处处皆对象，Java中所有的类都是继承于Object类（包括你自己写的），而finalize()是Object类中的一个方法，这个方法在垃圾内存回收中被用到。</p>
-<h3 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h3><p>当一个对象A的内存要被回收时，会调用其finalize()方法，如果A对象没有该方法，对不起，这块内存会直接被释放掉，如果在A这个方法内，A对象又被新的对象引用，那么A对象将重生了！即A对象的内存不会被释放。<br><strong>注意</strong>：不要把finalize()与C++中的析构函数相提并论，因为它们不是同一个玩意，一个对象被析构了，它不一定会被内存回收。</p>
-<a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> clear;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/24.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> checkOut=<span class="keyword">false</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">(<span class="keyword">boolean</span> checkOut)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.checkOut = checkOut;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">        <span class="keyword">if</span>(checkOut)</div><div class="line">            System.out.println(<span class="string">"err:checked out"</span>);</div><div class="line">        <span class="comment">//super.finalize();</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">new</span> Book(<span class="keyword">true</span>);</div><div class="line">        <span class="comment">//强制调用垃圾内存回收</span></div><div class="line">        System.gc();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>看看这个代码，当我调用gc()时，Book类的一个对象的finalize()方法被执行，所以控制台会打印出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">err:checked out</div></pre></td></tr></table></figure></p>
-<h3 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h3><p>这个用于Java的异常处理，与try catch连用，用于哪呢？比如我有一个需求连接数据库，可是连接数据库不一定会成功，但是有一点我们是知道的，无论数据库连接是否成功，我们都要关闭这个连接！（避免资源的浪费）那么close()这个方法我就写在finally块里面，因为：无论是否发生异常，finally块中的代码都会被执行。<br>可以明确告诉你，1.txt这个文件是不存在的，所以这个语句一定会发生异常，大家可以猜猜最后的结果readFile()的返回值是多少。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> clear;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/24.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">readFile</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            FileInputStream is=<span class="keyword">new</span> FileInputStream(<span class="string">"1.txt"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</div><div class="line">            <span class="comment">//e.printStackTrace();</span></div><div class="line">            System.out.println(<span class="string">"file not found"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            System.out.println(<span class="string">"finally..."</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        System.out.println(readFile());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>控制台：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">file not found</div><div class="line">finally...</div><div class="line">false</div></pre></td></tr></table></figure></p>
-<p>惊不惊喜！？意不意外？这样就可以证明finally块是最后被调用的。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;众所周知，Java语言除了8种基本的数据类型以外，处处皆对象，Java中所有的类都是继承于Object类（包括你自己写的），而finalize()是Object类中的一个方法，这个方法在垃圾内存回收中被用到。&lt;/p&gt;
-&lt;h3 id=&quot;finalize&quot;&gt;&lt;a href=&quot;#finalize&quot; class=&quot;headerlink&quot; title=&quot;finalize&quot;&gt;&lt;/a&gt;finalize&lt;/h3&gt;&lt;p&gt;当一个对象A的内存要被回收时，会调用其finalize()方法，如果A对象没有该方法，对不起，这块内存会直接被释放掉，如果在A这个方法内，A对象又被新的对象引用，那么A对象将重生了！即A对象的内存不会被释放。&lt;br&gt;&lt;strong&gt;注意&lt;/strong&gt;：不要把finalize()与C++中的析构函数相提并论，因为它们不是同一个玩意，一个对象被析构了，它不一定会被内存回收。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
-    
-    
-      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>适配器模式</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/适配器模式/</id>
-    <published>2017-07-24T10:36:58.000Z</published>
-    <updated>2017-08-18T05:24:45.042Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>我想实现一个功能，准备自己动手写一个，但是我发现我的同事小张他写过这个功能，那我肯定不想自己写了，我想直接拿过来用。但是他的类函数结构跟我原来设定的结构有些冲突，不能直接拿过来用，怎么办！？自己写一个适配器啊，这就是适配器模式。简单的来说，就是我想用别人的代码，但是函数名什么的要我自己来命名。那就只能在自己的函数中调用别人的函数了。</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/adapter.PNG" alt="adapter"><br></div>
-
-<a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> adapter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/13.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Target</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operate1</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operate2</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> adapter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/13.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">specificOperate1</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is Adaptee specificOperate1"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">specificOperate2</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is Adaptee specificOperate2"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> adapter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/13.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">implements</span> <span class="title">Target</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Adaptee adaptee;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Adapter</span><span class="params">(Adaptee adaptee)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.adaptee = adaptee;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operate1</span><span class="params">()</span> </span>&#123;</div><div class="line">        adaptee.specificOperate1();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operate2</span><span class="params">()</span> </span>&#123;</div><div class="line">        adaptee.specificOperate2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> adapter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/13.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Adaptee adaptee=<span class="keyword">new</span> Adaptee();</div><div class="line">        Target target=<span class="keyword">new</span> Adapter(adaptee);</div><div class="line">        target.operate1();</div><div class="line">        target.operate2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;个人理解&quot;&gt;&lt;a href=&quot;#个人理解&quot; class=&quot;headerlink&quot; title=&quot;个人理解&quot;&gt;&lt;/a&gt;个人理解&lt;/h3&gt;&lt;p&gt;我想实现一个功能，准备自己动手写一个，但是我发现我的同事小张他写过这个功能，那我肯定不想自己写了，我想直接拿过来用。但是他的类函数结构跟我原来设定的结构有些冲突，不能直接拿过来用，怎么办！？自己写一个适配器啊，这就是适配器模式。简单的来说，就是我想用别人的代码，但是函数名什么的要我自己来命名。那就只能在自己的函数中调用别人的函数了。&lt;/p&gt;
-&lt;h3 id=&quot;类图&quot;&gt;&lt;a href=&quot;#类图&quot; class=&quot;headerlink&quot; title=&quot;类图&quot;&gt;&lt;/a&gt;类图&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/adapter.PNG&quot; alt=&quot;adapter&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="设计模式" scheme="http://zhangchaozc.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     
   </entry>
   

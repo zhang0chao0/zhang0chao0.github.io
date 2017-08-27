@@ -3,6 +3,97 @@
   
     
     <entry>
+      <title><![CDATA[git高阶]]></title>
+      <url>/2017/08/26/git%E9%AB%98%E9%98%B6/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>网上类似的教程有很多，我仅把我在公司用到的常用的命令做个<code>总结</code>。并且结合项目来说，让大家更清晰一些。</p>
+<h3 id="项目开始"><a href="#项目开始" class="headerlink" title="项目开始"></a>项目开始</h3><p>公司开了一个会，决定我们要开始xxx项目了，此时先把准备工作弄好。项目组会选择一个git平台，例如<a href="https://coding.net/" target="_blank" rel="external">码市</a>，在上面新建一个项目。</p>
+<p>成员登录平台，复制代码的SSH链接，把项目拉倒本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://git.coding.net/xxxxxx/xxxxxx.git</div></pre></td></tr></table></figure></p>
+<p>然后用本地编辑器打开项目，就能进行开发的工作了（若出现权限问题请参考<code>git入门</code>）。</p>
+<a id="more"></a>
+<h3 id="提交前"><a href="#提交前" class="headerlink" title="提交前"></a>提交前</h3><p>当你开发完一个功能，准备提交时，你需要关注：</p>
+<ol>
+<li>线上是否有人提交过。</li>
+<li>会不会出现冲突。</li>
+</ol>
+<p>此时，先用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull</div></pre></td></tr></table></figure></p>
+<p>更新一下线上的代码，若成功，说明没有冲突。</p>
+<p>如果冲突（别人修改了你的代码），也是三步：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git stash</div><div class="line">git pull</div><div class="line">git stash pop</div></pre></td></tr></table></figure></p>
+<p>也就是先暂存一下本地的代码，再拉下来，再从暂存区恢复代码。<br>看看控制台中打印的内容，哪些文件合并了冲突，这些文件一般都有<code>======stash</code>内容，需要你自己删除冲突前的代码区域，留下想要的代码。</p>
+<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><p>三部曲：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add xxx  //xxx为你要提交的文件，*代表所有</div><div class="line">git commit -m &quot;xxx&quot;  //写一段话，你做了何修改</div><div class="line">git push  //推送到线上仓库</div></pre></td></tr></table></figure></p>
+<p>其实这里面有很多<code>规范</code>需要注意，否则会给部署人员带来不必要的麻烦。</p>
+<p>哪些文件该提交，哪些不该提交？<br>这时要充分利用<code>.gitignore</code>文件，例如本地的<code>日志文件</code>、<code>测试文件</code>等，不要提交，把它们写在ignore文件中，<code>git add *</code>的时候就会忽略它们。</p>
+<p>万一add错了咋办？<br>这是一个习惯，提交前（git commit -m “xxx”之前），先用命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status</div></pre></td></tr></table></figure></p>
+<p>看看文件修改情况：</p>
+<div align="center"><br><img src="/images/git6.PNG" alt="git6"><br></div>
+
+<p><code>绿色</code>部分是被修改并且会准备提交到仓库的文件，<code>红色</code>部分是被修改但<code>不会</code>被提交到仓库的文件。此时你需要看一下，绿色部分是不是你想要提交的，如果不是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset xxx  //xxx为文件名</div></pre></td></tr></table></figure></p>
+<p>再<code>git status</code>一下，就会发现该文件已进入红色区域。</p>
+<p>实战技巧：<br>有一次我在本地删除了一个文件，提交后线上的文件却没有删除，此时用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -a -m &quot;xxx&quot;</div></pre></td></tr></table></figure></p>
+<p>提交后就可以保证线上的文件也删除了。</p>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>一般开发会用<code>dev</code>分支，而不是<code>master</code>分支，因为<code>master</code>分支会直接对接线上的代码，安全性极高，不会让人直接修改，我开发都是在dev分支上修改，提交代码后，再由其它人员（权限较高，一般是代码负责人）合并到master分支。</p>
+<p>查看分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch //*为当前所在分支</div></pre></td></tr></table></figure></p>
+<p>切换分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout dev</div></pre></td></tr></table></figure></p>
+<p>推荐一个实用工具<code>SourceTree</code>，git专用，下载后用谷歌邮箱登录即可，<a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">官网</a>。</p>
+<div align="center"><br><img src="/images/git7.PNG" alt="git7"><br></div>
+
+<p>切换分支双击即可，复制分支什么的直接界面就可以完成，还可以只提交一个文件的部分内容。是不是感觉棒棒的~最后推荐阮大神的博客中的<a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="external">git常用命令清单</a>。</p>
+<p>开启你的git之旅吧~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> git </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[dynamodb中scan数据不全]]></title>
+      <url>/2017/08/26/dynamodb%E4%B8%ADscan%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%85%A8/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>来自一个真实测试的<code>bug</code>，在公司实习主要用node开发，数据库是用的<code>dynamodb</code>。这个数据库跟mongodb一样，也属于<code>no sql</code>数据库。但是用的人相对较少，网上的博客也不多，学习只能看官方文档。</p>
+<h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><p>起源于一条记录，在<code>log</code>（文件）中可以看到它，但是查询日志（从数据库中查）时却找不到它。经过排查发现，数据库中有这个数据，但是没查到！</p>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ul>
+<li>是不是查询语句的问题？换了几种查询方式，没用，还是一样。</li>
+<li>是不是数据本身问题？把若干数据<code>人工</code>输入到本地数据库，本地测试，呵呵，本地没问题。</li>
+</ul>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>最后没办法了，问了公司一位老司机（技术某某大牛吧）。指出了两点待改进的错误：</p>
+<ol>
+<li>数据库查询<code>scan</code>的效率极低，每次都会扫描全表，如果一个增长数据很快的数据库，经常用scan的查询效率是极低的，如果你用了scan，只能说明你的表结构设置的不对。</li>
+<li>当scan的结果中有<code>LastEvaluatedKey</code>字段时，说明数据查询并没有结束，还要利用这个字段递归查询。</li>
+</ol>
+<a id="more"></a>
+<p>为什么本地没有这个错误？</p>
+<ol>
+<li>本地的数据库<code>配置</code>和线上有差异。</li>
+<li>本地无法模拟线上的<code>数据量</code>。</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>贴一下<a href="http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination" target="_blank" rel="external">官方文档</a>，可以看到有明确介绍：</p>
+<div align="center"><br><img src="/images/scan.PNG" alt="scan"><br></div>
+
+<p>编码如下，注意写递归有个<code>小技巧</code>，因为js的处处异步性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">exports.queryCampaign = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">let</span> activity_type = data.activity_type;</div><div class="line">        <span class="keyword">let</span> date = data.date;</div><div class="line">        <span class="keyword">if</span> (!activity_type || !date) &#123;</div><div class="line">            reject(error.DB_PARAM_ERROR);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//let startDate = date + ' 00:00:00';</span></div><div class="line">        <span class="comment">//let endDate = date + ' 24:00:00';</span></div><div class="line">        <span class="keyword">let</span> params = &#123;</div><div class="line">            <span class="attr">TableName</span>: config.DBTables.ad_activity,</div><div class="line">            <span class="attr">FilterExpression</span>: <span class="string">'activity_type = :activity_type and contains(activity_time,:date)'</span>,</div><div class="line">            <span class="attr">ExpressionAttributeValues</span>: &#123;</div><div class="line">                <span class="string">':activity_type'</span>: activity_type,</div><div class="line">                <span class="comment">//':startDate': startDate,</span></div><div class="line">                <span class="comment">//':endDate': endDate,</span></div><div class="line">                <span class="string">':date'</span>: date</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        <span class="keyword">let</span> result = [];</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">            dbModel.scan(param).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</div><div class="line">                result = result.concat(res.Items);</div><div class="line">                <span class="keyword">if</span> (res.LastEvaluatedKey) &#123;</div><div class="line">                    param.ExclusiveStartKey = res.LastEvaluatedKey;</div><div class="line">                    getData(param);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    resolve(result);</div><div class="line">                &#125;</div><div class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</div><div class="line">                reject(err);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        getData(params);</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>问题果然就解决了~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> node </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> dynamodb </tag>
+            
+            <tag> bug </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[node入门]]></title>
       <url>/2017/08/21/node%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为啥会入node，我也不知道，实习中公司用我就学着写了。写了node还是有好处的，至少我几个小时就用<code>github pages</code>搭建了博客。</p>
@@ -37,7 +128,7 @@
       <url>/2017/08/21/git%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇<code>git入门</code>和<code>node入门</code>来帮助他们。</p>
 <h3 id="git是什么？"><a href="#git是什么？" class="headerlink" title="git是什么？"></a>git是什么？</h3><p>假如多个人共同开发一个项目，怎么确保<code>代码的同步</code>？假如你修改了别人的代码或者别人修改了你的代码，很容易出现<code>冲突</code>的情况。<br>于是git诞生了，如果你找工作不会用<code>git</code>，这是致命的不足。因为没有那个公司不用它！</p>
-<h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>github=git+hub，即git仓库。git仓库有很多，github或者国内的<a href="https://coding.net/" target="_blank" rel="external">码云</a>，它是一个云仓库，相当于一个<code>中介</code>，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。<br>而且仓库自己带有<code>解决冲突</code>的机制，帮助我们解决代码冲突！</p>
+<h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>github=git+hub，即git仓库。git仓库有很多，github或者国内的<a href="https://coding.net/" target="_blank" rel="external">码市</a>，它是一个云仓库，相当于一个<code>中介</code>，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。<br>而且仓库自己带有<code>解决冲突</code>的机制，帮助我们解决代码冲突！</p>
 <a id="more"></a>
 <h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>本人是win10电脑，直接去官网<a href="https://git-for-windows.github.io/" target="_blank" rel="external">下载</a>，点击download。下载后是一个exe文件，双击傻瓜式安装即可。<br>安装完后，随便进入一个文件夹（包括桌面），右键：</p>
 <div align="center"><br><img src="/images/git1.png" alt="git1"><br></div>
@@ -95,12 +186,12 @@
 <a id="more"></a>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
 <ul>
-<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
 <ul>
-<li>在需要设置超时时间的接口里面，加上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(0, function () &#123;</div><div class="line">    console.log(&apos;time out&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>在需要设置超时时间的接口里面，加上：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>只对此接口有效。</p>
@@ -117,6 +208,8 @@
         <tags>
             
             <tag> HTTP </tag>
+            
+            <tag> bug </tag>
             
             <tag> timeout </tag>
             
@@ -201,6 +294,8 @@
 <p>这样不用加任何代码，在每一篇博客后面都会出现评论框。<br>但是如果你不想在文章后有评论框，例如<code>分类</code>、<code>标签</code>页面，可以在文章头加上：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">comments: false</div></pre></td></tr></table></figure>
 <p>这样就不会出现评论框了。</p>
+<h3 id="修改字体"><a href="#修改字体" class="headerlink" title="修改字体"></a>修改字体</h3><p>默认的字体太小了，看着不舒服。打开<code>\themes\next\source\css\ _variables\base.styl</code>文件，修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$font-size-base            =16px</div></pre></td></tr></table></figure></p>
+<p>这样好一点。</p>
 <p>大家可以自己动手玩自己的博客了哦~</p>
 ]]></content>
       
