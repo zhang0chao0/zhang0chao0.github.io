@@ -3,8 +3,197 @@
   
     
     <entry>
+      <title><![CDATA[算法题]]></title>
+      <url>/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E9%A2%98/</url>
+      <content type="html"><![CDATA[<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">struct</span> <span class="title">Node</span></div><div class="line">&#123;</div><div class="line">    T data;</div><div class="line">    Node&lt;T&gt;* next;</div><div class="line">    Node()</div><div class="line">    &#123;</div><div class="line">        next=<span class="literal">nullptr</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="插入节点node"><a href="#插入节点node" class="headerlink" title="插入节点node"></a>插入节点node</h5><h6 id="头插法（first为头指针，last为尾指针）："><a href="#头插法（first为头指针，last为尾指针）：" class="headerlink" title="头插法（first为头指针，last为尾指针）："></a>头插法（first为头指针，last为尾指针）：</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node-&gt;next=first-&gt;next;</div><div class="line">first-&gt;next=node;</div></pre></td></tr></table></figure>
+<h6 id="尾插法"><a href="#尾插法" class="headerlink" title="尾插法"></a>尾插法</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">last-&gt;next=node;</div><div class="line">last=node;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h5 id="逆置（head为链表头指针）"><a href="#逆置（head为链表头指针）" class="headerlink" title="逆置（head为链表头指针）"></a>逆置（head为链表头指针）</h5><h6 id="方法1：头节点抽离，其它节点依次用头插法插入"><a href="#方法1：头节点抽离，其它节点依次用头插法插入" class="headerlink" title="方法1：头节点抽离，其它节点依次用头插法插入"></a>方法1：头节点抽离，其它节点依次用头插法插入</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Node* first=head-&gt;next;</div><div class="line">head-&gt;next=<span class="literal">nullptr</span>;</div><div class="line"><span class="keyword">while</span>(first)</div><div class="line">&#123;</div><div class="line">    Node* p=first;</div><div class="line">    p-&gt;next=head-&gt;next;</div><div class="line">    head-&gt;next=p;</div><div class="line">    first=first-&gt;next;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h6 id="方法2：三指针定位，遍历逆置"><a href="#方法2：三指针定位，遍历逆置" class="headerlink" title="方法2：三指针定位，遍历逆置"></a>方法2：三指针定位，遍历逆置</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Node* first=head-&gt;next;</div><div class="line">head-&gt;next=<span class="literal">nullptr</span>;</div><div class="line"><span class="keyword">while</span>(first)</div><div class="line">&#123;</div><div class="line">    Node* p=first-&gt;next;</div><div class="line">    first-&gt;next=head;</div><div class="line">    head=first;</div><div class="line">    first=p;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="是否成环"><a href="#是否成环" class="headerlink" title="是否成环"></a>是否成环</h5><p>设置两个指针从头开始走，一个比另一个速度快一倍，如果有环的话，这两个指针终会相等。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断是否有环</span></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isLoop</span><span class="params">(pNode pHead)</span></span></div><div class="line">&#123;</div><div class="line">    pNode fast = pHead;</div><div class="line">    pNode slow = pHead;</div><div class="line">    <span class="comment">//如果无环，则fast先走到终点</span></div><div class="line">    <span class="comment">//当链表长度为奇数时，fast-&gt;Next为空</span></div><div class="line">    <span class="comment">//当链表长度为偶数时，fast为空</span></div><div class="line">    <span class="keyword">while</span>( fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="literal">NULL</span>)</div><div class="line">    &#123;</div><div class="line">        fast = fast-&gt;next-&gt;next;</div><div class="line">        slow = slow-&gt;next;</div><div class="line">        <span class="comment">//如果有环，则fast会超过slow一圈</span></div><div class="line">        <span class="keyword">if</span>(fast == slow)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(fast == <span class="literal">NULL</span> || fast-&gt;next == <span class="literal">NULL</span>  )</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="若有环，计算环的长度"><a href="#若有环，计算环的长度" class="headerlink" title="若有环，计算环的长度"></a>若有环，计算环的长度</h5><p>当快慢指针第一次相等时开始计数，第二次相等时停止计数。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//计算环的长度</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">loopLength</span><span class="params">(pNode pHead)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(isLoop(pHead) == <span class="literal">false</span>)</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    pNode fast = pHead;</div><div class="line">    pNode slow = pHead;</div><div class="line">    <span class="keyword">int</span> length = <span class="number">0</span>;</div><div class="line">    <span class="keyword">bool</span> begin = <span class="literal">false</span>;</div><div class="line">    <span class="keyword">bool</span> agian = <span class="literal">false</span>;</div><div class="line">    <span class="keyword">while</span>( fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="literal">NULL</span>)</div><div class="line">    &#123;</div><div class="line">        fast = fast-&gt;next-&gt;next;</div><div class="line">        slow = slow-&gt;next;</div><div class="line">        <span class="comment">//超两圈后停止计数，挑出循环</span></div><div class="line">        <span class="keyword">if</span>(fast == slow &amp;&amp; agian == <span class="literal">true</span>)</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="comment">//超一圈后开始计数</span></div><div class="line">        <span class="keyword">if</span>(fast == slow &amp;&amp; agian == <span class="literal">false</span>)</div><div class="line">        &#123;</div><div class="line">            begin = <span class="literal">true</span>;</div><div class="line">            agian = <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//计数</span></div><div class="line">        <span class="keyword">if</span>(begin == <span class="literal">true</span>)</div><div class="line">            ++length;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> length;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="相交链表的第一个公共节点"><a href="#相交链表的第一个公共节点" class="headerlink" title="相交链表的第一个公共节点"></a>相交链表的第一个公共节点</h5><p>思路：</p>
+<ol>
+<li>如果两个链表相交，则从<code>相交点</code>开始，后面的节点<code>都相同</code>，即最后一个节点肯定相同。</li>
+<li>从头到尾遍历两个链表，并记录链表长度，当二者的<code>尾节点</code>不同，则二者肯定不相交。</li>
+<li>尾节点相同，若A长，从链表A的头结点开始，先走A-B个单位，然后A和B一起走，若链表相交，必定会找到相同的节点（即第一个节点），否则两链表不相交。</li>
+</ol>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">struct</span> <span class="title">TreeNode</span></div><div class="line">&#123;</div><div class="line">    T data;</div><div class="line">    TreeNode&lt;T&gt;* left;</div><div class="line">    TreeNode&lt;T&gt;* right;</div><div class="line">    TreeNode()</div><div class="line">    &#123;</div><div class="line">        left=<span class="literal">nullptr</span>;</div><div class="line">        right=<span class="literal">nullptr</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="树的遍历（前序）"><a href="#树的遍历（前序）" class="headerlink" title="树的遍历（前序）"></a>树的遍历（前序）</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">void</span> <span class="title">preOrder</span>(<span class="title">TreeNode</span>&lt;T&gt;*<span class="title">subTree</span>, <span class="title">void</span>(*<span class="title">visit</span>)(<span class="title">TreeNode</span>&lt;T&gt;*<span class="title">p</span>))</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (subTree != <span class="literal">nullptr</span>)</div><div class="line">	&#123;</div><div class="line">		visit(subTree);</div><div class="line">		preOrder(subTree-&gt;left, visit);</div><div class="line">		preOrder(subTree-&gt;right, visit);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其它的中序、后序只是改变一下visit函数的顺序而已（函数指针的用法，函数可以当一个参数传递）。</p>
+<h6 id="树的高度"><a href="#树的高度" class="headerlink" title="树的高度"></a>树的高度</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode *pTreeNode)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(!pTreeNode)</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> nLeft = TreeDepth(pTreeNode-&gt;left);</div><div class="line">    <span class="keyword">int</span> nRight = TreeDepth(pTreeNode-&gt;right);</div><div class="line">    <span class="keyword">return</span> (nLeft &gt; nRight) ? (nLeft + <span class="number">1</span>) : (nRight + <span class="number">1</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="二叉树是否平衡"><a href="#二叉树是否平衡" class="headerlink" title="二叉树是否平衡"></a>二叉树是否平衡</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsBalanced</span><span class="params">(TreeNode* pRoot)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(pRoot== <span class="literal">NULL</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    <span class="keyword">int</span> nLeftDepth = TreeDepth(pRoot-&gt;left);</div><div class="line">    <span class="keyword">int</span> nRightDepth = TreeDepth(pRoot-&gt;right);</div><div class="line">    <span class="keyword">int</span> diff = nRightDepth-nLeftDepth;</div><div class="line">    <span class="keyword">if</span> (diff&gt;<span class="number">1</span> || diff&lt;<span class="number">-1</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">return</span> IsBalanced(pRoot-&gt;left)&amp;&amp;IsBalanced(pRoot-&gt;right);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 面经积累 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[数据库索引]]></title>
+      <url>/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/</url>
+      <content type="html"><![CDATA[<h3 id="悲观锁-amp-乐观锁"><a href="#悲观锁-amp-乐观锁" class="headerlink" title="悲观锁&amp;乐观锁"></a>悲观锁&amp;乐观锁</h3><ul>
+<li>行锁：在<code>主键</code>确定的查询下，查询的数据能确定到某一行，此时用行锁锁数据。</li>
+<li>表锁：在主键不确定的查询下，需要对整个表进行扫描以查询，此时用表锁锁住整个表。</li>
+</ul>
+<h5 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h5><p>在整个数据处理过程中，将数据处于锁定状态。</p>
+<h5 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h5><p>放弃复杂的锁机制（提高效率），表中增加一个字段<code>version版本号</code>（初始为1）。当有一个线程操作表后，把版本号+1。<br>原则：如果<code>提交的数据的版本号大于数据库表当前版本号，则予以更新</code>，否则无效。<br>避免脏数据：a线程读了数据，增加了数据但未提交，恰好b线程增加了数据并提交，此时b把版本号加为2，a再提交时，由于版本号1小于数据库此时版本号，所以a的操作是无效的。</p>
+<a id="more"></a>
+<h5 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h5><p>如果是分布式系统，控制数据的并发只能在<code>数据库</code>上。因为代码都分布在不同的位置，怎么同步？此时控制高并发，<code>乐观锁</code>就派上了用场：</p>
+<ol>
+<li>只有当前版本号&gt;=数据库表版本号，才能提交生效。</li>
+<li>提交成功后，版本号version++。</li>
+</ol>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><h5 id="聚簇索引"><a href="#聚簇索引" class="headerlink" title="聚簇索引"></a>聚簇索引</h5><p>即<code>主键</code>，引用一段话：</p>
+<blockquote>
+<p>一个<code>没加主键</code>的表，它的数据无序的放置在磁盘存储器上，一行一行的排列的很<code>整齐</code>， 跟我认知中的<code>表</code>很接近。如果给表上了主键，那么表在磁盘上的存储结构就由整齐排列的结构转变成了<code>树状结构</code>，也就是B树结构，换句话说，就是整个表就变成了一个<code>索引</code>。</p>
+</blockquote>
+<p>为什么一个表只能有一个主键？<br>因为一个表只能有一个<code>聚集索引</code>，因为主键的作用就是把<code>表</code>的数据格式转换成<code>索引（平衡树）</code>的格式放置。</p>
+<p>假如我们执行一个SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">123</span>;</div></pre></td></tr></table></figure></p>
+<p>首先根据索引定位到123这个值所在的叶结点，然后再通过叶结点取到id等于1256的数据行。</p>
+<h5 id="非聚簇索引"><a href="#非聚簇索引" class="headerlink" title="非聚簇索引"></a>非聚簇索引</h5><p>跟聚簇索引一样，只不过是非主键。引用一段话：</p>
+<blockquote>
+<p>假如给user表的name字段加上索引，那么索引就是由name字段中的值构成，在数据改变时， DBMS需要一直维护索引结构的正确性。如果给表中多个字段加上索引，那么就会出现多个独立的索引结构，每个索引（非聚集索引）<code>互相之间不存在关联</code>。</p>
+</blockquote>
+<p>每次给字段建一个新索引，字段中的数据就会被<code>复制</code>一份出来，用于生成索引。因此，给表添加索引，会增加表的体积，占用磁盘存储空间。</p>
+<p>区别：</p>
+<ul>
+<li>聚簇索引直接通过主键找到位置，拿数据。</li>
+<li>非聚簇索引通过字段找到<code>主键</code>，再通过主键拿数据，总之要过主键这关！</li>
+</ul>
+<h5 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h5><p>有一种方法不通过主键拿数据，例如user表（主键id）中有name，address字段，我把这两个字段都设为索引（非聚簇）：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_xxx <span class="keyword">on</span> <span class="keyword">user</span>(<span class="keyword">name</span>,address);</div></pre></td></tr></table></figure></p>
+<p>这时树节点中有：id，name，address，如果我恰好通过name查询address，由于数据在一个节点中，就不用二次查询了。大大提高了效率。</p>
+<p>关于索引，推荐<a href="http://www.cnblogs.com/aspwebchh/p/6652855.html" target="_blank" rel="external">文章</a>，讲的很好，我引用的段落也是来自这篇博文。</p>
+<h5 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h5><p>B树是一种平衡多路查找树。图示：</p>
+<div align="center"><br><img src="/images/b_tree.jpg" alt="b_tree"><br></div>
+
+<h6 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h6><p>一个度为m的树，称之为m阶B树（树的度指树的分支），也可以叫做m叉树。</p>
+<ol>
+<li>根节点<code>至少</code>有<code>两颗</code>子树，至多有<code>m棵</code>子树。</li>
+<li>除根节点外，所有非叶子节点至少是<code>m/2</code>（向上取整）棵子树，至多是m棵子树。</li>
+<li>所有叶子节点都在树的同一层上。</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 面经积累 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 索引 </tag>
+            
+            <tag> B树 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[红黑树]]></title>
+      <url>/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
+      <content type="html"><![CDATA[<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a><a href="http://www.cnblogs.com/fornever/archive/2011/12/02/2270692.html" target="_blank" rel="external">红黑树</a></h3><p>红黑树是一颗<code>平衡二叉树</code>，图示：</p>
+<div align="center"><br><img src="/images/red_black1.png" alt="red_black1"><br></div>
+
+<h5 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h5><ol>
+<li>节点只能为红色或者黑色。</li>
+<li><code>根节点</code>和<code>叶节点</code>必须为黑色。（这里的叶子节点并不是普通的叶子节点，而是人为的补了<code>NULL</code>，以NULL作为叶子节点）</li>
+<li><code>红色</code>节点的子节点为<code>黑色</code>。</li>
+<li>任意一节点到达叶子节点（只能顺着走最短路，不能绕弯）所经过的<code>黑色</code>节点数目相同。（例如8号，到达包括NULL叶子节点所经过的黑色节点都是2个）</li>
+</ol>
+<h5 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h5><p>如果插入<code>黑色</code>，会破坏最重要的4条件，所以只能插入<code>红色</code>节点，但是插入后需要调整或者变色。</p>
+<h6 id="情景1：父节点为黑色，直接插入"><a href="#情景1：父节点为黑色，直接插入" class="headerlink" title="情景1：父节点为黑色，直接插入"></a>情景1：父节点为黑色，直接插入</h6><p>例如插入1的左子树，这样完全符合规则，不用改变。</p>
+<h6 id="情景2：父节点为红色，父节点兄弟节点对称"><a href="#情景2：父节点为红色，父节点兄弟节点对称" class="headerlink" title="情景2：父节点为红色，父节点兄弟节点对称"></a>情景2：父节点为红色，父节点兄弟节点对称</h6><p>G为黑色，P、U为红色，此时要插入红色的N：</p>
+<div align="center"><br><img src="/images/red_black2.png" alt="red_black2"><br></div>
+
+<p>插入节点N，此时需要递归的把P、U、G都变为相反色，来确保符合规则。最后把根节点置为黑色。</p>
+<h5 id="情景3：父节点红色，父节点兄弟节点不对称"><a href="#情景3：父节点红色，父节点兄弟节点不对称" class="headerlink" title="情景3：父节点红色，父节点兄弟节点不对称"></a>情景3：父节点红色，父节点兄弟节点不对称</h5><div align="center"><br><img src="/images/red_black3.png" alt="red_black3"><br></div>
+
+<p>例如：P、U不同色，P红U黑，此时插入N节点，把P和G置为相反色，然后PG以P为中心点旋转。</p>
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><p>太复杂记不住，先放放吧。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 面经积累 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[sychronized和lock]]></title>
+      <url>/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/sychronized%E5%92%8Clock/</url>
+      <content type="html"><![CDATA[<h3 id="并发-amp-同步"><a href="#并发-amp-同步" class="headerlink" title="并发&amp;同步"></a>并发&amp;同步</h3><ul>
+<li>sychronized自动释放锁。</li>
+<li>lock必须手动释放，为了不出异常释放锁应该写在<code>finally</code>语句块中。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</div><div class="line">    <span class="comment">//锁对象</span></div><div class="line">    <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="comment">//得到锁</span></div><div class="line">        lock.lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; name.length(); i++) &#123;</div><div class="line">                System.out.print(name.charAt(i));</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="comment">//释放锁</span></div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        LockTest test=<span class="keyword">new</span> LockTest();</div><div class="line">        test.output(<span class="string">"ABCDEF"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>我们要实现写入和写入互斥，读取和写入互斥，在set和get方法加入sychronized修饰符，但是<code>读取</code>和<code>读取</code>之间也互斥了，降低了读取的效率。<br>改进：<code>读写锁</code>，读取、写入两不误。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReadWriteLock;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantReadWriteLock;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</div><div class="line">    <span class="comment">//共享数据</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> data;</div><div class="line">    <span class="comment">//读写锁</span></div><div class="line">    <span class="keyword">private</span> ReadWriteLock lock = <span class="keyword">new</span> ReentrantReadWriteLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getData</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//读锁</span></div><div class="line">        lock.readLock().lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">return</span> data;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            lock.readLock().unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> </span>&#123;</div><div class="line">        <span class="comment">//写锁</span></div><div class="line">        lock.writeLock().lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">this</span>.data = data;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            lock.writeLock().unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 面经积累 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Think in Java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[动态代理(初级)]]></title>
+      <url>/2017/08/30/java/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86-%E5%88%9D%E7%BA%A7/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看这篇文章前必须先明白基础知识点，反射和代理模式，如果知识点不懂的话建议先看<code>反射（Java）</code>和<code>代理模式（设计模式）</code>两篇文章。</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>用过<code>Spring</code>的就知道，为什么一个注解<code>@Transactional</code>可以帮你做那么多事情？<code>AOP</code>的切面是怎么切入的？都离不开动态代理。</p>
+<h3 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h3><ol>
+<li><code>InvocationHandler</code>接口。</li>
+<li><code>Proxy</code>类，主要用到其静态方法newProxyInstance。</li>
+</ol>
+<a id="more"></a>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>抽象接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Employ</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>实现类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leader</span> <span class="keyword">implements</span> <span class="title">Employ</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"Leader签署文件"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>被代理对象必须实现InvocationHandler接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> * 代理者必须实现InvocationHandler接口</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</div><div class="line">    <span class="comment">//被代理的对象</span></div><div class="line">    <span class="keyword">private</span> Object leader;</div><div class="line"></div><div class="line">    <span class="comment">//什么时候构造方法默认为public了</span></div><div class="line">    DynamicProxy(Object leader) &#123;</div><div class="line">        <span class="keyword">this</span>.leader = leader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">        System.out.println(<span class="string">"助理将文件递给Leader"</span>);</div><div class="line">        Object result = method.invoke(leader, args);</div><div class="line">        System.out.println(<span class="string">"助理将文件收好"</span>);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>生成代理对象并调用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Employ leader = <span class="keyword">new</span> Leader();</div><div class="line">        InvocationHandler handler = <span class="keyword">new</span> DynamicProxy(leader);</div><div class="line"></div><div class="line">        Employ subject = (Employ) Proxy.newProxyInstance(handler.getClass().getClassLoader(), leader</div><div class="line">                .getClass().getInterfaces(), handler);</div><div class="line">        subject.sign();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">助理将文件递给Leader</div><div class="line">Leader签署文件</div><div class="line">助理将文件收好</div></pre></td></tr></table></figure></p>
+<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><p>用起来很简单，但是有几个比较深的问题：</p>
+<ol>
+<li>代理对象到底是怎么生成的。</li>
+<li>InvocationHandler的invoke方法是谁调用的。</li>
+</ol>
+<p>这就要看源码了，有篇<a href="http://rejoy.iteye.com/blog/1627405" target="_blank" rel="external">文章</a>写的比较好，可以推荐一下。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Java </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[git高阶]]></title>
-      <url>/2017/08/26/git%E9%AB%98%E9%98%B6/</url>
+      <url>/2017/08/26/git/git%E9%AB%98%E9%98%B6/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>网上类似的教程有很多，我仅把我在公司用到的常用的命令做个<code>总结</code>。并且结合项目来说，让大家更清晰一些。</p>
 <h3 id="项目开始"><a href="#项目开始" class="headerlink" title="项目开始"></a>项目开始</h3><p>公司开了一个会，决定我们要开始xxx项目了，此时先把准备工作弄好。项目组会选择一个git平台，例如<a href="https://coding.net/" target="_blank" rel="external">码市</a>，在上面新建一个项目。</p>
 <p>成员登录平台，复制代码的SSH链接，把项目拉倒本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://git.coding.net/xxxxxx/xxxxxx.git</div></pre></td></tr></table></figure></p>
@@ -51,7 +240,7 @@
     
     <entry>
       <title><![CDATA[dynamodb中scan数据不全]]></title>
-      <url>/2017/08/26/dynamodb%E4%B8%ADscan%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%85%A8/</url>
+      <url>/2017/08/26/node/dynamodb%E4%B8%ADscan%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%85%A8/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>来自一个真实测试的<code>bug</code>，在公司实习主要用node开发，数据库是用的<code>dynamodb</code>。这个数据库跟mongodb一样，也属于<code>no sql</code>数据库。但是用的人相对较少，网上的博客也不多，学习只能看官方文档。</p>
 <h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><p>起源于一条记录，在<code>log</code>（文件）中可以看到它，但是查询日志（从数据库中查）时却找不到它。经过排查发现，数据库中有这个数据，但是没查到！</p>
 <h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ul>
@@ -72,7 +261,7 @@
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>贴一下<a href="http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination" target="_blank" rel="external">官方文档</a>，可以看到有明确介绍：</p>
 <div align="center"><br><img src="/images/scan.PNG" alt="scan"><br></div>
 
-<p>编码如下，注意写递归有个<code>小技巧</code>，因为js的处处异步性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">exports.queryCampaign = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">let</span> activity_type = data.activity_type;</div><div class="line">        <span class="keyword">let</span> date = data.date;</div><div class="line">        <span class="keyword">if</span> (!activity_type || !date) &#123;</div><div class="line">            reject(error.DB_PARAM_ERROR);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//let startDate = date + ' 00:00:00';</span></div><div class="line">        <span class="comment">//let endDate = date + ' 24:00:00';</span></div><div class="line">        <span class="keyword">let</span> params = &#123;</div><div class="line">            <span class="attr">TableName</span>: config.DBTables.ad_activity,</div><div class="line">            <span class="attr">FilterExpression</span>: <span class="string">'activity_type = :activity_type and contains(activity_time,:date)'</span>,</div><div class="line">            <span class="attr">ExpressionAttributeValues</span>: &#123;</div><div class="line">                <span class="string">':activity_type'</span>: activity_type,</div><div class="line">                <span class="comment">//':startDate': startDate,</span></div><div class="line">                <span class="comment">//':endDate': endDate,</span></div><div class="line">                <span class="string">':date'</span>: date</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        <span class="keyword">let</span> result = [];</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">            dbModel.scan(param).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</div><div class="line">                result = result.concat(res.Items);</div><div class="line">                <span class="keyword">if</span> (res.LastEvaluatedKey) &#123;</div><div class="line">                    param.ExclusiveStartKey = res.LastEvaluatedKey;</div><div class="line">                    getData(param);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    resolve(result);</div><div class="line">                &#125;</div><div class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</div><div class="line">                reject(err);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        getData(params);</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>编码如下，注意写递归有个<code>小技巧</code>，因为js的处处异步性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">exports.queryCampaign = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">let</span> activity_type = data.activity_type;</div><div class="line">        <span class="keyword">let</span> date = data.date;</div><div class="line">        <span class="keyword">if</span> (!activity_type || !date) &#123;</div><div class="line">            reject(error.DB_PARAM_ERROR);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//let startDate = date + ' 00:00:00';</span></div><div class="line">        <span class="comment">//let endDate = date + ' 24:00:00';</span></div><div class="line">        <span class="keyword">let</span> params = &#123;</div><div class="line">            <span class="attr">TableName</span>: config.DBTables.ad_activity,</div><div class="line">            <span class="attr">FilterExpression</span>: <span class="string">'activity_type = :activity_type and contains(activity_time,:date)'</span>,</div><div class="line">            <span class="attr">ExpressionAttributeValues</span>: &#123;</div><div class="line">                <span class="string">':activity_type'</span>: activity_type,</div><div class="line">                <span class="comment">//':startDate': startDate,</span></div><div class="line">                <span class="comment">//':endDate': endDate,</span></div><div class="line">                <span class="string">':date'</span>: date</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        <span class="keyword">let</span> result = [];</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">            dbModel.scan(param).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</div><div class="line">                result = result.concat(res.Items);</div><div class="line">                <span class="keyword">if</span> (res.LastEvaluatedKey) &#123;</div><div class="line">                    param.ExclusiveStartKey = res.LastEvaluatedKey;</div><div class="line">                    getData(param);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    resolve(result);</div><div class="line">                &#125;</div><div class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</div><div class="line">                reject(err);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        getData(params);</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>问题果然就解决了~</p>
 ]]></content>
       
@@ -85,9 +274,9 @@
         
         <tags>
             
-            <tag> dynamodb </tag>
-            
             <tag> bug </tag>
+            
+            <tag> dynamodb </tag>
             
         </tags>
         
@@ -95,7 +284,7 @@
     
     <entry>
       <title><![CDATA[node入门]]></title>
-      <url>/2017/08/21/node%E5%85%A5%E9%97%A8/</url>
+      <url>/2017/08/21/node/node%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为啥会入node，我也不知道，实习中公司用我就学着写了。写了node还是有好处的，至少我几个小时就用<code>github pages</code>搭建了博客。</p>
 <h3 id="安装node环境"><a href="#安装node环境" class="headerlink" title="安装node环境"></a>安装node环境</h3><p>不想重复造轮子了，直接推荐看<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">这篇文章</a>，和git一样，傻瓜式双击安装。</p>
 <h3 id="node项目"><a href="#node项目" class="headerlink" title="node项目"></a>node项目</h3><p>我github上有一个入门的项目，用node写的一个RESTful API，我能去公司实习就是写了这个给别人看了，就通过考核了。<br>欢迎<a href="https://github.com/zhang0chao0/NodeHelloWorld" target="_blank" rel="external">下载</a>来看。</p>
@@ -125,7 +314,7 @@
     
     <entry>
       <title><![CDATA[git入门]]></title>
-      <url>/2017/08/21/git%E5%85%A5%E9%97%A8/</url>
+      <url>/2017/08/21/git/git%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇<code>git入门</code>和<code>node入门</code>来帮助他们。</p>
 <h3 id="git是什么？"><a href="#git是什么？" class="headerlink" title="git是什么？"></a>git是什么？</h3><p>假如多个人共同开发一个项目，怎么确保<code>代码的同步</code>？假如你修改了别人的代码或者别人修改了你的代码，很容易出现<code>冲突</code>的情况。<br>于是git诞生了，如果你找工作不会用<code>git</code>，这是致命的不足。因为没有那个公司不用它！</p>
 <h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>github=git+hub，即git仓库。git仓库有很多，github或者国内的<a href="https://coding.net/" target="_blank" rel="external">码市</a>，它是一个云仓库，相当于一个<code>中介</code>，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。<br>而且仓库自己带有<code>解决冲突</code>的机制，帮助我们解决代码冲突！</p>
@@ -138,10 +327,10 @@
 
 <p>你会发现<code>ls</code>列出了当前目录的所有文件和文件夹，这个命令在win10 <code>cmd</code>下是无法解析的，也就是说，git完全可以代替你的windows cmd命令行，而且可以把windows当linux来耍！</p>
 <p>最后的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name &quot;Your Name&quot;</div><div class="line">git config --global user.email &quot;email@example.com&quot;</div></pre></td></tr></table></figure></p>
-<p>因为git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和email地址。</p>
+<p>你的名字和email地址。</p>
 <h3 id="玩github"><a href="#玩github" class="headerlink" title="玩github"></a>玩github</h3><p>注册一个github账号。然后生成你的专属SSH key，随便进入一个目录，利用git：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</div></pre></td></tr></table></figure></p>
 <p>你需要把邮件地址换成你自己的邮件地址，然后<code>一路回车</code>，使用默认值即可。</p>
-<p>如果一切顺利的话，可以在用户主目录里找到<code>C:\Users\xx\.ssh</code>目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。</p>
+<p>如果一切顺利的话，可以在用户主目录里找到<code>C:\Users\xx\.ssh</code>目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对。</p>
 <div align="center"><br><img src="/images/git21.PNG" alt="git21"><br></div>
 
 <p>进入<code>C:\Users\xx\.ssh</code>文件夹，把<code>id_rsa.pub</code>里面的密钥贴到你的github上，这是你和github通信的凭证，不然会出权限错误。一旦通信成功，会生成<code>known_hosts</code>文件，里面存放了你哪些仓库建立过链接。</p>
@@ -157,7 +346,7 @@
 <h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><p>随便进入一个文件夹：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone url</div></pre></td></tr></table></figure></p>
 <p>把项目拉下来（url为你复制的链接）。</p>
 <p>接下来就可以对项目进行开发了，开发完后提交仓库（依次命令）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add *</div><div class="line">git commit -m &quot;第一次提交&quot;</div><div class="line">git push</div></pre></td></tr></table></figure></p>
-<p>如果提交成功，那么github上相应的就有这个项目了。</p>
+<p>如果提交成功，那么github上相应的就有这个文件了。</p>
 <p>自己动手试一下吧~</p>
 ]]></content>
       
@@ -178,7 +367,7 @@
     
     <entry>
       <title><![CDATA[nodejs中http请求timeout]]></title>
-      <url>/2017/08/21/nodejs%E4%B8%ADhttp%E8%AF%B7%E6%B1%82timeout/</url>
+      <url>/2017/08/21/node/nodejs%E4%B8%ADhttp%E8%AF%B7%E6%B1%82timeout/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末一个线上测试的脚本跑了两天，一直报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2017-08-19T06:32:00.021Z - error:  Error: socket hang up</div><div class="line">    at createHangUpError (_http_client.js:345:15)</div><div class="line">    at Socket.socketOnEnd (_http_client.js:437:23)</div><div class="line">    at emitNone (events.js:110:20)</div><div class="line">    at Socket.emit (events.js:207:7)</div><div class="line">    at endReadableNT (_stream_readable.js:1045:12)</div><div class="line">    at _combinedTickCallback (internal/process/next_tick.js:138:11)</div><div class="line">    at process._tickDomainCallback (internal/process/next_tick.js:218:9)</div></pre></td></tr></table></figure></p>
 <p>很明显，这是一个<code>http</code>的错误。</p>
 <h3 id="联想"><a href="#联想" class="headerlink" title="联想"></a>联想</h3><p>之前也遇到过这个问题，原因是http请求<code>端口号</code>写错了，导致不能发起连接。</p>
@@ -186,12 +375,12 @@
 <a id="more"></a>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
 <ul>
-<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
 <ul>
-<li>在需要设置超时时间的接口里面，加上：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>在需要设置超时时间的接口里面，加上：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>只对此接口有效。</p>
@@ -209,9 +398,9 @@
             
             <tag> HTTP </tag>
             
-            <tag> bug </tag>
-            
             <tag> timeout </tag>
+            
+            <tag> bug </tag>
             
         </tags>
         
@@ -219,7 +408,7 @@
     
     <entry>
       <title><![CDATA[初识maven]]></title>
-      <url>/2017/08/20/%E5%88%9D%E8%AF%86maven/</url>
+      <url>/2017/08/20/maven/%E5%88%9D%E8%AF%86maven/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>很久之前用过maven开发项目，但这几个月一直在公司写node.js，很少碰Java，为了不生疏，就写一系列的博客加强记忆，顺便教下小白（PS：我自己也是小白）。</p>
 <h3 id="为什么用maven？"><a href="#为什么用maven？" class="headerlink" title="为什么用maven？"></a>为什么用maven？</h3><p>用Java框架（SSH、SSM）开发过Web项目的都知道，随着项目越做越大，在<code>WEB-INF/lib</code>目录下放的Jar包也越来越多，当你需要增加或删除一个Jar包，全靠人工记忆，非常不便于管理项目。<br>而且各个Jar包是否有<code>版本冲突</code>情况，让人头疼。</p>
 <h3 id="maven改进"><a href="#maven改进" class="headerlink" title="maven改进"></a>maven改进</h3><p>当你需要一个Jar包时，你只需要在<code>pom.xml</code>中申明它，然后更新工程，Jar包会自动下载下来，一般在<code>C:/Users/xx/.m2/repository</code>文件夹中（看你具体怎么配置的）。<br>当<code>项目编译</code>时，Jar包才会被导入到编译后的项目目录中，随着项目发布。</p>
@@ -260,7 +449,7 @@
     
     <entry>
       <title><![CDATA[搭建hexo博客(3)]]></title>
-      <url>/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/</url>
+      <url>/2017/08/17/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看了之前的文章，你自己写文章已经OK了，如果你想把博客变得<code>更炫酷</code>（头像旋转、背景动画等），我推荐看<a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="external">这篇文章</a>，我也是看的这个配置的，写的很好。</p>
 <h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>打开<code>主题配置文件</code>，找到这个：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># Local search</div><div class="line"># Dependencies: https://github.com/flashlab/hexo-generator-search</div><div class="line">local_search:</div><div class="line">  enable: true</div><div class="line">  # if auto, trigger search by changing input</div><div class="line">  # if manual, trigger search by pressing enter key or search button</div><div class="line">  trigger: auto</div><div class="line">  # show top n results per article, show all results by setting to -1</div><div class="line">  top_n_per_article: 1</div></pre></td></tr></table></figure>
@@ -316,7 +505,7 @@
     
     <entry>
       <title><![CDATA[搭建hexo博客(2)]]></title>
-      <url>/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/</url>
+      <url>/2017/08/17/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果看过<code>搭建hexo博客(1)</code>并且成功的，可以往后看，我会教大家一步步把博客变成我现在的样子；<br>如果没有成功，请评论或私聊我。</p>
 <h3 id="我的目录结构"><a href="#我的目录结构" class="headerlink" title="我的目录结构"></a>我的目录结构</h3><div align="center"><br><img src="/images/catalog.PNG" alt="catalog"><br></div>
 
@@ -365,7 +554,7 @@
     
     <entry>
       <title><![CDATA[事务隔离级别]]></title>
-      <url>/2017/08/16/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
+      <url>/2017/08/16/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>数据库事务的隔离级别有<code>4</code>个，由低到高依次为<code>Read uncommitted</code>（读未提交）、<code>Read committed</code>（读已提交）、<code>Repeatable read</code>（重复读）、<code>Serializable</code>（序列化）。</p>
 <h3 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h3><p>A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；<br>但A发现打错了，<code>回滚</code>了事务，B再查看就发现钱没有了。<br>B之前读了未提交的事务，出现了<code>脏读</code>。</p>
 <a id="more"></a>
@@ -428,7 +617,7 @@
     
     <entry>
       <title><![CDATA[反射]]></title>
-      <url>/2017/07/30/%E5%8F%8D%E5%B0%84/</url>
+      <url>/2017/07/30/java/%E5%8F%8D%E5%B0%84/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。</p>
 <h3 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h3><p>在<code>类加载</code>这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。<br>那么这些信息是有用的，比如反射。可以利用信息产生类对象、获取并执行类方法等。下面通过代码来说明。</p>
 <a id="more"></a>
@@ -461,7 +650,7 @@
     
     <entry>
       <title><![CDATA[类加载]]></title>
-      <url>/2017/07/30/%E7%B1%BB%E5%8A%A0%E8%BD%BD/</url>
+      <url>/2017/07/30/java/%E7%B1%BB%E5%8A%A0%E8%BD%BD/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>要理解<code>RTTI</code>（运行时类型信息）在Java中的工作原理，必须知道<code>类型信息</code>是如何表示的。</p>
 <h3 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h3><p>每个类都有一个<code>Class对象</code>，每当编译了一个类，就会产生一个Class对象，保存在同名的.class文件中。<br>当程序运行时，虚拟机把描述类的数据<code>从class文件中加载到内存</code>，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。</p>
 <p>Java中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的，<strong>以下知识点总结于网络</strong>。</p>
@@ -514,7 +703,7 @@
     
     <entry>
       <title><![CDATA[垃圾内存回收]]></title>
-      <url>/2017/07/30/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/</url>
+      <url>/2017/07/30/java/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。</p>
 <h3 id="找出回收的内存"><a href="#找出回收的内存" class="headerlink" title="找出回收的内存"></a>找出回收的内存</h3><ol>
 <li><code>标记计数法</code>：<br>给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。<br>缺点：无法解决循环引用的问题。</li>
@@ -567,7 +756,7 @@
     
     <entry>
       <title><![CDATA[搭建hexo博客(1)]]></title>
-      <url>/2017/07/28/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/</url>
+      <url>/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress<code>很难移植</code>，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。</p>
 <h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ol>
 <li>玩过github，至少上传过一个自己的项目/工程。</li>
@@ -615,7 +804,7 @@
     
     <entry>
       <title><![CDATA[搭建wordpress博客]]></title>
-      <url>/2017/07/26/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/</url>
+      <url>/2017/07/26/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我只会教大家<code>傻瓜式</code>的搭建博客，不用配任何环境，如果你是大神，会配任何环境，就不用往下看了。听起来是不是有点小激动~</p>
 <h2 id="1-阿里云-wordpress"><a href="#1-阿里云-wordpress" class="headerlink" title="1.阿里云 + wordpress"></a>1.阿里云 + wordpress</h2><p>首先买一个属于自己的服务器，也就是属于自己的IP。阿里云或腾讯云都可以，阿里云学生机地址<a href="http://click.aliyun.com/m/12564/" target="_blank" rel="external">链接</a>。</p>
 <div align="center"><br><img src="/images/ali_machine.png" alt="ali_machine"><br></div>
@@ -682,7 +871,7 @@
     
     <entry>
       <title><![CDATA[JVM]]></title>
-      <url>/2017/07/26/JVM/</url>
+      <url>/2017/07/26/java/JVM/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>JVM模型定义了一些内存区域，有的在程序运行时产生，在程序结束时销毁，称之为<code>全局区域</code>，有的在线程运行时创建，线程结束时销毁，称之为 <code>线程私有</code>的内存区域。</p>
 <p>内存结构分区图：</p>
 <div align="center"><br><img src="/images/JVM.png" alt="JVM"><br></div>
@@ -763,7 +952,7 @@
     
     <entry>
       <title><![CDATA[HTTP状态码]]></title>
-      <url>/2017/07/25/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/</url>
+      <url>/2017/07/25/http/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>本文总结于网络</strong>，总结一下HTTP返回的状态码。</p>
 <h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><ul>
 <li>100-199 用于指定客户端应相应的某些动作。</li>
@@ -830,7 +1019,7 @@
     
     <entry>
       <title><![CDATA[公钥-私钥]]></title>
-      <url>/2017/07/24/%E5%85%AC%E9%92%A5-%E7%A7%81%E9%92%A5/</url>
+      <url>/2017/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%85%AC%E9%92%A5-%E7%A7%81%E9%92%A5/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。</p>
 <h3 id="发送电子邮件"><a href="#发送电子邮件" class="headerlink" title="发送电子邮件"></a>发送电子邮件</h3><p>使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：</p>
 <ol>
@@ -872,7 +1061,7 @@
     
     <entry>
       <title><![CDATA[网页显示]]></title>
-      <url>/2017/07/24/%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA/</url>
+      <url>/2017/07/24/http/%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>打开一个浏览器，输入www.baidu.com， 回车，就会显示出网页，那么里面到底发生了什么？</p>
 <ol>
 <li>结果可能会重定向，例如你输入baidu.com，浏览器会自动转化为<a href="https://www.baidu.com/。" target="_blank" rel="external">https://www.baidu.com/。</a></li>
@@ -906,7 +1095,7 @@
     
     <entry>
       <title><![CDATA[String,StringBuilder,StringBuffer]]></title>
-      <url>/2017/07/24/String-StringBuilder-StringBuffer/</url>
+      <url>/2017/07/24/java/String-StringBuilder-StringBuffer/</url>
       <content type="html"><![CDATA[<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>String是放在常量池中的常量，所谓常量，就是这个对象一旦产生，它的值就不会变。有人疑问：不是有String a=a+”xx”这样的写法吗，这是因为a在加上”xx”后，已经不是原来的a了，a在加之后又变成了一个新的对象，只不过名字也叫a。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></div><div class="line">        <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * The value is used for character storage.</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Cache the hash code for the string</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></div><div class="line"></div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>可以看出String的的存储实际上就是一个final的数组（该数组不允许再指向别的地址，但数组的值可以改变），所以String的地址是无法改变的，每次更新后都是一个新的String对象。</p>
@@ -937,7 +1126,7 @@
     
     <entry>
       <title><![CDATA[String类]]></title>
-      <url>/2017/07/24/String%E7%B1%BB/</url>
+      <url>/2017/07/24/java/String%E7%B1%BB/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>String类是Java中的常用类，面试也会经常被问到。下面我就一个问题进行切入：<br>问题：String a=new String(“a”) ，这条语句执行后创建了几个对象？</p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><ol>
 <li>String的存储：String是保存在常量池中的，何为常量池，这里我又要拉扯到享元模式，多人共享一个东西有什么好处？资源不会被浪费啊，看看共享单车就是这个道理。字符串常量池一句话：如果有，我就从池中拿，如果没有，我就新建，然后放入池中。所以当程序看到”a”时，常量池以前是没有”a”的，那么常量池中就会多一个”a”，这是1个对象。</li>
@@ -970,7 +1159,7 @@
     
     <entry>
       <title><![CDATA[finalize与finally]]></title>
-      <url>/2017/07/24/finalize%E4%B8%8Efinally/</url>
+      <url>/2017/07/24/java/finalize%E4%B8%8Efinally/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>众所周知，Java语言除了8种基本的数据类型以外，处处皆对象，Java中所有的类都是继承于Object类（包括你自己写的），而finalize()是Object类中的一个方法，这个方法在垃圾内存回收中被用到。</p>
 <h3 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h3><p>当一个对象A的内存要被回收时，会调用其finalize()方法，如果A对象没有该方法，对不起，这块内存会直接被释放掉，如果在A这个方法内，A对象又被新的对象引用，那么A对象将重生了！即A对象的内存不会被释放。<br><strong>注意</strong>：不要把finalize()与C++中的析构函数相提并论，因为它们不是同一个玩意，一个对象被析构了，它不一定会被内存回收。</p>
 <a id="more"></a>
@@ -999,7 +1188,7 @@
     
     <entry>
       <title><![CDATA[适配器模式]]></title>
-      <url>/2017/07/24/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>我想实现一个功能，准备自己动手写一个，但是我发现我的同事小张他写过这个功能，那我肯定不想自己写了，我想直接拿过来用。但是他的类函数结构跟我原来设定的结构有些冲突，不能直接拿过来用，怎么办！？自己写一个适配器啊，这就是适配器模式。简单的来说，就是我想用别人的代码，但是函数名什么的要我自己来命名。那就只能在自己的函数中调用别人的函数了。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/adapter.PNG" alt="adapter"><br></div>
 
@@ -1021,7 +1210,7 @@
     
     <entry>
       <title><![CDATA[组合模式]]></title>
-      <url>/2017/07/24/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>组合模式比较简单和基础，就是描述对象之间1对多的关系，例如：1个领导有多个下属。这个模式用下Java的集合类就可以实现了。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/composite.PNG" alt="composite"><br></div>
 
@@ -1043,7 +1232,7 @@
     
     <entry>
       <title><![CDATA[代理模式]]></title>
-      <url>/2017/07/24/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>老板要做一件事情，但是他不用亲自去做，而是交给秘书代理完成。</p>
 <h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>秘书代理完成的过程中可以添加自己的行为，例如完成前，他可以做xx事情，完成后，他可以再做xx事情。代理模式常用于给对象添加新的功能（而不改变原有的对象）。</p>
 <h3 id="AOP面向切面编程"><a href="#AOP面向切面编程" class="headerlink" title="AOP面向切面编程"></a>AOP面向切面编程</h3><p>Spring中的注解@Transaction也是用到了代理模式，把你的函数上加上一个注解@Transaction，你的函数就变成了事务性的，原子性的。为什么，因为Spring帮你做了，在调用函数前，打开一个事务，结束函数后，提交一个事务。总之，这个设计模式比较重要，以后我还会写一下JDK的动态代理，也是用到了代理模式。</p>
@@ -1067,7 +1256,7 @@
     
     <entry>
       <title><![CDATA[命令模式]]></title>
-      <url>/2017/07/24/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>命令模式有命令发出者和命令接收者。总体上来说就是：</p>
 <ol>
 <li>发出命令；</li>
@@ -1096,7 +1285,7 @@
     
     <entry>
       <title><![CDATA[builder模式]]></title>
-      <url>/2017/07/24/builder%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/builder%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>我要写一个文件，文件分为xml文件和txt文件，文件都有的特性：文件头header，文件内容body，文件为footer。我肯定要用一个抽象的builder接口（有builder文件的方法），然后用具体的实现类去实现builder。还要有一个director类来控制整个builde流程。</p>
 <h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>使用builder模式，所有的控制权都在director上，一个大系统有很多零件，director可以决定哪个零件要，哪个零件不要，以及零件的组装顺序。万一有一天系统中的某个零件不要了或者零件的安装顺序变了，只用修改director类，其它都不用变。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/builder.PNG" alt="builder"><br></div>
@@ -1120,7 +1309,7 @@
     
     <entry>
       <title><![CDATA[原型模式]]></title>
-      <url>/2017/07/24/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>一句话，对象的复制。但对象的复制也要分为深拷贝和浅拷贝（默认为浅拷贝），这也是需要注意的。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/prototype.PNG" alt="prototype"><br></div>
 
@@ -1146,7 +1335,7 @@
     
     <entry>
       <title><![CDATA[单例模式]]></title>
-      <url>/2017/07/24/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>一句话，一个类<code>有且仅有一个实例</code>，单例模式也分懒汉式和恶汉式，看代码就可以了。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/singleton.PNG" alt="singleton"><br></div>
 
@@ -1167,7 +1356,7 @@
     
     <entry>
       <title><![CDATA[抽象工厂模式]]></title>
-      <url>/2017/07/24/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>工厂方法模式只能造出一维的实例，例如车工厂，造火车、汽车等。但是抽象工厂模式可以造出多维的实例，火车、汽车也分华北的和东北的，这样就是二维的属性两两组合了（华北火车、华北汽车、东北火车、东北汽车）。抽象工厂也是工厂三兄弟中最不好理解的一个。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/abstractfactory.PNG" alt="abstractfactory"><br></div>
 
@@ -1192,7 +1381,7 @@
     
     <entry>
       <title><![CDATA[工厂方法模式]]></title>
-      <url>/2017/07/24/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>工厂方法模式就是在简单工厂模式的基础上，把工厂也给抽象了。有一个抽象（接口）工厂，然后具体的实现工厂implements这个接口，这样的话，具体的工厂实现具体的实例了。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/factorymethod.PNG" alt="factorymethod"><br></div>
 
@@ -1215,7 +1404,7 @@
     
     <entry>
       <title><![CDATA[简单工厂模式]]></title>
-      <url>/2017/07/24/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>一个类专门负责创建其他类的实例，具体创建什么实例由传入的参数而决定，并且这些类都共同继承于一个父类或者有共同的接口。一句话来描述就是：<code>根据参数的不同创造不同的实例对象</code>。</p>
 <h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><div align="center"><br><img src="/images/simplefactory.PNG" alt="simplefactory"><br></div>
 
@@ -1239,7 +1428,7 @@
     
     <entry>
       <title><![CDATA[设计模式概述]]></title>
-      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/</url>
+      <url>/2017/07/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>本文总结于网络</strong>。软件设计的核心在于提高软件的<code>可复用性</code>和<code>可维护性</code>。设计模式就用于解决这一问题。</p>
 <h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
 <li>开闭原则，简称OCP。即软件实体对扩展是开放的，对修改是闭合的。</li>
@@ -1286,7 +1475,7 @@
     
     <entry>
       <title><![CDATA[归并排序]]></title>
-      <url>/2017/07/24/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</url>
+      <url>/2017/07/24/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</url>
       <content type="html"><![CDATA[<p>思想不多扯了，也是<code>分治算法</code>的思想，归并排序有一个<code>先分再合</code>的过程。时间复杂度为<code>O(nlogn)</code>，是一个<code>稳定</code>的排序算法。<br>上图看得明白点：</p>
 <div align="center"><br><img src="/images/mergesort.jpg" alt="mergesort"><br></div>
 
@@ -1312,7 +1501,7 @@
     
     <entry>
       <title><![CDATA[快速排序]]></title>
-      <url>/2017/07/24/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
+      <url>/2017/07/24/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好几个同学面试都问到了快速排序，个人觉得这也是面试中的常考点，所以我也总结一下，快速排序是基于分治算法的。</p>
 <p>基本步骤如下：</p>
 <ol>
@@ -1349,7 +1538,7 @@
     
     <entry>
       <title><![CDATA[HTTP协议]]></title>
-      <url>/2017/07/23/HTTP%E5%8D%8F%E8%AE%AE/</url>
+      <url>/2017/07/23/http/HTTP%E5%8D%8F%E8%AE%AE/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>谈到<code>HTTP协议</code>，就不得不提谷歌浏览器的一个插件<code>postman</code>，无论你是做<code>前端</code>还是做<code>后端</code>的，这个工具都能发挥作用。建议程序员小伙伴安装使用（谷歌浏览器程序员必备就不用说了吧）。</p>
 <div align="center"><br><img src="/images/postman.PNG" alt="postman"><br></div>
 

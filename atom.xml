@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2017-08-27T02:25:32.761Z</updated>
+  <updated>2017-09-18T03:45:08.333Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -16,9 +16,236 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>算法题</title>
+    <link href="http://zhangchaozc.cn/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
+    <id>http://zhangchaozc.cn/2017/09/18/面经积累/算法题/</id>
+    <published>2017-09-18T03:39:25.000Z</published>
+    <updated>2017-09-18T03:45:08.333Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">struct</span> <span class="title">Node</span></div><div class="line">&#123;</div><div class="line">    T data;</div><div class="line">    Node&lt;T&gt;* next;</div><div class="line">    Node()</div><div class="line">    &#123;</div><div class="line">        next=<span class="literal">nullptr</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="插入节点node"><a href="#插入节点node" class="headerlink" title="插入节点node"></a>插入节点node</h5><h6 id="头插法（first为头指针，last为尾指针）："><a href="#头插法（first为头指针，last为尾指针）：" class="headerlink" title="头插法（first为头指针，last为尾指针）："></a>头插法（first为头指针，last为尾指针）：</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node-&gt;next=first-&gt;next;</div><div class="line">first-&gt;next=node;</div></pre></td></tr></table></figure>
+<h6 id="尾插法"><a href="#尾插法" class="headerlink" title="尾插法"></a>尾插法</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">last-&gt;next=node;</div><div class="line">last=node;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h5 id="逆置（head为链表头指针）"><a href="#逆置（head为链表头指针）" class="headerlink" title="逆置（head为链表头指针）"></a>逆置（head为链表头指针）</h5><h6 id="方法1：头节点抽离，其它节点依次用头插法插入"><a href="#方法1：头节点抽离，其它节点依次用头插法插入" class="headerlink" title="方法1：头节点抽离，其它节点依次用头插法插入"></a>方法1：头节点抽离，其它节点依次用头插法插入</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Node* first=head-&gt;next;</div><div class="line">head-&gt;next=<span class="literal">nullptr</span>;</div><div class="line"><span class="keyword">while</span>(first)</div><div class="line">&#123;</div><div class="line">    Node* p=first;</div><div class="line">    p-&gt;next=head-&gt;next;</div><div class="line">    head-&gt;next=p;</div><div class="line">    first=first-&gt;next;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h6 id="方法2：三指针定位，遍历逆置"><a href="#方法2：三指针定位，遍历逆置" class="headerlink" title="方法2：三指针定位，遍历逆置"></a>方法2：三指针定位，遍历逆置</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Node* first=head-&gt;next;</div><div class="line">head-&gt;next=<span class="literal">nullptr</span>;</div><div class="line"><span class="keyword">while</span>(first)</div><div class="line">&#123;</div><div class="line">    Node* p=first-&gt;next;</div><div class="line">    first-&gt;next=head;</div><div class="line">    head=first;</div><div class="line">    first=p;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="是否成环"><a href="#是否成环" class="headerlink" title="是否成环"></a>是否成环</h5><p>设置两个指针从头开始走，一个比另一个速度快一倍，如果有环的话，这两个指针终会相等。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断是否有环</span></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isLoop</span><span class="params">(pNode pHead)</span></span></div><div class="line">&#123;</div><div class="line">    pNode fast = pHead;</div><div class="line">    pNode slow = pHead;</div><div class="line">    <span class="comment">//如果无环，则fast先走到终点</span></div><div class="line">    <span class="comment">//当链表长度为奇数时，fast-&gt;Next为空</span></div><div class="line">    <span class="comment">//当链表长度为偶数时，fast为空</span></div><div class="line">    <span class="keyword">while</span>( fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="literal">NULL</span>)</div><div class="line">    &#123;</div><div class="line">        fast = fast-&gt;next-&gt;next;</div><div class="line">        slow = slow-&gt;next;</div><div class="line">        <span class="comment">//如果有环，则fast会超过slow一圈</span></div><div class="line">        <span class="keyword">if</span>(fast == slow)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(fast == <span class="literal">NULL</span> || fast-&gt;next == <span class="literal">NULL</span>  )</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="若有环，计算环的长度"><a href="#若有环，计算环的长度" class="headerlink" title="若有环，计算环的长度"></a>若有环，计算环的长度</h5><p>当快慢指针第一次相等时开始计数，第二次相等时停止计数。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//计算环的长度</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">loopLength</span><span class="params">(pNode pHead)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(isLoop(pHead) == <span class="literal">false</span>)</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    pNode fast = pHead;</div><div class="line">    pNode slow = pHead;</div><div class="line">    <span class="keyword">int</span> length = <span class="number">0</span>;</div><div class="line">    <span class="keyword">bool</span> begin = <span class="literal">false</span>;</div><div class="line">    <span class="keyword">bool</span> agian = <span class="literal">false</span>;</div><div class="line">    <span class="keyword">while</span>( fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="literal">NULL</span>)</div><div class="line">    &#123;</div><div class="line">        fast = fast-&gt;next-&gt;next;</div><div class="line">        slow = slow-&gt;next;</div><div class="line">        <span class="comment">//超两圈后停止计数，挑出循环</span></div><div class="line">        <span class="keyword">if</span>(fast == slow &amp;&amp; agian == <span class="literal">true</span>)</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="comment">//超一圈后开始计数</span></div><div class="line">        <span class="keyword">if</span>(fast == slow &amp;&amp; agian == <span class="literal">false</span>)</div><div class="line">        &#123;</div><div class="line">            begin = <span class="literal">true</span>;</div><div class="line">            agian = <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//计数</span></div><div class="line">        <span class="keyword">if</span>(begin == <span class="literal">true</span>)</div><div class="line">            ++length;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> length;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="相交链表的第一个公共节点"><a href="#相交链表的第一个公共节点" class="headerlink" title="相交链表的第一个公共节点"></a>相交链表的第一个公共节点</h5><p>思路：</p>
+<ol>
+<li>如果两个链表相交，则从<code>相交点</code>开始，后面的节点<code>都相同</code>，即最后一个节点肯定相同。</li>
+<li>从头到尾遍历两个链表，并记录链表长度，当二者的<code>尾节点</code>不同，则二者肯定不相交。</li>
+<li>尾节点相同，若A长，从链表A的头结点开始，先走A-B个单位，然后A和B一起走，若链表相交，必定会找到相同的节点（即第一个节点），否则两链表不相交。</li>
+</ol>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">struct</span> <span class="title">TreeNode</span></div><div class="line">&#123;</div><div class="line">    T data;</div><div class="line">    TreeNode&lt;T&gt;* left;</div><div class="line">    TreeNode&lt;T&gt;* right;</div><div class="line">    TreeNode()</div><div class="line">    &#123;</div><div class="line">        left=<span class="literal">nullptr</span>;</div><div class="line">        right=<span class="literal">nullptr</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="树的遍历（前序）"><a href="#树的遍历（前序）" class="headerlink" title="树的遍历（前序）"></a>树的遍历（前序）</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">void</span> <span class="title">preOrder</span>(<span class="title">TreeNode</span>&lt;T&gt;*<span class="title">subTree</span>, <span class="title">void</span>(*<span class="title">visit</span>)(<span class="title">TreeNode</span>&lt;T&gt;*<span class="title">p</span>))</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (subTree != <span class="literal">nullptr</span>)</div><div class="line">	&#123;</div><div class="line">		visit(subTree);</div><div class="line">		preOrder(subTree-&gt;left, visit);</div><div class="line">		preOrder(subTree-&gt;right, visit);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其它的中序、后序只是改变一下visit函数的顺序而已（函数指针的用法，函数可以当一个参数传递）。</p>
+<h6 id="树的高度"><a href="#树的高度" class="headerlink" title="树的高度"></a>树的高度</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode *pTreeNode)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(!pTreeNode)</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> nLeft = TreeDepth(pTreeNode-&gt;left);</div><div class="line">    <span class="keyword">int</span> nRight = TreeDepth(pTreeNode-&gt;right);</div><div class="line">    <span class="keyword">return</span> (nLeft &gt; nRight) ? (nLeft + <span class="number">1</span>) : (nRight + <span class="number">1</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="二叉树是否平衡"><a href="#二叉树是否平衡" class="headerlink" title="二叉树是否平衡"></a>二叉树是否平衡</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsBalanced</span><span class="params">(TreeNode* pRoot)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(pRoot== <span class="literal">NULL</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    <span class="keyword">int</span> nLeftDepth = TreeDepth(pRoot-&gt;left);</div><div class="line">    <span class="keyword">int</span> nRightDepth = TreeDepth(pRoot-&gt;right);</div><div class="line">    <span class="keyword">int</span> diff = nRightDepth-nLeftDepth;</div><div class="line">    <span class="keyword">if</span> (diff&gt;<span class="number">1</span> || diff&lt;<span class="number">-1</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">return</span> IsBalanced(pRoot-&gt;left)&amp;&amp;IsBalanced(pRoot-&gt;right);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;单链表&quot;&gt;&lt;a href=&quot;#单链表&quot; class=&quot;headerlink&quot; title=&quot;单链表&quot;&gt;&lt;/a&gt;单链表&lt;/h3&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;template&lt;/span&gt;&amp;lt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;T&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;title&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Node&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    T data;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    Node&amp;lt;T&amp;gt;* next;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    Node()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        next=&lt;span class=&quot;literal&quot;&gt;nullptr&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h5 id=&quot;插入节点node&quot;&gt;&lt;a href=&quot;#插入节点node&quot; class=&quot;headerlink&quot; title=&quot;插入节点node&quot;&gt;&lt;/a&gt;插入节点node&lt;/h5&gt;&lt;h6 id=&quot;头插法（first为头指针，last为尾指针）：&quot;&gt;&lt;a href=&quot;#头插法（first为头指针，last为尾指针）：&quot; class=&quot;headerlink&quot; title=&quot;头插法（first为头指针，last为尾指针）：&quot;&gt;&lt;/a&gt;头插法（first为头指针，last为尾指针）：&lt;/h6&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;node-&amp;gt;next=first-&amp;gt;next;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;first-&amp;gt;next=node;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h6 id=&quot;尾插法&quot;&gt;&lt;a href=&quot;#尾插法&quot; class=&quot;headerlink&quot; title=&quot;尾插法&quot;&gt;&lt;/a&gt;尾插法&lt;/h6&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;last-&amp;gt;next=node;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;last=node;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="面经积累" scheme="http://zhangchaozc.cn/categories/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数据库索引</title>
+    <link href="http://zhangchaozc.cn/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/"/>
+    <id>http://zhangchaozc.cn/2017/09/18/面经积累/数据库索引/</id>
+    <published>2017-09-18T03:36:30.000Z</published>
+    <updated>2017-09-18T03:38:57.888Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="悲观锁-amp-乐观锁"><a href="#悲观锁-amp-乐观锁" class="headerlink" title="悲观锁&amp;乐观锁"></a>悲观锁&amp;乐观锁</h3><ul>
+<li>行锁：在<code>主键</code>确定的查询下，查询的数据能确定到某一行，此时用行锁锁数据。</li>
+<li>表锁：在主键不确定的查询下，需要对整个表进行扫描以查询，此时用表锁锁住整个表。</li>
+</ul>
+<h5 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h5><p>在整个数据处理过程中，将数据处于锁定状态。</p>
+<h5 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h5><p>放弃复杂的锁机制（提高效率），表中增加一个字段<code>version版本号</code>（初始为1）。当有一个线程操作表后，把版本号+1。<br>原则：如果<code>提交的数据的版本号大于数据库表当前版本号，则予以更新</code>，否则无效。<br>避免脏数据：a线程读了数据，增加了数据但未提交，恰好b线程增加了数据并提交，此时b把版本号加为2，a再提交时，由于版本号1小于数据库此时版本号，所以a的操作是无效的。</p>
+<a id="more"></a>
+<h5 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h5><p>如果是分布式系统，控制数据的并发只能在<code>数据库</code>上。因为代码都分布在不同的位置，怎么同步？此时控制高并发，<code>乐观锁</code>就派上了用场：</p>
+<ol>
+<li>只有当前版本号&gt;=数据库表版本号，才能提交生效。</li>
+<li>提交成功后，版本号version++。</li>
+</ol>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><h5 id="聚簇索引"><a href="#聚簇索引" class="headerlink" title="聚簇索引"></a>聚簇索引</h5><p>即<code>主键</code>，引用一段话：</p>
+<blockquote>
+<p>一个<code>没加主键</code>的表，它的数据无序的放置在磁盘存储器上，一行一行的排列的很<code>整齐</code>， 跟我认知中的<code>表</code>很接近。如果给表上了主键，那么表在磁盘上的存储结构就由整齐排列的结构转变成了<code>树状结构</code>，也就是B树结构，换句话说，就是整个表就变成了一个<code>索引</code>。</p>
+</blockquote>
+<p>为什么一个表只能有一个主键？<br>因为一个表只能有一个<code>聚集索引</code>，因为主键的作用就是把<code>表</code>的数据格式转换成<code>索引（平衡树）</code>的格式放置。</p>
+<p>假如我们执行一个SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">123</span>;</div></pre></td></tr></table></figure></p>
+<p>首先根据索引定位到123这个值所在的叶结点，然后再通过叶结点取到id等于1256的数据行。</p>
+<h5 id="非聚簇索引"><a href="#非聚簇索引" class="headerlink" title="非聚簇索引"></a>非聚簇索引</h5><p>跟聚簇索引一样，只不过是非主键。引用一段话：</p>
+<blockquote>
+<p>假如给user表的name字段加上索引，那么索引就是由name字段中的值构成，在数据改变时， DBMS需要一直维护索引结构的正确性。如果给表中多个字段加上索引，那么就会出现多个独立的索引结构，每个索引（非聚集索引）<code>互相之间不存在关联</code>。</p>
+</blockquote>
+<p>每次给字段建一个新索引，字段中的数据就会被<code>复制</code>一份出来，用于生成索引。因此，给表添加索引，会增加表的体积，占用磁盘存储空间。</p>
+<p>区别：</p>
+<ul>
+<li>聚簇索引直接通过主键找到位置，拿数据。</li>
+<li>非聚簇索引通过字段找到<code>主键</code>，再通过主键拿数据，总之要过主键这关！</li>
+</ul>
+<h5 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h5><p>有一种方法不通过主键拿数据，例如user表（主键id）中有name，address字段，我把这两个字段都设为索引（非聚簇）：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_xxx <span class="keyword">on</span> <span class="keyword">user</span>(<span class="keyword">name</span>,address);</div></pre></td></tr></table></figure></p>
+<p>这时树节点中有：id，name，address，如果我恰好通过name查询address，由于数据在一个节点中，就不用二次查询了。大大提高了效率。</p>
+<p>关于索引，推荐<a href="http://www.cnblogs.com/aspwebchh/p/6652855.html" target="_blank" rel="external">文章</a>，讲的很好，我引用的段落也是来自这篇博文。</p>
+<h5 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h5><p>B树是一种平衡多路查找树。图示：</p>
+<div align="center"><br><img src="/images/b_tree.jpg" alt="b_tree"><br></div>
+
+<h6 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h6><p>一个度为m的树，称之为m阶B树（树的度指树的分支），也可以叫做m叉树。</p>
+<ol>
+<li>根节点<code>至少</code>有<code>两颗</code>子树，至多有<code>m棵</code>子树。</li>
+<li>除根节点外，所有非叶子节点至少是<code>m/2</code>（向上取整）棵子树，至多是m棵子树。</li>
+<li>所有叶子节点都在树的同一层上。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;悲观锁-amp-乐观锁&quot;&gt;&lt;a href=&quot;#悲观锁-amp-乐观锁&quot; class=&quot;headerlink&quot; title=&quot;悲观锁&amp;amp;乐观锁&quot;&gt;&lt;/a&gt;悲观锁&amp;amp;乐观锁&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;行锁：在&lt;code&gt;主键&lt;/code&gt;确定的查询下，查询的数据能确定到某一行，此时用行锁锁数据。&lt;/li&gt;
+&lt;li&gt;表锁：在主键不确定的查询下，需要对整个表进行扫描以查询，此时用表锁锁住整个表。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&quot;悲观锁&quot;&gt;&lt;a href=&quot;#悲观锁&quot; class=&quot;headerlink&quot; title=&quot;悲观锁&quot;&gt;&lt;/a&gt;悲观锁&lt;/h5&gt;&lt;p&gt;在整个数据处理过程中，将数据处于锁定状态。&lt;/p&gt;
+&lt;h5 id=&quot;乐观锁&quot;&gt;&lt;a href=&quot;#乐观锁&quot; class=&quot;headerlink&quot; title=&quot;乐观锁&quot;&gt;&lt;/a&gt;乐观锁&lt;/h5&gt;&lt;p&gt;放弃复杂的锁机制（提高效率），表中增加一个字段&lt;code&gt;version版本号&lt;/code&gt;（初始为1）。当有一个线程操作表后，把版本号+1。&lt;br&gt;原则：如果&lt;code&gt;提交的数据的版本号大于数据库表当前版本号，则予以更新&lt;/code&gt;，否则无效。&lt;br&gt;避免脏数据：a线程读了数据，增加了数据但未提交，恰好b线程增加了数据并提交，此时b把版本号加为2，a再提交时，由于版本号1小于数据库此时版本号，所以a的操作是无效的。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="面经积累" scheme="http://zhangchaozc.cn/categories/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/"/>
+    
+    
+      <category term="索引" scheme="http://zhangchaozc.cn/tags/%E7%B4%A2%E5%BC%95/"/>
+    
+      <category term="B树" scheme="http://zhangchaozc.cn/tags/B%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>红黑树</title>
+    <link href="http://zhangchaozc.cn/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E7%BA%A2%E9%BB%91%E6%A0%91/"/>
+    <id>http://zhangchaozc.cn/2017/09/18/面经积累/红黑树/</id>
+    <published>2017-09-18T03:30:49.000Z</published>
+    <updated>2017-09-18T03:35:51.625Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a><a href="http://www.cnblogs.com/fornever/archive/2011/12/02/2270692.html" target="_blank" rel="external">红黑树</a></h3><p>红黑树是一颗<code>平衡二叉树</code>，图示：</p>
+<div align="center"><br><img src="/images/red_black1.png" alt="red_black1"><br></div>
+
+<h5 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h5><ol>
+<li>节点只能为红色或者黑色。</li>
+<li><code>根节点</code>和<code>叶节点</code>必须为黑色。（这里的叶子节点并不是普通的叶子节点，而是人为的补了<code>NULL</code>，以NULL作为叶子节点）</li>
+<li><code>红色</code>节点的子节点为<code>黑色</code>。</li>
+<li>任意一节点到达叶子节点（只能顺着走最短路，不能绕弯）所经过的<code>黑色</code>节点数目相同。（例如8号，到达包括NULL叶子节点所经过的黑色节点都是2个）</li>
+</ol>
+<h5 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h5><p>如果插入<code>黑色</code>，会破坏最重要的4条件，所以只能插入<code>红色</code>节点，但是插入后需要调整或者变色。</p>
+<h6 id="情景1：父节点为黑色，直接插入"><a href="#情景1：父节点为黑色，直接插入" class="headerlink" title="情景1：父节点为黑色，直接插入"></a>情景1：父节点为黑色，直接插入</h6><p>例如插入1的左子树，这样完全符合规则，不用改变。</p>
+<h6 id="情景2：父节点为红色，父节点兄弟节点对称"><a href="#情景2：父节点为红色，父节点兄弟节点对称" class="headerlink" title="情景2：父节点为红色，父节点兄弟节点对称"></a>情景2：父节点为红色，父节点兄弟节点对称</h6><p>G为黑色，P、U为红色，此时要插入红色的N：</p>
+<div align="center"><br><img src="/images/red_black2.png" alt="red_black2"><br></div>
+
+<p>插入节点N，此时需要递归的把P、U、G都变为相反色，来确保符合规则。最后把根节点置为黑色。</p>
+<h5 id="情景3：父节点红色，父节点兄弟节点不对称"><a href="#情景3：父节点红色，父节点兄弟节点不对称" class="headerlink" title="情景3：父节点红色，父节点兄弟节点不对称"></a>情景3：父节点红色，父节点兄弟节点不对称</h5><div align="center"><br><img src="/images/red_black3.png" alt="red_black3"><br></div>
+
+<p>例如：P、U不同色，P红U黑，此时插入N节点，把P和G置为相反色，然后PG以P为中心点旋转。</p>
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><p>太复杂记不住，先放放吧。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;红黑树&quot;&gt;&lt;a href=&quot;#红黑树&quot; class=&quot;headerlink&quot; title=&quot;红黑树&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.cnblogs.com/fornever/archive/2011/12/02/2270692.html&quot; tar
+    
+    </summary>
+    
+      <category term="面经积累" scheme="http://zhangchaozc.cn/categories/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>sychronized和lock</title>
+    <link href="http://zhangchaozc.cn/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/sychronized%E5%92%8Clock/"/>
+    <id>http://zhangchaozc.cn/2017/09/18/面经积累/sychronized和lock/</id>
+    <published>2017-09-18T03:15:30.000Z</published>
+    <updated>2017-09-18T03:30:11.114Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="并发-amp-同步"><a href="#并发-amp-同步" class="headerlink" title="并发&amp;同步"></a>并发&amp;同步</h3><ul>
+<li>sychronized自动释放锁。</li>
+<li>lock必须手动释放，为了不出异常释放锁应该写在<code>finally</code>语句块中。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</div><div class="line">    <span class="comment">//锁对象</span></div><div class="line">    <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="comment">//得到锁</span></div><div class="line">        lock.lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; name.length(); i++) &#123;</div><div class="line">                System.out.print(name.charAt(i));</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="comment">//释放锁</span></div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        LockTest test=<span class="keyword">new</span> LockTest();</div><div class="line">        test.output(<span class="string">"ABCDEF"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>我们要实现写入和写入互斥，读取和写入互斥，在set和get方法加入sychronized修饰符，但是<code>读取</code>和<code>读取</code>之间也互斥了，降低了读取的效率。<br>改进：<code>读写锁</code>，读取、写入两不误。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReadWriteLock;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantReadWriteLock;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</div><div class="line">    <span class="comment">//共享数据</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> data;</div><div class="line">    <span class="comment">//读写锁</span></div><div class="line">    <span class="keyword">private</span> ReadWriteLock lock = <span class="keyword">new</span> ReentrantReadWriteLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getData</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//读锁</span></div><div class="line">        lock.readLock().lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">return</span> data;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            lock.readLock().unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> </span>&#123;</div><div class="line">        <span class="comment">//写锁</span></div><div class="line">        lock.writeLock().lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">this</span>.data = data;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            lock.writeLock().unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;并发-amp-同步&quot;&gt;&lt;a href=&quot;#并发-amp-同步&quot; class=&quot;headerlink&quot; title=&quot;并发&amp;amp;同步&quot;&gt;&lt;/a&gt;并发&amp;amp;同步&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;sychronized自动释放锁。&lt;/li&gt;
+&lt;li&gt;lock必须手动释放，为了不出异常释放锁应该写在&lt;code&gt;finally&lt;/code&gt;语句块中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;22&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;23&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;25&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.locks.Lock;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.locks.ReentrantLock;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;LockTest&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;//锁对象&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; Lock lock = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; ReentrantLock();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String name)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;//得到锁&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        lock.lock();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt; &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; name.length(); i++) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                System.out.print(name.charAt(i));&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125; &lt;span class=&quot;keyword&quot;&gt;finally&lt;/span&gt; &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;comment&quot;&gt;//释放锁&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            lock.unlock();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        LockTest test=&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; LockTest();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        test.output(&lt;span class=&quot;string&quot;&gt;&quot;ABCDEF&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="面经积累" scheme="http://zhangchaozc.cn/categories/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/"/>
+    
+    
+      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>动态代理(初级)</title>
+    <link href="http://zhangchaozc.cn/2017/08/30/java/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86-%E5%88%9D%E7%BA%A7/"/>
+    <id>http://zhangchaozc.cn/2017/08/30/java/动态代理-初级/</id>
+    <published>2017-08-30T03:55:32.000Z</published>
+    <updated>2017-08-30T06:32:25.782Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看这篇文章前必须先明白基础知识点，反射和代理模式，如果知识点不懂的话建议先看<code>反射（Java）</code>和<code>代理模式（设计模式）</code>两篇文章。</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>用过<code>Spring</code>的就知道，为什么一个注解<code>@Transactional</code>可以帮你做那么多事情？<code>AOP</code>的切面是怎么切入的？都离不开动态代理。</p>
+<h3 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h3><ol>
+<li><code>InvocationHandler</code>接口。</li>
+<li><code>Proxy</code>类，主要用到其静态方法newProxyInstance。</li>
+</ol>
+<a id="more"></a>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>抽象接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Employ</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>实现类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leader</span> <span class="keyword">implements</span> <span class="title">Employ</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"Leader签署文件"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>被代理对象必须实现InvocationHandler接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> * 代理者必须实现InvocationHandler接口</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</div><div class="line">    <span class="comment">//被代理的对象</span></div><div class="line">    <span class="keyword">private</span> Object leader;</div><div class="line"></div><div class="line">    <span class="comment">//什么时候构造方法默认为public了</span></div><div class="line">    DynamicProxy(Object leader) &#123;</div><div class="line">        <span class="keyword">this</span>.leader = leader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">        System.out.println(<span class="string">"助理将文件递给Leader"</span>);</div><div class="line">        Object result = method.invoke(leader, args);</div><div class="line">        System.out.println(<span class="string">"助理将文件收好"</span>);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>生成代理对象并调用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Employ leader = <span class="keyword">new</span> Leader();</div><div class="line">        InvocationHandler handler = <span class="keyword">new</span> DynamicProxy(leader);</div><div class="line"></div><div class="line">        Employ subject = (Employ) Proxy.newProxyInstance(handler.getClass().getClassLoader(), leader</div><div class="line">                .getClass().getInterfaces(), handler);</div><div class="line">        subject.sign();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">助理将文件递给Leader</div><div class="line">Leader签署文件</div><div class="line">助理将文件收好</div></pre></td></tr></table></figure></p>
+<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><p>用起来很简单，但是有几个比较深的问题：</p>
+<ol>
+<li>代理对象到底是怎么生成的。</li>
+<li>InvocationHandler的invoke方法是谁调用的。</li>
+</ol>
+<p>这就要看源码了，有篇<a href="http://rejoy.iteye.com/blog/1627405" target="_blank" rel="external">文章</a>写的比较好，可以推荐一下。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;看这篇文章前必须先明白基础知识点，反射和代理模式，如果知识点不懂的话建议先看&lt;code&gt;反射（Java）&lt;/code&gt;和&lt;code&gt;代理模式（设计模式）&lt;/code&gt;两篇文章。&lt;/p&gt;
+&lt;h3 id=&quot;动态代理&quot;&gt;&lt;a href=&quot;#动态代理&quot; class=&quot;headerlink&quot; title=&quot;动态代理&quot;&gt;&lt;/a&gt;动态代理&lt;/h3&gt;&lt;p&gt;用过&lt;code&gt;Spring&lt;/code&gt;的就知道，为什么一个注解&lt;code&gt;@Transactional&lt;/code&gt;可以帮你做那么多事情？&lt;code&gt;AOP&lt;/code&gt;的切面是怎么切入的？都离不开动态代理。&lt;/p&gt;
+&lt;h3 id=&quot;核心类&quot;&gt;&lt;a href=&quot;#核心类&quot; class=&quot;headerlink&quot; title=&quot;核心类&quot;&gt;&lt;/a&gt;核心类&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;InvocationHandler&lt;/code&gt;接口。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Proxy&lt;/code&gt;类，主要用到其静态方法newProxyInstance。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>git高阶</title>
-    <link href="http://zhangchaozc.cn/2017/08/26/git%E9%AB%98%E9%98%B6/"/>
-    <id>http://zhangchaozc.cn/2017/08/26/git高阶/</id>
+    <link href="http://zhangchaozc.cn/2017/08/26/git/git%E9%AB%98%E9%98%B6/"/>
+    <id>http://zhangchaozc.cn/2017/08/26/git/git高阶/</id>
     <published>2017-08-26T11:31:33.000Z</published>
     <updated>2017-08-27T02:25:32.761Z</updated>
     
@@ -73,10 +300,10 @@
   
   <entry>
     <title>dynamodb中scan数据不全</title>
-    <link href="http://zhangchaozc.cn/2017/08/26/dynamodb%E4%B8%ADscan%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%85%A8/"/>
-    <id>http://zhangchaozc.cn/2017/08/26/dynamodb中scan数据不全/</id>
+    <link href="http://zhangchaozc.cn/2017/08/26/node/dynamodb%E4%B8%ADscan%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%85%A8/"/>
+    <id>http://zhangchaozc.cn/2017/08/26/node/dynamodb中scan数据不全/</id>
     <published>2017-08-26T11:30:26.000Z</published>
-    <updated>2017-08-26T12:04:39.400Z</updated>
+    <updated>2017-09-18T03:42:30.137Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>来自一个真实测试的<code>bug</code>，在公司实习主要用node开发，数据库是用的<code>dynamodb</code>。这个数据库跟mongodb一样，也属于<code>no sql</code>数据库。但是用的人相对较少，网上的博客也不多，学习只能看官方文档。</p>
 <h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><p>起源于一条记录，在<code>log</code>（文件）中可以看到它，但是查询日志（从数据库中查）时却找不到它。经过排查发现，数据库中有这个数据，但是没查到！</p>
@@ -98,7 +325,7 @@
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>贴一下<a href="http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination" target="_blank" rel="external">官方文档</a>，可以看到有明确介绍：</p>
 <div align="center"><br><img src="/images/scan.PNG" alt="scan"><br></div>
 
-<p>编码如下，注意写递归有个<code>小技巧</code>，因为js的处处异步性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">exports.queryCampaign = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">let</span> activity_type = data.activity_type;</div><div class="line">        <span class="keyword">let</span> date = data.date;</div><div class="line">        <span class="keyword">if</span> (!activity_type || !date) &#123;</div><div class="line">            reject(error.DB_PARAM_ERROR);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//let startDate = date + ' 00:00:00';</span></div><div class="line">        <span class="comment">//let endDate = date + ' 24:00:00';</span></div><div class="line">        <span class="keyword">let</span> params = &#123;</div><div class="line">            <span class="attr">TableName</span>: config.DBTables.ad_activity,</div><div class="line">            <span class="attr">FilterExpression</span>: <span class="string">'activity_type = :activity_type and contains(activity_time,:date)'</span>,</div><div class="line">            <span class="attr">ExpressionAttributeValues</span>: &#123;</div><div class="line">                <span class="string">':activity_type'</span>: activity_type,</div><div class="line">                <span class="comment">//':startDate': startDate,</span></div><div class="line">                <span class="comment">//':endDate': endDate,</span></div><div class="line">                <span class="string">':date'</span>: date</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        <span class="keyword">let</span> result = [];</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">            dbModel.scan(param).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</div><div class="line">                result = result.concat(res.Items);</div><div class="line">                <span class="keyword">if</span> (res.LastEvaluatedKey) &#123;</div><div class="line">                    param.ExclusiveStartKey = res.LastEvaluatedKey;</div><div class="line">                    getData(param);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    resolve(result);</div><div class="line">                &#125;</div><div class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</div><div class="line">                reject(err);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        getData(params);</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>编码如下，注意写递归有个<code>小技巧</code>，因为js的处处异步性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">exports.queryCampaign = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">let</span> activity_type = data.activity_type;</div><div class="line">        <span class="keyword">let</span> date = data.date;</div><div class="line">        <span class="keyword">if</span> (!activity_type || !date) &#123;</div><div class="line">            reject(error.DB_PARAM_ERROR);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//let startDate = date + ' 00:00:00';</span></div><div class="line">        <span class="comment">//let endDate = date + ' 24:00:00';</span></div><div class="line">        <span class="keyword">let</span> params = &#123;</div><div class="line">            <span class="attr">TableName</span>: config.DBTables.ad_activity,</div><div class="line">            <span class="attr">FilterExpression</span>: <span class="string">'activity_type = :activity_type and contains(activity_time,:date)'</span>,</div><div class="line">            <span class="attr">ExpressionAttributeValues</span>: &#123;</div><div class="line">                <span class="string">':activity_type'</span>: activity_type,</div><div class="line">                <span class="comment">//':startDate': startDate,</span></div><div class="line">                <span class="comment">//':endDate': endDate,</span></div><div class="line">                <span class="string">':date'</span>: date</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        <span class="keyword">let</span> result = [];</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">            dbModel.scan(param).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</div><div class="line">                result = result.concat(res.Items);</div><div class="line">                <span class="keyword">if</span> (res.LastEvaluatedKey) &#123;</div><div class="line">                    param.ExclusiveStartKey = res.LastEvaluatedKey;</div><div class="line">                    getData(param);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    resolve(result);</div><div class="line">                &#125;</div><div class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</div><div class="line">                reject(err);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        getData(params);</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>问题果然就解决了~</p>
 ]]></content>
     
@@ -121,16 +348,16 @@
       <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
     
     
-      <category term="dynamodb" scheme="http://zhangchaozc.cn/tags/dynamodb/"/>
-    
       <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
+    
+      <category term="dynamodb" scheme="http://zhangchaozc.cn/tags/dynamodb/"/>
     
   </entry>
   
   <entry>
     <title>node入门</title>
-    <link href="http://zhangchaozc.cn/2017/08/21/node%E5%85%A5%E9%97%A8/"/>
-    <id>http://zhangchaozc.cn/2017/08/21/node入门/</id>
+    <link href="http://zhangchaozc.cn/2017/08/21/node/node%E5%85%A5%E9%97%A8/"/>
+    <id>http://zhangchaozc.cn/2017/08/21/node/node入门/</id>
     <published>2017-08-21T07:59:52.000Z</published>
     <updated>2017-08-21T09:49:28.903Z</updated>
     
@@ -167,10 +394,10 @@
   
   <entry>
     <title>git入门</title>
-    <link href="http://zhangchaozc.cn/2017/08/21/git%E5%85%A5%E9%97%A8/"/>
-    <id>http://zhangchaozc.cn/2017/08/21/git入门/</id>
+    <link href="http://zhangchaozc.cn/2017/08/21/git/git%E5%85%A5%E9%97%A8/"/>
+    <id>http://zhangchaozc.cn/2017/08/21/git/git入门/</id>
     <published>2017-08-21T07:59:35.000Z</published>
-    <updated>2017-08-27T01:32:26.570Z</updated>
+    <updated>2017-08-27T02:43:39.283Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇<code>git入门</code>和<code>node入门</code>来帮助他们。</p>
 <h3 id="git是什么？"><a href="#git是什么？" class="headerlink" title="git是什么？"></a>git是什么？</h3><p>假如多个人共同开发一个项目，怎么确保<code>代码的同步</code>？假如你修改了别人的代码或者别人修改了你的代码，很容易出现<code>冲突</code>的情况。<br>于是git诞生了，如果你找工作不会用<code>git</code>，这是致命的不足。因为没有那个公司不用它！</p>
@@ -184,10 +411,10 @@
 
 <p>你会发现<code>ls</code>列出了当前目录的所有文件和文件夹，这个命令在win10 <code>cmd</code>下是无法解析的，也就是说，git完全可以代替你的windows cmd命令行，而且可以把windows当linux来耍！</p>
 <p>最后的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name &quot;Your Name&quot;</div><div class="line">git config --global user.email &quot;email@example.com&quot;</div></pre></td></tr></table></figure></p>
-<p>因为git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和email地址。</p>
+<p>你的名字和email地址。</p>
 <h3 id="玩github"><a href="#玩github" class="headerlink" title="玩github"></a>玩github</h3><p>注册一个github账号。然后生成你的专属SSH key，随便进入一个目录，利用git：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</div></pre></td></tr></table></figure></p>
 <p>你需要把邮件地址换成你自己的邮件地址，然后<code>一路回车</code>，使用默认值即可。</p>
-<p>如果一切顺利的话，可以在用户主目录里找到<code>C:\Users\xx\.ssh</code>目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。</p>
+<p>如果一切顺利的话，可以在用户主目录里找到<code>C:\Users\xx\.ssh</code>目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对。</p>
 <div align="center"><br><img src="/images/git21.PNG" alt="git21"><br></div>
 
 <p>进入<code>C:\Users\xx\.ssh</code>文件夹，把<code>id_rsa.pub</code>里面的密钥贴到你的github上，这是你和github通信的凭证，不然会出权限错误。一旦通信成功，会生成<code>known_hosts</code>文件，里面存放了你哪些仓库建立过链接。</p>
@@ -203,7 +430,7 @@
 <h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><p>随便进入一个文件夹：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone url</div></pre></td></tr></table></figure></p>
 <p>把项目拉下来（url为你复制的链接）。</p>
 <p>接下来就可以对项目进行开发了，开发完后提交仓库（依次命令）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add *</div><div class="line">git commit -m &quot;第一次提交&quot;</div><div class="line">git push</div></pre></td></tr></table></figure></p>
-<p>如果提交成功，那么github上相应的就有这个项目了。</p>
+<p>如果提交成功，那么github上相应的就有这个文件了。</p>
 <p>自己动手试一下吧~</p>
 ]]></content>
     
@@ -224,10 +451,10 @@
   
   <entry>
     <title>nodejs中http请求timeout</title>
-    <link href="http://zhangchaozc.cn/2017/08/21/nodejs%E4%B8%ADhttp%E8%AF%B7%E6%B1%82timeout/"/>
-    <id>http://zhangchaozc.cn/2017/08/21/nodejs中http请求timeout/</id>
+    <link href="http://zhangchaozc.cn/2017/08/21/node/nodejs%E4%B8%ADhttp%E8%AF%B7%E6%B1%82timeout/"/>
+    <id>http://zhangchaozc.cn/2017/08/21/node/nodejs中http请求timeout/</id>
     <published>2017-08-21T03:28:47.000Z</published>
-    <updated>2017-08-26T12:02:46.870Z</updated>
+    <updated>2017-09-18T03:42:30.192Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末一个线上测试的脚本跑了两天，一直报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2017-08-19T06:32:00.021Z - error:  Error: socket hang up</div><div class="line">    at createHangUpError (_http_client.js:345:15)</div><div class="line">    at Socket.socketOnEnd (_http_client.js:437:23)</div><div class="line">    at emitNone (events.js:110:20)</div><div class="line">    at Socket.emit (events.js:207:7)</div><div class="line">    at endReadableNT (_stream_readable.js:1045:12)</div><div class="line">    at _combinedTickCallback (internal/process/next_tick.js:138:11)</div><div class="line">    at process._tickDomainCallback (internal/process/next_tick.js:218:9)</div></pre></td></tr></table></figure></p>
 <p>很明显，这是一个<code>http</code>的错误。</p>
@@ -236,12 +463,12 @@
 <a id="more"></a>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
 <ul>
-<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
 <ul>
-<li>在需要设置超时时间的接口里面，加上：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>在需要设置超时时间的接口里面，加上：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>只对此接口有效。</p>
@@ -262,16 +489,16 @@
     
       <category term="HTTP" scheme="http://zhangchaozc.cn/tags/HTTP/"/>
     
-      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
-    
       <category term="timeout" scheme="http://zhangchaozc.cn/tags/timeout/"/>
+    
+      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
     
   </entry>
   
   <entry>
     <title>初识maven</title>
-    <link href="http://zhangchaozc.cn/2017/08/20/%E5%88%9D%E8%AF%86maven/"/>
-    <id>http://zhangchaozc.cn/2017/08/20/初识maven/</id>
+    <link href="http://zhangchaozc.cn/2017/08/20/maven/%E5%88%9D%E8%AF%86maven/"/>
+    <id>http://zhangchaozc.cn/2017/08/20/maven/初识maven/</id>
     <published>2017-08-20T14:42:56.000Z</published>
     <updated>2017-08-20T16:06:38.389Z</updated>
     
@@ -315,8 +542,8 @@
   
   <entry>
     <title>搭建hexo博客(3)</title>
-    <link href="http://zhangchaozc.cn/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/"/>
-    <id>http://zhangchaozc.cn/2017/08/17/搭建hexo博客-3/</id>
+    <link href="http://zhangchaozc.cn/2017/08/17/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/"/>
+    <id>http://zhangchaozc.cn/2017/08/17/博客搭建/搭建hexo博客-3/</id>
     <published>2017-08-17T03:55:53.000Z</published>
     <updated>2017-08-27T01:27:40.159Z</updated>
     
@@ -375,8 +602,8 @@
   
   <entry>
     <title>搭建hexo博客(2)</title>
-    <link href="http://zhangchaozc.cn/2017/08/17/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/"/>
-    <id>http://zhangchaozc.cn/2017/08/17/搭建hexo博客-2/</id>
+    <link href="http://zhangchaozc.cn/2017/08/17/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/"/>
+    <id>http://zhangchaozc.cn/2017/08/17/博客搭建/搭建hexo博客-2/</id>
     <published>2017-08-17T02:48:45.000Z</published>
     <updated>2017-08-24T02:17:32.108Z</updated>
     
@@ -427,8 +654,8 @@
   
   <entry>
     <title>事务隔离级别</title>
-    <link href="http://zhangchaozc.cn/2017/08/16/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
-    <id>http://zhangchaozc.cn/2017/08/16/事务隔离级别/</id>
+    <link href="http://zhangchaozc.cn/2017/08/16/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+    <id>http://zhangchaozc.cn/2017/08/16/数据库/事务隔离级别/</id>
     <published>2017-08-16T07:32:04.000Z</published>
     <updated>2017-08-18T05:24:44.615Z</updated>
     
@@ -497,8 +724,8 @@
   
   <entry>
     <title>反射</title>
-    <link href="http://zhangchaozc.cn/2017/07/30/%E5%8F%8D%E5%B0%84/"/>
-    <id>http://zhangchaozc.cn/2017/07/30/反射/</id>
+    <link href="http://zhangchaozc.cn/2017/07/30/java/%E5%8F%8D%E5%B0%84/"/>
+    <id>http://zhangchaozc.cn/2017/07/30/java/反射/</id>
     <published>2017-07-30T09:57:39.000Z</published>
     <updated>2017-08-18T05:24:44.386Z</updated>
     
@@ -533,8 +760,8 @@
   
   <entry>
     <title>类加载</title>
-    <link href="http://zhangchaozc.cn/2017/07/30/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
-    <id>http://zhangchaozc.cn/2017/07/30/类加载/</id>
+    <link href="http://zhangchaozc.cn/2017/07/30/java/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
+    <id>http://zhangchaozc.cn/2017/07/30/java/类加载/</id>
     <published>2017-07-30T09:53:06.000Z</published>
     <updated>2017-08-18T05:24:45.093Z</updated>
     
@@ -590,8 +817,8 @@
   
   <entry>
     <title>垃圾内存回收</title>
-    <link href="http://zhangchaozc.cn/2017/07/30/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/"/>
-    <id>http://zhangchaozc.cn/2017/07/30/垃圾内存回收/</id>
+    <link href="http://zhangchaozc.cn/2017/07/30/java/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/"/>
+    <id>http://zhangchaozc.cn/2017/07/30/java/垃圾内存回收/</id>
     <published>2017-07-30T09:03:47.000Z</published>
     <updated>2017-08-18T05:24:44.798Z</updated>
     
@@ -649,8 +876,8 @@
   
   <entry>
     <title>搭建hexo博客(1)</title>
-    <link href="http://zhangchaozc.cn/2017/07/28/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/"/>
-    <id>http://zhangchaozc.cn/2017/07/28/搭建hexo博客-1/</id>
+    <link href="http://zhangchaozc.cn/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/"/>
+    <id>http://zhangchaozc.cn/2017/07/28/博客搭建/搭建hexo博客-1/</id>
     <published>2017-07-28T08:42:49.000Z</published>
     <updated>2017-08-24T01:52:09.905Z</updated>
     
@@ -706,8 +933,8 @@
   
   <entry>
     <title>搭建wordpress博客</title>
-    <link href="http://zhangchaozc.cn/2017/07/26/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://zhangchaozc.cn/2017/07/26/搭建wordpress博客/</id>
+    <link href="http://zhangchaozc.cn/2017/07/26/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://zhangchaozc.cn/2017/07/26/博客搭建/搭建wordpress博客/</id>
     <published>2017-07-26T03:54:12.000Z</published>
     <updated>2017-08-18T05:24:44.518Z</updated>
     
@@ -777,8 +1004,8 @@
   
   <entry>
     <title>JVM</title>
-    <link href="http://zhangchaozc.cn/2017/07/26/JVM/"/>
-    <id>http://zhangchaozc.cn/2017/07/26/JVM/</id>
+    <link href="http://zhangchaozc.cn/2017/07/26/java/JVM/"/>
+    <id>http://zhangchaozc.cn/2017/07/26/java/JVM/</id>
     <published>2017-07-26T02:02:58.000Z</published>
     <updated>2017-08-18T05:24:44.341Z</updated>
     
@@ -857,259 +1084,6 @@
 &lt;li&gt;如果线程正在执行的是一个&lt;code&gt;Java方法&lt;/code&gt;，这个计数器记录的是正在执行的虚拟机字节码指令的地址；&lt;/li&gt;
 &lt;li&gt;如果正在执行的是&lt;code&gt;Natvie方法&lt;/code&gt;，这个计数器值则为空。&lt;/li&gt;
 &lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
-    
-    
-      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP状态码</title>
-    <link href="http://zhangchaozc.cn/2017/07/25/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/"/>
-    <id>http://zhangchaozc.cn/2017/07/25/HTTP状态码/</id>
-    <published>2017-07-25T09:44:11.000Z</published>
-    <updated>2017-08-18T05:24:44.750Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>本文总结于网络</strong>，总结一下HTTP返回的状态码。</p>
-<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><ul>
-<li>100-199 用于指定客户端应相应的某些动作。</li>
-<li>200-299 用于表示请求成功。</li>
-<li>300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。</li>
-<li>400-499 用于指出客户端的错误。</li>
-<li>500-599 用于支持服务器错误。</li>
-</ul>
-<h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><h6 id="100"><a href="#100" class="headerlink" title="100"></a>100</h6><p>客户端询问服务器是否在后续的请求中可以发送附件，会在请求头中加上100-continue，如果服务器同意，返回status 100，如果不同意，则返回417 (Expectation Failed)。</p>
-<h6 id="101"><a href="#101" class="headerlink" title="101"></a>101</h6><p>(Switching Protocols/转换协议)不太明白。</p>
-<h6 id="200"><a href="#200" class="headerlink" title="200"></a>200</h6><p>最熟悉了，代表OK、正确。</p>
-<a id="more"></a>
-<h6 id="201"><a href="#201" class="headerlink" title="201"></a>201</h6><p>(SC_CREATED)表示服务器在请求的响应中建立了新文档。</p>
-<h6 id="202"><a href="#202" class="headerlink" title="202"></a>202</h6><p>(SC_ACCEPTED)告诉客户端请求正在被执行，但还没有处理完。</p>
-<h6 id="203"><a href="#203" class="headerlink" title="203"></a>203</h6><p>(SC_NON_AUTHORITATIVE_INFORMATION)是表示文档被正常的返回，但是由于正在使用的是文档副本所以某些响应头信息可能不正确。</p>
-<h6 id="204"><a href="#204" class="headerlink" title="204"></a>204</h6><p>无文档，(SC_NO_CONTENT)确保浏览器继续显示先前的文档。</p>
-<h6 id="205"><a href="#205" class="headerlink" title="205"></a>205</h6><p>(SC_RESET_CONTENT)的意思是虽然没有新文档但浏览器要重置文档显示。这个状态码用于强迫浏览器清除表单域。</p>
-<h6 id="300"><a href="#300" class="headerlink" title="300"></a>300</h6><p>(SC_MULTIPLE_CHOICES)表示被请求的文档可以在多个地方找到，并将在返回的文档中列出来。如果服务器有首选设置，首选项将会被列于定位响应头信息中。</p>
-<h6 id="301"><a href="#301" class="headerlink" title="301"></a>301</h6><p>(SC_MOVED_PERMANENTLY)状态是指所请求的文档在别的地方。文档新的URL会在定位响应头信息中给出，浏览器会自动连接到新的URL。</p>
-<h6 id="302"><a href="#302" class="headerlink" title="302"></a>302</h6><p>与301有些类似，只是定位头信息中所给的URL应被理解为临时交换地址而不是永久的。</p>
-<h6 id="303"><a href="#303" class="headerlink" title="303"></a>303</h6><p>如果之前用post方式请求文档，那么之后要用get方式请求。（不知道理解的对不对，可能有错误）。</p>
-<h6 id="304"><a href="#304" class="headerlink" title="304"></a>304</h6><p>熟悉，表示资源没有被修改，如果你请求一个接口两次就会返回这个。</p>
-<h6 id="305"><a href="#305" class="headerlink" title="305"></a>305</h6><p>(SC_USE_PROXY)表示所请求的文档要通过定位头信息中的代理服务器获得。</p>
-<h6 id="307"><a href="#307" class="headerlink" title="307"></a>307</h6><p>(Temporary Redirect/临时重定向)在响应为303时按照GET和POST请求转向，在307响应时则按照GET请求转向而不是POST请求。</p>
-<h6 id="400"><a href="#400" class="headerlink" title="400"></a>400</h6><p>错误请求（语法错误）。</p>
-<h6 id="401"><a href="#401" class="headerlink" title="401"></a>401</h6><p>未授权请求，请求时要在头部加上授权信息。</p>
-<h6 id="403"><a href="#403" class="headerlink" title="403"></a>403</h6><p>禁止访问，(SC_FORBIDDEN)的意思是除非拥有授权否则服务器拒绝提供所请求的资源。这个状态经常会由于服务器上的损坏文件或目录许可而引起。</p>
-<h6 id="404"><a href="#404" class="headerlink" title="404"></a>404</h6><p>很熟悉，未找到页面。一般是请求的url错误。</p>
-<h6 id="405"><a href="#405" class="headerlink" title="405"></a>405</h6><p>(SC_METHOD_NOT_ALLOWED)指出请求方法(GET, POST, HEAD, PUT, DELETE, 等)对某些特定的资源不允许使用。</p>
-<h6 id="406"><a href="#406" class="headerlink" title="406"></a>406</h6><p>无法访问，(SC_NOT_ACCEPTABLE)表示请求资源的MIME类型与客户端中Accept头信息中指定的类型不一致。</p>
-<h6 id="407"><a href="#407" class="headerlink" title="407"></a>407</h6><p>这个状态用于代理服务器，该状态指出客户端必须通过代理服务器的认证。</p>
-<h6 id="408"><a href="#408" class="headerlink" title="408"></a>408</h6><p>请求超时，time out。</p>
-<h6 id="409"><a href="#409" class="headerlink" title="409"></a>409</h6><p>请求冲突，(SC_CONFLICT)状态常被用于试图上传版本不正确的文件时。</p>
-<h6 id="410"><a href="#410" class="headerlink" title="410"></a>410</h6><p>请求文件已经被移走了，不存在了。</p>
-<h6 id="411"><a href="#411" class="headerlink" title="411"></a>411</h6><p>(SC_LENGTH_REQUIRED)表示服务器不能处理请求（假设为带有附件的POST请求），除非客户端发送Content-Length头信息指出发送给服务器的数据的大小。</p>
-<h6 id="412"><a href="#412" class="headerlink" title="412"></a>412</h6><p>(SC_PRECONDITION_FAILED)状态指出请求头信息中的某些先决条件是错误的。</p>
-<h6 id="413"><a href="#413" class="headerlink" title="413"></a>413</h6><p>请求实体过大，(SC_REQUEST_ENTITY_TOO_LARGE)告诉客户端现在所请求的文档比服务器现在想要处理的要大。如果服务器认为能够过一段时间处理，则会包含一个Retry-After的响应头信息。</p>
-<h6 id="414"><a href="#414" class="headerlink" title="414"></a>414</h6><p>请求url过长。</p>
-<h6 id="415"><a href="#415" class="headerlink" title="415"></a>415</h6><p>不支持的媒体格式。</p>
-<h6 id="416"><a href="#416" class="headerlink" title="416"></a>416</h6><p>(Requested Range Not Satisfiable/请求范围无法满足)</p>
-<h6 id="417"><a href="#417" class="headerlink" title="417"></a>417</h6><p>(Expectation Failed/期望失败)，参考status 100。</p>
-<h6 id="500"><a href="#500" class="headerlink" title="500"></a>500</h6><p>服务器内部错误，服务器端代码写错了。</p>
-<h6 id="501"><a href="#501" class="headerlink" title="501"></a>501</h6><p>(SC_NOT_IMPLEMENTED)状态告诉客户端服务器不支持请求中要求的功能。例如，客户端执行了如PUT这样的服务器并不支持的命令。</p>
-<h6 id="502"><a href="#502" class="headerlink" title="502"></a>502</h6><p>错误的网关。</p>
-<h6 id="503"><a href="#503" class="headerlink" title="503"></a>503</h6><p>(SC_SERVICE_UNAVAILABLE)表示服务器由于在维护或已经超载而无法响应。例如，如果某些线程或数据库连接池已经没有空闲则servlet会返回这个头信息。服务器可提供一个Retry-After头信息告诉客户端什么时候可以在试一次。</p>
-<h6 id="504"><a href="#504" class="headerlink" title="504"></a>504</h6><p>(Gateway Timeout/网关超时)</p>
-<h6 id="505"><a href="#505" class="headerlink" title="505"></a>505</h6><p>不支持的HTTP协议版本。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;本文总结于网络&lt;/strong&gt;，总结一下HTTP返回的状态码。&lt;/p&gt;
-&lt;h3 id=&quot;基本&quot;&gt;&lt;a href=&quot;#基本&quot; class=&quot;headerlink&quot; title=&quot;基本&quot;&gt;&lt;/a&gt;基本&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;100-199 用于指定客户端应相应的某些动作。&lt;/li&gt;
-&lt;li&gt;200-299 用于表示请求成功。&lt;/li&gt;
-&lt;li&gt;300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。&lt;/li&gt;
-&lt;li&gt;400-499 用于指出客户端的错误。&lt;/li&gt;
-&lt;li&gt;500-599 用于支持服务器错误。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;细节&quot;&gt;&lt;a href=&quot;#细节&quot; class=&quot;headerlink&quot; title=&quot;细节&quot;&gt;&lt;/a&gt;细节&lt;/h3&gt;&lt;h6 id=&quot;100&quot;&gt;&lt;a href=&quot;#100&quot; class=&quot;headerlink&quot; title=&quot;100&quot;&gt;&lt;/a&gt;100&lt;/h6&gt;&lt;p&gt;客户端询问服务器是否在后续的请求中可以发送附件，会在请求头中加上100-continue，如果服务器同意，返回status 100，如果不同意，则返回417 (Expectation Failed)。&lt;/p&gt;
-&lt;h6 id=&quot;101&quot;&gt;&lt;a href=&quot;#101&quot; class=&quot;headerlink&quot; title=&quot;101&quot;&gt;&lt;/a&gt;101&lt;/h6&gt;&lt;p&gt;(Switching Protocols/转换协议)不太明白。&lt;/p&gt;
-&lt;h6 id=&quot;200&quot;&gt;&lt;a href=&quot;#200&quot; class=&quot;headerlink&quot; title=&quot;200&quot;&gt;&lt;/a&gt;200&lt;/h6&gt;&lt;p&gt;最熟悉了，代表OK、正确。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="HTTP" scheme="http://zhangchaozc.cn/categories/HTTP/"/>
-    
-    
-      <category term="HTTP" scheme="http://zhangchaozc.cn/tags/HTTP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>公钥-私钥</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/%E5%85%AC%E9%92%A5-%E7%A7%81%E9%92%A5/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/公钥-私钥/</id>
-    <published>2017-07-24T13:56:19.000Z</published>
-    <updated>2017-08-18T05:24:44.886Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。</p>
-<h3 id="发送电子邮件"><a href="#发送电子邮件" class="headerlink" title="发送电子邮件"></a>发送电子邮件</h3><p>使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：</p>
-<ol>
-<li>我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。</li>
-<li>必须保证是我发送的邮件，不是别人冒充我的。</li>
-</ol>
-<p>要达到这样的目标必须发送邮件的两人都有公钥和私钥。</p>
-<a id="more"></a>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>公钥，就是给大家用的，私钥，就是自己的，必须非常小心保存，私钥只有个人拥有。<br>作用：用公钥加密的内容只能用私钥解密，而用私钥加密的内容只能用公钥解密。</p>
-<ul>
-<li>正确性：我用你的公钥给这个邮件加密，这样就保证这个邮件不被别人看到，而且保证这个邮件在传送过程中没有被修改。你收到邮件后，用你的私钥就可以解密，就能看到内容。</li>
-<li>防伪造：我用我的私钥给这个邮件加密，发送到你手里后，你可以用我的公钥解密。因为私钥只有我手里有，这样就保证了这个邮件是我发送的。</li>
-</ul>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
-<li>当A向B资料时，A会使用B的公钥加密，这样才能确保只有B能解开，否则普罗大众都能解开加密的讯息，就是去了资料的保密性。</li>
-<li>当A传资料给大家时，会以自己的私钥做加密，如此所有收到讯息的人都可以用A的公钥进行解密，便可确认讯息是由A发出来的了。</li>
-</ul>
-<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>用户可以采用自己的私钥对信息加以处理，由于密钥仅为本人所有，这样就产生了别人无法生成的文件，也就形成了数字签名。采用数字签名，能够确认以下两点：</p>
-<ol>
-<li>保证信息是由签名者自己签名发送的，签名者不能否认或难以否认；</li>
-<li>保证信息自签发后到收到为止未曾作过任何修改，签发的文件是真实文件。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;在网络通信中，安全性显得尤为重要。公钥和私钥就是俗称的不对称加密方式，是从以前的对称加密（使用用户名与密码）方式的提高。&lt;/p&gt;
-&lt;h3 id=&quot;发送电子邮件&quot;&gt;&lt;a href=&quot;#发送电子邮件&quot; class=&quot;headerlink&quot; title=&quot;发送电子邮件&quot;&gt;&lt;/a&gt;发送电子邮件&lt;/h3&gt;&lt;p&gt;使用公钥与私钥的目的就是实现安全的电子邮件，必须实现如下目的：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;我发送给你的内容必须加密，在邮件的传输过程中不能被别人看到。&lt;/li&gt;
-&lt;li&gt;必须保证是我发送的邮件，不是别人冒充我的。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;要达到这样的目标必须发送邮件的两人都有公钥和私钥。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="计算机网络" scheme="http://zhangchaozc.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-      <category term="网络" scheme="http://zhangchaozc.cn/tags/%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网页显示</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/%E7%BD%91%E9%A1%B5%E6%98%BE%E7%A4%BA/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/网页显示/</id>
-    <published>2017-07-24T13:09:47.000Z</published>
-    <updated>2017-08-18T05:24:45.268Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>打开一个浏览器，输入www.baidu.com， 回车，就会显示出网页，那么里面到底发生了什么？</p>
-<ol>
-<li>结果可能会重定向，例如你输入baidu.com，浏览器会自动转化为<a href="https://www.baidu.com/。" target="_blank" rel="external">https://www.baidu.com/。</a></li>
-<li>浏览器自身DNS缓存（要拿到网址对应的IP地址嘛）。</li>
-<li>操作系统自身的DNS缓存，前提是浏览器缓存已经失效或者过期。</li>
-<li>本地host文件（localhost对应的IP 127.0.0.1就存在这里）。</li>
-<li>还没有，那要开始对DNS服务器发起一个请求了，先到达路由器，如果路由器有，就不用找了。没有，就对ISP（互联网服务提供商，中国移动等xx）发起请求。</li>
-<li>像树一样，先找com域名服务器，再找baidu，找到了就OK，否则提示用户网址不存在。</li>
-<li>终于找到服务器了，开始发起一个HTTP请求，三次握手后，开始通信，服务器把网页代码都发送给浏览器。</li>
-<li>浏览器拿到代码后，开始渲染，解析，最终把网页呈现出来。对于网页中用到的css、图片等资源，还要通过以上的步骤才能拿到。</li>
-</ol>
-<a id="more"></a>
-<h3 id="CDN服务器"><a href="#CDN服务器" class="headerlink" title="CDN服务器"></a>CDN服务器</h3><p>从步骤5后，请求到达DNS负载均衡系统：</p>
-<ol>
-<li>智能DNS负载均衡系统解析域名，把对用户响应速度最快的IP节点返回给用户。</li>
-<li>用户向该IP节点（CDN服务器）发出请求。</li>
-<li>由于是第一次访问，CDN服务器会向原web站点请求，并缓存内容。</li>
-<li>然后进入步骤7。</li>
-</ol>
-<p>没错，其实干了这么多事，当然我还有总结的不全的地方，欢迎指出。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;打开一个浏览器，输入www.baidu.com， 回车，就会显示出网页，那么里面到底发生了什么？&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;结果可能会重定向，例如你输入baidu.com，浏览器会自动转化为&lt;a href=&quot;https://www.baidu.com/。&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.baidu.com/。&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;浏览器自身DNS缓存（要拿到网址对应的IP地址嘛）。&lt;/li&gt;
-&lt;li&gt;操作系统自身的DNS缓存，前提是浏览器缓存已经失效或者过期。&lt;/li&gt;
-&lt;li&gt;本地host文件（localhost对应的IP 127.0.0.1就存在这里）。&lt;/li&gt;
-&lt;li&gt;还没有，那要开始对DNS服务器发起一个请求了，先到达路由器，如果路由器有，就不用找了。没有，就对ISP（互联网服务提供商，中国移动等xx）发起请求。&lt;/li&gt;
-&lt;li&gt;像树一样，先找com域名服务器，再找baidu，找到了就OK，否则提示用户网址不存在。&lt;/li&gt;
-&lt;li&gt;终于找到服务器了，开始发起一个HTTP请求，三次握手后，开始通信，服务器把网页代码都发送给浏览器。&lt;/li&gt;
-&lt;li&gt;浏览器拿到代码后，开始渲染，解析，最终把网页呈现出来。对于网页中用到的css、图片等资源，还要通过以上的步骤才能拿到。&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="HTTP" scheme="http://zhangchaozc.cn/categories/HTTP/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>String,StringBuilder,StringBuffer</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/String-StringBuilder-StringBuffer/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/String-StringBuilder-StringBuffer/</id>
-    <published>2017-07-24T12:46:16.000Z</published>
-    <updated>2017-08-18T05:24:45.217Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>String是放在常量池中的常量，所谓常量，就是这个对象一旦产生，它的值就不会变。有人疑问：不是有String a=a+”xx”这样的写法吗，这是因为a在加上”xx”后，已经不是原来的a了，a在加之后又变成了一个新的对象，只不过名字也叫a。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></div><div class="line">        <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * The value is used for character storage.</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Cache the hash code for the string</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></div><div class="line"></div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看出String的的存储实际上就是一个final的数组（该数组不允许再指向别的地址，但数组的值可以改变），所以String的地址是无法改变的，每次更新后都是一个新的String对象。</p>
-<a id="more"></a>
-<h3 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><p>为了解决String重复更新而消耗内存的情况，StringBuilder产生了。StringBuilder对字符串的操作都是基于原内存的，原内存不会改变，例如StringBuilder的append()方法，可以原有字符串的后面添加一段字符串，而不用像String一样重复赋值了。StringBuilder继承于AbstractStringBuilder：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractStringBuilder</span> <span class="keyword">implements</span> <span class="title">Appendable</span>, <span class="title">CharSequence</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * The value is used for character storage.</div><div class="line">     */</div><div class="line">    <span class="keyword">char</span>[] value;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * The count is the number of characters used.</div><div class="line">     */</div><div class="line">    <span class="keyword">int</span> count;</div><div class="line"></div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看出并没有final关键字修饰。</p>
-<h3 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><p>这个跟StringBuilder一样继承于AbstractStringBuilder，唯一的不同之处，就是加了synchronized。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">......</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> value.length;</div><div class="line">&#125;</div><div class="line"></div><div class="line">......</div></pre></td></tr></table></figure>
-<p>可以看到，每个关键的操作函数都加了synchronized关键字修饰，可以看出这是一个线程安全的操作，非静态方法被synchronized修饰后，当有多个线程操作同一个StringBuffer对象时，它们只能有一个操作append方法。所以说StringBuffer是线程安全的StringBuilder，那么在效率上肯定不如StringBuilder了。</p>
-<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><p>关于synchronized的加锁，在静态方法和非静态方法上加是有区别的。静态方法上加会影响这个类的所有对象，而非静态上加只是影响其中某一个对象。具体看看static关键字的用法，不多解释了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;String&quot;&gt;&lt;a href=&quot;#String&quot; class=&quot;headerlink&quot; title=&quot;String&quot;&gt;&lt;/a&gt;String&lt;/h3&gt;&lt;p&gt;String是放在常量池中的常量，所谓常量，就是这个对象一旦产生，它的值就不会变。有人疑问：不是有String a=a+”xx”这样的写法吗，这是因为a在加上”xx”后，已经不是原来的a了，a在加之后又变成了一个新的对象，只不过名字也叫a。&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;String&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;java&lt;/span&gt;.&lt;span class=&quot;title&quot;&gt;io&lt;/span&gt;.&lt;span class=&quot;title&quot;&gt;Serializable&lt;/span&gt;, &lt;span class=&quot;title&quot;&gt;Comparable&lt;/span&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;String&lt;/span&gt;&amp;gt;, &lt;span class=&quot;title&quot;&gt;CharSequence&lt;/span&gt; &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * The value is used for character storage.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     */&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; value[];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * Cache the hash code for the string&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     */&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; hash; &lt;span class=&quot;comment&quot;&gt;// Default to 0&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ......&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;可以看出String的的存储实际上就是一个final的数组（该数组不允许再指向别的地址，但数组的值可以改变），所以String的地址是无法改变的，每次更新后都是一个新的String对象。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
-    
-    
-      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>String类</title>
-    <link href="http://zhangchaozc.cn/2017/07/24/String%E7%B1%BB/"/>
-    <id>http://zhangchaozc.cn/2017/07/24/String类/</id>
-    <published>2017-07-24T12:31:34.000Z</published>
-    <updated>2017-08-18T05:24:44.412Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>String类是Java中的常用类，面试也会经常被问到。下面我就一个问题进行切入：<br>问题：String a=new String(“a”) ，这条语句执行后创建了几个对象？</p>
-<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><ol>
-<li>String的存储：String是保存在常量池中的，何为常量池，这里我又要拉扯到享元模式，多人共享一个东西有什么好处？资源不会被浪费啊，看看共享单车就是这个道理。字符串常量池一句话：如果有，我就从池中拿，如果没有，我就新建，然后放入池中。所以当程序看到”a”时，常量池以前是没有”a”的，那么常量池中就会多一个”a”，这是1个对象。</li>
-<li>程序看到new关键字，这个时候在堆内存中新建了一个对象a，这是第2个对象。</li>
-</ol>
-<a id="more"></a>
-<h3 id="String的比较"><a href="#String的比较" class="headerlink" title="String的比较"></a>String的比较</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> string;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/6/24.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        String s1=<span class="string">"test"</span>;</div><div class="line">        String s2=<span class="keyword">new</span> String(<span class="string">"test"</span>);</div><div class="line">        String s3=<span class="string">"te"</span>+<span class="string">"st"</span>;</div><div class="line">        String s4=<span class="keyword">new</span> String(<span class="string">"test"</span>);</div><div class="line">        System.out.println(s2==s4);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>经常会有这种比较，看得脑阔疼。但是只要明白了==是比较啥的，就迎刃而解了。==用于比较：</p>
-<ol>
-<li>8种基本数据类型的大小。</li>
-<li>两个变量是否同一块内存。很明显，两次new出来的内存能一样吗？一样的概率就是你中彩票的概率了，还有就是堆内存和常量池中的内存，肯定是不一样的！结果的话大家可以自己在本地下跑一下，加深印象。</li>
-</ol>
-<h3 id="引申问题"><a href="#引申问题" class="headerlink" title="引申问题"></a>引申问题</h3><p>问题：String a=”a”+”b”+”c”; 内存中会出现几个对象？<br>解答：第一眼会以为是3个，其实就错了，其实就1个对象”abc”在常量池中。为毛？因为编译器很聪明，它在编译的时候就算出”a”+”b”+”c”的值为”abc”了，所以编译器看到的就是”abc”，那么常量池中就1个对象了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;String类是Java中的常用类，面试也会经常被问到。下面我就一个问题进行切入：&lt;br&gt;问题：String a=new String(“a”) ，这条语句执行后创建了几个对象？&lt;/p&gt;
-&lt;h3 id=&quot;解答&quot;&gt;&lt;a href=&quot;#解答&quot; class=&quot;headerlink&quot; title=&quot;解答&quot;&gt;&lt;/a&gt;解答&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;String的存储：String是保存在常量池中的，何为常量池，这里我又要拉扯到享元模式，多人共享一个东西有什么好处？资源不会被浪费啊，看看共享单车就是这个道理。字符串常量池一句话：如果有，我就从池中拿，如果没有，我就新建，然后放入池中。所以当程序看到”a”时，常量池以前是没有”a”的，那么常量池中就会多一个”a”，这是1个对象。&lt;/li&gt;
-&lt;li&gt;程序看到new关键字，这个时候在堆内存中新建了一个对象a，这是第2个对象。&lt;/li&gt;
-&lt;/ol&gt;
     
     </summary>
     
