@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2017-09-18T03:45:08.333Z</updated>
+  <updated>2017-10-20T15:00:35.585Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,277 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>struts2返回json</title>
+    <link href="http://zhangchaozc.cn/2017/10/20/struts2/struts2%E8%BF%94%E5%9B%9Ejson/"/>
+    <id>http://zhangchaozc.cn/2017/10/20/struts2/struts2返回json/</id>
+    <published>2017-10-20T14:52:52.000Z</published>
+    <updated>2017-10-20T15:00:35.585Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前有用过struts2框架，不过都是基于jsp的开发，如果要想直接返回一个json数据该怎么办？</p>
+<h3 id="json插件"><a href="#json插件" class="headerlink" title="json插件"></a>json插件</h3><p>首先，必须下载一个<code>struts2-json</code>的插件，没有这个jar包会报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">HTTP Status 404 – Not Found</div><div class="line">Type Status Report</div><div class="line">Message There is no Action mapped for namespace [/] and action name [login] associated with context path [].</div><div class="line">Description The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.</div></pre></td></tr></table></figure></p>
+<p>居然是报错404，我就呵呵了，讲道理这个错误很难发现。</p>
+<p>然后把这个jar包依赖写到pom.xml中：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.struts<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>struts2-json-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;struts2.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这是准备工作。</p>
+<a id="more"></a>
+<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Map&lt;String,Object&gt; message;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">()</span></span>&#123;</div><div class="line">        message=<span class="keyword">new</span> HashMap&lt;String,Object&gt;();</div><div class="line">        Person person=<span class="keyword">new</span> Person();</div><div class="line">        person.setId(<span class="number">1</span>);</div><div class="line">        person.setName(<span class="string">"zc"</span>);</div><div class="line">        System.out.println(person);</div><div class="line">        message.put(<span class="string">"test"</span>,person);</div><div class="line">        <span class="keyword">return</span> SUCCESS;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> message;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>假如我们要返回这个message为json的格式，必须把它写到类<code>成员变量</code>中，并且要提供<code>get方法</code>。</p>
+<h3 id="struts-xml"><a href="#struts-xml" class="headerlink" title="struts.xml"></a>struts.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"xxx"</span> <span class="attr">extends</span>=<span class="string">"json-default"</span> <span class="attr">namespace</span>=<span class="string">"/"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"login"</span> <span class="attr">class</span>=<span class="string">"userAction"</span> <span class="attr">method</span>=<span class="string">"login"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">type</span>=<span class="string">"json"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"root"</span>&gt;</span>message<span class="tag">&lt;/<span class="name">param</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">package</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>必须指定param为message，这样就能成功返回json了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;之前有用过struts2框架，不过都是基于jsp的开发，如果要想直接返回一个json数据该怎么办？&lt;/p&gt;
+&lt;h3 id=&quot;json插件&quot;&gt;&lt;a href=&quot;#json插件&quot; class=&quot;headerlink&quot; title=&quot;json插件&quot;&gt;&lt;/a&gt;json插件&lt;/h3&gt;&lt;p&gt;首先，必须下载一个&lt;code&gt;struts2-json&lt;/code&gt;的插件，没有这个jar包会报错：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;HTTP Status 404 – Not Found&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Type Status Report&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Message There is no Action mapped for namespace [/] and action name [login] associated with context path [].&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Description The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;居然是报错404，我就呵呵了，讲道理这个错误很难发现。&lt;/p&gt;
+&lt;p&gt;然后把这个jar包依赖写到pom.xml中：&lt;br&gt;&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;org.apache.struts&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;struts2-json-plugin&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;$&amp;#123;struts2.version&amp;#125;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;这是准备工作。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="struts2" scheme="http://zhangchaozc.cn/categories/struts2/"/>
+    
+    
+      <category term="Java项目" scheme="http://zhangchaozc.cn/tags/Java%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>连接oracle的问题</title>
+    <link href="http://zhangchaozc.cn/2017/10/20/%E6%95%B0%E6%8D%AE%E5%BA%93/%E8%BF%9E%E6%8E%A5oracle%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://zhangchaozc.cn/2017/10/20/数据库/连接oracle的问题/</id>
+    <published>2017-10-20T14:52:00.000Z</published>
+    <updated>2017-10-20T14:57:48.872Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本人连接数据库oracle喜欢用navacat，如图，当然还有其它工具，都OK。</p>
+<div align="center"><br><img src="/images/navicat1.PNG" alt="navicat1"><br></div>
+
+<h3 id="普通情况"><a href="#普通情况" class="headerlink" title="普通情况"></a>普通情况</h3><p>之前用navicat连接过mysql，很OK，一下子就连上了，但是第一次做oracle课设的时候（大三），连接oracle连接不上，难道oracle牛叉一点？</p>
+<p>这个是要配置的，如图：</p>
+<div align="center"><br><img src="/images/navicat2.PNG" alt="navicat2"><br></div>
+
+<p>具体的配置路径跟你的安装位置有关，我的是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F:\app\Administrator\product\11.2.0\dbhome_1\BIN\oci.dll</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>这样不出意外就能连上了：</p>
+<div align="center"><br><img src="/images/navicat3.PNG" alt="navicat3"><br></div>
+
+<p>但是，如果写的都是对的，还连上，就要考虑其它的因素了。</p>
+<h3 id="复杂情况"><a href="#复杂情况" class="headerlink" title="复杂情况"></a>复杂情况</h3><p>看一下监听服务有没有开启，如图：</p>
+<div align="center"><br><img src="/images/oracle2.PNG" alt="oracle2"><br></div>
+
+<p><code>services.msc</code>打开服务，主要是看看这两个服务有没有开启：</p>
+<div align="center"><br><img src="/images/oracle3.PNG" alt="oracle3"><br></div>
+
+<p>如果没有监听服务，就需要自己配置监听服务了，打开自带的软件：</p>
+<div align="center"><br><img src="/images/oracle1.PNG" alt="oracle1"><br></div>
+
+<p>添加或者重新配置监听服务，并启动监听服务，就OK了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;本人连接数据库oracle喜欢用navacat，如图，当然还有其它工具，都OK。&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/navicat1.PNG&quot; alt=&quot;navicat1&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;普通情况&quot;&gt;&lt;a href=&quot;#普通情况&quot; class=&quot;headerlink&quot; title=&quot;普通情况&quot;&gt;&lt;/a&gt;普通情况&lt;/h3&gt;&lt;p&gt;之前用navicat连接过mysql，很OK，一下子就连上了，但是第一次做oracle课设的时候（大三），连接oracle连接不上，难道oracle牛叉一点？&lt;/p&gt;
+&lt;p&gt;这个是要配置的，如图：&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/navicat2.PNG&quot; alt=&quot;navicat2&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;p&gt;具体的配置路径跟你的安装位置有关，我的是：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;F:\app\Administrator\product\11.2.0\dbhome_1\BIN\oci.dll&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://zhangchaozc.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="oracle" scheme="http://zhangchaozc.cn/tags/oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>oracle编码问题</title>
+    <link href="http://zhangchaozc.cn/2017/10/20/%E6%95%B0%E6%8D%AE%E5%BA%93/oracle%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/"/>
+    <id>http://zhangchaozc.cn/2017/10/20/数据库/oracle编码问题/</id>
+    <published>2017-10-20T14:51:43.000Z</published>
+    <updated>2017-10-20T14:57:49.007Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本人电脑上装的oracle 11g，这个软件默认编码为<code>GBK</code>，很伤脑筋，我讨厌除了<code>UTF-8</code>以外的其它编码。</p>
+<h3 id="修改编码"><a href="#修改编码" class="headerlink" title="修改编码"></a>修改编码</h3><p>你必须要有管理员的权限才行，打开sqlplus，以管理员的方式登录。</p>
+<h5 id="1"><a href="#1" class="headerlink" title="1"></a>1</h5><p>查看一下数据原有的编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select userenv(&apos;language&apos;) from dual;</div></pre></td></tr></table></figure></p>
+<p>呵呵，没改过之前就是GBK了。</p>
+<h5 id="2"><a href="#2" class="headerlink" title="2"></a>2</h5><p>准备工作，先关闭数据库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">sql&gt; conn / as sysdba;</div><div class="line">sql&gt; shutdown immediate;</div><div class="line"></div><div class="line">database closed.</div><div class="line">database dismounted.</div><div class="line">oracle instance shut down.</div><div class="line"></div><div class="line">sql&gt; startup mount;</div><div class="line"></div><div class="line">oracle instance started.</div><div class="line">total system global area  135337420 bytes</div><div class="line">fixed size                          452044 bytes</div><div class="line">variable size                     109051904 bytes</div><div class="line">database buffers              25165824 bytes</div><div class="line">redo buffers                      667648 bytes</div><div class="line">database mounted.</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h5 id="3"><a href="#3" class="headerlink" title="3"></a>3</h5><p>修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">sql&gt; alter system enable restricted session;</div><div class="line"></div><div class="line">system altered.</div><div class="line"></div><div class="line">sql&gt; alter system set job_queue_processes=0;</div><div class="line"></div><div class="line">system altered.</div><div class="line"></div><div class="line">sql&gt; alter system set aq_tm_processes=0;</div><div class="line"></div><div class="line">system altered.</div><div class="line"></div><div class="line">sql&gt; alter database open;</div><div class="line"></div><div class="line">database altered.</div><div class="line"></div><div class="line">sql&gt; alter database character set internal_use UTF8;</div><div class="line">sql&gt; shutdown immediate;</div><div class="line">sql&gt; startup; //重新启动</div></pre></td></tr></table></figure></p>
+<p>再查一下数据库的编码就是UFT8了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;本人电脑上装的oracle 11g，这个软件默认编码为&lt;code&gt;GBK&lt;/code&gt;，很伤脑筋，我讨厌除了&lt;code&gt;UTF-8&lt;/code&gt;以外的其它编码。&lt;/p&gt;
+&lt;h3 id=&quot;修改编码&quot;&gt;&lt;a href=&quot;#修改编码&quot; class=&quot;headerlink&quot; title=&quot;修改编码&quot;&gt;&lt;/a&gt;修改编码&lt;/h3&gt;&lt;p&gt;你必须要有管理员的权限才行，打开sqlplus，以管理员的方式登录。&lt;/p&gt;
+&lt;h5 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot; title=&quot;1&quot;&gt;&lt;/a&gt;1&lt;/h5&gt;&lt;p&gt;查看一下数据原有的编码：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;select userenv(&amp;apos;language&amp;apos;) from dual;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;呵呵，没改过之前就是GBK了。&lt;/p&gt;
+&lt;h5 id=&quot;2&quot;&gt;&lt;a href=&quot;#2&quot; class=&quot;headerlink&quot; title=&quot;2&quot;&gt;&lt;/a&gt;2&lt;/h5&gt;&lt;p&gt;准备工作，先关闭数据库：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sql&amp;gt; conn / as sysdba;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sql&amp;gt; shutdown immediate;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;database closed.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;database dismounted.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;oracle instance shut down.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sql&amp;gt; startup mount;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;oracle instance started.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;total system global area  135337420 bytes&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;fixed size                          452044 bytes&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;variable size                     109051904 bytes&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;database buffers              25165824 bytes&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;redo buffers                      667648 bytes&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;database mounted.&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://zhangchaozc.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="oracle" scheme="http://zhangchaozc.cn/tags/oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>maven开发</title>
+    <link href="http://zhangchaozc.cn/2017/10/20/maven/maven%E5%BC%80%E5%8F%91/"/>
+    <id>http://zhangchaozc.cn/2017/10/20/maven/maven开发/</id>
+    <published>2017-10-20T14:51:18.000Z</published>
+    <updated>2017-10-20T14:57:48.988Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>搭建好mvn环境后，命令行<code>mvn -v</code>查看maven的版本号，结果正确说明环境已经弄好。</p>
+<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><ol>
+<li>命令行创建工程，然后用工具打开。</li>
+<li>直接用工具创建，本人使用的是<code>IntelliJ IDEA</code>，比myeclipse好用几倍吧。</li>
+</ol>
+<p>常用的命令：</p>
+<ul>
+<li><p>创建普通java工程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn archetype:generate -DgroupId=org.zhangchao -DartifactId=mavenTest -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建web工程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn archetype:generate -DgroupId=org.seckill -DartifactId=seckill -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当然，直接用工具创建的话，<code>groupId</code>和<code>artifactId</code>按要求填即可。</p>
+<a id="more"></a>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src</div><div class="line">    --main</div><div class="line">        --java        //普通java代码，servlet代码等</div><div class="line">        --resources   //项目里面的xml等配置文件</div><div class="line">        --webapp      //和普通的web工程一样，里面有/WEB-INF/web.xml等重要配置文件</div><div class="line">target   //编译后文件存放目录</div><div class="line">pom.xml  //核心依赖配置文件</div></pre></td></tr></table></figure>
+<p>注意resources文件夹，里面放了xml等重要文件，如果你在别的文件夹中也用到了xml配置，例如mybatis的mapper文件，那么项目编译时是不会读到mapper文件的。<code>这是一个坑，踩过才知道</code>，这时需要在pom.xml中的build节点里面配置，加上mapper文件，才OK。</p>
+<h3 id="准备开发"><a href="#准备开发" class="headerlink" title="准备开发"></a>准备开发</h3><p>默认的配置如图，也可以自己配置的：</p>
+<div align="center"><br><img src="/images/maven6.PNG" alt="maven6"><br></div>
+
+<p>repository文件夹放的你的jar包，都是从这里读的；settings.xml是配置文件，注意核心的配置：</p>
+<ol>
+<li>仓库配置，基本都换成<code>阿里云仓库</code>了，因为不需要代理，快。</li>
+<li>如果实在不想换仓库的话，就可以自己配置代理。</li>
+</ol>
+<p>仓库配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- mirror</span></div><div class="line">   | Specifies a repository mirror site to use instead of a given repository. The repository that</div><div class="line">   | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used</div><div class="line">   | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.</div><div class="line">   ！--&gt;</div><div class="line"> <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>代理配置在这里改：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">proxies</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- proxy</span></div><div class="line">   | Specification for one proxy, to be used in connecting to the network.</div><div class="line">   |</div><div class="line">  &lt;proxy&gt;</div><div class="line">    &lt;id&gt;optional&lt;/id&gt;</div><div class="line">    &lt;active&gt;true&lt;/active&gt;</div><div class="line">    &lt;protocol&gt;http&lt;/protocol&gt;</div><div class="line">    &lt;username&gt;proxyuser&lt;/username&gt;</div><div class="line">    &lt;password&gt;proxypass&lt;/password&gt;</div><div class="line">    &lt;host&gt;proxy.host.net&lt;/host&gt;</div><div class="line">    &lt;port&gt;80&lt;/port&gt;</div><div class="line">    &lt;nonProxyHosts&gt;local.net|some.host.com&lt;/nonProxyHosts&gt;</div><div class="line">  &lt;/proxy&gt;</div><div class="line">  --&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">proxies</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>如果你用的<code>Shadowsocks</code>的话，一般就是配<code>localhost:1080</code>了。</p>
+<h3 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h3><p>需要什么包直接去<a href="http://maven.aliyun.com/nexus/#welcome" target="_blank" rel="external">阿里仓库</a>搜，然后把依赖配置贴pom.xml即可，例子：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-beans<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>实在不知道有哪些包的，去github下一个类似的工程，看看别人的pom.xml怎么写的就行了。</p>
+<h3 id="打包发布"><a href="#打包发布" class="headerlink" title="打包发布"></a>打包发布</h3><p>用工具很快：</p>
+<div align="center"><br><img src="/images/maven5.PNG" alt="maven5"><br></div>
+
+<p>直接点package命令即可，或者手工命令行，这时在target目录下就有war包了，当然生成啥包取决于你在pom.xml的配置。</p>
+<p>基本的开发就是这样，欢迎大家交流学习。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;搭建好mvn环境后，命令行&lt;code&gt;mvn -v&lt;/code&gt;查看maven的版本号，结果正确说明环境已经弄好。&lt;/p&gt;
+&lt;h3 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot; title=&quot;创建工程&quot;&gt;&lt;/a&gt;创建工程&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;命令行创建工程，然后用工具打开。&lt;/li&gt;
+&lt;li&gt;直接用工具创建，本人使用的是&lt;code&gt;IntelliJ IDEA&lt;/code&gt;，比myeclipse好用几倍吧。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;常用的命令：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;创建普通java工程：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mvn archetype:generate -DgroupId=org.zhangchao -DartifactId=mavenTest -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;创建web工程：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mvn archetype:generate -DgroupId=org.seckill -DartifactId=seckill -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当然，直接用工具创建的话，&lt;code&gt;groupId&lt;/code&gt;和&lt;code&gt;artifactId&lt;/code&gt;按要求填即可。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="maven" scheme="http://zhangchaozc.cn/categories/maven/"/>
+    
+    
+      <category term="Java项目" scheme="http://zhangchaozc.cn/tags/Java%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>maven中自己导入包</title>
+    <link href="http://zhangchaozc.cn/2017/10/20/maven/maven%E4%B8%AD%E8%87%AA%E5%B7%B1%E5%AF%BC%E5%85%A5%E5%8C%85/"/>
+    <id>http://zhangchaozc.cn/2017/10/20/maven/maven中自己导入包/</id>
+    <published>2017-10-20T14:51:00.000Z</published>
+    <updated>2017-10-20T14:57:48.944Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有一种情况，有时候会遇到，你去maven中找一个jar包，居然找不到，尴尬不?也许是因为这个包太老了。</p>
+<h3 id="自己下载"><a href="#自己下载" class="headerlink" title="自己下载"></a>自己下载</h3><p>maven仓库里面没有，不代表别处没有，此时可以通过各种途径，把jar包下载下来，但是如何把这个包融入到maven环境呢？</p>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><p>其实也是一行命令（groupId和artifactId自己填）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn install:install-file -DgroupId=oracle.xdb -DartifactId=oracle.xdb -Dversion=1.0 -Dpackaging=jar -Dfile=xdb.jar -DgeneratePom=true</div></pre></td></tr></table></figure></p>
+<p>Dfile填jar包所在的位置，相对位置或者绝对位置都可以。</p>
+<p>此时在pom中写：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>oracle.xdb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>oracle.xdb<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>就可以了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;有一种情况，有时候会遇到，你去maven中找一个jar包，居然找不到，尴尬不?也许是因为这个包太老了。&lt;/p&gt;
+&lt;h3 id=&quot;自己下载&quot;&gt;
+    
+    </summary>
+    
+      <category term="maven" scheme="http://zhangchaozc.cn/categories/maven/"/>
+    
+    
+      <category term="Java项目" scheme="http://zhangchaozc.cn/tags/Java%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>springboot笔记</title>
+    <link href="http://zhangchaozc.cn/2017/09/25/spring/springboot%E7%AC%94%E8%AE%B0/"/>
+    <id>http://zhangchaozc.cn/2017/09/25/spring/springboot笔记/</id>
+    <published>2017-09-25T15:18:55.000Z</published>
+    <updated>2017-10-20T14:23:49.214Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="搭建项目"><a href="#搭建项目" class="headerlink" title="搭建项目"></a>搭建项目</h3><h4 id="阿里云仓库配置"><a href="#阿里云仓库配置" class="headerlink" title="阿里云仓库配置"></a>阿里云仓库配置</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">setting</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">setting</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>默认仓库：<a href="https://repo.maven.apache.org/maven2" target="_blank" rel="external">https://repo.maven.apache.org/maven2</a></p>
+<h3 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h3><ol>
+<li>IDEA直接运行（<code>@SpringBootApplication</code>主类）。</li>
+<li><code>mvn spring-boot:run</code>命令。</li>
+<li><code>mvn install</code>编译程序，生成jar包，再用<code>java -jar xxx.jar</code>启动。</li>
+</ol>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">server.port=8081          //配置启动端口</div><div class="line">server.context-path=/xxx  //配置路由</div></pre></td></tr></table></figure>
+<h4 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server:</div><div class="line">  port: 8081</div><div class="line">  context-path: /xxx</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="通过注解-Value取值"><a href="#通过注解-Value取值" class="headerlink" title="通过注解@Value取值"></a>通过注解@Value取值</h4><p>例如<code>application.yml</code>中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cupSize: A</div><div class="line">content: &quot;cup:$&#123;cupSize&#125;&quot;  //配置中可嵌套配置</div></pre></td></tr></table></figure></p>
+<p>controller中：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Controller</span></span>&#123;</div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;cupSize&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String cupSize;  <span class="comment">//此变量的值为"A"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="让一个配置对应一个类"><a href="#让一个配置对应一个类" class="headerlink" title="让一个配置对应一个类"></a>让一个配置对应一个类</h4><p>application.yml：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">boy:</div><div class="line">  age: 21</div><div class="line">  name: zc</div></pre></td></tr></table></figure></p>
+<p>对应一个类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Compoent</span></div><div class="line"><span class="meta">@ConfigurationProperties</span>(prefix=<span class="string">"boy"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Boy</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> Integer age;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="comment">//set get 方法省略</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="切换配置dev-prod"><a href="#切换配置dev-prod" class="headerlink" title="切换配置dev/prod"></a>切换配置dev/prod</h4><p>文件application.yml：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  profiles:</div><div class="line">    active: dev</div></pre></td></tr></table></figure></p>
+<p>那么此时生效的配置文件为：<br>application-dev.yml</p>
+<p>同理如果active为prod，生效的配置文件就为：<br>application-prod.yml</p>
+<h4 id="命令行切换配置运行"><a href="#命令行切换配置运行" class="headerlink" title="命令行切换配置运行"></a>命令行切换配置运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar xxx.jar --spring.profiles.active=prod</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;搭建项目&quot;&gt;&lt;a href=&quot;#搭建项目&quot; class=&quot;headerlink&quot; title=&quot;搭建项目&quot;&gt;&lt;/a&gt;搭建项目&lt;/h3&gt;&lt;h4 id=&quot;阿里云仓库配置&quot;&gt;&lt;a href=&quot;#阿里云仓库配置&quot; class=&quot;headerlink&quot; title=&quot;阿里云仓库配置&quot;&gt;&lt;/a&gt;阿里云仓库配置&lt;/h4&gt;&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;setting&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;mirrors&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;mirror&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;id&lt;/span&gt;&amp;gt;&lt;/span&gt;nexus-aliyun&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;id&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;mirrorOf&lt;/span&gt;&amp;gt;&lt;/span&gt;*&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;mirrorOf&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;name&lt;/span&gt;&amp;gt;&lt;/span&gt;Nexus aliyun&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;name&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;url&lt;/span&gt;&amp;gt;&lt;/span&gt;http://maven.aliyun.com/nexus/content/groups/public&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;url&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;mirror&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;mirrors&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;setting&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;默认仓库：&lt;a href=&quot;https://repo.maven.apache.org/maven2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://repo.maven.apache.org/maven2&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;启动项目&quot;&gt;&lt;a href=&quot;#启动项目&quot; class=&quot;headerlink&quot; title=&quot;启动项目&quot;&gt;&lt;/a&gt;启动项目&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;IDEA直接运行（&lt;code&gt;@SpringBootApplication&lt;/code&gt;主类）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mvn spring-boot:run&lt;/code&gt;命令。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mvn install&lt;/code&gt;编译程序，生成jar包，再用&lt;code&gt;java -jar xxx.jar&lt;/code&gt;启动。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;配置文件&quot;&gt;&lt;a href=&quot;#配置文件&quot; class=&quot;headerlink&quot; title=&quot;配置文件&quot;&gt;&lt;/a&gt;配置文件&lt;/h3&gt;&lt;h4 id=&quot;application-properties&quot;&gt;&lt;a href=&quot;#application-properties&quot; class=&quot;headerlink&quot; title=&quot;application.properties&quot;&gt;&lt;/a&gt;application.properties&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;server.port=8081          //配置启动端口&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;server.context-path=/xxx  //配置路由&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;application-yml&quot;&gt;&lt;a href=&quot;#application-yml&quot; class=&quot;headerlink&quot; title=&quot;application.yml&quot;&gt;&lt;/a&gt;application.yml&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;server:&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  port: 8081&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  context-path: /xxx&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="spring" scheme="http://zhangchaozc.cn/categories/spring/"/>
+    
+    
+      <category term="springboot" scheme="http://zhangchaozc.cn/tags/springboot/"/>
+    
+  </entry>
   
   <entry>
     <title>算法题</title>
@@ -348,9 +619,9 @@
       <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
     
     
-      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
-    
       <category term="dynamodb" scheme="http://zhangchaozc.cn/tags/dynamodb/"/>
+    
+      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
     
   </entry>
   
@@ -489,9 +760,9 @@
     
       <category term="HTTP" scheme="http://zhangchaozc.cn/tags/HTTP/"/>
     
-      <category term="timeout" scheme="http://zhangchaozc.cn/tags/timeout/"/>
-    
       <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
+    
+      <category term="timeout" scheme="http://zhangchaozc.cn/tags/timeout/"/>
     
   </entry>
   
@@ -719,378 +990,6 @@
     
       <category term="数据库" scheme="http://zhangchaozc.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>反射</title>
-    <link href="http://zhangchaozc.cn/2017/07/30/java/%E5%8F%8D%E5%B0%84/"/>
-    <id>http://zhangchaozc.cn/2017/07/30/java/反射/</id>
-    <published>2017-07-30T09:57:39.000Z</published>
-    <updated>2017-08-18T05:24:44.386Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。</p>
-<h3 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h3><p>在<code>类加载</code>这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。<br>那么这些信息是有用的，比如反射。可以利用信息产生类对象、获取并执行类方法等。下面通过代码来说明。</p>
-<a id="more"></a>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h5 id="Person类"><a href="#Person类" class="headerlink" title="Person类"></a>Person类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> reflect;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/7/31.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> String phone;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayName</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"My name is:"</span>+name);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//此处略去get和set方法，以及toString()</span></div><div class="line">    <span class="comment">//编译器可以自动生成</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="测试new"><a href="#测试new" class="headerlink" title="测试new"></a>测试new</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="comment">//测试forName</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">//1.forName必须指定类的绝对路径（包名.类名）</span></div><div class="line">        <span class="comment">//2.必须用try catch语句抓异常或者抛出异常</span></div><div class="line">        <span class="comment">//3.待生成的类必须要有默认的构造函数，Spring中若类没有默认的构造函数，</span></div><div class="line">        <span class="comment">//是无法注入实例的，底层也是这个函数生成的对象</span></div><div class="line">        Person person=(Person) Class.forName(<span class="string">"reflect.Person"</span>).newInstance();</div><div class="line">        person.setName(<span class="string">"zc"</span>);</div><div class="line">        person.sayName();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">My name is:zc</div></pre></td></tr></table></figure></p>
-<h5 id="测试方法-amp-属性"><a href="#测试方法-amp-属性" class="headerlink" title="测试方法&amp;属性"></a>测试方法&amp;属性</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Object o = Class.forName(<span class="string">"reflect.Person"</span>).newInstance();</div><div class="line">        Person p = (Person) o;</div><div class="line">        Class c = p.getClass();</div><div class="line">        <span class="comment">//getMethods()包含Object类中的方法</span></div><div class="line">        <span class="comment">//getDeclaredMethods()不包含</span></div><div class="line">        Method[] methods = c.getDeclaredMethods();</div><div class="line">        <span class="keyword">for</span> (Method m : methods) &#123;</div><div class="line">            System.out.println(m.getName());</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//getFields()返回空</span></div><div class="line">        <span class="comment">//getDeclaredFields()返回所有属性名</span></div><div class="line">        Field[] fields = c.getDeclaredFields();</div><div class="line">        <span class="keyword">for</span> (Field f : fields) &#123;</div><div class="line">            System.out.println(f.getName());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">toString</div><div class="line">getName</div><div class="line">setName</div><div class="line">getPhone</div><div class="line">setPhone</div><div class="line">sayName</div><div class="line">name</div><div class="line">phone</div></pre></td></tr></table></figure></p>
-<h5 id="测试方法调用"><a href="#测试方法调用" class="headerlink" title="测试方法调用"></a>测试方法调用</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Object o = Class.forName(<span class="string">"reflect.Person"</span>).newInstance();</div><div class="line">        Person p = (Person) o;</div><div class="line">        Class c = p.getClass();</div><div class="line">        String name = <span class="string">"zc"</span>;</div><div class="line">        p.sayName();</div><div class="line">        <span class="comment">//通过set方法给对象成员属性赋值</span></div><div class="line">        String fieidName = <span class="string">"name"</span>;</div><div class="line">        String m = <span class="string">"set"</span> + fieidName.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + fieidName.substring(<span class="number">1</span>);</div><div class="line">        <span class="comment">//注意String.class 不加会异常</span></div><div class="line">        Method method=c.getMethod(m,String.class);</div><div class="line">        method.invoke(p,name);</div><div class="line">        p.sayName();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">My name is:null</div><div class="line">My name is:zc</div></pre></td></tr></table></figure></p>
-<p>如果函数有返回值可以用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Object value = method.invoke(p,name);</div></pre></td></tr></table></figure></p>
-<p>来接收。</p>
-<p>还有更多的方法可以查看API文档，我就不一一测试了。<br>总结：有了类信息后，可以动态的对类进行操作，很灵活~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;反射作为Java的一大特性，在Java的许多框架中都是核心。Spring通过配置文件生产实例，Mybatis对象映射ORM等。还有因为反射出来的框架中自动给类属性赋值（set和get方法），总之，反射是一个重要的特性。&lt;/p&gt;
-&lt;h3 id=&quot;Class类&quot;&gt;&lt;a href=&quot;#Class类&quot; class=&quot;headerlink&quot; title=&quot;Class类&quot;&gt;&lt;/a&gt;Class类&lt;/h3&gt;&lt;p&gt;在&lt;code&gt;类加载&lt;/code&gt;这篇文章中已经讲到，在java文件编译时，会把类信息都存放在同名的.class文件中，在程序运行时这些文件的信息会被加载到JVM中。&lt;br&gt;那么这些信息是有用的，比如反射。可以利用信息产生类对象、获取并执行类方法等。下面通过代码来说明。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
-    
-    
-      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>类加载</title>
-    <link href="http://zhangchaozc.cn/2017/07/30/java/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
-    <id>http://zhangchaozc.cn/2017/07/30/java/类加载/</id>
-    <published>2017-07-30T09:53:06.000Z</published>
-    <updated>2017-08-18T05:24:45.093Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>要理解<code>RTTI</code>（运行时类型信息）在Java中的工作原理，必须知道<code>类型信息</code>是如何表示的。</p>
-<h3 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h3><p>每个类都有一个<code>Class对象</code>，每当编译了一个类，就会产生一个Class对象，保存在同名的.class文件中。<br>当程序运行时，虚拟机把描述类的数据<code>从class文件中加载到内存</code>，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。</p>
-<p>Java中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的，<strong>以下知识点总结于网络</strong>。</p>
-<a id="more"></a>
-<ul>
-<li><code>引导类加载器</code>（bootstrap class loader）：<br>它用来加载 Java的核心库(jre/lib/rt.jar)，是用原生C++代码来实现的，并不继承自java.lang.ClassLoader。</li>
-<li><code>扩展类加载器</code>（extensions class loader）：<br>它用来加载 Java的扩展库(jre/ext/*.jar)。Java虚拟机的实现会提供一个扩展库目录。该类加载器在此目录里面查找并加载 Java 类。</li>
-<li><code>系统类加载器</code>（system class loader）：<br>它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类。一般来说，Java应用的类都是由它来完成加载的。可以通过 ClassLoader.getSystemClassLoader()来获取它。</li>
-<li><code>自定义类加载器</code>（custom class loader）：<br>除了系统提供的类加载器以外，开发人员可以通过继承java.lang.ClassLoader类的方式实现自己的类加载器，以满足一些特殊的需求。</li>
-</ul>
-<h3 id="三个机制"><a href="#三个机制" class="headerlink" title="三个机制"></a>三个机制</h3><ul>
-<li>委托机制：<br>是指将加载一个类的请求<code>交给父类加载器</code>，如果这个父类加载器不能够找到或者加载这个类，那么再加载它。</li>
-<li>可见性的原理：<br>是<code>子类的加载器</code>可以看见所有的<code>父类加载器加载的类</code>，而<code>父类加载器看不到子类加载器加载的类</code>。</li>
-<li>单一性原理：<br>是指<code>仅加载一个类一次</code>，这是由委托机制确保子类加载器不会再次加载父类加载器加载过的类。</li>
-</ul>
-<h3 id="类加载过程图"><a href="#类加载过程图" class="headerlink" title="类加载过程图"></a>类加载过程图</h3><div align="center"><br><img src="/images/classload.png" alt="classload"><br></div>
-
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
-<li><code>装载</code>：<br>查找并加载类的二进制数据。</li>
-<li><code>链接</code>：<br>验证：确保被加载类信息符合JVM规范、没有安全方面的问题。<br>准备：为类的静态变量分配内存，并将其初始化为默认值。<br>解析：把虚拟机常量池（指每个类私有的存放类名、方法名和符号的集合）中的符号引用转换为直接引用。</li>
-<li><code>初始化</code>：<br>为类的静态变量赋予正确的初始值。</li>
-</ol>
-<h5 id="类的初始化步骤："><a href="#类的初始化步骤：" class="headerlink" title="类的初始化步骤："></a>类的初始化步骤：</h5><ol>
-<li>如果这个类还没有被加载和链接，那先进行加载和链接。</li>
-<li>假如这个类存在直接父类，并且这个类还没有被初始化（注意：在一个类加载器中，类只能初始化一次），那就初始化直接的父类（不适用于接口）。</li>
-<li>如果类中存在static标识的块，那就依次执行这些初始化语句。</li>
-</ol>
-<h3 id="类加载器的工作原理"><a href="#类加载器的工作原理" class="headerlink" title="类加载器的工作原理"></a>类加载器的工作原理</h3><h5 id="委托机制"><a href="#委托机制" class="headerlink" title="委托机制"></a>委托机制</h5><p>当一个类加载和初始化的时候，类仅在有需要加载的时候被加载。假设你有一个应用需要的类叫作Abc.class，首先加载这个类的请求由Application类加载器委托给它的父类加载器Extension类加载器，然后再委托给Bootstrap类加载器。Bootstrap类加载器会先看看rt.jar中有没有这个类，因为并没有这个类，所以这个请求由回到Extension类加载器，它会查看jre/lib/ext目录下有没有这个类，如果这个类被Extension类加载器找到了，那么它将被加载，而Application类加载器不会加载这个类；而如果这个类没有被Extension类加载器找到，那么再由Application类加载器从classpath中寻找。记住classpath定义的是类文件的加载目录，而PATH是定义的是可执行程序如javac，java等的执行路径。</p>
-<h5 id="可见性机制"><a href="#可见性机制" class="headerlink" title="可见性机制"></a>可见性机制</h5><p>根据可见性机制，子类加载器可以看到父类加载器加载的类，而反之则不行。所以下面的例子中，当Abc.class已经被Application类加载器加载过了，然后如果想要使用Extension类加载器加载这个类，将会抛出java.lang.ClassNotFoundException异常。</p>
-<h5 id="单一性机制"><a href="#单一性机制" class="headerlink" title="单一性机制"></a>单一性机制</h5><p>根据这个机制，父加载器加载过的类不能被子加载器加载第二次。虽然重写违反委托和单一性机制的类加载器是可能的，但这样做并不可取。你写自己的类加载器的时候应该严格遵守这三条机制。</p>
-<h3 id="ClassLoader类"><a href="#ClassLoader类" class="headerlink" title="ClassLoader类"></a>ClassLoader类</h3><p>java.lang.ClassLoader类的基本职责就是根据一个指定的类的名称，找到或者生成其对应的字节代码，然后从这些字节代码中定义出一个Java类，即java.lang.Class类的一个实例。</p>
-<p>ClassLoader提供了一系列的方法，比较重要的方法如：</p>
-<div align="center"><br><img src="/images/classload2.png" alt="classload2"><br></div>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;要理解&lt;code&gt;RTTI&lt;/code&gt;（运行时类型信息）在Java中的工作原理，必须知道&lt;code&gt;类型信息&lt;/code&gt;是如何表示的。&lt;/p&gt;
-&lt;h3 id=&quot;类加载机制&quot;&gt;&lt;a href=&quot;#类加载机制&quot; class=&quot;headerlink&quot; title=&quot;类加载机制&quot;&gt;&lt;/a&gt;类加载机制&lt;/h3&gt;&lt;p&gt;每个类都有一个&lt;code&gt;Class对象&lt;/code&gt;，每当编译了一个类，就会产生一个Class对象，保存在同名的.class文件中。&lt;br&gt;当程序运行时，虚拟机把描述类的数据&lt;code&gt;从class文件中加载到内存&lt;/code&gt;，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。&lt;/p&gt;
-&lt;p&gt;Java中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的，&lt;strong&gt;以下知识点总结于网络&lt;/strong&gt;。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
-    
-    
-      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>垃圾内存回收</title>
-    <link href="http://zhangchaozc.cn/2017/07/30/java/%E5%9E%83%E5%9C%BE%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6/"/>
-    <id>http://zhangchaozc.cn/2017/07/30/java/垃圾内存回收/</id>
-    <published>2017-07-30T09:03:47.000Z</published>
-    <updated>2017-08-18T05:24:44.798Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。</p>
-<h3 id="找出回收的内存"><a href="#找出回收的内存" class="headerlink" title="找出回收的内存"></a>找出回收的内存</h3><ol>
-<li><code>标记计数法</code>：<br>给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。<br>缺点：无法解决循环引用的问题。</li>
-<li><code>根搜索算法</code>：<br>从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。</li>
-</ol>
-<a id="more"></a>
-<h3 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h3><ol>
-<li><code>标记清除算法</code>：<br>把需要回收的对象统一标记，然后统一清除。<br>缺点：容易产生大量的空间碎片。</li>
-<li><code>复制算法</code>：<br>将内存分为两块区域，先使用第1块，用到无法再用时，将第1块内存中有效的内存复制到第2块，然后清除第1块剩下的内存。<br>缺点：内存的使用效率不高，频繁的复制也浪费CPU的使用。</li>
-<li><code>标记整理算法</code>：<br>将所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。</li>
-</ol>
-<h3 id="分代回收算法"><a href="#分代回收算法" class="headerlink" title="分代回收算法"></a>分代回收算法</h3><p>在Java虚拟机<code>分代垃圾回收</code>机制中，应用程序可用的<code>堆空间</code>可以分为<code>年轻代</code>与<code>老年代</code>，年轻代又被分为<code>Eden区</code>，<code>From区</code>与<code>To区</code>。</p>
-<div align="center"><br><img src="/images/gc1.jpg" alt="gc1"><br></div>
-
-<p>当系统创建一个对象的时候，总是在<code>Eden区</code>操作，当这个区满了，那么就会触发一次<code>YoungGC</code>，也就是年轻代的垃圾回收。<br>一般来说这时候不是所有的对象都没用了，所以就会把还能用的对象复制到From区。</p>
-<div align="center"><br><img src="/images/gc2.jpg" alt="gc2"><br></div>
-
-<p>这样整个Eden区就被清理干净了，可以继续创建新的对象，当Eden区再次被用完，就再触发一次YoungGC，然后呢，注意，这个时候跟刚才稍稍有点区别。这次触发YoungGC后，会将Eden区与From区还在被使用的对象复制到To区。</p>
-<div align="center"><br><img src="/images/gc3.jpg" alt="gc3"><br></div>
-
-<p>再下一次YoungGC的时候，则是将Eden区与To区中的还在被使用的对象复制到From区。</p>
-<div align="center"><br><img src="/images/gc4.jpg" alt="gc4"><br></div>
-
-<p>经过若干次YoungGC后，有些对象在From与To之间来回游荡，若这些对象还没死，就会进入老年代了。</p>
-<div align="center"><br><img src="/images/gc5.jpg" alt="gc5"><br></div>
-
-<p>如果老年代也满了，就会进行全体GC（full gc），全体回收。</p>
-<h3 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h3><ul>
-<li>强引用：<br>new出来的对象就属于强引用，不会gc掉。</li>
-<li>软引用：<br>平时不会回收，只有在JVM内存不足的时候才会被回收。</li>
-<li>弱引用：<br>一旦被JVM发现，就会被回收。</li>
-<li>虚引用：<br>虚引用是每次垃圾回收的时候都会被回收，虚引用主要用于检测对象是否已经从内存中删除。</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;Java语言是支持内存自动回收的，不像C++中new和delete要成对出现以避免内存泄露。&lt;/p&gt;
-&lt;h3 id=&quot;找出回收的内存&quot;&gt;&lt;a href=&quot;#找出回收的内存&quot; class=&quot;headerlink&quot; title=&quot;找出回收的内存&quot;&gt;&lt;/a&gt;找出回收的内存&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;标记计数法&lt;/code&gt;：&lt;br&gt;给内存中的对象给做上标记，对象被引用一次，计数就加1，引用被释放了，计数就减1，当这个计数为0的时候，这个对象就可以被回收了。&lt;br&gt;缺点：无法解决循环引用的问题。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;根搜索算法&lt;/code&gt;：&lt;br&gt;从内存中有效的对象出发，搜索所有的可达对象，这样剩下的那些对象就是需要被回收的。&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
-    
-    
-      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>搭建hexo博客(1)</title>
-    <link href="http://zhangchaozc.cn/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/"/>
-    <id>http://zhangchaozc.cn/2017/07/28/博客搭建/搭建hexo博客-1/</id>
-    <published>2017-07-28T08:42:49.000Z</published>
-    <updated>2017-08-24T01:52:09.905Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress<code>很难移植</code>，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。</p>
-<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ol>
-<li>玩过github，至少上传过一个自己的项目/工程。</li>
-<li>有一定的node.js基础，至少安装过node环境，熟悉npm命令。</li>
-</ol>
-<p>如果没有基础的请看<code>git入门</code>和<code>node入门</code>两篇文章。</p>
-<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="安装hexo："><a href="#安装hexo：" class="headerlink" title="安装hexo："></a>安装hexo：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
-<p>-g是全局安装，安装成功后可以使用<code>hexo</code>指令。</p>
-<a id="more"></a>
-<p>PS：我第一次安装时安装失败，尽管我配置过VPN，此时可以进入电脑<code>C:\Users\xxx</code>（本人Win10），找到<code>.npmrc</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">proxy=http://127.0.0.1:1080/</div><div class="line">registry=http://registry.npmjs.org/</div><div class="line">https-proxy=http://127.0.0.1:1080</div></pre></td></tr></table></figure></p>
-<p>我是用的代理访问的国外仓库，也可以改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure></p>
-<p>国内的淘宝仓库。</p>
-<h4 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h4><p>进入你想放博客的目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure></p>
-<p>生成博客：</p>
-<div align="center"><br><img src="/images/blogroot.PNG" alt="blogroot"><br></div>
-
-<p>安装依赖包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure></p>
-<p>PS：这一步很重要，如果<code>package.json</code>中有hexo-deployer-git包，就会自动安装。如果没有，那要手动安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
-<p>生成静态网页：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure></p>
-<h4 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo server</div></pre></td></tr></table></figure>
-<p>这时在浏览器中输入localhost:4000/就可以看到本地的博客了。</p>
-<h3 id="关联github"><a href="#关联github" class="headerlink" title="关联github"></a>关联github</h3><h4 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h4><p>仓库名一定是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zhang0chao0.github.io  //zhang0chao0换成yourname</div></pre></td></tr></table></figure></p>
-<h4 id="编辑配置"><a href="#编辑配置" class="headerlink" title="编辑配置"></a>编辑配置</h4><p>在你的hexo根目录下有一个_config_yml文件，就是站点的配置文件，在最后加上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repository: git@github.com:zhang0chao0/zhang0chao0.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
-<p>zhang0chao0换成yourname即可。</p>
-<h4 id="上传博客"><a href="#上传博客" class="headerlink" title="上传博客"></a>上传博客</h4><p>在hexo根目录下，用指令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo deploy</div></pre></td></tr></table></figure></p>
-<p>即可，然后在浏览器输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yourname.github.io</div></pre></td></tr></table></figure></p>
-<p>就能看到你自己的的博客了~</p>
-<p>搭建博客已完成，后续会写怎么切换主题以及写文章。（遇到问题可以评论或者联系我）</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress&lt;code&gt;很难移植&lt;/code&gt;，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。&lt;/p&gt;
-&lt;h3 id=&quot;基础&quot;&gt;&lt;a href=&quot;#基础&quot; class=&quot;headerlink&quot; title=&quot;基础&quot;&gt;&lt;/a&gt;基础&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;玩过github，至少上传过一个自己的项目/工程。&lt;/li&gt;
-&lt;li&gt;有一定的node.js基础，至少安装过node环境，熟悉npm命令。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;如果没有基础的请看&lt;code&gt;git入门&lt;/code&gt;和&lt;code&gt;node入门&lt;/code&gt;两篇文章。&lt;/p&gt;
-&lt;h3 id=&quot;搭建&quot;&gt;&lt;a href=&quot;#搭建&quot; class=&quot;headerlink&quot; title=&quot;搭建&quot;&gt;&lt;/a&gt;搭建&lt;/h3&gt;&lt;h4 id=&quot;安装hexo：&quot;&gt;&lt;a href=&quot;#安装hexo：&quot; class=&quot;headerlink&quot; title=&quot;安装hexo：&quot;&gt;&lt;/a&gt;安装hexo：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;npm install -g hexo&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;-g是全局安装，安装成功后可以使用&lt;code&gt;hexo&lt;/code&gt;指令。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="博客搭建" scheme="http://zhangchaozc.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    
-    
-      <category term="hexo" scheme="http://zhangchaozc.cn/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>搭建wordpress博客</title>
-    <link href="http://zhangchaozc.cn/2017/07/26/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://zhangchaozc.cn/2017/07/26/博客搭建/搭建wordpress博客/</id>
-    <published>2017-07-26T03:54:12.000Z</published>
-    <updated>2017-08-18T05:24:44.518Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我只会教大家<code>傻瓜式</code>的搭建博客，不用配任何环境，如果你是大神，会配任何环境，就不用往下看了。听起来是不是有点小激动~</p>
-<h2 id="1-阿里云-wordpress"><a href="#1-阿里云-wordpress" class="headerlink" title="1.阿里云 + wordpress"></a>1.阿里云 + wordpress</h2><p>首先买一个属于自己的服务器，也就是属于自己的IP。阿里云或腾讯云都可以，阿里云学生机地址<a href="http://click.aliyun.com/m/12564/" target="_blank" rel="external">链接</a>。</p>
-<div align="center"><br><img src="/images/ali_machine.png" alt="ali_machine"><br></div>
-
-<a id="more"></a>
-<p>wordpress博客需要php，mysql等环境，现在啥也不用装，买一个机器就自带了。</p>
-<h3 id="辅助软件"><a href="#辅助软件" class="headerlink" title="辅助软件"></a>辅助软件</h3><p>没有这两类软件，不要说你玩服务器。</p>
-<ol>
-<li><code>xshell</code>：用于与服务器建立ssh连接，<a href="https://xshell.en.softonic.com/" target="_blank" rel="external">下载</a>。</li>
-<li><code>winSCP</code>：用于把文件上传到服务器上，<a href="https://sourceforge.net/projects/winscp/" target="_blank" rel="external">下载</a>。</li>
-</ol>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><div align="center"><br><img src="/images/xshell.PNG" alt="xshell"><br></div>
-
-<div align="center"><br><img src="/images/winSCP.PNG" alt="winSCP"><br></div>
-
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><a href="https://cn.wordpress.org/" target="_blank" rel="external">下载</a>wordpress，解压后用<code>winSCP</code>把文件上传至阿里云的网站根目录（/data/wwwroot/default）。<br>然后用<code>xshell</code>登录阿里云，登录数据库（用命令行操作数据库即可，关于数据库的初始化密码查看服务器上的文档pdf），新建一个名为wordpress的数据库（其实名字可以随意）。</p>
-<div align="center"><br><img src="/images/winSCP2.PNG" alt="winSCP2"><br></div>
-
-<p>最后在浏览器上输入你的IP地址，就能看到wordpress的安装界面了，按提示填写信息即可（数据库名与你新建的数据库名字保持一致）。安装成功~</p>
-<h2 id="2-docker快速搭建"><a href="#2-docker快速搭建" class="headerlink" title="2.docker快速搭建"></a>2.docker快速搭建</h2><p><code>xshell</code>登录阿里云/腾讯云后，输入<code>docker</code>，回车。如果没有docker环境会提示你找不到命令，并给了一段指令让你安装docker，这时你只需要复制这段指令，执行一下，即完成了docker的安装。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-236-110-ubuntu:~$ docker</div><div class="line">The program &apos;docker&apos; is currently not installed. You can install it by typing:</div><div class="line">sudo apt install docker.io</div><div class="line">ubuntu@VM-236-110-ubuntu:~$</div></pre></td></tr></table></figure>
-<p>然后我执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install docker.io</div></pre></td></tr></table></figure></p>
-<p>即可安装docer。</p>
-<p>docker安装成功：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-236-110-ubuntu:~$ su</div><div class="line">Password:</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# docker</div><div class="line">Usage: docker [OPTIONS] COMMAND [arg...]</div><div class="line">       docker [ --help | -v | --version ]</div><div class="line"></div><div class="line">A self-sufficient runtime for containers.</div><div class="line"></div><div class="line">Options:</div><div class="line"></div><div class="line">  --config=~/.docker              Location of client config files</div><div class="line">  -D, --debug                     Enable debug mode</div><div class="line">  -H, --host=[]                   Daemon socket(s) to connect to</div><div class="line">  -h, --help                      Print usage</div><div class="line">......</div></pre></td></tr></table></figure>
-<p>PS：<code>最好先执行su指令，以管理员的方式运行docker</code>。</p>
-<h3 id="阿里docker仓库"><a href="#阿里docker仓库" class="headerlink" title="阿里docker仓库"></a>阿里docker仓库</h3><p>国内比较好的docker仓库，选择阿里云docker仓库即可，<a href="https://dev.aliyun.com/search.html" target="_blank" rel="external">链接</a>。搜索wordpress、mysql，找到指令后即可安装。</p>
-<p>下载wordpress：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress</div></pre></td></tr></table></figure>
-<p>下载mysql：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql</div></pre></td></tr></table></figure>
-<p>查看下载的镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# docker images</div><div class="line">REPOSITORY                                               TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress   latest              d9bae06617c0        13 months ago       547.2 MB</div><div class="line">registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql    latest              ec7e75e5260c        20 months ago       359.9 MB</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu#</div></pre></td></tr></table></figure></p>
-<p>运行mysql：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name yourname -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -v /data/mysql:/var/lib/mysql -d registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql</div></pre></td></tr></table></figure></p>
-<p>此时控制台会打印出一段Id，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4a17847f9a0bb1618e4fb0ceacabeb3d042dd06f2b63f31d8dce386153bf5748</div></pre></td></tr></table></figure></p>
-<p>Linux原则：没有错误就是运行成功，说明运行成功~</p>
-<p>连接数据库测试，并新建一个数据库<code>wordpress</code>：</p>
-<div align="center"><br><img src="/images/mysql_con.PNG" alt="mysql_con"><br></div>
-
-<div align="center"><br><img src="/images/mysql_new.PNG" alt="mysql_new"><br></div>
-
-<p>除了utf-8编码，其余的我都摒弃，不要问我为什么，最开始玩mysql的时候踩了不少中文乱码的坑。</p>
-<p>运行wordpress：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name zc -p 80:80 -v /home/ubuntu/wordpress:/var/www/html  -d registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress</div></pre></td></tr></table></figure></p>
-<p>查看运行的镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# docker ps -a</div><div class="line">CONTAINER ID        IMAGE                                                    COMMAND                  CREATED             STATUS                          PORTS                    NAMES</div><div class="line">ce66e7cdb67c        registry.cn-hangzhou.aliyuncs.com/acs-sample/wordpress   &quot;/entry.sh apache2-fo&quot;   2 minutes ago       Exited (0) About a minute ago                            zc</div><div class="line">4a17847f9a0b        registry.cn-hangzhou.aliyuncs.com/qinyujia-test/mysql    &quot;/entrypoint.sh mysql&quot;   12 minutes ago      Up 12 minutes                   0.0.0.0:3306-&gt;3306/tcp   yourname</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu#</div></pre></td></tr></table></figure></p>
-<p>还有一些基本命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">停止运行：docker stop 容器ID</div><div class="line">重启容器：docker restart 容器ID</div></pre></td></tr></table></figure></p>
-<p>在浏览器中输入IP地址，就能看到wordpress的安装界面了~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;我只会教大家&lt;code&gt;傻瓜式&lt;/code&gt;的搭建博客，不用配任何环境，如果你是大神，会配任何环境，就不用往下看了。听起来是不是有点小激动~&lt;/p&gt;
-&lt;h2 id=&quot;1-阿里云-wordpress&quot;&gt;&lt;a href=&quot;#1-阿里云-wordpress&quot; class=&quot;headerlink&quot; title=&quot;1.阿里云 + wordpress&quot;&gt;&lt;/a&gt;1.阿里云 + wordpress&lt;/h2&gt;&lt;p&gt;首先买一个属于自己的服务器，也就是属于自己的IP。阿里云或腾讯云都可以，阿里云学生机地址&lt;a href=&quot;http://click.aliyun.com/m/12564/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;链接&lt;/a&gt;。&lt;/p&gt;
-&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/ali_machine.png&quot; alt=&quot;ali_machine&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="博客搭建" scheme="http://zhangchaozc.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    
-    
-      <category term="wordpress" scheme="http://zhangchaozc.cn/tags/wordpress/"/>
-    
-      <category term="docker入门" scheme="http://zhangchaozc.cn/tags/docker%E5%85%A5%E9%97%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JVM</title>
-    <link href="http://zhangchaozc.cn/2017/07/26/java/JVM/"/>
-    <id>http://zhangchaozc.cn/2017/07/26/java/JVM/</id>
-    <published>2017-07-26T02:02:58.000Z</published>
-    <updated>2017-08-18T05:24:44.341Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>JVM模型定义了一些内存区域，有的在程序运行时产生，在程序结束时销毁，称之为<code>全局区域</code>，有的在线程运行时创建，线程结束时销毁，称之为 <code>线程私有</code>的内存区域。</p>
-<p>内存结构分区图：</p>
-<div align="center"><br><img src="/images/JVM.png" alt="JVM"><br></div>
-
-<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器是一块比较小的内存区域，用来存放当前线程<code>执行字节码的行号</code>，许多基础的功能例如分支、循环都要依赖它。<br>由于Java多线程是轮流切换并分配处理器执行时间的方式来实现的，所以在一个确定的时刻，CPU只能处理一个线程。为了每个线程运行互不干扰，所以程序计数器是<code>线程私有的</code>。</p>
-<p>PS：</p>
-<ul>
-<li>如果线程正在执行的是一个<code>Java方法</code>，这个计数器记录的是正在执行的虚拟机字节码指令的地址；</li>
-<li>如果正在执行的是<code>Natvie方法</code>，这个计数器值则为空。</li>
-</ul>
-<a id="more"></a>
-<h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><p><code>线程私有</code>，用来存放程序运行过程中的<code>局部变量</code>，什么是局部变量就不多解释了。随着局部变量的产生和销毁对应着一个入栈和出栈的过程。</p>
-<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>和虚拟机栈一样，只不过前者是执行Java程序，而本地方法栈是执行<code>本地Native</code>程序。</p>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆为JVM管理的<code>全局</code>内存，几乎所有的对象实例都在这里分配内存，这里也是垃圾内存回收的主要场所。GC算法主要是分代回收算法，这里谈谈<code>新生代</code>和<code>老年代</code>。</p>
-<ul>
-<li>新生代：程序<code>新创建</code>的对象都是从新生代分配内存。</li>
-<li>老年代：用于存放经过多次新生代GC仍然<code>存活</code>的对象。当然，有些特殊情况刚创建的对象也会进入老年代：大对象的创建，</li>
-</ul>
-<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>线程共享的<code>全局内存</code>，用来存放<code>类型信息</code>。类型信息是由类加载器在类加载时从类文件中提取出来的。类（静态）变量也存储在方法区中。<br>简单说方法区用来存储类型的元数据信息，一个.class文件是类被java虚拟机使用之前的表现形式，一旦这个类要被使用，java虚拟机就会对其进行装载、连接（验证、准备、解析）和初始化。而装载后的所有信息都存在方法区中。</p>
-<p>方法区主要有以下几个特点：</p>
-<ol>
-<li>方法区是<code>线程安全的</code>。由于所有的线程都共享方法区，所以，方法区里的数据访问必须被设计成线程安全的。</li>
-<li>方法区的大小不必是固定的，JVM可根据应用需要动态调整。同时，方法区也不一定是连续的，方法区可以在一个堆(甚至是JVM自己的堆)中自由分配。</li>
-<li>方法区也<code>可被垃圾收集</code>，当某个类不在被使用时，JVM将卸载这个类。</li>
-</ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">名称</th>
-<th style="text-align:center">特征</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">程序计数器</td>
-<td style="text-align:center">占用内存小，线程私有，生命周期与线程相同</td>
-<td style="text-align:center">字节码行号指示器</td>
-</tr>
-<tr>
-<td style="text-align:center">虚拟机栈</td>
-<td style="text-align:center">线程私有，生命周期与线程相同，使用连续的内存空间</td>
-<td style="text-align:center">Java 方法执行的内存模型，存储局部变量表、操作栈、动态链接、方法出口等信息</td>
-</tr>
-<tr>
-<td style="text-align:center">java堆</td>
-<td style="text-align:center">线程共享，生命周期与虚拟机相同，可以不使用连续的内存地址</td>
-<td style="text-align:center">保存对象实例，所有对象实例（包括数组）都要在堆上分配</td>
-</tr>
-<tr>
-<td style="text-align:center">方法区</td>
-<td style="text-align:center">线程共享，生命周期与虚拟机相同，可以不使用连续的内存地址</td>
-<td style="text-align:center">存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据</td>
-</tr>
-<tr>
-<td style="text-align:center">运行时常量池</td>
-<td style="text-align:center">方法区的一部分，具有动态性</td>
-<td style="text-align:center">存放字面量及符号引用</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;JVM模型定义了一些内存区域，有的在程序运行时产生，在程序结束时销毁，称之为&lt;code&gt;全局区域&lt;/code&gt;，有的在线程运行时创建，线程结束时销毁，称之为 &lt;code&gt;线程私有&lt;/code&gt;的内存区域。&lt;/p&gt;
-&lt;p&gt;内存结构分区图：&lt;/p&gt;
-&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/JVM.png&quot; alt=&quot;JVM&quot;&gt;&lt;br&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;程序计数器&quot;&gt;&lt;a href=&quot;#程序计数器&quot; class=&quot;headerlink&quot; title=&quot;程序计数器&quot;&gt;&lt;/a&gt;程序计数器&lt;/h3&gt;&lt;p&gt;程序计数器是一块比较小的内存区域，用来存放当前线程&lt;code&gt;执行字节码的行号&lt;/code&gt;，许多基础的功能例如分支、循环都要依赖它。&lt;br&gt;由于Java多线程是轮流切换并分配处理器执行时间的方式来实现的，所以在一个确定的时刻，CPU只能处理一个线程。为了每个线程运行互不干扰，所以程序计数器是&lt;code&gt;线程私有的&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;PS：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;如果线程正在执行的是一个&lt;code&gt;Java方法&lt;/code&gt;，这个计数器记录的是正在执行的虚拟机字节码指令的地址；&lt;/li&gt;
-&lt;li&gt;如果正在执行的是&lt;code&gt;Natvie方法&lt;/code&gt;，这个计数器值则为空。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
-    
-    
-      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
     
   </entry>
   

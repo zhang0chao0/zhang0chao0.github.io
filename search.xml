@@ -3,6 +3,227 @@
   
     
     <entry>
+      <title><![CDATA[struts2返回json]]></title>
+      <url>/2017/10/20/struts2/struts2%E8%BF%94%E5%9B%9Ejson/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前有用过struts2框架，不过都是基于jsp的开发，如果要想直接返回一个json数据该怎么办？</p>
+<h3 id="json插件"><a href="#json插件" class="headerlink" title="json插件"></a>json插件</h3><p>首先，必须下载一个<code>struts2-json</code>的插件，没有这个jar包会报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">HTTP Status 404 – Not Found</div><div class="line">Type Status Report</div><div class="line">Message There is no Action mapped for namespace [/] and action name [login] associated with context path [].</div><div class="line">Description The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.</div></pre></td></tr></table></figure></p>
+<p>居然是报错404，我就呵呵了，讲道理这个错误很难发现。</p>
+<p>然后把这个jar包依赖写到pom.xml中：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.struts<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>struts2-json-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;struts2.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这是准备工作。</p>
+<a id="more"></a>
+<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Map&lt;String,Object&gt; message;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">()</span></span>&#123;</div><div class="line">        message=<span class="keyword">new</span> HashMap&lt;String,Object&gt;();</div><div class="line">        Person person=<span class="keyword">new</span> Person();</div><div class="line">        person.setId(<span class="number">1</span>);</div><div class="line">        person.setName(<span class="string">"zc"</span>);</div><div class="line">        System.out.println(person);</div><div class="line">        message.put(<span class="string">"test"</span>,person);</div><div class="line">        <span class="keyword">return</span> SUCCESS;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> message;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>假如我们要返回这个message为json的格式，必须把它写到类<code>成员变量</code>中，并且要提供<code>get方法</code>。</p>
+<h3 id="struts-xml"><a href="#struts-xml" class="headerlink" title="struts.xml"></a>struts.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"xxx"</span> <span class="attr">extends</span>=<span class="string">"json-default"</span> <span class="attr">namespace</span>=<span class="string">"/"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"login"</span> <span class="attr">class</span>=<span class="string">"userAction"</span> <span class="attr">method</span>=<span class="string">"login"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">result</span> <span class="attr">type</span>=<span class="string">"json"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"root"</span>&gt;</span>message<span class="tag">&lt;/<span class="name">param</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">package</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>必须指定param为message，这样就能成功返回json了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> struts2 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Java项目 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[连接oracle的问题]]></title>
+      <url>/2017/10/20/%E6%95%B0%E6%8D%AE%E5%BA%93/%E8%BF%9E%E6%8E%A5oracle%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本人连接数据库oracle喜欢用navacat，如图，当然还有其它工具，都OK。</p>
+<div align="center"><br><img src="/images/navicat1.PNG" alt="navicat1"><br></div>
+
+<h3 id="普通情况"><a href="#普通情况" class="headerlink" title="普通情况"></a>普通情况</h3><p>之前用navicat连接过mysql，很OK，一下子就连上了，但是第一次做oracle课设的时候（大三），连接oracle连接不上，难道oracle牛叉一点？</p>
+<p>这个是要配置的，如图：</p>
+<div align="center"><br><img src="/images/navicat2.PNG" alt="navicat2"><br></div>
+
+<p>具体的配置路径跟你的安装位置有关，我的是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F:\app\Administrator\product\11.2.0\dbhome_1\BIN\oci.dll</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>这样不出意外就能连上了：</p>
+<div align="center"><br><img src="/images/navicat3.PNG" alt="navicat3"><br></div>
+
+<p>但是，如果写的都是对的，还连上，就要考虑其它的因素了。</p>
+<h3 id="复杂情况"><a href="#复杂情况" class="headerlink" title="复杂情况"></a>复杂情况</h3><p>看一下监听服务有没有开启，如图：</p>
+<div align="center"><br><img src="/images/oracle2.PNG" alt="oracle2"><br></div>
+
+<p><code>services.msc</code>打开服务，主要是看看这两个服务有没有开启：</p>
+<div align="center"><br><img src="/images/oracle3.PNG" alt="oracle3"><br></div>
+
+<p>如果没有监听服务，就需要自己配置监听服务了，打开自带的软件：</p>
+<div align="center"><br><img src="/images/oracle1.PNG" alt="oracle1"><br></div>
+
+<p>添加或者重新配置监听服务，并启动监听服务，就OK了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据库 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> oracle </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[oracle编码问题]]></title>
+      <url>/2017/10/20/%E6%95%B0%E6%8D%AE%E5%BA%93/oracle%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本人电脑上装的oracle 11g，这个软件默认编码为<code>GBK</code>，很伤脑筋，我讨厌除了<code>UTF-8</code>以外的其它编码。</p>
+<h3 id="修改编码"><a href="#修改编码" class="headerlink" title="修改编码"></a>修改编码</h3><p>你必须要有管理员的权限才行，打开sqlplus，以管理员的方式登录。</p>
+<h5 id="1"><a href="#1" class="headerlink" title="1"></a>1</h5><p>查看一下数据原有的编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select userenv(&apos;language&apos;) from dual;</div></pre></td></tr></table></figure></p>
+<p>呵呵，没改过之前就是GBK了。</p>
+<h5 id="2"><a href="#2" class="headerlink" title="2"></a>2</h5><p>准备工作，先关闭数据库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">sql&gt; conn / as sysdba;</div><div class="line">sql&gt; shutdown immediate;</div><div class="line"></div><div class="line">database closed.</div><div class="line">database dismounted.</div><div class="line">oracle instance shut down.</div><div class="line"></div><div class="line">sql&gt; startup mount;</div><div class="line"></div><div class="line">oracle instance started.</div><div class="line">total system global area  135337420 bytes</div><div class="line">fixed size                          452044 bytes</div><div class="line">variable size                     109051904 bytes</div><div class="line">database buffers              25165824 bytes</div><div class="line">redo buffers                      667648 bytes</div><div class="line">database mounted.</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h5 id="3"><a href="#3" class="headerlink" title="3"></a>3</h5><p>修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">sql&gt; alter system enable restricted session;</div><div class="line"></div><div class="line">system altered.</div><div class="line"></div><div class="line">sql&gt; alter system set job_queue_processes=0;</div><div class="line"></div><div class="line">system altered.</div><div class="line"></div><div class="line">sql&gt; alter system set aq_tm_processes=0;</div><div class="line"></div><div class="line">system altered.</div><div class="line"></div><div class="line">sql&gt; alter database open;</div><div class="line"></div><div class="line">database altered.</div><div class="line"></div><div class="line">sql&gt; alter database character set internal_use UTF8;</div><div class="line">sql&gt; shutdown immediate;</div><div class="line">sql&gt; startup; //重新启动</div></pre></td></tr></table></figure></p>
+<p>再查一下数据库的编码就是UFT8了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据库 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> oracle </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[maven开发]]></title>
+      <url>/2017/10/20/maven/maven%E5%BC%80%E5%8F%91/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>搭建好mvn环境后，命令行<code>mvn -v</code>查看maven的版本号，结果正确说明环境已经弄好。</p>
+<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><ol>
+<li>命令行创建工程，然后用工具打开。</li>
+<li>直接用工具创建，本人使用的是<code>IntelliJ IDEA</code>，比myeclipse好用几倍吧。</li>
+</ol>
+<p>常用的命令：</p>
+<ul>
+<li><p>创建普通java工程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn archetype:generate -DgroupId=org.zhangchao -DartifactId=mavenTest -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建web工程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn archetype:generate -DgroupId=org.seckill -DartifactId=seckill -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当然，直接用工具创建的话，<code>groupId</code>和<code>artifactId</code>按要求填即可。</p>
+<a id="more"></a>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">src</div><div class="line">    --main</div><div class="line">        --java        //普通java代码，servlet代码等</div><div class="line">        --resources   //项目里面的xml等配置文件</div><div class="line">        --webapp      //和普通的web工程一样，里面有/WEB-INF/web.xml等重要配置文件</div><div class="line">target   //编译后文件存放目录</div><div class="line">pom.xml  //核心依赖配置文件</div></pre></td></tr></table></figure>
+<p>注意resources文件夹，里面放了xml等重要文件，如果你在别的文件夹中也用到了xml配置，例如mybatis的mapper文件，那么项目编译时是不会读到mapper文件的。<code>这是一个坑，踩过才知道</code>，这时需要在pom.xml中的build节点里面配置，加上mapper文件，才OK。</p>
+<h3 id="准备开发"><a href="#准备开发" class="headerlink" title="准备开发"></a>准备开发</h3><p>默认的配置如图，也可以自己配置的：</p>
+<div align="center"><br><img src="/images/maven6.PNG" alt="maven6"><br></div>
+
+<p>repository文件夹放的你的jar包，都是从这里读的；settings.xml是配置文件，注意核心的配置：</p>
+<ol>
+<li>仓库配置，基本都换成<code>阿里云仓库</code>了，因为不需要代理，快。</li>
+<li>如果实在不想换仓库的话，就可以自己配置代理。</li>
+</ol>
+<p>仓库配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- mirror</span></div><div class="line">   | Specifies a repository mirror site to use instead of a given repository. The repository that</div><div class="line">   | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used</div><div class="line">   | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.</div><div class="line">   ！--&gt;</div><div class="line"> <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>代理配置在这里改：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">proxies</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- proxy</span></div><div class="line">   | Specification for one proxy, to be used in connecting to the network.</div><div class="line">   |</div><div class="line">  &lt;proxy&gt;</div><div class="line">    &lt;id&gt;optional&lt;/id&gt;</div><div class="line">    &lt;active&gt;true&lt;/active&gt;</div><div class="line">    &lt;protocol&gt;http&lt;/protocol&gt;</div><div class="line">    &lt;username&gt;proxyuser&lt;/username&gt;</div><div class="line">    &lt;password&gt;proxypass&lt;/password&gt;</div><div class="line">    &lt;host&gt;proxy.host.net&lt;/host&gt;</div><div class="line">    &lt;port&gt;80&lt;/port&gt;</div><div class="line">    &lt;nonProxyHosts&gt;local.net|some.host.com&lt;/nonProxyHosts&gt;</div><div class="line">  &lt;/proxy&gt;</div><div class="line">  --&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">proxies</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>如果你用的<code>Shadowsocks</code>的话，一般就是配<code>localhost:1080</code>了。</p>
+<h3 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h3><p>需要什么包直接去<a href="http://maven.aliyun.com/nexus/#welcome" target="_blank" rel="external">阿里仓库</a>搜，然后把依赖配置贴pom.xml即可，例子：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-beans<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>实在不知道有哪些包的，去github下一个类似的工程，看看别人的pom.xml怎么写的就行了。</p>
+<h3 id="打包发布"><a href="#打包发布" class="headerlink" title="打包发布"></a>打包发布</h3><p>用工具很快：</p>
+<div align="center"><br><img src="/images/maven5.PNG" alt="maven5"><br></div>
+
+<p>直接点package命令即可，或者手工命令行，这时在target目录下就有war包了，当然生成啥包取决于你在pom.xml的配置。</p>
+<p>基本的开发就是这样，欢迎大家交流学习。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> maven </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Java项目 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[maven中自己导入包]]></title>
+      <url>/2017/10/20/maven/maven%E4%B8%AD%E8%87%AA%E5%B7%B1%E5%AF%BC%E5%85%A5%E5%8C%85/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有一种情况，有时候会遇到，你去maven中找一个jar包，居然找不到，尴尬不?也许是因为这个包太老了。</p>
+<h3 id="自己下载"><a href="#自己下载" class="headerlink" title="自己下载"></a>自己下载</h3><p>maven仓库里面没有，不代表别处没有，此时可以通过各种途径，把jar包下载下来，但是如何把这个包融入到maven环境呢？</p>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><p>其实也是一行命令（groupId和artifactId自己填）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn install:install-file -DgroupId=oracle.xdb -DartifactId=oracle.xdb -Dversion=1.0 -Dpackaging=jar -Dfile=xdb.jar -DgeneratePom=true</div></pre></td></tr></table></figure></p>
+<p>Dfile填jar包所在的位置，相对位置或者绝对位置都可以。</p>
+<p>此时在pom中写：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>oracle.xdb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>oracle.xdb<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>就可以了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> maven </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Java项目 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[springboot笔记]]></title>
+      <url>/2017/09/25/spring/springboot%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h3 id="搭建项目"><a href="#搭建项目" class="headerlink" title="搭建项目"></a>搭建项目</h3><h4 id="阿里云仓库配置"><a href="#阿里云仓库配置" class="headerlink" title="阿里云仓库配置"></a>阿里云仓库配置</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">setting</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">setting</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>默认仓库：<a href="https://repo.maven.apache.org/maven2" target="_blank" rel="external">https://repo.maven.apache.org/maven2</a></p>
+<h3 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h3><ol>
+<li>IDEA直接运行（<code>@SpringBootApplication</code>主类）。</li>
+<li><code>mvn spring-boot:run</code>命令。</li>
+<li><code>mvn install</code>编译程序，生成jar包，再用<code>java -jar xxx.jar</code>启动。</li>
+</ol>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">server.port=8081          //配置启动端口</div><div class="line">server.context-path=/xxx  //配置路由</div></pre></td></tr></table></figure>
+<h4 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server:</div><div class="line">  port: 8081</div><div class="line">  context-path: /xxx</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="通过注解-Value取值"><a href="#通过注解-Value取值" class="headerlink" title="通过注解@Value取值"></a>通过注解@Value取值</h4><p>例如<code>application.yml</code>中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cupSize: A</div><div class="line">content: &quot;cup:$&#123;cupSize&#125;&quot;  //配置中可嵌套配置</div></pre></td></tr></table></figure></p>
+<p>controller中：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Controller</span></span>&#123;</div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;cupSize&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String cupSize;  <span class="comment">//此变量的值为"A"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="让一个配置对应一个类"><a href="#让一个配置对应一个类" class="headerlink" title="让一个配置对应一个类"></a>让一个配置对应一个类</h4><p>application.yml：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">boy:</div><div class="line">  age: 21</div><div class="line">  name: zc</div></pre></td></tr></table></figure></p>
+<p>对应一个类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Compoent</span></div><div class="line"><span class="meta">@ConfigurationProperties</span>(prefix=<span class="string">"boy"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Boy</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> Integer age;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="comment">//set get 方法省略</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="切换配置dev-prod"><a href="#切换配置dev-prod" class="headerlink" title="切换配置dev/prod"></a>切换配置dev/prod</h4><p>文件application.yml：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  profiles:</div><div class="line">    active: dev</div></pre></td></tr></table></figure></p>
+<p>那么此时生效的配置文件为：<br>application-dev.yml</p>
+<p>同理如果active为prod，生效的配置文件就为：<br>application-prod.yml</p>
+<h4 id="命令行切换配置运行"><a href="#命令行切换配置运行" class="headerlink" title="命令行切换配置运行"></a>命令行切换配置运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar xxx.jar --spring.profiles.active=prod</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> spring </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> springboot </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[算法题]]></title>
       <url>/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E9%A2%98/</url>
       <content type="html"><![CDATA[<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">struct</span> <span class="title">Node</span></div><div class="line">&#123;</div><div class="line">    T data;</div><div class="line">    Node&lt;T&gt;* next;</div><div class="line">    Node()</div><div class="line">    &#123;</div><div class="line">        next=<span class="literal">nullptr</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -274,9 +495,9 @@
         
         <tags>
             
-            <tag> bug </tag>
-            
             <tag> dynamodb </tag>
+            
+            <tag> bug </tag>
             
         </tags>
         
@@ -398,9 +619,9 @@
             
             <tag> HTTP </tag>
             
-            <tag> timeout </tag>
-            
             <tag> bug </tag>
+            
+            <tag> timeout </tag>
             
         </tags>
         
@@ -763,18 +984,24 @@
 <li>有一定的node.js基础，至少安装过node环境，熟悉npm命令。</li>
 </ol>
 <p>如果没有基础的请看<code>git入门</code>和<code>node入门</code>两篇文章。</p>
-<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="安装hexo："><a href="#安装hexo：" class="headerlink" title="安装hexo："></a>安装hexo：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h4><p>因为npm默认访问国外的仓库，要想正常安装hexo，要么配置代理，要么换仓库。</p>
+<ul>
+<li><p>配置代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm config set proxy http://127.0.0.1:1080</div></pre></td></tr></table></figure>
+</li>
+<li><p>更换仓库（<code>推荐</code>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm config set registry https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>此后会发现<code>C:\Users\xxx</code>（本人Win10）多了<code>.npmrc</code>文件，这就是你的npm配置文件。</p>
+<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
 <p>-g是全局安装，安装成功后可以使用<code>hexo</code>指令。</p>
 <a id="more"></a>
-<p>PS：我第一次安装时安装失败，尽管我配置过VPN，此时可以进入电脑<code>C:\Users\xxx</code>（本人Win10），找到<code>.npmrc</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">proxy=http://127.0.0.1:1080/</div><div class="line">registry=http://registry.npmjs.org/</div><div class="line">https-proxy=http://127.0.0.1:1080</div></pre></td></tr></table></figure></p>
-<p>我是用的代理访问的国外仓库，也可以改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">registry = https://registry.npm.taobao.org</div></pre></td></tr></table></figure></p>
-<p>国内的淘宝仓库。</p>
 <h4 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h4><p>进入你想放博客的目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure></p>
 <p>生成博客：</p>
 <div align="center"><br><img src="/images/blogroot.PNG" alt="blogroot"><br></div>
 
-<p>安装依赖包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure></p>
-<p>PS：这一步很重要，如果<code>package.json</code>中有hexo-deployer-git包，就会自动安装。如果没有，那要手动安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
+<p>安装依赖包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install</div><div class="line">npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
 <p>生成静态网页：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure></p>
 <h4 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo server</div></pre></td></tr></table></figure>
 <p>这时在浏览器中输入localhost:4000/就可以看到本地的博客了。</p>
