@@ -320,6 +320,322 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2017/09/18/面经积累/红黑树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="指向指针的指针">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="指向指针的指针-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/18/面经积累/红黑树/" itemprop="url">红黑树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T11:30:49+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经积累/" itemprop="url" rel="index">
+                    <span itemprop="name">面经积累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/09/18/面经积累/红黑树/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://zhangchaozc.cn/2017/09/18/面经积累/红黑树/" class="cy_cmt_count" data-xid="2017/09/18/面经积累/红黑树/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a><a href="http://www.cnblogs.com/fornever/archive/2011/12/02/2270692.html" target="_blank" rel="external">红黑树</a></h3><p>红黑树是一颗<code>平衡二叉树</code>，图示：</p>
+<div align="center"><br><img src="/images/red_black1.png" alt="red_black1"><br></div>
+
+<h5 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h5><ol>
+<li>节点只能为红色或者黑色。</li>
+<li><code>根节点</code>和<code>叶节点</code>必须为黑色。（这里的叶子节点并不是普通的叶子节点，而是人为的补了<code>NULL</code>，以NULL作为叶子节点）</li>
+<li><code>红色</code>节点的子节点为<code>黑色</code>。</li>
+<li>任意一节点到达叶子节点（只能顺着走最短路，不能绕弯）所经过的<code>黑色</code>节点数目相同。（例如8号，到达包括NULL叶子节点所经过的黑色节点都是2个）</li>
+</ol>
+<h5 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h5><p>如果插入<code>黑色</code>，会破坏最重要的4条件，所以只能插入<code>红色</code>节点，但是插入后需要调整或者变色。</p>
+<h6 id="情景1：父节点为黑色，直接插入"><a href="#情景1：父节点为黑色，直接插入" class="headerlink" title="情景1：父节点为黑色，直接插入"></a>情景1：父节点为黑色，直接插入</h6><p>例如插入1的左子树，这样完全符合规则，不用改变。</p>
+<h6 id="情景2：父节点为红色，父节点兄弟节点对称"><a href="#情景2：父节点为红色，父节点兄弟节点对称" class="headerlink" title="情景2：父节点为红色，父节点兄弟节点对称"></a>情景2：父节点为红色，父节点兄弟节点对称</h6><p>G为黑色，P、U为红色，此时要插入红色的N：</p>
+<div align="center"><br><img src="/images/red_black2.png" alt="red_black2"><br></div>
+
+<p>插入节点N，此时需要递归的把P、U、G都变为相反色，来确保符合规则。最后把根节点置为黑色。</p>
+<h5 id="情景3：父节点红色，父节点兄弟节点不对称"><a href="#情景3：父节点红色，父节点兄弟节点不对称" class="headerlink" title="情景3：父节点红色，父节点兄弟节点不对称"></a>情景3：父节点红色，父节点兄弟节点不对称</h5><div align="center"><br><img src="/images/red_black3.png" alt="red_black3"><br></div>
+
+<p>例如：P、U不同色，P红U黑，此时插入N节点，把P和G置为相反色，然后PG以P为中心点旋转。</p>
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><p>太复杂记不住，先放放吧。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2017/09/18/面经积累/sychronized和lock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="指向指针的指针">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="指向指针的指针-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/18/面经积累/sychronized和lock/" itemprop="url">sychronized和lock</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T11:15:30+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经积累/" itemprop="url" rel="index">
+                    <span itemprop="name">面经积累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/09/18/面经积累/sychronized和lock/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://zhangchaozc.cn/2017/09/18/面经积累/sychronized和lock/" class="cy_cmt_count" data-xid="2017/09/18/面经积累/sychronized和lock/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="并发-amp-同步"><a href="#并发-amp-同步" class="headerlink" title="并发&amp;同步"></a>并发&amp;同步</h3><ul>
+<li>sychronized自动释放锁。</li>
+<li>lock必须手动释放，为了不出异常释放锁应该写在<code>finally</code>语句块中。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</div><div class="line">    <span class="comment">//锁对象</span></div><div class="line">    <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="comment">//得到锁</span></div><div class="line">        lock.lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; name.length(); i++) &#123;</div><div class="line">                System.out.print(name.charAt(i));</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="comment">//释放锁</span></div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        LockTest test=<span class="keyword">new</span> LockTest();</div><div class="line">        test.output(<span class="string">"ABCDEF"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/18/面经积累/sychronized和lock/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2017/08/30/java/动态代理-初级/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1532,306 +1848,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2017/08/17/博客搭建/搭建hexo博客-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="指向指针的指针">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="指向指针的指针-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/17/博客搭建/搭建hexo博客-2/" itemprop="url">搭建hexo博客(2)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-17T10:48:45+08:00">
-                2017-08-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/博客搭建/" itemprop="url" rel="index">
-                    <span itemprop="name">博客搭建</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/08/17/博客搭建/搭建hexo博客-2/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://zhangchaozc.cn/2017/08/17/博客搭建/搭建hexo博客-2/" class="cy_cmt_count" data-xid="2017/08/17/博客搭建/搭建hexo博客-2/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果看过<code>搭建hexo博客(1)</code>并且成功的，可以往后看，我会教大家一步步把博客变成我现在的样子；<br>如果没有成功，请评论或私聊我。</p>
-<h3 id="我的目录结构"><a href="#我的目录结构" class="headerlink" title="我的目录结构"></a>我的目录结构</h3><div align="center"><br><img src="/images/catalog.PNG" alt="catalog"><br></div>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/17/博客搭建/搭建hexo博客-2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2017/08/16/数据库/事务隔离级别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="指向指针的指针">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="指向指针的指针-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/16/数据库/事务隔离级别/" itemprop="url">事务隔离级别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T15:32:04+08:00">
-                2017-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/08/16/数据库/事务隔离级别/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://zhangchaozc.cn/2017/08/16/数据库/事务隔离级别/" class="cy_cmt_count" data-xid="2017/08/16/数据库/事务隔离级别/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>数据库事务的隔离级别有<code>4</code>个，由低到高依次为<code>Read uncommitted</code>（读未提交）、<code>Read committed</code>（读已提交）、<code>Repeatable read</code>（重复读）、<code>Serializable</code>（序列化）。</p>
-<h3 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h3><p>A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；<br>但A发现打错了，<code>回滚</code>了事务，B再查看就发现钱没有了。<br>B之前读了未提交的事务，出现了<code>脏读</code>。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/16/数据库/事务隔离级别/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1882,7 +1898,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1893,7 +1909,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

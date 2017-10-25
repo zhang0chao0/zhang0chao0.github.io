@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2017-10-20T15:00:35.585Z</updated>
+  <updated>2017-10-25T14:06:08.281Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>修改原有jar的配置</title>
+    <link href="http://zhangchaozc.cn/2017/10/25/java/%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%9C%89jar%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
+    <id>http://zhangchaozc.cn/2017/10/25/java/修改原有jar的配置/</id>
+    <published>2017-10-25T13:59:50.000Z</published>
+    <updated>2017-10-25T14:06:08.281Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前用到一个jar包，但是里面的配置写死了，这个工具不适合自己用，但是如何修改配置使得可以拿来用呢？</p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><p>jar文件本身也是一个压缩文件，直接解压后，可以看到原来的文件，一般都是编译后的.class文件，如果想自己加入代码的话，可以通过反编译工具拿到源码，修改后再重新打包成jar。<code>IntelliJ IDEA</code>这个编辑器就直接可以反编译。</p>
+<p>暂时不用修改代码，只改了配置文件。</p>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><p>直接命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jar cvfm xxx.jar ./META-INF/MANIFEST.MF ./</div></pre></td></tr></table></figure></p>
+<p>需要注意的是，<code>/META-INF/MANIFEST.MF</code>这个文件很重要，一般若干个.class打包成jar时，都要指定主类和其它的配置，MANIFEST.MF文件就是干这个的。</p>
+<p>原来的这个文件不要动，<code>./</code>是对当前目录的所有文件进行打包。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;之前用到一个jar包，但是里面的配置写死了，这个工具不适合自己用，但是如何修改配置使得可以拿来用呢？&lt;/p&gt;
+&lt;h3 id=&quot;解压&quot;&gt;&lt;a 
+    
+    </summary>
+    
+      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>xshell中文乱码</title>
+    <link href="http://zhangchaozc.cn/2017/10/25/linux/xshell%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/"/>
+    <id>http://zhangchaozc.cn/2017/10/25/linux/xshell中文乱码/</id>
+    <published>2017-10-25T13:59:15.000Z</published>
+    <updated>2017-10-25T14:06:08.163Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>xshell</code>是常见的ssh连接工具，如果遇到不支持中文咋办？例如：</p>
+<div align="center"><br><img src="/images/xshell1.PNG" alt="xshell1"><br></div>
+
+<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>确保客户端本身的编码是UTF-8的，可以直接修改：</p>
+<div align="center"><br><img src="/images/xshell2.PNG" alt="xshell2"><br></div>
+
+<div align="center"><br><img src="/images/xshell3.PNG" alt="xshell3"><br></div>
+
+<p>就这两处地方。</p>
+<a id="more"></a>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>如果还不行，查看机器编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# locale</div><div class="line">LANG=C</div><div class="line">LANGUAGE=C:</div><div class="line">LC_CTYPE=&quot;C&quot;</div><div class="line">LC_NUMERIC=&quot;C&quot;</div><div class="line">LC_TIME=&quot;C&quot;</div><div class="line">LC_COLLATE=&quot;C&quot;</div><div class="line">LC_MONETARY=&quot;C&quot;</div><div class="line">LC_MESSAGES=&quot;C&quot;</div><div class="line">LC_PAPER=&quot;C&quot;</div><div class="line">LC_NAME=&quot;C&quot;</div><div class="line">LC_ADDRESS=&quot;C&quot;</div><div class="line">LC_TELEPHONE=&quot;C&quot;</div><div class="line">LC_MEASUREMENT=&quot;C&quot;</div><div class="line">LC_IDENTIFICATION=&quot;C&quot;</div><div class="line">LC_ALL=</div></pre></td></tr></table></figure></p>
+<p>修改编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# export LANG=en_US.UTF-8</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# export LANGUAGE=en_US.UTF-8</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# ls</div><div class="line">wordpress  张超</div></pre></td></tr></table></figure></p>
+<p>这样就可以了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;&lt;code&gt;xshell&lt;/code&gt;是常见的ssh连接工具，如果遇到不支持中文咋办？例如：&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/xshell1.PNG&quot; alt=&quot;xshell1&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot; title=&quot;1&quot;&gt;&lt;/a&gt;1&lt;/h3&gt;&lt;p&gt;确保客户端本身的编码是UTF-8的，可以直接修改：&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/xshell2.PNG&quot; alt=&quot;xshell2&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/xshell3.PNG&quot; alt=&quot;xshell3&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;p&gt;就这两处地方。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://zhangchaozc.cn/categories/linux/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>struts2返回json</title>
@@ -868,128 +936,6 @@
     
     
       <category term="hexo" scheme="http://zhangchaozc.cn/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>搭建hexo博客(2)</title>
-    <link href="http://zhangchaozc.cn/2017/08/17/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-2/"/>
-    <id>http://zhangchaozc.cn/2017/08/17/博客搭建/搭建hexo博客-2/</id>
-    <published>2017-08-17T02:48:45.000Z</published>
-    <updated>2017-08-24T02:17:32.108Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果看过<code>搭建hexo博客(1)</code>并且成功的，可以往后看，我会教大家一步步把博客变成我现在的样子；<br>如果没有成功，请评论或私聊我。</p>
-<h3 id="我的目录结构"><a href="#我的目录结构" class="headerlink" title="我的目录结构"></a>我的目录结构</h3><div align="center"><br><img src="/images/catalog.PNG" alt="catalog"><br></div>
-
-<a id="more"></a>
-<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><p>写博客用的是<code>MarkDown</code>的语法，如果没有接触过这个的，我推荐看<a href="https://www.zybuluo.com/mdeditor" target="_blank" rel="external">这篇文章</a>，因为我也是看的这个学习的。</p>
-<p>看了目录结构图就知道，我用的是<code>WebStorm</code>，我写Java也用这个系列的软件，非常方便，在WebStorm里面装个写MarkDown的插件就可以了。</p>
-<p>刚<code>hexo server</code>运行起来的网站很丑，且自带一篇<code>Hello World</code>的文章，我换了很多主题，最后我才选用了<code>next</code>主题，如果也想用这个主题的，请看<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">官方介绍文档</a>。</p>
-<h3 id="做准备"><a href="#做准备" class="headerlink" title="做准备"></a>做准备</h3><p>看了<code>官方介绍文档</code>，博客可以弄成跟我差不多的了，我用的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scheme: Mist</div></pre></td></tr></table></figure>
-<p>还有另外两个<code>scheme</code>也不错，文档里面已经介绍了怎么<code>弄分类</code>，<code>弄标签</code>。但是我还是再重复造轮子写一遍。</p>
-<h3 id="新建页面（菜单栏）"><a href="#新建页面（菜单栏）" class="headerlink" title="新建页面（菜单栏）"></a>新建页面（菜单栏）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hexo new page &quot;categories&quot;</div><div class="line">hexo new page &quot;archives&quot;</div><div class="line">hexo new page &quot;tags&quot;</div><div class="line">hexo new page &quot;about&quot;</div></pre></td></tr></table></figure>
-<p><code>images文件夹</code>是自己新建的，用来放用到的图片，<code>搜索</code>功能稍微复杂点，下篇文章讲。<br>分别打开文件夹，里面都有一个<code>index.md</code>文件：</p>
-<h5 id="about"><a href="#about" class="headerlink" title="about"></a>about</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">date: 2017-07-23 17:29:56</div><div class="line">---</div><div class="line"></div><div class="line">## 个人简介</div><div class="line">xxxxxx</div><div class="line"></div><div class="line">## 博客搭建</div><div class="line">托管：github</div><div class="line">框架：hexo</div><div class="line">主题：next</div><div class="line"></div><div class="line">## 联系方式</div><div class="line">xxxxxx</div></pre></td></tr></table></figure>
-<h5 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: categories</div><div class="line">date: 2017-07-23 17:26:54</div><div class="line">type: &quot;categories&quot;</div><div class="line">---</div></pre></td></tr></table></figure>
-<h5 id="archives"><a href="#archives" class="headerlink" title="archives"></a>archives</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: archives</div><div class="line">date: 2017-07-23 17:29:20</div><div class="line">type: &quot;archives&quot;</div><div class="line">---</div></pre></td></tr></table></figure>
-<h5 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: tags</div><div class="line">date: 2017-07-23 17:18:31</div><div class="line">type: &quot;tags&quot;</div><div class="line">---</div></pre></td></tr></table></figure>
-<p>除了about以外，其它的加个<code>type: &quot;xxx&quot;</code>就可以了。<br><code>主题配置文件</code>中找到<code>menu</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">menu:</div><div class="line">  home: /</div><div class="line">  categories: /categories/</div><div class="line">  archives: /archives/</div><div class="line">  tags: /tags/</div><div class="line">  about: /about/</div></pre></td></tr></table></figure>
-<p>这样博客栏上<code>分类</code>、<code>归档</code>、<code>标签</code>、<code>关于</code>就弄好了。</p>
-<h3 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h3><p>例如我想写一篇文章<code>JVM</code>，并给它贴上分类，便签，咋办？<br>进入博客根目录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new &quot;JVM&quot;</div></pre></td></tr></table></figure>
-<p>可以看到source/_posts目录下已经有了md文件，文件头：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: JVM</div><div class="line">date: 2017-07-26 10:02:58</div><div class="line">categories: Java</div><div class="line">tags:</div><div class="line">  - Think in Java</div><div class="line">---</div></pre></td></tr></table></figure></p>
-<p>这样，这篇文章就会自动分类在<code>Java</code>类中，标签为<code>Think in Java</code>，如果没有这个标签或者分类会自动生成。<br>如果文章太长想<code>阅读全文</code>，分割点写上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!--more--&gt;</div></pre></td></tr></table></figure></p>
-<p>即可。</p>
-<h3 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h3><p>看了MarkDown的语法后，自己写一篇文章。写完后想发布，三条命令即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo clean</div><div class="line">hexo generate</div><div class="line">hexo deploy</div></pre></td></tr></table></figure></p>
-<p>即：清理旧的，生成新的，发布到<code>github page</code>上。</p>
-<p>发布前想预览下，可以用<code>hexo server</code>在本地预览。</p>
-<h3 id="常用命令总结"><a href="#常用命令总结" class="headerlink" title="常用命令总结"></a>常用命令总结</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//常用命令</div><div class="line">hexo new &quot;postName&quot; #新建文章</div><div class="line">hexo new page &quot;pageName&quot; #新建页面</div><div class="line">hexo generate #生成静态页面至public目录</div><div class="line">hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）</div><div class="line">hexo deploy #将.deploy目录部署到GitHub</div><div class="line">hexo help  #查看帮助</div><div class="line">hexo version  #查看Hexo的版本</div></pre></td></tr></table></figure>
-<p>好了，基本可以写文章了。如果有困难请评论或联系我。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;如果看过&lt;code&gt;搭建hexo博客(1)&lt;/code&gt;并且成功的，可以往后看，我会教大家一步步把博客变成我现在的样子；&lt;br&gt;如果没有成功，请评论或私聊我。&lt;/p&gt;
-&lt;h3 id=&quot;我的目录结构&quot;&gt;&lt;a href=&quot;#我的目录结构&quot; class=&quot;headerlink&quot; title=&quot;我的目录结构&quot;&gt;&lt;/a&gt;我的目录结构&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/catalog.PNG&quot; alt=&quot;catalog&quot;&gt;&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="博客搭建" scheme="http://zhangchaozc.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    
-    
-      <category term="hexo" scheme="http://zhangchaozc.cn/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>事务隔离级别</title>
-    <link href="http://zhangchaozc.cn/2017/08/16/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
-    <id>http://zhangchaozc.cn/2017/08/16/数据库/事务隔离级别/</id>
-    <published>2017-08-16T07:32:04.000Z</published>
-    <updated>2017-08-18T05:24:44.615Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>数据库事务的隔离级别有<code>4</code>个，由低到高依次为<code>Read uncommitted</code>（读未提交）、<code>Read committed</code>（读已提交）、<code>Repeatable read</code>（重复读）、<code>Serializable</code>（序列化）。</p>
-<h3 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h3><p>A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；<br>但A发现打错了，<code>回滚</code>了事务，B再查看就发现钱没有了。<br>B之前读了未提交的事务，出现了<code>脏读</code>。</p>
-<a id="more"></a>
-<h3 id="读已提交"><a href="#读已提交" class="headerlink" title="读已提交"></a>读已提交</h3><p>A发现卡中有1000元，准备消费，此时B转走了1000块并提交了事务；<br>A结账时发现钱已经没有了。<br>A读已提交的事务，说明读已提交的事务不能<code>重复读</code>，否则会出错。</p>
-<h3 id="重复读"><a href="#重复读" class="headerlink" title="重复读"></a>重复读</h3><p>MySQL的默认级别是<code>重复读</code>，重复读可能出现<code>幻读</code>。<br>A读卡中有1000元，当A再次读时，钱已经被B转走了并提交了事务，此时A会产生一种读错数据的幻觉。</p>
-<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serializable是<code>最高</code>的事务隔离级别，同时代价也<code>花费最高</code>，<code>性能很低</code>，一般很少使用，在该级别下，事务顺序执行，不仅可以避免脏读、不可重复读，还避免了幻读。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">脏读</th>
-<th style="text-align:center">不可重复读</th>
-<th style="text-align:center">幻读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Read uncommitted</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-</tr>
-<tr>
-<td style="text-align:center">Read committed</td>
-<td style="text-align:center">x</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-</tr>
-<tr>
-<td style="text-align:center">Repeatable read</td>
-<td style="text-align:center">x</td>
-<td style="text-align:center">x</td>
-<td style="text-align:center">√</td>
-</tr>
-<tr>
-<td style="text-align:center">Serializable</td>
-<td style="text-align:center">x</td>
-<td style="text-align:center">x</td>
-<td style="text-align:center">x</td>
-</tr>
-</tbody>
-</table>
-<h3 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h3><p>数据库的<code>四大特性</code>：</p>
-<ol>
-<li>原子性：<br>指事务包含的所有操作要么全部成功，要么全部失败回滚，<code>不可分割</code>。</li>
-<li>一致性：<br>是指事务必须使数据库从一个<code>一致性状态</code>变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态。例如A-&gt;B转账100，A账户少了100，B账户一定要多100。</li>
-<li>隔离性：<br>隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个<code>并发</code>事务之间要<code>相互隔离</code>。</li>
-<li>持久性：<br>持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是<code>永久性</code>的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;数据库事务的隔离级别有&lt;code&gt;4&lt;/code&gt;个，由低到高依次为&lt;code&gt;Read uncommitted&lt;/code&gt;（读未提交）、&lt;code&gt;Read committed&lt;/code&gt;（读已提交）、&lt;code&gt;Repeatable read&lt;/code&gt;（重复读）、&lt;code&gt;Serializable&lt;/code&gt;（序列化）。&lt;/p&gt;
-&lt;h3 id=&quot;读未提交&quot;&gt;&lt;a href=&quot;#读未提交&quot; class=&quot;headerlink&quot; title=&quot;读未提交&quot;&gt;&lt;/a&gt;读未提交&lt;/h3&gt;&lt;p&gt;A，B共有一张银行卡，A向卡中打入1000元，但事务未提交，B查看卡发现多了1000元；&lt;br&gt;但A发现打错了，&lt;code&gt;回滚&lt;/code&gt;了事务，B再查看就发现钱没有了。&lt;br&gt;B之前读了未提交的事务，出现了&lt;code&gt;脏读&lt;/code&gt;。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据库" scheme="http://zhangchaozc.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
     
   </entry>
   

@@ -3,6 +3,53 @@
   
     
     <entry>
+      <title><![CDATA[修改原有jar的配置]]></title>
+      <url>/2017/10/25/java/%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%9C%89jar%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前用到一个jar包，但是里面的配置写死了，这个工具不适合自己用，但是如何修改配置使得可以拿来用呢？</p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><p>jar文件本身也是一个压缩文件，直接解压后，可以看到原来的文件，一般都是编译后的.class文件，如果想自己加入代码的话，可以通过反编译工具拿到源码，修改后再重新打包成jar。<code>IntelliJ IDEA</code>这个编辑器就直接可以反编译。</p>
+<p>暂时不用修改代码，只改了配置文件。</p>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><p>直接命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jar cvfm xxx.jar ./META-INF/MANIFEST.MF ./</div></pre></td></tr></table></figure></p>
+<p>需要注意的是，<code>/META-INF/MANIFEST.MF</code>这个文件很重要，一般若干个.class打包成jar时，都要指定主类和其它的配置，MANIFEST.MF文件就是干这个的。</p>
+<p>原来的这个文件不要动，<code>./</code>是对当前目录的所有文件进行打包。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Java </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[xshell中文乱码]]></title>
+      <url>/2017/10/25/linux/xshell%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>xshell</code>是常见的ssh连接工具，如果遇到不支持中文咋办？例如：</p>
+<div align="center"><br><img src="/images/xshell1.PNG" alt="xshell1"><br></div>
+
+<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>确保客户端本身的编码是UTF-8的，可以直接修改：</p>
+<div align="center"><br><img src="/images/xshell2.PNG" alt="xshell2"><br></div>
+
+<div align="center"><br><img src="/images/xshell3.PNG" alt="xshell3"><br></div>
+
+<p>就这两处地方。</p>
+<a id="more"></a>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>如果还不行，查看机器编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# locale</div><div class="line">LANG=C</div><div class="line">LANGUAGE=C:</div><div class="line">LC_CTYPE=&quot;C&quot;</div><div class="line">LC_NUMERIC=&quot;C&quot;</div><div class="line">LC_TIME=&quot;C&quot;</div><div class="line">LC_COLLATE=&quot;C&quot;</div><div class="line">LC_MONETARY=&quot;C&quot;</div><div class="line">LC_MESSAGES=&quot;C&quot;</div><div class="line">LC_PAPER=&quot;C&quot;</div><div class="line">LC_NAME=&quot;C&quot;</div><div class="line">LC_ADDRESS=&quot;C&quot;</div><div class="line">LC_TELEPHONE=&quot;C&quot;</div><div class="line">LC_MEASUREMENT=&quot;C&quot;</div><div class="line">LC_IDENTIFICATION=&quot;C&quot;</div><div class="line">LC_ALL=</div></pre></td></tr></table></figure></p>
+<p>修改编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# export LANG=en_US.UTF-8</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# export LANGUAGE=en_US.UTF-8</div><div class="line">root@VM-236-110-ubuntu:/home/ubuntu# ls</div><div class="line">wordpress  张超</div></pre></td></tr></table></figure></p>
+<p>这样就可以了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[struts2返回json]]></title>
       <url>/2017/10/20/struts2/struts2%E8%BF%94%E5%9B%9Ejson/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前有用过struts2框架，不过都是基于jsp的开发，如果要想直接返回一个json数据该怎么办？</p>
