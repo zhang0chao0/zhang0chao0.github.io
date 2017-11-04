@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2017-10-25T14:06:08.281Z</updated>
+  <updated>2017-11-04T03:25:38.340Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>xmldb踩坑</title>
+    <link href="http://zhangchaozc.cn/2017/11/04/%E6%95%B0%E6%8D%AE%E5%BA%93/xmldb%E8%B8%A9%E5%9D%91/"/>
+    <id>http://zhangchaozc.cn/2017/11/04/数据库/xmldb踩坑/</id>
+    <published>2017-11-04T03:21:58.000Z</published>
+    <updated>2017-11-04T03:25:38.340Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这是一个困扰我几天的bug，必须写篇博客纪念一下。最近给导师做一个OA管理系统，数据库采用的是<code>oracle xmldb</code>数据库，呵呵，之前没用过这个，这个数据库的存储是基于xml的，又不能使用数据库框架，于是开始了踩坑之旅。</p>
+<h3 id="数据库方面"><a href="#数据库方面" class="headerlink" title="数据库方面"></a>数据库方面</h3><p>基于xsd和xml，xsd是用来规范xml的，就相当于xsd就是表的抽象吧，而xml就是存放的数据。这个没啥坑，直接贴代码了。</p>
+<h5 id="注册xsd"><a href="#注册xsd" class="headerlink" title="注册xsd"></a>注册xsd</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create or replace directory xmldir as &apos;xxxx&apos;;  //你放xsd的文件夹</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">begin</div><div class="line">dbms_xmlschema.registerSchema(</div><div class="line">	schemaurl=&gt;&apos;xxx.xsd&apos;,  //xxx.xsd是你的要注册的文件</div><div class="line">	schemadoc=&gt;bfilename(&apos;XMLDIR&apos;,&apos;xxx.xsd&apos;),</div><div class="line">	local=&gt;TRUE,</div><div class="line">	genbean=&gt;FALSE,</div><div class="line">	gentables=&gt;FALSE,</div><div class="line">	force=&gt;FALSE,</div><div class="line">	owner=&gt;&apos;xx&apos;  //当前登录的用户名</div><div class="line">);</div><div class="line">end;</div><div class="line">/</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h5 id="根据xsd建表"><a href="#根据xsd建表" class="headerlink" title="根据xsd建表"></a>根据xsd建表</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create table xxx of xmltype xmlschema &quot;xxx.xsd&quot; element &quot;xxxxx&quot;;</div></pre></td></tr></table></figure>
+<h5 id="删除xsd"><a href="#删除xsd" class="headerlink" title="删除xsd"></a>删除xsd</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">begin</div><div class="line">dbms_xmlschema.deleteSchema(</div><div class="line">	schemaurl=&gt;&apos;xxx.xsd&apos;,</div><div class="line">	DELETE_OPTION=&gt;dbms_xmlschema.DELETE_CASCADE_FORCE</div><div class="line">);</div><div class="line">end;</div><div class="line">/</div></pre></td></tr></table></figure>
+<h3 id="java客户端"><a href="#java客户端" class="headerlink" title="java客户端"></a>java客户端</h3><p>前面都不算坑，用java操作数据库就问题来了，除了连接数据库的包外，还需要两个包：<code>xdb.jar</code>,<code>xmlparserv2</code>。</p>
+<p>因为在maven仓库里面实在找不到这个，需要自己导入，问题来了，当时我给xdb.jar的groupId取名为<code>oracle.xdb</code>，会报错如下：</p>
+<div align="center"><br><img src="/images/xdb.png" alt="xdb"><br></div>
+
+<p><code>java.lang.NullPointerException</code>我就呵呵了，问题出在<code>getObject函数</code>，当时也搞了好久，最后发现groupId和artifactId改成xdb就好了，所以，不要给自己新添加的包乱取名字！</p>
+<h3 id="spring调试"><a href="#spring调试" class="headerlink" title="spring调试"></a>spring调试</h3><p>用spring的测试框架比较方便，可是问题又来了，一运行起来就报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Caused by: oracle.xml.parser.schema.XSDException: Duplicated definition for: &apos;identifiedType&apos;</div><div class="line">	at oracle.xml.parser.schema.XSDBuilder.buildSchema(XSDBuilder.java:921)</div><div class="line">	at oracle.xml.parser.schema.XSDBuilder.build(XSDBuilder.java:558)</div><div class="line">	at oracle.xml.parser.schema.XSDValidator.processSchemaLocation(XSDValidator.java:1024)</div><div class="line">	at oracle.xml.parser.schema.XSDValidator.startElement(XSDValidator.java:629)</div><div class="line">	at oracle.xml.parser.v2.NonValidatingParser.parseElement(NonValidatingParser.java:1320)</div><div class="line">	at oracle.xml.parser.v2.NonValidatingParser.parseRootElement(NonValidatingParser.java:364)</div><div class="line">	at oracle.xml.parser.v2.NonValidatingParser.parseDocument(NonValidatingParser.java:310)</div><div class="line">	... 39 more</div></pre></td></tr></table></figure></p>
+<p>在网上找了很久的解决办法，最后发现了是<code>xmlparserv2</code>的错误，删除jar包里面的<code>\META-INF\services</code>文件夹，就好了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;这是一个困扰我几天的bug，必须写篇博客纪念一下。最近给导师做一个OA管理系统，数据库采用的是&lt;code&gt;oracle xmldb&lt;/code&gt;数据库，呵呵，之前没用过这个，这个数据库的存储是基于xml的，又不能使用数据库框架，于是开始了踩坑之旅。&lt;/p&gt;
+&lt;h3 id=&quot;数据库方面&quot;&gt;&lt;a href=&quot;#数据库方面&quot; class=&quot;headerlink&quot; title=&quot;数据库方面&quot;&gt;&lt;/a&gt;数据库方面&lt;/h3&gt;&lt;p&gt;基于xsd和xml，xsd是用来规范xml的，就相当于xsd就是表的抽象吧，而xml就是存放的数据。这个没啥坑，直接贴代码了。&lt;/p&gt;
+&lt;h5 id=&quot;注册xsd&quot;&gt;&lt;a href=&quot;#注册xsd&quot; class=&quot;headerlink&quot; title=&quot;注册xsd&quot;&gt;&lt;/a&gt;注册xsd&lt;/h5&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;create or replace directory xmldir as &amp;apos;xxxx&amp;apos;;  //你放xsd的文件夹&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;begin&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;dbms_xmlschema.registerSchema(&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	schemaurl=&amp;gt;&amp;apos;xxx.xsd&amp;apos;,  //xxx.xsd是你的要注册的文件&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	schemadoc=&amp;gt;bfilename(&amp;apos;XMLDIR&amp;apos;,&amp;apos;xxx.xsd&amp;apos;),&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	local=&amp;gt;TRUE,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	genbean=&amp;gt;FALSE,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	gentables=&amp;gt;FALSE,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	force=&amp;gt;FALSE,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	owner=&amp;gt;&amp;apos;xx&amp;apos;  //当前登录的用户名&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;end;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;/&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="http://zhangchaozc.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
+    
+      <category term="oracle" scheme="http://zhangchaozc.cn/tags/oracle/"/>
+    
+      <category term="XmlDb" scheme="http://zhangchaozc.cn/tags/XmlDb/"/>
+    
+  </entry>
   
   <entry>
     <title>修改原有jar的配置</title>
@@ -47,7 +90,7 @@
     <link href="http://zhangchaozc.cn/2017/10/25/linux/xshell%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/"/>
     <id>http://zhangchaozc.cn/2017/10/25/linux/xshell中文乱码/</id>
     <published>2017-10-25T13:59:15.000Z</published>
-    <updated>2017-10-25T14:06:08.163Z</updated>
+    <updated>2017-10-27T11:57:42.134Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>xshell</code>是常见的ssh连接工具，如果遇到不支持中文咋办？例如：</p>
 <div align="center"><br><img src="/images/xshell1.PNG" alt="xshell1"><br></div>
@@ -55,7 +98,7 @@
 <h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>确保客户端本身的编码是UTF-8的，可以直接修改：</p>
 <div align="center"><br><img src="/images/xshell2.PNG" alt="xshell2"><br></div>
 
-<div align="center"><br><img src="/images/xshell3.PNG" alt="xshell3"><br></div>
+<div align="center"><br><img src="/images/xshell3.png" alt="xshell3"><br></div>
 
 <p>就这两处地方。</p>
 <a id="more"></a>
@@ -72,7 +115,7 @@
 &lt;h3 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot; title=&quot;1&quot;&gt;&lt;/a&gt;1&lt;/h3&gt;&lt;p&gt;确保客户端本身的编码是UTF-8的，可以直接修改：&lt;/p&gt;
 &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/xshell2.PNG&quot; alt=&quot;xshell2&quot;&gt;&lt;br&gt;&lt;/div&gt;
 
-&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/xshell3.PNG&quot; alt=&quot;xshell3&quot;&gt;&lt;br&gt;&lt;/div&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/xshell3.png&quot; alt=&quot;xshell3&quot;&gt;&lt;br&gt;&lt;/div&gt;
 
 &lt;p&gt;就这两处地方。&lt;/p&gt;
     
@@ -876,66 +919,6 @@
     
     
       <category term="Java项目" scheme="http://zhangchaozc.cn/tags/Java%E9%A1%B9%E7%9B%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>搭建hexo博客(3)</title>
-    <link href="http://zhangchaozc.cn/2017/08/17/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-3/"/>
-    <id>http://zhangchaozc.cn/2017/08/17/博客搭建/搭建hexo博客-3/</id>
-    <published>2017-08-17T03:55:53.000Z</published>
-    <updated>2017-08-27T01:27:40.159Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看了之前的文章，你自己写文章已经OK了，如果你想把博客变得<code>更炫酷</code>（头像旋转、背景动画等），我推荐看<a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="external">这篇文章</a>，我也是看的这个配置的，写的很好。</p>
-<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>打开<code>主题配置文件</code>，找到这个：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># Local search</div><div class="line"># Dependencies: https://github.com/flashlab/hexo-generator-search</div><div class="line">local_search:</div><div class="line">  enable: true</div><div class="line">  # if auto, trigger search by changing input</div><div class="line">  # if manual, trigger search by pressing enter key or search button</div><div class="line">  trigger: auto</div><div class="line">  # show top n results per article, show all results by setting to -1</div><div class="line">  top_n_per_article: 1</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p><code>enable</code>默认为false，改为true。可以看到本地search依赖一个包，需要<code>npm install</code>一下。</p>
-<p>博客根目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-generator-search --save</div></pre></td></tr></table></figure></p>
-<p>即可安装依赖包。</p>
-<p><code>博客配置文件</code>中加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 微信支付</div><div class="line">#wechatpay: /images/wechat.png</div><div class="line"></div><div class="line"># 自定义站点内容搜索</div><div class="line"># 需要先安装插件：</div><div class="line"># npm install hexo-generator-search --save</div><div class="line">search:</div><div class="line">  path: search.xml</div><div class="line">  # 如只想索引文章，可设置为post</div><div class="line">  field: post</div></pre></td></tr></table></figure>
-<p>PS：顺便提了下如何增加<code>打赏</code>功能，我没开这个功能，因为我觉得没啥意义，不可能会有打赏的，hhh。</p>
-<p>这样<code>搜索功能</code>就神奇的加入了~</p>
-<h3 id="更改访问路径"><a href="#更改访问路径" class="headerlink" title="更改访问路径"></a>更改访问路径</h3><p>现在博客访问都是<code>yourname.github.io</code>，太low了点，我要换成自己的域名（前提是你要自己买域名）。</p>
-<p>本人在<code>腾讯云</code>上买了域名并备案，之前的域名是指向自己的腾讯云IP的，我之前是用的wordpress博客，后来才转github page。</p>
-<p>进入域名解析，并配置：</p>
-<div align="center"><br><img src="/images/zhangchaozc.PNG" alt="zhangchaozc"><br></div>
-
-<p>这样就配置好了，在<code>搭建hexo博客(2)</code>中我贴了博客的目录图，可以看到source文件夹下有一个文件<code>CNAME</code>，没错这个文件里面写自己的域名：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zhangchaozc.cn</div></pre></td></tr></table></figure>
-<p>也可以写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">www.zhangchaozc.cn</div></pre></td></tr></table></figure></p>
-<p>都可以。</p>
-<p>重新三个命令一下<code>hexo clean</code>、<code>hexo generate</code>、<code>hexo deploy</code>，就可以用自己的域名访问了（记得清一下浏览器缓存）。</p>
-<h3 id="增加评论"><a href="#增加评论" class="headerlink" title="增加评论"></a>增加评论</h3><p>本人用的是<code>畅言</code>评论插件，当然还有很多评论插件例如多说等。</p>
-<p>前提：你的域名<code>必须备案成功</code>，注册畅言，输入自己的域名，会有一段时间的审核，主要看你的域名是否备案了，审核通过后登陆畅言后台管理：</p>
-<h5 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h5><div align="center"><br><img src="/images/changyan.PNG" alt="changyan"><br></div>
-
-<p>把这段代码放在你的文章最后就行了，SourceID必须要唯一确定一篇文章，这里我的SourceID就是文章名（可以支持中文）。</p>
-<h5 id="方法2（推荐）"><a href="#方法2（推荐）" class="headerlink" title="方法2（推荐）"></a>方法2（推荐）</h5><div align="center"><br><img src="/images/changyan2.PNG" alt="changyan2"><br></div>
-
-<p><code>主题配置文件</code>中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># changyan</div><div class="line">changyan:</div><div class="line">  enable: true</div><div class="line">  appid: your_appid</div><div class="line">  appkey: your_appkey</div></pre></td></tr></table></figure>
-<p>这样不用加任何代码，在每一篇博客后面都会出现评论框。<br>但是如果你不想在文章后有评论框，例如<code>分类</code>、<code>标签</code>页面，可以在文章头加上：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">comments: false</div></pre></td></tr></table></figure>
-<p>这样就不会出现评论框了。</p>
-<h3 id="修改字体"><a href="#修改字体" class="headerlink" title="修改字体"></a>修改字体</h3><p>默认的字体太小了，看着不舒服。打开<code>\themes\next\source\css\ _variables\base.styl</code>文件，修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$font-size-base            =16px</div></pre></td></tr></table></figure></p>
-<p>这样好一点。</p>
-<p>大家可以自己动手玩自己的博客了哦~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;看了之前的文章，你自己写文章已经OK了，如果你想把博客变得&lt;code&gt;更炫酷&lt;/code&gt;（头像旋转、背景动画等），我推荐看&lt;a href=&quot;https://segmentfault.com/a/1190000009544924&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇文章&lt;/a&gt;，我也是看的这个配置的，写的很好。&lt;/p&gt;
-&lt;h3 id=&quot;搜索功能&quot;&gt;&lt;a href=&quot;#搜索功能&quot; class=&quot;headerlink&quot; title=&quot;搜索功能&quot;&gt;&lt;/a&gt;搜索功能&lt;/h3&gt;&lt;p&gt;打开&lt;code&gt;主题配置文件&lt;/code&gt;，找到这个：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;# Local search&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;# Dependencies: https://github.com/flashlab/hexo-generator-search&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;local_search:&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  enable: true&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  # if auto, trigger search by changing input&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  # if manual, trigger search by pressing enter key or search button&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  trigger: auto&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  # show top n results per article, show all results by setting to -1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  top_n_per_article: 1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="博客搭建" scheme="http://zhangchaozc.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    
-    
-      <category term="hexo" scheme="http://zhangchaozc.cn/tags/hexo/"/>
     
   </entry>
   

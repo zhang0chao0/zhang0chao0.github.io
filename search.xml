@@ -3,6 +3,44 @@
   
     
     <entry>
+      <title><![CDATA[xmldb踩坑]]></title>
+      <url>/2017/11/04/%E6%95%B0%E6%8D%AE%E5%BA%93/xmldb%E8%B8%A9%E5%9D%91/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这是一个困扰我几天的bug，必须写篇博客纪念一下。最近给导师做一个OA管理系统，数据库采用的是<code>oracle xmldb</code>数据库，呵呵，之前没用过这个，这个数据库的存储是基于xml的，又不能使用数据库框架，于是开始了踩坑之旅。</p>
+<h3 id="数据库方面"><a href="#数据库方面" class="headerlink" title="数据库方面"></a>数据库方面</h3><p>基于xsd和xml，xsd是用来规范xml的，就相当于xsd就是表的抽象吧，而xml就是存放的数据。这个没啥坑，直接贴代码了。</p>
+<h5 id="注册xsd"><a href="#注册xsd" class="headerlink" title="注册xsd"></a>注册xsd</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create or replace directory xmldir as &apos;xxxx&apos;;  //你放xsd的文件夹</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">begin</div><div class="line">dbms_xmlschema.registerSchema(</div><div class="line">	schemaurl=&gt;&apos;xxx.xsd&apos;,  //xxx.xsd是你的要注册的文件</div><div class="line">	schemadoc=&gt;bfilename(&apos;XMLDIR&apos;,&apos;xxx.xsd&apos;),</div><div class="line">	local=&gt;TRUE,</div><div class="line">	genbean=&gt;FALSE,</div><div class="line">	gentables=&gt;FALSE,</div><div class="line">	force=&gt;FALSE,</div><div class="line">	owner=&gt;&apos;xx&apos;  //当前登录的用户名</div><div class="line">);</div><div class="line">end;</div><div class="line">/</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h5 id="根据xsd建表"><a href="#根据xsd建表" class="headerlink" title="根据xsd建表"></a>根据xsd建表</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create table xxx of xmltype xmlschema &quot;xxx.xsd&quot; element &quot;xxxxx&quot;;</div></pre></td></tr></table></figure>
+<h5 id="删除xsd"><a href="#删除xsd" class="headerlink" title="删除xsd"></a>删除xsd</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">begin</div><div class="line">dbms_xmlschema.deleteSchema(</div><div class="line">	schemaurl=&gt;&apos;xxx.xsd&apos;,</div><div class="line">	DELETE_OPTION=&gt;dbms_xmlschema.DELETE_CASCADE_FORCE</div><div class="line">);</div><div class="line">end;</div><div class="line">/</div></pre></td></tr></table></figure>
+<h3 id="java客户端"><a href="#java客户端" class="headerlink" title="java客户端"></a>java客户端</h3><p>前面都不算坑，用java操作数据库就问题来了，除了连接数据库的包外，还需要两个包：<code>xdb.jar</code>,<code>xmlparserv2</code>。</p>
+<p>因为在maven仓库里面实在找不到这个，需要自己导入，问题来了，当时我给xdb.jar的groupId取名为<code>oracle.xdb</code>，会报错如下：</p>
+<div align="center"><br><img src="/images/xdb.png" alt="xdb"><br></div>
+
+<p><code>java.lang.NullPointerException</code>我就呵呵了，问题出在<code>getObject函数</code>，当时也搞了好久，最后发现groupId和artifactId改成xdb就好了，所以，不要给自己新添加的包乱取名字！</p>
+<h3 id="spring调试"><a href="#spring调试" class="headerlink" title="spring调试"></a>spring调试</h3><p>用spring的测试框架比较方便，可是问题又来了，一运行起来就报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Caused by: oracle.xml.parser.schema.XSDException: Duplicated definition for: &apos;identifiedType&apos;</div><div class="line">	at oracle.xml.parser.schema.XSDBuilder.buildSchema(XSDBuilder.java:921)</div><div class="line">	at oracle.xml.parser.schema.XSDBuilder.build(XSDBuilder.java:558)</div><div class="line">	at oracle.xml.parser.schema.XSDValidator.processSchemaLocation(XSDValidator.java:1024)</div><div class="line">	at oracle.xml.parser.schema.XSDValidator.startElement(XSDValidator.java:629)</div><div class="line">	at oracle.xml.parser.v2.NonValidatingParser.parseElement(NonValidatingParser.java:1320)</div><div class="line">	at oracle.xml.parser.v2.NonValidatingParser.parseRootElement(NonValidatingParser.java:364)</div><div class="line">	at oracle.xml.parser.v2.NonValidatingParser.parseDocument(NonValidatingParser.java:310)</div><div class="line">	... 39 more</div></pre></td></tr></table></figure></p>
+<p>在网上找了很久的解决办法，最后发现了是<code>xmlparserv2</code>的错误，删除jar包里面的<code>\META-INF\services</code>文件夹，就好了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据库 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> bug </tag>
+            
+            <tag> oracle </tag>
+            
+            <tag> XmlDb </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[修改原有jar的配置]]></title>
       <url>/2017/10/25/java/%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%9C%89jar%E7%9A%84%E9%85%8D%E7%BD%AE/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前用到一个jar包，但是里面的配置写死了，这个工具不适合自己用，但是如何修改配置使得可以拿来用呢？</p>
@@ -31,7 +69,7 @@
 <h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>确保客户端本身的编码是UTF-8的，可以直接修改：</p>
 <div align="center"><br><img src="/images/xshell2.PNG" alt="xshell2"><br></div>
 
-<div align="center"><br><img src="/images/xshell3.PNG" alt="xshell3"><br></div>
+<div align="center"><br><img src="/images/xshell3.png" alt="xshell3"><br></div>
 
 <p>就这两处地方。</p>
 <a id="more"></a>
