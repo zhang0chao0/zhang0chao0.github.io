@@ -3,6 +3,55 @@
   
     
     <entry>
+      <title><![CDATA[自己搭建VPN服务器]]></title>
+      <url>/2017/11/19/vpn/%E8%87%AA%E5%B7%B1%E6%90%AD%E5%BB%BAVPN%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近网络管理很严，以前在<a href="http://www.see-world.club/index.php/Index/seeyou.html" target="_blank" rel="external">see world</a>上可以买节点，但是现在那个倒闭了，有时候想访问谷歌查查资料就很不方便，看了一篇教程后，就自己搭建了一个<code>VPN服务器</code>，特来分享（注：翻墙是为了学习用，不可用于商业用途如售卖节点等）。</p>
+<h3 id="shadowsocks"><a href="#shadowsocks" class="headerlink" title="shadowsocks"></a>shadowsocks</h3><p>这个分为客户端和服务器端，以前服务端是购买的别人的节点，现在需要自己搭建服务，所以需要一个国外的服务器。<br>客户端自己<a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="external">下载</a>就可以。</p>
+<h3 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h3><p>学长推荐，我是在<a href="http://banwagong.cn/gonglue.html" target="_blank" rel="external">搬瓦工</a>上购买的：</p>
+<div align="center"><br><img src="/images/banwagong1.PNG" alt="banwagong1"><br></div>
+
+<p>可以看到，最便宜的只要1.99美元/月，可是这个售空了，我买的是4.99的那个。</p>
+<p>购买后，IP和密码都会发到你的邮箱，默认的用户名是root（用支付宝就可以直接购买，很方便）。</p>
+<a id="more"></a>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>用SSH工具登录服务器，这里推荐一个一键安装的脚本，命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</div></pre></td></tr></table></figure></p>
+<p>如果提示没有<code>wget</code>指令，就先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install wget</div></pre></td></tr></table></figure></p>
+<p>一下，有了脚本，安装也是无脑的，两行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod +x shadowsocks.sh</div><div class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</div></pre></td></tr></table></figure></p>
+<p>输入完后，会提示让你设置密码，输好回车后会让你选择一个端口，输入 1-65535 间的数字都行。然后是设置加密方式，输入某个加密方式的序号就行。</p>
+<div align="center"><br><img src="/images/vpn1.jpg" alt="vpn1"><br></div>
+
+<p>慢慢等待，安装完后会把配置信息都打印出来，记住自己的配置。现在基本就可以了，用配置的信息在客户端配置就行。</p>
+<div align="center"><br><img src="/images/vpn2.png" alt="vpn2"><br></div>
+
+<h3 id="设置多用户"><a href="#设置多用户" class="headerlink" title="设置多用户"></a>设置多用户</h3><p>如果要设置多用户，直接编辑配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/shadowsocks.json</div></pre></td></tr></table></figure></p>
+<p>这个命令是编辑文件，可以直接修改json文件：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"server"</span>:<span class="string">"0.0.0.0"</span>,</div><div class="line">    <span class="attr">"server_port"</span>:<span class="number">13162</span>,</div><div class="line">    <span class="attr">"local_address"</span>:<span class="string">"127.0.0.1"</span>,</div><div class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">    <span class="attr">"port_password"</span>:&#123;</div><div class="line">        <span class="attr">"xxx1"</span>:<span class="string">"xxx1"</span>,</div><div class="line">        <span class="attr">"xxx2"</span>:<span class="string">"xxx2"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</div><div class="line">    <span class="attr">"method"</span>:<span class="string">"rc4-md5"</span>,</div><div class="line">    <span class="attr">"fast_open"</span>:<span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>port_password</code>字段就是端口-密码的意思，可以自己添加（ctrl+x 退出编辑，按提示保存文件）。</p>
+<p>添加完后重启服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/shadowsocks restart</div></pre></td></tr></table></figure></p>
+<p>即可生效。</p>
+<h3 id="开启高速服务"><a href="#开启高速服务" class="headerlink" title="开启高速服务"></a>开启高速服务</h3><p>改三个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/rc.local</div></pre></td></tr></table></figure></p>
+<p>末尾加上：<code>echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/sysctl.conf</div></pre></td></tr></table></figure>
+<p>末尾加上：<code>net.ipv4.tcp_fastopen = 3</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/shadowsocks.json</div></pre></td></tr></table></figure>
+<p>打开配置文件，设置”fast_open”:true。</p>
+<p>最后重启服务即可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> vpn </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 翻墙教程 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[xmldb踩坑]]></title>
       <url>/2017/11/04/%E6%95%B0%E6%8D%AE%E5%BA%93/xmldb%E8%B8%A9%E5%9D%91/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这是一个困扰我几天的bug，必须写篇博客纪念一下。最近给导师做一个OA管理系统，数据库采用的是<code>oracle xmldb</code>数据库，呵呵，之前没用过这个，这个数据库的存储是基于xml的，又不能使用数据库框架，于是开始了踩坑之旅。</p>

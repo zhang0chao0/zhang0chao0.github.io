@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2017-11-04T03:25:38.340Z</updated>
+  <updated>2017-11-19T14:46:03.430Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>自己搭建VPN服务器</title>
+    <link href="http://zhangchaozc.cn/2017/11/19/vpn/%E8%87%AA%E5%B7%B1%E6%90%AD%E5%BB%BAVPN%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://zhangchaozc.cn/2017/11/19/vpn/自己搭建VPN服务器/</id>
+    <published>2017-11-19T13:40:25.000Z</published>
+    <updated>2017-11-19T14:46:03.430Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近网络管理很严，以前在<a href="http://www.see-world.club/index.php/Index/seeyou.html" target="_blank" rel="external">see world</a>上可以买节点，但是现在那个倒闭了，有时候想访问谷歌查查资料就很不方便，看了一篇教程后，就自己搭建了一个<code>VPN服务器</code>，特来分享（注：翻墙是为了学习用，不可用于商业用途如售卖节点等）。</p>
+<h3 id="shadowsocks"><a href="#shadowsocks" class="headerlink" title="shadowsocks"></a>shadowsocks</h3><p>这个分为客户端和服务器端，以前服务端是购买的别人的节点，现在需要自己搭建服务，所以需要一个国外的服务器。<br>客户端自己<a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="external">下载</a>就可以。</p>
+<h3 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h3><p>学长推荐，我是在<a href="http://banwagong.cn/gonglue.html" target="_blank" rel="external">搬瓦工</a>上购买的：</p>
+<div align="center"><br><img src="/images/banwagong1.PNG" alt="banwagong1"><br></div>
+
+<p>可以看到，最便宜的只要1.99美元/月，可是这个售空了，我买的是4.99的那个。</p>
+<p>购买后，IP和密码都会发到你的邮箱，默认的用户名是root（用支付宝就可以直接购买，很方便）。</p>
+<a id="more"></a>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>用SSH工具登录服务器，这里推荐一个一键安装的脚本，命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</div></pre></td></tr></table></figure></p>
+<p>如果提示没有<code>wget</code>指令，就先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install wget</div></pre></td></tr></table></figure></p>
+<p>一下，有了脚本，安装也是无脑的，两行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod +x shadowsocks.sh</div><div class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</div></pre></td></tr></table></figure></p>
+<p>输入完后，会提示让你设置密码，输好回车后会让你选择一个端口，输入 1-65535 间的数字都行。然后是设置加密方式，输入某个加密方式的序号就行。</p>
+<div align="center"><br><img src="/images/vpn1.jpg" alt="vpn1"><br></div>
+
+<p>慢慢等待，安装完后会把配置信息都打印出来，记住自己的配置。现在基本就可以了，用配置的信息在客户端配置就行。</p>
+<div align="center"><br><img src="/images/vpn2.png" alt="vpn2"><br></div>
+
+<h3 id="设置多用户"><a href="#设置多用户" class="headerlink" title="设置多用户"></a>设置多用户</h3><p>如果要设置多用户，直接编辑配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/shadowsocks.json</div></pre></td></tr></table></figure></p>
+<p>这个命令是编辑文件，可以直接修改json文件：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"server"</span>:<span class="string">"0.0.0.0"</span>,</div><div class="line">    <span class="attr">"server_port"</span>:<span class="number">13162</span>,</div><div class="line">    <span class="attr">"local_address"</span>:<span class="string">"127.0.0.1"</span>,</div><div class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">    <span class="attr">"port_password"</span>:&#123;</div><div class="line">        <span class="attr">"xxx1"</span>:<span class="string">"xxx1"</span>,</div><div class="line">        <span class="attr">"xxx2"</span>:<span class="string">"xxx2"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</div><div class="line">    <span class="attr">"method"</span>:<span class="string">"rc4-md5"</span>,</div><div class="line">    <span class="attr">"fast_open"</span>:<span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>port_password</code>字段就是端口-密码的意思，可以自己添加（ctrl+x 退出编辑，按提示保存文件）。</p>
+<p>添加完后重启服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/shadowsocks restart</div></pre></td></tr></table></figure></p>
+<p>即可生效。</p>
+<h3 id="开启高速服务"><a href="#开启高速服务" class="headerlink" title="开启高速服务"></a>开启高速服务</h3><p>改三个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/rc.local</div></pre></td></tr></table></figure></p>
+<p>末尾加上：<code>echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/sysctl.conf</div></pre></td></tr></table></figure>
+<p>末尾加上：<code>net.ipv4.tcp_fastopen = 3</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/shadowsocks.json</div></pre></td></tr></table></figure>
+<p>打开配置文件，设置”fast_open”:true。</p>
+<p>最后重启服务即可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;最近网络管理很严，以前在&lt;a href=&quot;http://www.see-world.club/index.php/Index/seeyou.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;see world&lt;/a&gt;上可以买节点，但是现在那个倒闭了，有时候想访问谷歌查查资料就很不方便，看了一篇教程后，就自己搭建了一个&lt;code&gt;VPN服务器&lt;/code&gt;，特来分享（注：翻墙是为了学习用，不可用于商业用途如售卖节点等）。&lt;/p&gt;
+&lt;h3 id=&quot;shadowsocks&quot;&gt;&lt;a href=&quot;#shadowsocks&quot; class=&quot;headerlink&quot; title=&quot;shadowsocks&quot;&gt;&lt;/a&gt;shadowsocks&lt;/h3&gt;&lt;p&gt;这个分为客户端和服务器端，以前服务端是购买的别人的节点，现在需要自己搭建服务，所以需要一个国外的服务器。&lt;br&gt;客户端自己&lt;a href=&quot;https://github.com/shadowsocks/shadowsocks-windows/releases&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载&lt;/a&gt;就可以。&lt;/p&gt;
+&lt;h3 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h3&gt;&lt;p&gt;学长推荐，我是在&lt;a href=&quot;http://banwagong.cn/gonglue.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;搬瓦工&lt;/a&gt;上购买的：&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/banwagong1.PNG&quot; alt=&quot;banwagong1&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;p&gt;可以看到，最便宜的只要1.99美元/月，可是这个售空了，我买的是4.99的那个。&lt;/p&gt;
+&lt;p&gt;购买后，IP和密码都会发到你的邮箱，默认的用户名是root（用支付宝就可以直接购买，很方便）。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="vpn" scheme="http://zhangchaozc.cn/categories/vpn/"/>
+    
+    
+      <category term="翻墙教程" scheme="http://zhangchaozc.cn/tags/%E7%BF%BB%E5%A2%99%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>xmldb踩坑</title>
@@ -874,51 +931,6 @@
       <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
     
       <category term="timeout" scheme="http://zhangchaozc.cn/tags/timeout/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>初识maven</title>
-    <link href="http://zhangchaozc.cn/2017/08/20/maven/%E5%88%9D%E8%AF%86maven/"/>
-    <id>http://zhangchaozc.cn/2017/08/20/maven/初识maven/</id>
-    <published>2017-08-20T14:42:56.000Z</published>
-    <updated>2017-08-20T16:06:38.389Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>很久之前用过maven开发项目，但这几个月一直在公司写node.js，很少碰Java，为了不生疏，就写一系列的博客加强记忆，顺便教下小白（PS：我自己也是小白）。</p>
-<h3 id="为什么用maven？"><a href="#为什么用maven？" class="headerlink" title="为什么用maven？"></a>为什么用maven？</h3><p>用Java框架（SSH、SSM）开发过Web项目的都知道，随着项目越做越大，在<code>WEB-INF/lib</code>目录下放的Jar包也越来越多，当你需要增加或删除一个Jar包，全靠人工记忆，非常不便于管理项目。<br>而且各个Jar包是否有<code>版本冲突</code>情况，让人头疼。</p>
-<h3 id="maven改进"><a href="#maven改进" class="headerlink" title="maven改进"></a>maven改进</h3><p>当你需要一个Jar包时，你只需要在<code>pom.xml</code>中申明它，然后更新工程，Jar包会自动下载下来，一般在<code>C:/Users/xx/.m2/repository</code>文件夹中（看你具体怎么配置的）。<br>当<code>项目编译</code>时，Jar包才会被导入到编译后的项目目录中，随着项目发布。</p>
-<a id="more"></a>
-<h3 id="安装maven"><a href="#安装maven" class="headerlink" title="安装maven"></a>安装maven</h3><p>直接去官网<a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">下载</a>，选择这个（安装maven前必须先弄好Java环境哦）：</p>
-<div align="center"><br><img src="/images/maven1.PNG" alt="maven1"><br></div>
-
-<p>解压压缩包，解压后目录：</p>
-<div align="center"><br><img src="/images/maven2.PNG" alt="maven2"><br></div>
-
-<p>环境变量配置：</p>
-<div align="center"><br><img src="/images/maven3.PNG" alt="maven3"><br></div>
-
-<div align="center"><br><img src="/images/maven4.PNG" alt="maven4"><br></div>
-
-<p>检验是否安装成功，只需命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn -v</div></pre></td></tr></table></figure></p>
-<p>即可，如果出现相应版本信息就说明安装成功~</p>
-<h3 id="创建Java项目"><a href="#创建Java项目" class="headerlink" title="创建Java项目"></a>创建Java项目</h3><p>个人建议用<code>命令行</code>来创建，更符合标准。命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn archetype:generate -DgroupId=org.zhangchao -DartifactId=mavenTest -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false</div></pre></td></tr></table></figure></p>
-<p>参数意义：<br>DgroupId：项目包名<br>DartifactId：项目名<br>DarchetypeArtifactId：创建何种类型的项目，这里<code>maven-archetype-quickstart</code>是普通Java工程，以后会创建Web工程<br>DinteractiveMode：是否交互？是：创建的过程会让你填版本号什么的；否：按默认的值来创建</p>
-<p>标准目录结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">|-src</div><div class="line">|---main</div><div class="line">|-----java</div><div class="line">|---test</div><div class="line">|-----java</div><div class="line">|-pom.xml</div></pre></td></tr></table></figure></p>
-<p>好了，一个普通的maven工程就创建成功了，然后我们用编辑器打开这个项目，进行开发，我习惯用<code>IntelliJ IDEA</code>。<br>入门级介绍就写到这里，以后会写怎么<code>添加依赖</code>，怎么<code>开发</code>，怎么<code>部署发布maven项目</code>等。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;很久之前用过maven开发项目，但这几个月一直在公司写node.js，很少碰Java，为了不生疏，就写一系列的博客加强记忆，顺便教下小白（PS：我自己也是小白）。&lt;/p&gt;
-&lt;h3 id=&quot;为什么用maven？&quot;&gt;&lt;a href=&quot;#为什么用maven？&quot; class=&quot;headerlink&quot; title=&quot;为什么用maven？&quot;&gt;&lt;/a&gt;为什么用maven？&lt;/h3&gt;&lt;p&gt;用Java框架（SSH、SSM）开发过Web项目的都知道，随着项目越做越大，在&lt;code&gt;WEB-INF/lib&lt;/code&gt;目录下放的Jar包也越来越多，当你需要增加或删除一个Jar包，全靠人工记忆，非常不便于管理项目。&lt;br&gt;而且各个Jar包是否有&lt;code&gt;版本冲突&lt;/code&gt;情况，让人头疼。&lt;/p&gt;
-&lt;h3 id=&quot;maven改进&quot;&gt;&lt;a href=&quot;#maven改进&quot; class=&quot;headerlink&quot; title=&quot;maven改进&quot;&gt;&lt;/a&gt;maven改进&lt;/h3&gt;&lt;p&gt;当你需要一个Jar包时，你只需要在&lt;code&gt;pom.xml&lt;/code&gt;中申明它，然后更新工程，Jar包会自动下载下来，一般在&lt;code&gt;C:/Users/xx/.m2/repository&lt;/code&gt;文件夹中（看你具体怎么配置的）。&lt;br&gt;当&lt;code&gt;项目编译&lt;/code&gt;时，Jar包才会被导入到编译后的项目目录中，随着项目发布。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="maven" scheme="http://zhangchaozc.cn/categories/maven/"/>
-    
-    
-      <category term="Java项目" scheme="http://zhangchaozc.cn/tags/Java%E9%A1%B9%E7%9B%AE/"/>
     
   </entry>
   
