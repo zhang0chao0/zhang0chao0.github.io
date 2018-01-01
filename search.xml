@@ -3,6 +3,60 @@
   
     
     <entry>
+      <title><![CDATA[spring回顾]]></title>
+      <url>/2018/01/01/spring/spring%E5%9B%9E%E9%A1%BE/</url>
+      <content type="html"><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>控制反转，脱离在代码中new对象，用什么对象去xml中配置，去取。</p>
+<h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>依赖注入，IOC的一种实现方式</p>
+<h3 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h3><p>单例、多例</p>
+<h3 id="Bean生命周期"><a href="#Bean生命周期" class="headerlink" title="Bean生命周期"></a>Bean生命周期</h3><p>init-method=”” 初始化<br>destroy-method=”” 销毁前的操作<br>//全局的配置<br>default-init-method=””<br>default-destroy-method=””</p>
+<a id="more"></a>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><p>@Component = 在xml中写一个bean，默认id为类名首字母小写，可以自己改id：@Component(“xxx_id”)<br>    @Repository = 用于dao层<br>    @Service = 用于service层<br>    @Controller = 用于web层<br>@Autowired = 提供set方法注入<br>    对于默认的spring bean例如ApplicationContext，可以直接注解使用<br>    牛皮的它也能注解List&lt;&gt;、Map&lt;&gt;等集合<br>    和@Resource的区别：其实也没啥区别，@Autowired byType注入，后者byName注入。<br>@Scope = 配置单例、多例<br>@Qualifier = 一个接口有多个实现类，如下代码，你想让它实现哪个。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Autowired</span></div><div class="line"><span class="meta">@Qualifier</span>(<span class="string">"beanImplTwo"</span>)</div><div class="line"><span class="keyword">private</span> BeanInterface beanInterface;</div></pre></td></tr></table></figure></p>
+<h3 id="把配置文件当类写（用的比较少）"><a href="#把配置文件当类写（用的比较少）" class="headerlink" title="把配置文件当类写（用的比较少）"></a>把配置文件当类写（用的比较少）</h3><p>@Configuration、@Bean等</p>
+<div align="center"><br><img src="/images/spring_config.PNG" alt="spring_config"><br></div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@ImportResource</span>(<span class="string">"classpath:config.xml"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StoreConfig</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;url&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String url;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;jdbc.username&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;password&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> MyDriverManager <span class="title">myDriverManager</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyDriverManager(url, username, password);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span>(name = <span class="string">"stringStore"</span>, initMethod = <span class="string">"init"</span>, destroyMethod = <span class="string">"destroy"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Store <span class="title">stringStore</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> StringStore();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span>(name = <span class="string">"stringStore"</span>)</div><div class="line">    <span class="meta">@Scope</span>(value = <span class="string">"prototype"</span>, proxyMode = ScopedProxyMode.TARGET_CLASS)</div><div class="line">    <span class="function"><span class="keyword">public</span> Store <span class="title">stringStore</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> StringStore();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p>面向切面编程：日志记录，性能统计，安全控制，事务管理……。</p>
+<div align="center"><br><img src="/images/aop.PNG" alt="aop"><br></div>
+
+<p>实现方式：</p>
+<ol>
+<li>预编译。</li>
+<li>动态代理。</li>
+</ol>
+<p>常见：注解，不改变原代码的情况下，为原代码增加新的功能。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> spring </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[webxml中filter配置报红线]]></title>
+      <url>/2018/01/01/maven/webxml%E4%B8%ADfilter%E9%85%8D%E7%BD%AE%E6%8A%A5%E7%BA%A2%E7%BA%BF/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>用maven新建一个web项目后，配置web.xml，很常见的一段配置（编码配置）：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>如图：</p>
+<div align="center"><br><img src="/images/webxml.png" alt="webxml"><br></div>
+
+<p>居然报红线，这是要逼死强迫症。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">         xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;</div><div class="line">         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</div><div class="line">         version=&quot;3.0&quot;&gt;</div><div class="line">&lt;/web-app&gt;</div></pre></td></tr></table></figure>
+<p>这样即可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> maven </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[自己搭建VPN服务器]]></title>
       <url>/2017/11/19/vpn/%E8%87%AA%E5%B7%B1%E6%90%AD%E5%BB%BAVPN%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近网络管理很严，以前在<a href="http://www.see-world.club/index.php/Index/seeyou.html" target="_blank" rel="external">see world</a>上可以买节点，但是现在那个倒闭了，有时候想访问谷歌查查资料就很不方便，看了一篇教程后，就自己搭建了一个<code>VPN服务器</code>，特来分享（注：翻墙是为了学习用，不可用于商业用途如售卖节点等）。</p>

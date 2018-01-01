@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2017-11-19T14:46:03.430Z</updated>
+  <updated>2018-01-01T14:58:24.452Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,75 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>spring回顾</title>
+    <link href="http://zhangchaozc.cn/2018/01/01/spring/spring%E5%9B%9E%E9%A1%BE/"/>
+    <id>http://zhangchaozc.cn/2018/01/01/spring/spring回顾/</id>
+    <published>2018-01-01T14:54:54.000Z</published>
+    <updated>2018-01-01T14:58:24.452Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>控制反转，脱离在代码中new对象，用什么对象去xml中配置，去取。</p>
+<h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>依赖注入，IOC的一种实现方式</p>
+<h3 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h3><p>单例、多例</p>
+<h3 id="Bean生命周期"><a href="#Bean生命周期" class="headerlink" title="Bean生命周期"></a>Bean生命周期</h3><p>init-method=”” 初始化<br>destroy-method=”” 销毁前的操作<br>//全局的配置<br>default-init-method=””<br>default-destroy-method=””</p>
+<a id="more"></a>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><p>@Component = 在xml中写一个bean，默认id为类名首字母小写，可以自己改id：@Component(“xxx_id”)<br>    @Repository = 用于dao层<br>    @Service = 用于service层<br>    @Controller = 用于web层<br>@Autowired = 提供set方法注入<br>    对于默认的spring bean例如ApplicationContext，可以直接注解使用<br>    牛皮的它也能注解List&lt;&gt;、Map&lt;&gt;等集合<br>    和@Resource的区别：其实也没啥区别，@Autowired byType注入，后者byName注入。<br>@Scope = 配置单例、多例<br>@Qualifier = 一个接口有多个实现类，如下代码，你想让它实现哪个。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Autowired</span></div><div class="line"><span class="meta">@Qualifier</span>(<span class="string">"beanImplTwo"</span>)</div><div class="line"><span class="keyword">private</span> BeanInterface beanInterface;</div></pre></td></tr></table></figure></p>
+<h3 id="把配置文件当类写（用的比较少）"><a href="#把配置文件当类写（用的比较少）" class="headerlink" title="把配置文件当类写（用的比较少）"></a>把配置文件当类写（用的比较少）</h3><p>@Configuration、@Bean等</p>
+<div align="center"><br><img src="/images/spring_config.PNG" alt="spring_config"><br></div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@ImportResource</span>(<span class="string">"classpath:config.xml"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StoreConfig</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;url&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String url;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;jdbc.username&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;password&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> MyDriverManager <span class="title">myDriverManager</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyDriverManager(url, username, password);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span>(name = <span class="string">"stringStore"</span>, initMethod = <span class="string">"init"</span>, destroyMethod = <span class="string">"destroy"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Store <span class="title">stringStore</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> StringStore();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span>(name = <span class="string">"stringStore"</span>)</div><div class="line">    <span class="meta">@Scope</span>(value = <span class="string">"prototype"</span>, proxyMode = ScopedProxyMode.TARGET_CLASS)</div><div class="line">    <span class="function"><span class="keyword">public</span> Store <span class="title">stringStore</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> StringStore();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p>面向切面编程：日志记录，性能统计，安全控制，事务管理……。</p>
+<div align="center"><br><img src="/images/aop.PNG" alt="aop"><br></div>
+
+<p>实现方式：</p>
+<ol>
+<li>预编译。</li>
+<li>动态代理。</li>
+</ol>
+<p>常见：注解，不改变原代码的情况下，为原代码增加新的功能。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;IOC&quot;&gt;&lt;a href=&quot;#IOC&quot; class=&quot;headerlink&quot; title=&quot;IOC&quot;&gt;&lt;/a&gt;IOC&lt;/h3&gt;&lt;p&gt;控制反转，脱离在代码中new对象，用什么对象去xml中配置，去取。&lt;/p&gt;
+&lt;h3 id=&quot;DI&quot;&gt;&lt;a href=&quot;#DI&quot; class=&quot;headerlink&quot; title=&quot;DI&quot;&gt;&lt;/a&gt;DI&lt;/h3&gt;&lt;p&gt;依赖注入，IOC的一种实现方式&lt;/p&gt;
+&lt;h3 id=&quot;scope&quot;&gt;&lt;a href=&quot;#scope&quot; class=&quot;headerlink&quot; title=&quot;scope&quot;&gt;&lt;/a&gt;scope&lt;/h3&gt;&lt;p&gt;单例、多例&lt;/p&gt;
+&lt;h3 id=&quot;Bean生命周期&quot;&gt;&lt;a href=&quot;#Bean生命周期&quot; class=&quot;headerlink&quot; title=&quot;Bean生命周期&quot;&gt;&lt;/a&gt;Bean生命周期&lt;/h3&gt;&lt;p&gt;init-method=”” 初始化&lt;br&gt;destroy-method=”” 销毁前的操作&lt;br&gt;//全局的配置&lt;br&gt;default-init-method=””&lt;br&gt;default-destroy-method=””&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="spring" scheme="http://zhangchaozc.cn/categories/spring/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>webxml中filter配置报红线</title>
+    <link href="http://zhangchaozc.cn/2018/01/01/maven/webxml%E4%B8%ADfilter%E9%85%8D%E7%BD%AE%E6%8A%A5%E7%BA%A2%E7%BA%BF/"/>
+    <id>http://zhangchaozc.cn/2018/01/01/maven/webxml中filter配置报红线/</id>
+    <published>2018-01-01T14:48:11.000Z</published>
+    <updated>2018-01-01T14:53:05.059Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>用maven新建一个web项目后，配置web.xml，很常见的一段配置（编码配置）：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>如图：</p>
+<div align="center"><br><img src="/images/webxml.png" alt="webxml"><br></div>
+
+<p>居然报红线，这是要逼死强迫症。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">         xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;</div><div class="line">         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</div><div class="line">         version=&quot;3.0&quot;&gt;</div><div class="line">&lt;/web-app&gt;</div></pre></td></tr></table></figure>
+<p>这样即可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;用maven新建一个web项目后，配置web.xml，很常见的一段配置（编码配置）：&lt;br&gt;&lt;figure class=&quot;highlight
+    
+    </summary>
+    
+      <category term="maven" scheme="http://zhangchaozc.cn/categories/maven/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>自己搭建VPN服务器</title>
@@ -828,109 +897,6 @@
     
       <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>git入门</title>
-    <link href="http://zhangchaozc.cn/2017/08/21/git/git%E5%85%A5%E9%97%A8/"/>
-    <id>http://zhangchaozc.cn/2017/08/21/git/git入门/</id>
-    <published>2017-08-21T07:59:35.000Z</published>
-    <updated>2017-08-27T02:43:39.283Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇<code>git入门</code>和<code>node入门</code>来帮助他们。</p>
-<h3 id="git是什么？"><a href="#git是什么？" class="headerlink" title="git是什么？"></a>git是什么？</h3><p>假如多个人共同开发一个项目，怎么确保<code>代码的同步</code>？假如你修改了别人的代码或者别人修改了你的代码，很容易出现<code>冲突</code>的情况。<br>于是git诞生了，如果你找工作不会用<code>git</code>，这是致命的不足。因为没有那个公司不用它！</p>
-<h3 id="github仓库"><a href="#github仓库" class="headerlink" title="github仓库"></a>github仓库</h3><p>github=git+hub，即git仓库。git仓库有很多，github或者国内的<a href="https://coding.net/" target="_blank" rel="external">码市</a>，它是一个云仓库，相当于一个<code>中介</code>，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。<br>而且仓库自己带有<code>解决冲突</code>的机制，帮助我们解决代码冲突！</p>
-<a id="more"></a>
-<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>本人是win10电脑，直接去官网<a href="https://git-for-windows.github.io/" target="_blank" rel="external">下载</a>，点击download。下载后是一个exe文件，双击傻瓜式安装即可。<br>安装完后，随便进入一个文件夹（包括桌面），右键：</p>
-<div align="center"><br><img src="/images/git1.png" alt="git1"><br></div>
-
-<p>只有傻瓜才用1，点击2，进入命令行，随便打个linux的命令：</p>
-<div align="center"><br><img src="/images/git2.PNG" alt="git2"><br></div>
-
-<p>你会发现<code>ls</code>列出了当前目录的所有文件和文件夹，这个命令在win10 <code>cmd</code>下是无法解析的，也就是说，git完全可以代替你的windows cmd命令行，而且可以把windows当linux来耍！</p>
-<p>最后的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name &quot;Your Name&quot;</div><div class="line">git config --global user.email &quot;email@example.com&quot;</div></pre></td></tr></table></figure></p>
-<p>你的名字和email地址。</p>
-<h3 id="玩github"><a href="#玩github" class="headerlink" title="玩github"></a>玩github</h3><p>注册一个github账号。然后生成你的专属SSH key，随便进入一个目录，利用git：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</div></pre></td></tr></table></figure></p>
-<p>你需要把邮件地址换成你自己的邮件地址，然后<code>一路回车</code>，使用默认值即可。</p>
-<p>如果一切顺利的话，可以在用户主目录里找到<code>C:\Users\xx\.ssh</code>目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对。</p>
-<div align="center"><br><img src="/images/git21.PNG" alt="git21"><br></div>
-
-<p>进入<code>C:\Users\xx\.ssh</code>文件夹，把<code>id_rsa.pub</code>里面的密钥贴到你的github上，这是你和github通信的凭证，不然会出权限错误。一旦通信成功，会生成<code>known_hosts</code>文件，里面存放了你哪些仓库建立过链接。</p>
-<div align="center"><br><img src="/images/git22.png" alt="git22"><br></div>
-
-<div align="center"><br><img src="/images/git3.PNG" alt="git3"><br></div>
-
-<h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><div align="center"><br><img src="/images/git4.PNG" alt="git4"><br></div>
-
-<p>把远程项目克隆到本地，复制链接（建议用ssh）：</p>
-<div align="center"><br><img src="/images/git5.PNG" alt="git5"><br></div>
-
-<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><p>随便进入一个文件夹：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone url</div></pre></td></tr></table></figure></p>
-<p>把项目拉下来（url为你复制的链接）。</p>
-<p>接下来就可以对项目进行开发了，开发完后提交仓库（依次命令）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add *</div><div class="line">git commit -m &quot;第一次提交&quot;</div><div class="line">git push</div></pre></td></tr></table></figure></p>
-<p>如果提交成功，那么github上相应的就有这个文件了。</p>
-<p>自己动手试一下吧~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;为了照顾刚入门的小白，搭建博客起来还是有点困难，特写两篇&lt;code&gt;git入门&lt;/code&gt;和&lt;code&gt;node入门&lt;/code&gt;来帮助他们。&lt;/p&gt;
-&lt;h3 id=&quot;git是什么？&quot;&gt;&lt;a href=&quot;#git是什么？&quot; class=&quot;headerlink&quot; title=&quot;git是什么？&quot;&gt;&lt;/a&gt;git是什么？&lt;/h3&gt;&lt;p&gt;假如多个人共同开发一个项目，怎么确保&lt;code&gt;代码的同步&lt;/code&gt;？假如你修改了别人的代码或者别人修改了你的代码，很容易出现&lt;code&gt;冲突&lt;/code&gt;的情况。&lt;br&gt;于是git诞生了，如果你找工作不会用&lt;code&gt;git&lt;/code&gt;，这是致命的不足。因为没有那个公司不用它！&lt;/p&gt;
-&lt;h3 id=&quot;github仓库&quot;&gt;&lt;a href=&quot;#github仓库&quot; class=&quot;headerlink&quot; title=&quot;github仓库&quot;&gt;&lt;/a&gt;github仓库&lt;/h3&gt;&lt;p&gt;github=git+hub，即git仓库。git仓库有很多，github或者国内的&lt;a href=&quot;https://coding.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;码市&lt;/a&gt;，它是一个云仓库，相当于一个&lt;code&gt;中介&lt;/code&gt;，我把代码上传上去，你把代码拉下来，这样我们就能共享代码。&lt;br&gt;而且仓库自己带有&lt;code&gt;解决冲突&lt;/code&gt;的机制，帮助我们解决代码冲突！&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="git" scheme="http://zhangchaozc.cn/categories/git/"/>
-    
-    
-      <category term="github" scheme="http://zhangchaozc.cn/tags/github/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nodejs中http请求timeout</title>
-    <link href="http://zhangchaozc.cn/2017/08/21/node/nodejs%E4%B8%ADhttp%E8%AF%B7%E6%B1%82timeout/"/>
-    <id>http://zhangchaozc.cn/2017/08/21/node/nodejs中http请求timeout/</id>
-    <published>2017-08-21T03:28:47.000Z</published>
-    <updated>2017-09-18T03:42:30.192Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末一个线上测试的脚本跑了两天，一直报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2017-08-19T06:32:00.021Z - error:  Error: socket hang up</div><div class="line">    at createHangUpError (_http_client.js:345:15)</div><div class="line">    at Socket.socketOnEnd (_http_client.js:437:23)</div><div class="line">    at emitNone (events.js:110:20)</div><div class="line">    at Socket.emit (events.js:207:7)</div><div class="line">    at endReadableNT (_stream_readable.js:1045:12)</div><div class="line">    at _combinedTickCallback (internal/process/next_tick.js:138:11)</div><div class="line">    at process._tickDomainCallback (internal/process/next_tick.js:218:9)</div></pre></td></tr></table></figure></p>
-<p>很明显，这是一个<code>http</code>的错误。</p>
-<h3 id="联想"><a href="#联想" class="headerlink" title="联想"></a>联想</h3><p>之前也遇到过这个问题，原因是http请求<code>端口号</code>写错了，导致不能发起连接。</p>
-<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>在本地测试后（主要是打log），发现获取数据正在进行时，脚本就返回了这个错误。因为获取数据的时间太长了，http请求的默认超时时间是<code>2分钟</code>，所以导致http请求超时了。<br>解决思路：自定义http请求的超时时间。</p>
-<a id="more"></a>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>推荐nodejs的<a href="http://nodejs.cn/api/" target="_blank" rel="external">官方中文文档</a>，在看了网上的博客和文档后，找到了两种解决办法：</p>
-<ul>
-<li>在<code>/bin/www</code>文件里面（我用的express框架），加上：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>0代表永远不会超时，也可以自己定义超时时间（单位：毫秒）。重启服务后，此代码对<code>全局</code>的接口均有效。</p>
-<ul>
-<li>在需要设置超时时间的接口里面，加上：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res.setTimeout(<span class="number">0</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'time out'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>只对此接口有效。</p>
-<p>这样这个问题就解决了~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;周末一个线上测试的脚本跑了两天，一直报错：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;2017-08-19T06:32:00.021Z - error:  Error: socket hang up&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at createHangUpError (_http_client.js:345:15)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at Socket.socketOnEnd (_http_client.js:437:23)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at emitNone (events.js:110:20)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at Socket.emit (events.js:207:7)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at endReadableNT (_stream_readable.js:1045:12)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at _combinedTickCallback (internal/process/next_tick.js:138:11)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    at process._tickDomainCallback (internal/process/next_tick.js:218:9)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;很明显，这是一个&lt;code&gt;http&lt;/code&gt;的错误。&lt;/p&gt;
-&lt;h3 id=&quot;联想&quot;&gt;&lt;a href=&quot;#联想&quot; class=&quot;headerlink&quot; title=&quot;联想&quot;&gt;&lt;/a&gt;联想&lt;/h3&gt;&lt;p&gt;之前也遇到过这个问题，原因是http请求&lt;code&gt;端口号&lt;/code&gt;写错了，导致不能发起连接。&lt;/p&gt;
-&lt;h3 id=&quot;调试&quot;&gt;&lt;a href=&quot;#调试&quot; class=&quot;headerlink&quot; title=&quot;调试&quot;&gt;&lt;/a&gt;调试&lt;/h3&gt;&lt;p&gt;在本地测试后（主要是打log），发现获取数据正在进行时，脚本就返回了这个错误。因为获取数据的时间太长了，http请求的默认超时时间是&lt;code&gt;2分钟&lt;/code&gt;，所以导致http请求超时了。&lt;br&gt;解决思路：自定义http请求的超时时间。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
-    
-    
-      <category term="HTTP" scheme="http://zhangchaozc.cn/tags/HTTP/"/>
-    
-      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
-    
-      <category term="timeout" scheme="http://zhangchaozc.cn/tags/timeout/"/>
     
   </entry>
   
