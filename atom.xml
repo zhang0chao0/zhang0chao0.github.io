@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2018-01-01T14:58:24.452Z</updated>
+  <updated>2018-02-13T05:43:42.643Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,312 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux基础5-网络命令</title>
+    <link href="http://zhangchaozc.cn/2018/02/13/linux/linux%E5%9F%BA%E7%A1%805-%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/"/>
+    <id>http://zhangchaozc.cn/2018/02/13/linux/linux基础5-网络命令/</id>
+    <published>2018-02-13T04:13:09.000Z</published>
+    <updated>2018-02-13T05:43:42.643Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>主要总结一下基础的网络命令。</p>
+<h3 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h3><h5 id="who"><a href="#who" class="headerlink" title="who"></a>who</h5><p>查看用户的登录信息</p>
+<h5 id="w"><a href="#w" class="headerlink" title="w"></a>w</h5><p>和<code>who</code>一样，显示结果中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tty：代表本地登录</div><div class="line">pts：代表远程终端登录</div></pre></td></tr></table></figure></p>
+<h5 id="write"><a href="#write" class="headerlink" title="write"></a>write</h5><p>简单的即时通信，给用户发信息，以<code>Ctrl+D</code>保存结束<br><code>write [用户名]</code>：用户不在登录状态是收不到的，可以用<code>w</code>命令，看看哪些用户在登录状态</p>
+<h5 id="wall"><a href="#wall" class="headerlink" title="wall"></a>wall</h5><p>如何群发登录用户？<br><code>wall [消息内容]</code>：所有的登录用户都可以收到</p>
+<a id="more"></a>
+<h5 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h5><p>探测消息，网络是否通？<br>语法：<code>ping [选项] [IP地址]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-c：指定发送次数</div></pre></td></tr></table></figure></p>
+<p>例如：<code>ping -c3 127.0.0.1</code></p>
+<h5 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h5><p>查看网卡信息，windows里面叫<code>ipconfig</code>，eth0代表本地的真实网卡，主要是查看机器的IP地址</p>
+<h5 id="mail"><a href="#mail" class="headerlink" title="mail"></a>mail</h5><p>邮件命令，向某一个用户发送邮件<br>语法：<code>mail [用户名]</code><br>查看邮件：<br>mail即可，help查看支持的命令格式，输入数字代表查看第几封邮件，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">h：列出所有邮件</div><div class="line">d [数字]：删除某封邮件</div><div class="line">q：退出</div></pre></td></tr></table></figure></p>
+<h5 id="last"><a href="#last" class="headerlink" title="last"></a>last</h5><p>列出目前与过去用户登入系统的信息，重启系统信息等</p>
+<h5 id="lastlog"><a href="#lastlog" class="headerlink" title="lastlog"></a>lastlog</h5><p>列出用户最后一次登录系统的信息</p>
+<h5 id="traceroute"><a href="#traceroute" class="headerlink" title="traceroute"></a>traceroute</h5><p><code>非常重要</code>的一个命令，显示数据包到主机间的路径<br>例如：<code>traceroute www.baidu.com</code></p>
+<p>如果网断了，可以用这个命令查看在哪一个IP节点丢包的</p>
+<h5 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h5><p>显示网络相关信息<br>语法：<code>netstat [选项]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-t：TCP协议</div><div class="line">-u：UDP协议</div><div class="line">-l：监听</div><div class="line">-r：路由</div><div class="line">-n：显示IP地址和端口号</div></pre></td></tr></table></figure></p>
+<p>例子：<br><code>netstat -tlun</code>：查看本机监听的端口（可以查看本机开了哪些服务）<br><code>netstat -an</code>：查看本机所有的网络连接<br><code>netstat -rm</code>：查看本机路由表（查询本机网关）</p>
+<h5 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h5><p>调出详细配置页面（红帽系列的系统才有这个命令）</p>
+<p>配置完后重启网络服务：<code>service network restart</code></p>
+<h5 id="mount"><a href="#mount" class="headerlink" title="mount"></a>mount</h5><p>挂载光盘，卸载光盘<br>语法：<code>mount [-t iso9660] [设备文件名] [挂载点]</code></p>
+<p>例子（/dev是放设备的目录，/mnt是挂载目录，在里面新建一个自己的挂载点）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mount -t iso9660 /dev/sr0 /mnt/cdrom</div><div class="line">mount /dev/sr0 /mnt/cdrom，也行</div></pre></td></tr></table></figure></p>
+<p>卸载光盘：<code>unmount /dev/sr0</code>，或者<code>unmount /mnt/cdrom</code></p>
+<p>注意卸载时当前目录不能为挂载目录，否则会提示busy</p>
+<h3 id="关机命令"><a href="#关机命令" class="headerlink" title="关机命令"></a>关机命令</h3><h5 id="shutdown"><a href="#shutdown" class="headerlink" title="shutdown"></a>shutdown</h5><p>关机重启命令（推荐shutdown，安全性高）<br>语法：<code>shutdown [选项] [时间]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-c：取消前一个关机命令</div><div class="line">-h：关机</div><div class="line">-r：重启</div></pre></td></tr></table></figure></p>
+<p>其它关机命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">halt</div><div class="line">poweroff</div><div class="line">init 0</div><div class="line">其它重启命令</div><div class="line">reboot</div><div class="line">init 6</div></pre></td></tr></table></figure></p>
+<p>启动选项，打开配置文件<code>cat /etc/inittab</code>，小知识：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">0：关机</div><div class="line">1：单用户</div><div class="line">2：不完全多用户，不含NFS文件共享服务</div><div class="line">3：完全多用户（一般服务器是这个）</div><div class="line">4：未分配</div><div class="line">5：图形界面（一般个人机，虚拟机）</div><div class="line">6：重启</div></pre></td></tr></table></figure></p>
+<h5 id="runlevel"><a href="#runlevel" class="headerlink" title="runlevel"></a>runlevel</h5><p>查询当前运行级别</p>
+<h5 id="logout"><a href="#logout" class="headerlink" title="logout"></a>logout</h5><p>退出登录命令（操作完服务器记得退出）</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;主要总结一下基础的网络命令。&lt;/p&gt;
+&lt;h3 id=&quot;网络管理&quot;&gt;&lt;a href=&quot;#网络管理&quot; class=&quot;headerlink&quot; title=&quot;网络管理&quot;&gt;&lt;/a&gt;网络管理&lt;/h3&gt;&lt;h5 id=&quot;who&quot;&gt;&lt;a href=&quot;#who&quot; class=&quot;headerlink&quot; title=&quot;who&quot;&gt;&lt;/a&gt;who&lt;/h5&gt;&lt;p&gt;查看用户的登录信息&lt;/p&gt;
+&lt;h5 id=&quot;w&quot;&gt;&lt;a href=&quot;#w&quot; class=&quot;headerlink&quot; title=&quot;w&quot;&gt;&lt;/a&gt;w&lt;/h5&gt;&lt;p&gt;和&lt;code&gt;who&lt;/code&gt;一样，显示结果中：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;tty：代表本地登录&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;pts：代表远程终端登录&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h5 id=&quot;write&quot;&gt;&lt;a href=&quot;#write&quot; class=&quot;headerlink&quot; title=&quot;write&quot;&gt;&lt;/a&gt;write&lt;/h5&gt;&lt;p&gt;简单的即时通信，给用户发信息，以&lt;code&gt;Ctrl+D&lt;/code&gt;保存结束&lt;br&gt;&lt;code&gt;write [用户名]&lt;/code&gt;：用户不在登录状态是收不到的，可以用&lt;code&gt;w&lt;/code&gt;命令，看看哪些用户在登录状态&lt;/p&gt;
+&lt;h5 id=&quot;wall&quot;&gt;&lt;a href=&quot;#wall&quot; class=&quot;headerlink&quot; title=&quot;wall&quot;&gt;&lt;/a&gt;wall&lt;/h5&gt;&lt;p&gt;如何群发登录用户？&lt;br&gt;&lt;code&gt;wall [消息内容]&lt;/code&gt;：所有的登录用户都可以收到&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://zhangchaozc.cn/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux基础4-软件包管理</title>
+    <link href="http://zhangchaozc.cn/2018/02/12/linux/linux%E5%9F%BA%E7%A1%804-%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/"/>
+    <id>http://zhangchaozc.cn/2018/02/12/linux/linux基础4-软件包管理/</id>
+    <published>2018-02-12T14:51:40.000Z</published>
+    <updated>2018-02-13T06:31:55.794Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>主要学习各种软件包的管理：源码包，二进制包，rpm包。</p>
+<h3 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h3><p>软件包分为：</p>
+<ol>
+<li>源代码包</li>
+<li>二进制包（RPM包、系统默认包）</li>
+</ol>
+<h5 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h5><p>RPM包的依赖性查询：<code>www.rpmfind.net</code></p>
+<p>手动安装rpm包的最大坏处：<br>一个包的依赖太多，a-&gt;b-&gt;c树形依赖，或者a-&gt;b-&gt;c-&gt;a环形依赖，使得安装rpm包变得很复杂</p>
+<p>RPM安装：<br>语法：<code>rpm -ivh [包全名]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">-i（install）：安装</div><div class="line">-v（verbose）：显示详细信息</div><div class="line">-h（hash）：显示进度</div><div class="line">--nodeps：不检测依赖性</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>RPM包升级：<br>语法：<code>rpm -Uvh [包全名]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-U：升级</div></pre></td></tr></table></figure></p>
+<p>RPM包卸载：<br>语法：<code>rpm -e [包名]</code> （这个是包名而不是全名）</p>
+<p>RPM包查询（重要）：</p>
+<ol>
+<li>查询是否安装：<code>rpm -q [包名]</code></li>
+<li>查询所有已经安装的RPM包<code>rpm -qa</code>，只看所有包中关于<code>httpd</code>的包：<code>rpm -qa | grep httpd</code></li>
+<li>查询软件包详细信息：<code>rpm -qi [包名]</code>，<code>-i</code>：查询软件信息，<code>-p</code>：查询未安装包信息（指定包全名）</li>
+<li>查询包中文件安装位置：<code>rpm -ql [包名]</code></li>
+<li>查询系统文件属于哪个RPM包：<code>rpm -qf [系统文件名]</code></li>
+<li>查询软件包的依赖性：<code>rpm -qR [包名]</code></li>
+</ol>
+<p>RPM包校验：<br>语法：<code>rmp -V [包名]</code><br>如果没有任何提示，说明这个包自安装以来就没被修改过</p>
+<div align="center"><br><img src="/images/linux_rpm1.PNG" alt="linux_rpm1"><br></div>
+
+<div align="center"><br><img src="/images/linux_rpm2.PNG" alt="linux_rpm2"><br></div>
+
+<h5 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h5><p>为了解决rpm包的层层安装，解决依赖性问题，推荐使用<code>yum</code>直接安装</p>
+<p>yum源：<br><code>vim /etc/yum.repos.d/CentOS-Base.repo</code>：打开默认的配置文件</p>
+<div align="center"><br><img src="/images/linux_yum.PNG" alt="linux_yum"><br></div>
+
+<p>常用的yum命令：<br><code>yum list</code>：查询所有可用的软件包列表<br><code>yum search [包名]</code>：搜索服务器上所有和关键字相关的包<br><code>yum -y install [包名]</code>：安装软件包<br><code>-y</code>：自动回答yes</p>
+<p>升级软件包（如果不加包名会升级所有软件包，包括linux内核，会导致服务器崩溃，慎用）：<br><code>yum -y update [包名]</code></p>
+<p>卸载软件包（和升级一样，小心使用，一定要写包名；慎用，卸载可能删掉某些公用包导致其它软件无法正常使用）：<br><code>yum -y remove [包名]</code></p>
+<p><code>yum grouplist</code>：列出所有可用的软件组<br><code>yum groupinstall [软件组名]</code>：安装软件组<br><code>yum groupremove [软件组名]</code>：卸载指定软件组</p>
+<h5 id="安装源码包"><a href="#安装源码包" class="headerlink" title="安装源码包"></a>安装源码包</h5><p>源码包保存位置：<code>/usr/local/src</code><br>软件安装位置：<code>/usr/local/</code></p>
+<p>查看这个文件夹占用多大空间<br><code>du -sh [目录名]</code></p>
+<p>安装源码包步骤（以安装apache为例）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">准备：下载源码包，解压，进入解压目录（INSTALL文件有安装步骤和提示）</div><div class="line">命令：</div><div class="line">./configure --prefix=/usr/local/apache2（定义安装目录）</div><div class="line">作用：</div><div class="line">1.定义需要的功能选项</div><div class="line">2.检测环境是否符合安装需求</div><div class="line">3.把定义好的功能选项和信息写入Makefile文件，用于后续的编译</div></pre></td></tr></table></figure></p>
+<p>然后执行<code>make</code>命令编译（前提linux已安装<code>gcc</code>，如果make失败可以用<code>make clean</code>来清除编译产生的临时数据）<br>最后<code>make install</code>编译安装</p>
+<p>源码包的卸载直接删除安装后的文件夹即可，例如直接<code>rm -rf /usr/local/apache2</code>就可以完成卸载<br>有的软件包有自动安装脚本，直接运行<code>./setup.sh</code>即可完成安装</p>
+<p>如果是下载的已经编译好的二进制文件，只需要解压后即可使用。例如java环境等，但为了方便操作，一般需要配置环境变量或者生成软连接到<code>/usr/local/bin/</code>目录下</p>
+<h3 id="启动一个服务"><a href="#启动一个服务" class="headerlink" title="启动一个服务"></a>启动一个服务</h3><p>语法：<code>[绝对路径] start</code><br>例如<code>/etc/rc.d/init.d/httpd start</code>，这种启动方式适用于自己手动安装的软件包</p>
+<p>另一种启动方式：<code>service httpd start</code>，适用于用rpm包安装的软件和yum安装的软件</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;主要学习各种软件包的管理：源码包，二进制包，rpm包。&lt;/p&gt;
+&lt;h3 id=&quot;软件包管理&quot;&gt;&lt;a href=&quot;#软件包管理&quot; class=&quot;headerlink&quot; title=&quot;软件包管理&quot;&gt;&lt;/a&gt;软件包管理&lt;/h3&gt;&lt;p&gt;软件包分为：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;源代码包&lt;/li&gt;
+&lt;li&gt;二进制包（RPM包、系统默认包）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5 id=&quot;rpm&quot;&gt;&lt;a href=&quot;#rpm&quot; class=&quot;headerlink&quot; title=&quot;rpm&quot;&gt;&lt;/a&gt;rpm&lt;/h5&gt;&lt;p&gt;RPM包的依赖性查询：&lt;code&gt;www.rpmfind.net&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;手动安装rpm包的最大坏处：&lt;br&gt;一个包的依赖太多，a-&amp;gt;b-&amp;gt;c树形依赖，或者a-&amp;gt;b-&amp;gt;c-&amp;gt;a环形依赖，使得安装rpm包变得很复杂&lt;/p&gt;
+&lt;p&gt;RPM安装：&lt;br&gt;语法：&lt;code&gt;rpm -ivh [包全名]&lt;/code&gt;，参数：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;-i（install）：安装&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;-v（verbose）：显示详细信息&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;-h（hash）：显示进度&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;--nodeps：不检测依赖性&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://zhangchaozc.cn/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux基础3-权限管理</title>
+    <link href="http://zhangchaozc.cn/2018/02/12/linux/linux%E5%9F%BA%E7%A1%803-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"/>
+    <id>http://zhangchaozc.cn/2018/02/12/linux/linux基础3-权限管理/</id>
+    <published>2018-02-12T14:33:27.000Z</published>
+    <updated>2018-02-13T05:37:14.643Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>介绍一下linux中关于权限的操作。在文件管理中谈到，linux权限人分为：所有者，所属组和其他人，对文件的操作分为<code>r</code>读权限，<code>w</code>写权限和<code>x</code>执行权限，这节细说权限和讲如何更改权限。<br>截一张图细说<code>rwx</code>区别：</p>
+<div align="center"><br><img src="/images/linux_rwx.PNG" alt="linux_rwx"><br></div>
+
+<p>注意：删除一个文件不需要对此文件有写权限，只需要有对该文件所在的目录有写权限即可。<br><a id="more"></a></p>
+<h3 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h3><h5 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h5><p><code>chmod [{ugoa}{+-=}{rwx}] [文件或目录]</code>：改变文件或目录权限<br>-R 递归修改<br>举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//所有者加上执行权限</div><div class="line">chmod u+x xxx.txt</div><div class="line">//所有组加上写权限，其他人减去读权限</div><div class="line">chmod g+w,o-r xxx.txt</div><div class="line">//所有组的权限等于rwx</div><div class="line">chmod g=rwx xxx.txt</div></pre></td></tr></table></figure></p>
+<p>另一种数字的表示方法：<br>r —- 4<br>w —- 2<br>x —- 1</p>
+<p>相互转化：<br>532 =&gt; r-x-wx-w-<br>5代表u权限<br>3代表g权限<br>2代表o权限</p>
+<h5 id="useradd"><a href="#useradd" class="headerlink" title="useradd"></a>useradd</h5><p><code>useradd xxx</code>：创建用户<br><code>passwd xxx</code>：更改用户密码<br><code>groupadd xxx</code>：创建用户组</p>
+<h5 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h5><p><code>chown [用户] [文件或目录]</code>：改变文件的所有者，只有管理员root才能执行。<br><code>chgrp [用户组] [文件或目录]</code>：改变文件的所属组</p>
+<h5 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h5><p>如何更改创建文件或文件夹时的默认权限？<br><code>umask -S</code>：查看默认权限<br>注意：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">直接umask显示0022，实际权限计算：首字母0不算，777-022=755就是实际表示的权限</div></pre></td></tr></table></figure></p>
+<p><code>umask 023</code>：更改默认权限为777-023=754</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;介绍一下linux中关于权限的操作。在文件管理中谈到，linux权限人分为：所有者，所属组和其他人，对文件的操作分为&lt;code&gt;r&lt;/code&gt;读权限，&lt;code&gt;w&lt;/code&gt;写权限和&lt;code&gt;x&lt;/code&gt;执行权限，这节细说权限和讲如何更改权限。&lt;br&gt;截一张图细说&lt;code&gt;rwx&lt;/code&gt;区别：&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/linux_rwx.PNG&quot; alt=&quot;linux_rwx&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;p&gt;注意：删除一个文件不需要对此文件有写权限，只需要有对该文件所在的目录有写权限即可。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://zhangchaozc.cn/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux基础2-文件编辑</title>
+    <link href="http://zhangchaozc.cn/2018/02/12/linux/linux%E5%9F%BA%E7%A1%802-%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91/"/>
+    <id>http://zhangchaozc.cn/2018/02/12/linux/linux基础2-文件编辑/</id>
+    <published>2018-02-12T14:19:00.000Z</published>
+    <updated>2018-02-13T06:03:18.686Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>文件查看、浏览、编辑的命令有很多，这里就当做个笔记了。</p>
+<h3 id="文件浏览或编辑"><a href="#文件浏览或编辑" class="headerlink" title="文件浏览或编辑"></a>文件浏览或编辑</h3><h5 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h5><p>创建一个文件，关于带空格的文件名，不建议创建。<br>如果文件名必须带空格，可以用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch &quot;pro files&quot;</div></pre></td></tr></table></figure></p>
+<p>用双引号包含。所有命令中对带空格的文件名，都必须用双引号括住。</p>
+<h5 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h5><p><code>cat [文件名]</code>：查看文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat -n：查看行号</div></pre></td></tr></table></figure></p>
+<h5 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h5><p><code>tac [文件名]</code>：倒着查看文件</p>
+<a id="more"></a>
+<h5 id="more"><a href="#more" class="headerlink" title="more"></a>more</h5><p>如何浏览大文件？<br><code>more [文件名]</code>：浏览大文件（分页）<br>技巧：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">空格，f：翻页查看（下一页）</div><div class="line">回车：一行一行查看</div><div class="line">q：退出浏览</div></pre></td></tr></table></figure></p>
+<h5 id="less"><a href="#less" class="headerlink" title="less"></a>less</h5><p>相比more，如何搜索，向上翻页？<br><code>less [文件名]</code>：分页查看大文件<br>在more命令的基础上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PgUp向上翻页</div><div class="line">/搜索关键字，按键n，跳至下一个关键字</div></pre></td></tr></table></figure></p>
+<h5 id="head"><a href="#head" class="headerlink" title="head"></a>head</h5><p>只想看前几行？<br><code>head -n xx [文件名]</code><br>默认显示前10行</p>
+<p>反之，想看后几行？<br><code>tail -n xx [文件名]</code><br>默认10行<br><code>tail -f</code>可以动态查看。</p>
+<h3 id="链接的创建"><a href="#链接的创建" class="headerlink" title="链接的创建"></a>链接的创建</h3><p>软链接：<code>ln -s [原文件] [链接文件]</code><br>硬链接：<code>ln [原文件] [链接文件]</code><br>软链接相当于原文件的快捷方式。权限都是rwx。<br>硬链接相当于原文件的拷贝，但是这两个文件可以同步更新，且这两个文件的i节点相同。硬链接不能跨分区生成。</p>
+<h3 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h3><p>强大的文本编辑器<br>语法：<code>vim [文件名]</code></p>
+<p>编辑模式：<code>i，a，o，I，A，O</code>，退出编辑模式按<code>Esc</code></p>
+<div align="center"><br><img src="/images/linux_vim1.PNG" alt="linux_vim1"><br></div>
+
+<p>命令模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">:set nu 设置行号</div><div class="line">:set nonu 取消行号</div><div class="line">gg 第一行</div><div class="line">G 最后一行</div><div class="line">nG 到第n行</div><div class="line">:n 到第n行</div><div class="line">$ 移至行尾</div><div class="line">0 移至行首</div></pre></td></tr></table></figure></p>
+<p>复制剪切操作：</p>
+<div align="center"><br><img src="/images/linux_vim2.PNG" alt="linux_vim2"><br></div>
+
+<p>删除操作：</p>
+<div align="center"><br><img src="/images/linux_vim3.PNG" alt="linux_vim3"><br></div>
+
+<p>替换字符和取消操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">r：替换光标所在的字符</div><div class="line">R：从光标处开始替换字符，按[Esc]结束</div><div class="line">u：取消上一步的操作</div></pre></td></tr></table></figure></p>
+<p>搜索和less，more一样：按/来搜索，n切换下一个结果，搜索时忽略大小写：<code>:set ic</code></p>
+<p>替换字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">:%s/oldstr/newstr/g：全文替换</div><div class="line">:n1,n2s/oldstr/newstr/g：在指定范围内替换</div></pre></td></tr></table></figure></p>
+<p>最后退出vim：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">:w 保存修改</div><div class="line">:w new_file 另存为指定文件</div><div class="line">:wq 保存修改并退出</div><div class="line">:q! 不保存修改退出</div><div class="line">ZZ 快捷键退出，相当于wq了</div></pre></td></tr></table></figure></p>
+<p>高级vim操作，技巧<br><code>:r [文件名]</code>：导入其它文件到当前光标处<br><code>:![命令名]</code>：在不退出vim的情况下执行命令<br><code>:r ![命令名]</code>：将执行命令的结果导入当前光标处<br><code>:n1,n2s/^/#/g</code>：连续注释行<br><code>:n1,n2s/^#/ /g</code>：把连续注释的行去掉<br><code>:ab mymail xxxx@abc.com</code>：替换，这样的话，在vim编辑中，只要输入mymail后，都会被替换成指定值</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;文件查看、浏览、编辑的命令有很多，这里就当做个笔记了。&lt;/p&gt;
+&lt;h3 id=&quot;文件浏览或编辑&quot;&gt;&lt;a href=&quot;#文件浏览或编辑&quot; class=&quot;headerlink&quot; title=&quot;文件浏览或编辑&quot;&gt;&lt;/a&gt;文件浏览或编辑&lt;/h3&gt;&lt;h5 id=&quot;touch&quot;&gt;&lt;a href=&quot;#touch&quot; class=&quot;headerlink&quot; title=&quot;touch&quot;&gt;&lt;/a&gt;touch&lt;/h5&gt;&lt;p&gt;创建一个文件，关于带空格的文件名，不建议创建。&lt;br&gt;如果文件名必须带空格，可以用：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;touch &amp;quot;pro files&amp;quot;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;用双引号包含。所有命令中对带空格的文件名，都必须用双引号括住。&lt;/p&gt;
+&lt;h5 id=&quot;cat&quot;&gt;&lt;a href=&quot;#cat&quot; class=&quot;headerlink&quot; title=&quot;cat&quot;&gt;&lt;/a&gt;cat&lt;/h5&gt;&lt;p&gt;&lt;code&gt;cat [文件名]&lt;/code&gt;：查看文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;cat -n：查看行号&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h5 id=&quot;tac&quot;&gt;&lt;a href=&quot;#tac&quot; class=&quot;headerlink&quot; title=&quot;tac&quot;&gt;&lt;/a&gt;tac&lt;/h5&gt;&lt;p&gt;&lt;code&gt;tac [文件名]&lt;/code&gt;：倒着查看文件&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://zhangchaozc.cn/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux基础1-文件管理</title>
+    <link href="http://zhangchaozc.cn/2018/02/12/linux/linux%E5%9F%BA%E7%A1%801-%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/"/>
+    <id>http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/</id>
+    <published>2018-02-12T13:21:39.000Z</published>
+    <updated>2018-02-13T05:25:52.723Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前linux基础太差，干啥都要百度，很不方便，所以决定系统化的学习一下，恶补恶补。这几个系列也算是我的学习笔记了。</p>
+<h3 id="基础常识"><a href="#基础常识" class="headerlink" title="基础常识"></a>基础常识</h3><p>windows文件系统格式有：FAT16，FAT32，NTFS；linux有：EXT2，EXT3，EXT4。<br>Linux不区分文件扩展名，有的特殊文件（压缩包）有扩展名是为了管理员区分方便。这个跟windows不一样。</p>
+<h3 id="运营者需要了解的"><a href="#运营者需要了解的" class="headerlink" title="运营者需要了解的"></a>运营者需要了解的</h3><ol>
+<li>远程服务器不允许关机，只能重启。（某种情况远程关了，打开麻烦）</li>
+<li>重启时应该关闭所有服务。</li>
+<li>不在访问高峰期执行高负载命令。</li>
+<li>远程配置防火墙时不要把自己踢出服务器。</li>
+<li>指定合理的密码规范并定期更新。</li>
+<li>合理分配权限。</li>
+<li>定期备份重要数据和日志。</li>
+</ol>
+<a id="more"></a>
+<h3 id="Linux各个目录的含义"><a href="#Linux各个目录的含义" class="headerlink" title="Linux各个目录的含义"></a>Linux各个目录的含义</h3><p>这里截了几张图片：</p>
+<div align="center"><br><img src="/images/linux_dir1.PNG" alt="linux_dir1"><br></div>
+
+<div align="center"><br><img src="/images/linux_dir2.PNG" alt="linux_dir2"><br></div>
+
+<div align="center"><br><img src="/images/linux_dir3.PNG" alt="linux_dir3"><br></div>
+
+<h3 id="命令规则"><a href="#命令规则" class="headerlink" title="命令规则"></a>命令规则</h3><p>命令格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">命令 [-选项] [参数]</div><div class="line">举例： ls -la /etc</div></pre></td></tr></table></figure></p>
+<p>简化选项与完整选项：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-a 等于 --all</div><div class="line">简化选项：- 加 简化字母</div><div class="line">完整选项：-- 加 完整字母</div></pre></td></tr></table></figure></p>
+<h3 id="基础的文件管理命令"><a href="#基础的文件管理命令" class="headerlink" title="基础的文件管理命令"></a>基础的文件管理命令</h3><h5 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h5><p>作用：列出所有的文件和目录。<br>常用选项：<br>-a 显示所有文件，包括隐藏文件<br>-l 显示详细信息<br>-d 查看目录属性（只查看这个目录，而不查看目录下的文件信息）<br>-h 更友好的显示，例如 ls -lh，文件大小会帮你换算为K<br>-i 查看文件的节点序号（相当于id号，linux中任何文件或目录都有唯一标识的id号，便于系统管理）</p>
+<p>举例：<br>输入<code>ls -l</code>，结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-rw-rw-r--. 1 zhangchao zhangchao   22 Feb  6 20:17 hh</div></pre></td></tr></table></figure></p>
+<p>依次表示的信息是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- 开头代表一个文件，d 开头代表是一个目录，l开头代表一个软链接</div><div class="line">rw-rw-r--. 代表权限信息，3个一拆分，[rw-]、[rw-]和[r--]，分别是所有者，所属组，其他人的权限</div><div class="line">1 代表调用次数</div><div class="line">后面两个用户代表：所有者，所有组</div><div class="line">文件大小</div><div class="line">最后一次修改时间/创建时间</div><div class="line">文件名</div></pre></td></tr></table></figure></p>
+<p>关于linux的权限的小知识：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">u 所有者</div><div class="line">g 所有组</div><div class="line">o 其他人</div><div class="line">r 读</div><div class="line">w 写</div><div class="line">x 执行</div><div class="line"></div><div class="line">-rw-rw-r--. 的意思是</div><div class="line">-：这是一个文件</div><div class="line">rw-：它的所有者有读写权限</div><div class="line">rw-：它的所有组有读写权限</div><div class="line">r--：其他人有读权限</div></pre></td></tr></table></figure></p>
+<h5 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h5><p>作用：创建一个目录<br>如果我要创建/a/b/c目录，本身a目录是不存在的，即如何递归创建？<br><code>mkdir -p</code>即可递归创建。<br>创建目录可以同时创建多个目录，用空格隔开。</p>
+<p>有关的小命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd 切换到某个目录（基础之基础）</div><div class="line">pwd 显示当前目录的完整路径（现在cd的是哪个目录？）</div><div class="line">rmdir 删除空目录（只能删除空目录）</div></pre></td></tr></table></figure></p>
+<h5 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h5><p>作用：原意copy，即文件的复制。可以复制多个文件，复制的同时可以给文件重命名。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cp [原文件] [新的位置]</div><div class="line">cp -r 复制目录</div><div class="line">cp -p 保留原文件的属性</div></pre></td></tr></table></figure></p>
+<h5 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h5><p>作用：移动/剪切文件或目录（不需要加<code>-r</code>），文件的重命名。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mv [原文件] [新的位置]</div><div class="line">mv [原文件] [新名字]</div></pre></td></tr></table></figure></p>
+<h5 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h5><p>作用：删除一个文件、目录。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rm [文件]</div><div class="line">rm -r [目录]</div><div class="line">-f 强制执行</div><div class="line">rm -rf [目录] 递归的删除目录和目录里面的所有</div></pre></td></tr></table></figure></p>
+<p>如果一不小心<code>rm -rf /</code>，就gg了。</p>
+<h5 id="find"><a href="#find" class="headerlink" title="find"></a>find</h5><p>文件搜索命令（windows下文件搜索工具everything）<br>基本语法：<code>find [搜索范围] [匹配条件]</code><br><code>find /home -name xxx</code>：根据名字搜索<br>如何模糊搜索？利用通配符，*匹配任意字符，?匹配单个字符，举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find /home -name *xxx*  （查找多个值需要&quot;*xxx*&quot;，双引号引起来）</div></pre></td></tr></table></figure></p>
+<p><code>find /home -iname xxx</code>：不区分大小写搜索<br>如何按文件大小来筛选？（+代表大于，-代表小于，否则等于），举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find /home -size +204800  （查找大于100MB的数据，注意数据格式为数据块，1数据块=512B=0.5KB）</div></pre></td></tr></table></figure></p>
+<p><code>find /home -user zhangchao</code>：按用户来查找，同理用户组为<code>-group</code></p>
+<h6 id="高级查找"><a href="#高级查找" class="headerlink" title="高级查找"></a>高级查找</h6><p><code>find /home -cmin -5</code>：在home目录下查找5分钟内被修改过属性的文件和目录，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-amin 访问时间</div><div class="line">-cmin 文件属性</div><div class="line">-mmin 文件内容</div></pre></td></tr></table></figure></p>
+<p><code>find /home -size +163840 -a -size -204800</code>：查找文件大于80MB小于100MB的文件，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-a 表示两个条件同时满足，记作and</div><div class="line">-o 表示满足任意一个条件即可，记作or</div></pre></td></tr></table></figure></p>
+<p>如何根据类型查找？<br><code>-type</code>根据文件类型查找，其中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f：文件</div><div class="line">d：目录</div><div class="line">l：软链接</div></pre></td></tr></table></figure></p>
+<p>如何对查找出来的结果做进一步的操作？<br><code>find /home -name xxx -exec ls -l {} \;</code>：对查找出来的结果进行批量的ls -l操作，其中后面的<code>[-exec ls -l {} \;]</code>是一个固定的格式<code>-exec</code>可以用<code>-ok</code>代替，只是每个文件都要询问一下。<br>根据i节点查找？举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">找到当前目录下，i节点为12345的文件并删掉它</div><div class="line">find . -inum 12345 -exec rm &#123;&#125; \;</div></pre></td></tr></table></figure></p>
+<h5 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h5><p><code>find</code>命令需要遍历查找文件夹，浪费大量资源，如何高效查找？<br><code>locate</code>命令在文件库中查找文件，不在硬盘中查找，所以速度很快，语法<code>locate [文件名]</code></p>
+<p>如果一个文件新建不久，资料库中没有，就无法找到<br>可以使用命令<code>updatedb</code>更新资料库，<code>不会</code>更新系统的<code>/tmp</code>文件夹中的内容</p>
+<p><code>locate -i [文件名]</code>：不区分大小写的搜寻</p>
+<h5 id="which"><a href="#which" class="headerlink" title="which"></a>which</h5><p>特殊查找，查找命令在哪个文件夹。<br>语法：<code>which [命令名]</code><br>例如：<code>which ls</code><br>除了显示命令的地址所在，还可以显示命令的别名。例如普通的<code>ls</code>可以显示文件、文件夹的颜色，其实<code>ls</code>是<code>ls --color</code>的别名，如果要执行底层的<code>ls</code>，可以用<code>\ls</code>。</p>
+<h5 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h5><p>语法：<code>whereis [命令名]</code><br>和<code>which</code>功能一样，<code>whereis</code>还可以查到该命令的帮助文档所在地址。</p>
+<h5 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h5><p>查找某个确定文件中是否有某某关键字。<br>语法：<code>grep [指定匹配字符串] [文件名]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-i：不区分大小写</div><div class="line">-v：排除指定字符串</div></pre></td></tr></table></figure></p>
+<p>例：<br><code>grep -v ^# /xxx.txt</code>：排除#开头的内容</p>
+<h5 id="man"><a href="#man" class="headerlink" title="man"></a>man</h5><p>查看指定命令的帮助手册<br>语法：<code>man [命令名]</code><br>例如：<code>man ls</code><br>如果直接查看配置文件信息，可以<code>man [配置文件名]</code><br>例如：<code>man services</code></p>
+<blockquote>
+<p>小知识，帮助文档的<code>文件名</code>中含有<code>1</code>代表命令的帮助，<code>5</code>代表配置文件的帮助</p>
+</blockquote>
+<p>其他查看帮助信息的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">whatis [命令名]</div><div class="line">apropos [配置文件名]</div></pre></td></tr></table></figure></p>
+<p>还有命令加上 –help，查看帮助<br>例如<code>ls --help</code></p>
+<p>注意：内置shell命令（例如<code>cd</code>）无法<code>man</code>，<code>which</code>等，这时查看帮助可以用<code>help [命令名]</code><br>例如：<code>help cd</code></p>
+<h3 id="压缩-amp-解压命令"><a href="#压缩-amp-解压命令" class="headerlink" title="压缩&amp;解压命令"></a>压缩&amp;解压命令</h3><h5 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h5><p>压缩成<code>.gz</code>格式的压缩包<br>语法：<code>gzip [文件名]</code>，生成<code>.gz</code>压缩文件<br>解压缩：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gunzip [压缩文件]</div><div class="line">gzip -d [压缩文件]</div></pre></td></tr></table></figure></p>
+<p>这种方法压缩，解压后，<code>不保留原文件</code>；<code>只能压缩文件，不能压缩目录</code>。</p>
+<h5 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h5><p>另一种方法打包压缩<br>语法：<code>tar [选项] [压缩后文件名] [目录]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-c 打包</div><div class="line">-v 显示详细信息</div><div class="line">-f 指定文件名</div><div class="line">-z 打包的同时压缩/解压缩</div><div class="line">-x 解压缩</div></pre></td></tr></table></figure></p>
+<p>例如<br><code>tar -cvf subtemp.tar subtemp</code>：仅打包<br><code>tar -cvzf subtemp.tar.gz subtemp</code>：打包并压缩，这个是最常见的压缩包<code>.tar.gz</code><br>解压时候把<code>-c</code>换成<code>-x</code>即可</p>
+<p>注意<code>f</code>字母要写在最后，不能<code>-zcfv</code>等，<code>z</code>跟gz压缩格式有关</p>
+<h5 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h5><p>语法：<code>zip [选项] [压缩后文件名] [文件或目录]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-r：压缩目录</div></pre></td></tr></table></figure></p>
+<p>解压：<code>unzip [压缩文件名]</code></p>
+<h5 id="bzip2"><a href="#bzip2" class="headerlink" title="bzip2"></a>bzip2</h5><p>gzip的升级版，bzip2<br>语法：<code>bzip2 [选项] [文件]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-k：产生压缩文件后保留原文件</div></pre></td></tr></table></figure></p>
+<p>跟tar一起使用<br><code>tar -cvjf subtemp.tar.bz2 subtemp</code>：打包并压缩</p>
+<p>把<code>z</code>换成<code>j</code>压缩成<code>.bz2</code>格式的压缩包，解压同理<code>-c</code>换成<code>-x</code></p>
+<p>解压缩：<br>语法：<code>bunzip2 [压缩文件名]</code></p>
+<p>总结一下（文件后缀只是方便人区分，linux系统不认后缀的）：</p>
+<ol>
+<li><code>.gz</code>是<code>gzip</code>命令压缩产生的，这个只能压缩单个文件</li>
+<li><code>.tar</code>是<code>tar</code>命令产生的，可以打包多个文件，文件夹</li>
+<li><code>.zip</code>是<code>zip</code>命令，其余同<code>tar</code></li>
+<li><code>.bz2</code>是<code>gzip</code>的升级版，除了能加<code>-k</code>参数保留原文件以外，其它没功能加强</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;之前linux基础太差，干啥都要百度，很不方便，所以决定系统化的学习一下，恶补恶补。这几个系列也算是我的学习笔记了。&lt;/p&gt;
+&lt;h3 id=&quot;基础常识&quot;&gt;&lt;a href=&quot;#基础常识&quot; class=&quot;headerlink&quot; title=&quot;基础常识&quot;&gt;&lt;/a&gt;基础常识&lt;/h3&gt;&lt;p&gt;windows文件系统格式有：FAT16，FAT32，NTFS；linux有：EXT2，EXT3，EXT4。&lt;br&gt;Linux不区分文件扩展名，有的特殊文件（压缩包）有扩展名是为了管理员区分方便。这个跟windows不一样。&lt;/p&gt;
+&lt;h3 id=&quot;运营者需要了解的&quot;&gt;&lt;a href=&quot;#运营者需要了解的&quot; class=&quot;headerlink&quot; title=&quot;运营者需要了解的&quot;&gt;&lt;/a&gt;运营者需要了解的&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;远程服务器不允许关机，只能重启。（某种情况远程关了，打开麻烦）&lt;/li&gt;
+&lt;li&gt;重启时应该关闭所有服务。&lt;/li&gt;
+&lt;li&gt;不在访问高峰期执行高负载命令。&lt;/li&gt;
+&lt;li&gt;远程配置防火墙时不要把自己踢出服务器。&lt;/li&gt;
+&lt;li&gt;指定合理的密码规范并定期更新。&lt;/li&gt;
+&lt;li&gt;合理分配权限。&lt;/li&gt;
+&lt;li&gt;定期备份重要数据和日志。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://zhangchaozc.cn/categories/linux/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>spring回顾</title>
@@ -669,233 +975,6 @@
     </summary>
     
       <category term="面经积累" scheme="http://zhangchaozc.cn/categories/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>sychronized和lock</title>
-    <link href="http://zhangchaozc.cn/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/sychronized%E5%92%8Clock/"/>
-    <id>http://zhangchaozc.cn/2017/09/18/面经积累/sychronized和lock/</id>
-    <published>2017-09-18T03:15:30.000Z</published>
-    <updated>2017-09-18T03:30:11.114Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="并发-amp-同步"><a href="#并发-amp-同步" class="headerlink" title="并发&amp;同步"></a>并发&amp;同步</h3><ul>
-<li>sychronized自动释放锁。</li>
-<li>lock必须手动释放，为了不出异常释放锁应该写在<code>finally</code>语句块中。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</div><div class="line">    <span class="comment">//锁对象</span></div><div class="line">    <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="comment">//得到锁</span></div><div class="line">        lock.lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; name.length(); i++) &#123;</div><div class="line">                System.out.print(name.charAt(i));</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="comment">//释放锁</span></div><div class="line">            lock.unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        LockTest test=<span class="keyword">new</span> LockTest();</div><div class="line">        test.output(<span class="string">"ABCDEF"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>我们要实现写入和写入互斥，读取和写入互斥，在set和get方法加入sychronized修饰符，但是<code>读取</code>和<code>读取</code>之间也互斥了，降低了读取的效率。<br>改进：<code>读写锁</code>，读取、写入两不误。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReadWriteLock;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantReadWriteLock;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</div><div class="line">    <span class="comment">//共享数据</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> data;</div><div class="line">    <span class="comment">//读写锁</span></div><div class="line">    <span class="keyword">private</span> ReadWriteLock lock = <span class="keyword">new</span> ReentrantReadWriteLock();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getData</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//读锁</span></div><div class="line">        lock.readLock().lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">return</span> data;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            lock.readLock().unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> data)</span> </span>&#123;</div><div class="line">        <span class="comment">//写锁</span></div><div class="line">        lock.writeLock().lock();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">this</span>.data = data;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            lock.writeLock().unlock();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;并发-amp-同步&quot;&gt;&lt;a href=&quot;#并发-amp-同步&quot; class=&quot;headerlink&quot; title=&quot;并发&amp;amp;同步&quot;&gt;&lt;/a&gt;并发&amp;amp;同步&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;sychronized自动释放锁。&lt;/li&gt;
-&lt;li&gt;lock必须手动释放，为了不出异常释放锁应该写在&lt;code&gt;finally&lt;/code&gt;语句块中。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;22&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;23&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;25&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.locks.Lock;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; java.util.concurrent.locks.ReentrantLock;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;LockTest&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;//锁对象&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; Lock lock = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; ReentrantLock();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String name)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;//得到锁&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        lock.lock();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt; &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; name.length(); i++) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                System.out.print(name.charAt(i));&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125; &lt;span class=&quot;keyword&quot;&gt;finally&lt;/span&gt; &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;comment&quot;&gt;//释放锁&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            lock.unlock();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        LockTest test=&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; LockTest();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        test.output(&lt;span class=&quot;string&quot;&gt;&quot;ABCDEF&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="面经积累" scheme="http://zhangchaozc.cn/categories/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/"/>
-    
-    
-      <category term="Think in Java" scheme="http://zhangchaozc.cn/tags/Think-in-Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>动态代理(初级)</title>
-    <link href="http://zhangchaozc.cn/2017/08/30/java/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86-%E5%88%9D%E7%BA%A7/"/>
-    <id>http://zhangchaozc.cn/2017/08/30/java/动态代理-初级/</id>
-    <published>2017-08-30T03:55:32.000Z</published>
-    <updated>2017-08-30T06:32:25.782Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看这篇文章前必须先明白基础知识点，反射和代理模式，如果知识点不懂的话建议先看<code>反射（Java）</code>和<code>代理模式（设计模式）</code>两篇文章。</p>
-<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>用过<code>Spring</code>的就知道，为什么一个注解<code>@Transactional</code>可以帮你做那么多事情？<code>AOP</code>的切面是怎么切入的？都离不开动态代理。</p>
-<h3 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h3><ol>
-<li><code>InvocationHandler</code>接口。</li>
-<li><code>Proxy</code>类，主要用到其静态方法newProxyInstance。</li>
-</ol>
-<a id="more"></a>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>抽象接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Employ</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>实现类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leader</span> <span class="keyword">implements</span> <span class="title">Employ</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sign</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"Leader签署文件"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>被代理对象必须实现InvocationHandler接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> * 代理者必须实现InvocationHandler接口</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</div><div class="line">    <span class="comment">//被代理的对象</span></div><div class="line">    <span class="keyword">private</span> Object leader;</div><div class="line"></div><div class="line">    <span class="comment">//什么时候构造方法默认为public了</span></div><div class="line">    DynamicProxy(Object leader) &#123;</div><div class="line">        <span class="keyword">this</span>.leader = leader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">        System.out.println(<span class="string">"助理将文件递给Leader"</span>);</div><div class="line">        Object result = method.invoke(leader, args);</div><div class="line">        System.out.println(<span class="string">"助理将文件收好"</span>);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>生成代理对象并调用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by 张超 on 2017/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Employ leader = <span class="keyword">new</span> Leader();</div><div class="line">        InvocationHandler handler = <span class="keyword">new</span> DynamicProxy(leader);</div><div class="line"></div><div class="line">        Employ subject = (Employ) Proxy.newProxyInstance(handler.getClass().getClassLoader(), leader</div><div class="line">                .getClass().getInterfaces(), handler);</div><div class="line">        subject.sign();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">助理将文件递给Leader</div><div class="line">Leader签署文件</div><div class="line">助理将文件收好</div></pre></td></tr></table></figure></p>
-<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><p>用起来很简单，但是有几个比较深的问题：</p>
-<ol>
-<li>代理对象到底是怎么生成的。</li>
-<li>InvocationHandler的invoke方法是谁调用的。</li>
-</ol>
-<p>这就要看源码了，有篇<a href="http://rejoy.iteye.com/blog/1627405" target="_blank" rel="external">文章</a>写的比较好，可以推荐一下。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;看这篇文章前必须先明白基础知识点，反射和代理模式，如果知识点不懂的话建议先看&lt;code&gt;反射（Java）&lt;/code&gt;和&lt;code&gt;代理模式（设计模式）&lt;/code&gt;两篇文章。&lt;/p&gt;
-&lt;h3 id=&quot;动态代理&quot;&gt;&lt;a href=&quot;#动态代理&quot; class=&quot;headerlink&quot; title=&quot;动态代理&quot;&gt;&lt;/a&gt;动态代理&lt;/h3&gt;&lt;p&gt;用过&lt;code&gt;Spring&lt;/code&gt;的就知道，为什么一个注解&lt;code&gt;@Transactional&lt;/code&gt;可以帮你做那么多事情？&lt;code&gt;AOP&lt;/code&gt;的切面是怎么切入的？都离不开动态代理。&lt;/p&gt;
-&lt;h3 id=&quot;核心类&quot;&gt;&lt;a href=&quot;#核心类&quot; class=&quot;headerlink&quot; title=&quot;核心类&quot;&gt;&lt;/a&gt;核心类&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;InvocationHandler&lt;/code&gt;接口。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Proxy&lt;/code&gt;类，主要用到其静态方法newProxyInstance。&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://zhangchaozc.cn/categories/Java/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>git高阶</title>
-    <link href="http://zhangchaozc.cn/2017/08/26/git/git%E9%AB%98%E9%98%B6/"/>
-    <id>http://zhangchaozc.cn/2017/08/26/git/git高阶/</id>
-    <published>2017-08-26T11:31:33.000Z</published>
-    <updated>2017-08-27T02:25:32.761Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>网上类似的教程有很多，我仅把我在公司用到的常用的命令做个<code>总结</code>。并且结合项目来说，让大家更清晰一些。</p>
-<h3 id="项目开始"><a href="#项目开始" class="headerlink" title="项目开始"></a>项目开始</h3><p>公司开了一个会，决定我们要开始xxx项目了，此时先把准备工作弄好。项目组会选择一个git平台，例如<a href="https://coding.net/" target="_blank" rel="external">码市</a>，在上面新建一个项目。</p>
-<p>成员登录平台，复制代码的SSH链接，把项目拉倒本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://git.coding.net/xxxxxx/xxxxxx.git</div></pre></td></tr></table></figure></p>
-<p>然后用本地编辑器打开项目，就能进行开发的工作了（若出现权限问题请参考<code>git入门</code>）。</p>
-<a id="more"></a>
-<h3 id="提交前"><a href="#提交前" class="headerlink" title="提交前"></a>提交前</h3><p>当你开发完一个功能，准备提交时，你需要关注：</p>
-<ol>
-<li>线上是否有人提交过。</li>
-<li>会不会出现冲突。</li>
-</ol>
-<p>此时，先用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull</div></pre></td></tr></table></figure></p>
-<p>更新一下线上的代码，若成功，说明没有冲突。</p>
-<p>如果冲突（别人修改了你的代码），也是三步：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git stash</div><div class="line">git pull</div><div class="line">git stash pop</div></pre></td></tr></table></figure></p>
-<p>也就是先暂存一下本地的代码，再拉下来，再从暂存区恢复代码。<br>看看控制台中打印的内容，哪些文件合并了冲突，这些文件一般都有<code>======stash</code>内容，需要你自己删除冲突前的代码区域，留下想要的代码。</p>
-<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><p>三部曲：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add xxx  //xxx为你要提交的文件，*代表所有</div><div class="line">git commit -m &quot;xxx&quot;  //写一段话，你做了何修改</div><div class="line">git push  //推送到线上仓库</div></pre></td></tr></table></figure></p>
-<p>其实这里面有很多<code>规范</code>需要注意，否则会给部署人员带来不必要的麻烦。</p>
-<p>哪些文件该提交，哪些不该提交？<br>这时要充分利用<code>.gitignore</code>文件，例如本地的<code>日志文件</code>、<code>测试文件</code>等，不要提交，把它们写在ignore文件中，<code>git add *</code>的时候就会忽略它们。</p>
-<p>万一add错了咋办？<br>这是一个习惯，提交前（git commit -m “xxx”之前），先用命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status</div></pre></td></tr></table></figure></p>
-<p>看看文件修改情况：</p>
-<div align="center"><br><img src="/images/git6.PNG" alt="git6"><br></div>
-
-<p><code>绿色</code>部分是被修改并且会准备提交到仓库的文件，<code>红色</code>部分是被修改但<code>不会</code>被提交到仓库的文件。此时你需要看一下，绿色部分是不是你想要提交的，如果不是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset xxx  //xxx为文件名</div></pre></td></tr></table></figure></p>
-<p>再<code>git status</code>一下，就会发现该文件已进入红色区域。</p>
-<p>实战技巧：<br>有一次我在本地删除了一个文件，提交后线上的文件却没有删除，此时用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -a -m &quot;xxx&quot;</div></pre></td></tr></table></figure></p>
-<p>提交后就可以保证线上的文件也删除了。</p>
-<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>一般开发会用<code>dev</code>分支，而不是<code>master</code>分支，因为<code>master</code>分支会直接对接线上的代码，安全性极高，不会让人直接修改，我开发都是在dev分支上修改，提交代码后，再由其它人员（权限较高，一般是代码负责人）合并到master分支。</p>
-<p>查看分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch //*为当前所在分支</div></pre></td></tr></table></figure></p>
-<p>切换分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout dev</div></pre></td></tr></table></figure></p>
-<p>推荐一个实用工具<code>SourceTree</code>，git专用，下载后用谷歌邮箱登录即可，<a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">官网</a>。</p>
-<div align="center"><br><img src="/images/git7.PNG" alt="git7"><br></div>
-
-<p>切换分支双击即可，复制分支什么的直接界面就可以完成，还可以只提交一个文件的部分内容。是不是感觉棒棒的~最后推荐阮大神的博客中的<a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="external">git常用命令清单</a>。</p>
-<p>开启你的git之旅吧~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;网上类似的教程有很多，我仅把我在公司用到的常用的命令做个&lt;code&gt;总结&lt;/code&gt;。并且结合项目来说，让大家更清晰一些。&lt;/p&gt;
-&lt;h3 id=&quot;项目开始&quot;&gt;&lt;a href=&quot;#项目开始&quot; class=&quot;headerlink&quot; title=&quot;项目开始&quot;&gt;&lt;/a&gt;项目开始&lt;/h3&gt;&lt;p&gt;公司开了一个会，决定我们要开始xxx项目了，此时先把准备工作弄好。项目组会选择一个git平台，例如&lt;a href=&quot;https://coding.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;码市&lt;/a&gt;，在上面新建一个项目。&lt;/p&gt;
-&lt;p&gt;成员登录平台，复制代码的SSH链接，把项目拉倒本地：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;git clone https://git.coding.net/xxxxxx/xxxxxx.git&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;然后用本地编辑器打开项目，就能进行开发的工作了（若出现权限问题请参考&lt;code&gt;git入门&lt;/code&gt;）。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="git" scheme="http://zhangchaozc.cn/categories/git/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>dynamodb中scan数据不全</title>
-    <link href="http://zhangchaozc.cn/2017/08/26/node/dynamodb%E4%B8%ADscan%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%85%A8/"/>
-    <id>http://zhangchaozc.cn/2017/08/26/node/dynamodb中scan数据不全/</id>
-    <published>2017-08-26T11:30:26.000Z</published>
-    <updated>2017-09-18T03:42:30.137Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>来自一个真实测试的<code>bug</code>，在公司实习主要用node开发，数据库是用的<code>dynamodb</code>。这个数据库跟mongodb一样，也属于<code>no sql</code>数据库。但是用的人相对较少，网上的博客也不多，学习只能看官方文档。</p>
-<h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><p>起源于一条记录，在<code>log</code>（文件）中可以看到它，但是查询日志（从数据库中查）时却找不到它。经过排查发现，数据库中有这个数据，但是没查到！</p>
-<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ul>
-<li>是不是查询语句的问题？换了几种查询方式，没用，还是一样。</li>
-<li>是不是数据本身问题？把若干数据<code>人工</code>输入到本地数据库，本地测试，呵呵，本地没问题。</li>
-</ul>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>最后没办法了，问了公司一位老司机（技术某某大牛吧）。指出了两点待改进的错误：</p>
-<ol>
-<li>数据库查询<code>scan</code>的效率极低，每次都会扫描全表，如果一个增长数据很快的数据库，经常用scan的查询效率是极低的，如果你用了scan，只能说明你的表结构设置的不对。</li>
-<li>当scan的结果中有<code>LastEvaluatedKey</code>字段时，说明数据查询并没有结束，还要利用这个字段递归查询。</li>
-</ol>
-<a id="more"></a>
-<p>为什么本地没有这个错误？</p>
-<ol>
-<li>本地的数据库<code>配置</code>和线上有差异。</li>
-<li>本地无法模拟线上的<code>数据量</code>。</li>
-</ol>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>贴一下<a href="http://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination" target="_blank" rel="external">官方文档</a>，可以看到有明确介绍：</p>
-<div align="center"><br><img src="/images/scan.PNG" alt="scan"><br></div>
-
-<p>编码如下，注意写递归有个<code>小技巧</code>，因为js的处处异步性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">exports.queryCampaign = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">let</span> activity_type = data.activity_type;</div><div class="line">        <span class="keyword">let</span> date = data.date;</div><div class="line">        <span class="keyword">if</span> (!activity_type || !date) &#123;</div><div class="line">            reject(error.DB_PARAM_ERROR);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//let startDate = date + ' 00:00:00';</span></div><div class="line">        <span class="comment">//let endDate = date + ' 24:00:00';</span></div><div class="line">        <span class="keyword">let</span> params = &#123;</div><div class="line">            <span class="attr">TableName</span>: config.DBTables.ad_activity,</div><div class="line">            <span class="attr">FilterExpression</span>: <span class="string">'activity_type = :activity_type and contains(activity_time,:date)'</span>,</div><div class="line">            <span class="attr">ExpressionAttributeValues</span>: &#123;</div><div class="line">                <span class="string">':activity_type'</span>: activity_type,</div><div class="line">                <span class="comment">//':startDate': startDate,</span></div><div class="line">                <span class="comment">//':endDate': endDate,</span></div><div class="line">                <span class="string">':date'</span>: date</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        <span class="keyword">let</span> result = [];</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">            dbModel.scan(param).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</div><div class="line">                result = result.concat(res.Items);</div><div class="line">                <span class="keyword">if</span> (res.LastEvaluatedKey) &#123;</div><div class="line">                    param.ExclusiveStartKey = res.LastEvaluatedKey;</div><div class="line">                    getData(param);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    resolve(result);</div><div class="line">                &#125;</div><div class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</div><div class="line">                reject(err);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        getData(params);</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>问题果然就解决了~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;来自一个真实测试的&lt;code&gt;bug&lt;/code&gt;，在公司实习主要用node开发，数据库是用的&lt;code&gt;dynamodb&lt;/code&gt;。这个数据库跟mongodb一样，也属于&lt;code&gt;no sql&lt;/code&gt;数据库。但是用的人相对较少，网上的博客也不多，学习只能看官方文档。&lt;/p&gt;
-&lt;h3 id=&quot;bug&quot;&gt;&lt;a href=&quot;#bug&quot; class=&quot;headerlink&quot; title=&quot;bug&quot;&gt;&lt;/a&gt;bug&lt;/h3&gt;&lt;p&gt;起源于一条记录，在&lt;code&gt;log&lt;/code&gt;（文件）中可以看到它，但是查询日志（从数据库中查）时却找不到它。经过排查发现，数据库中有这个数据，但是没查到！&lt;/p&gt;
-&lt;h3 id=&quot;过程&quot;&gt;&lt;a href=&quot;#过程&quot; class=&quot;headerlink&quot; title=&quot;过程&quot;&gt;&lt;/a&gt;过程&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;是不是查询语句的问题？换了几种查询方式，没用，还是一样。&lt;/li&gt;
-&lt;li&gt;是不是数据本身问题？把若干数据&lt;code&gt;人工&lt;/code&gt;输入到本地数据库，本地测试，呵呵，本地没问题。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;解决&quot;&gt;&lt;a href=&quot;#解决&quot; class=&quot;headerlink&quot; title=&quot;解决&quot;&gt;&lt;/a&gt;解决&lt;/h3&gt;&lt;p&gt;最后没办法了，问了公司一位老司机（技术某某大牛吧）。指出了两点待改进的错误：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;数据库查询&lt;code&gt;scan&lt;/code&gt;的效率极低，每次都会扫描全表，如果一个增长数据很快的数据库，经常用scan的查询效率是极低的，如果你用了scan，只能说明你的表结构设置的不对。&lt;/li&gt;
-&lt;li&gt;当scan的结果中有&lt;code&gt;LastEvaluatedKey&lt;/code&gt;字段时，说明数据查询并没有结束，还要利用这个字段递归查询。&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
-    
-    
-      <category term="dynamodb" scheme="http://zhangchaozc.cn/tags/dynamodb/"/>
-    
-      <category term="bug" scheme="http://zhangchaozc.cn/tags/bug/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>node入门</title>
-    <link href="http://zhangchaozc.cn/2017/08/21/node/node%E5%85%A5%E9%97%A8/"/>
-    <id>http://zhangchaozc.cn/2017/08/21/node/node入门/</id>
-    <published>2017-08-21T07:59:52.000Z</published>
-    <updated>2017-08-21T09:49:28.903Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为啥会入node，我也不知道，实习中公司用我就学着写了。写了node还是有好处的，至少我几个小时就用<code>github pages</code>搭建了博客。</p>
-<h3 id="安装node环境"><a href="#安装node环境" class="headerlink" title="安装node环境"></a>安装node环境</h3><p>不想重复造轮子了，直接推荐看<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">这篇文章</a>，和git一样，傻瓜式双击安装。</p>
-<h3 id="node项目"><a href="#node项目" class="headerlink" title="node项目"></a>node项目</h3><p>我github上有一个入门的项目，用node写的一个RESTful API，我能去公司实习就是写了这个给别人看了，就通过考核了。<br>欢迎<a href="https://github.com/zhang0chao0/NodeHelloWorld" target="_blank" rel="external">下载</a>来看。</p>
-<a id="more"></a>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>检查环境：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node -v</div></pre></td></tr></table></figure></p>
-<p>安装一个依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install xxx --save</div></pre></td></tr></table></figure></p>
-<p>这个包会安装到项目的<code>node_modules</code>文件夹中，具体依赖会写到<code>package.json</code>中。<br>有点类似maven，当项目部署时，我们不需要node_modules文件夹，也不能要它。在线上只需要<code>npm install</code>一下，所有的依赖包就会从package.json中读取并安装好，自动生成node_modules在线上。</p>
-<p>安装一个依赖（全局）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install xxx -g</div></pre></td></tr></table></figure></p>
-<p>这个包会安装到<code>C:\Users\xx\AppData\Roaming\npm\node_modules</code>中，对所有的node项目都有效。</p>
-<p>安装包默认在国外的仓库下载，如果你下载不成功（一般都会不成功），有两种方法：</p>
-<ol>
-<li>配置代理。</li>
-<li>更改仓库为国内的淘宝npm库。</li>
-</ol>
-<p>如何配置请看<code>搭建hexo博客(1)</code>，里面有讲到。</p>
-<p>好了，写node就是写js，一样的，函数什么的看<a href="http://nodejs.cn/api/addons.html" target="_blank" rel="external">官方文档</a>，语法什么的跟js一样~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;为啥会入node，我也不知道，实习中公司用我就学着写了。写了node还是有好处的，至少我几个小时就用&lt;code&gt;github pages&lt;/code&gt;搭建了博客。&lt;/p&gt;
-&lt;h3 id=&quot;安装node环境&quot;&gt;&lt;a href=&quot;#安装node环境&quot; class=&quot;headerlink&quot; title=&quot;安装node环境&quot;&gt;&lt;/a&gt;安装node环境&lt;/h3&gt;&lt;p&gt;不想重复造轮子了，直接推荐看&lt;a href=&quot;http://www.runoob.com/nodejs/nodejs-install-setup.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇文章&lt;/a&gt;，和git一样，傻瓜式双击安装。&lt;/p&gt;
-&lt;h3 id=&quot;node项目&quot;&gt;&lt;a href=&quot;#node项目&quot; class=&quot;headerlink&quot; title=&quot;node项目&quot;&gt;&lt;/a&gt;node项目&lt;/h3&gt;&lt;p&gt;我github上有一个入门的项目，用node写的一个RESTful API，我能去公司实习就是写了这个给别人看了，就通过考核了。&lt;br&gt;欢迎&lt;a href=&quot;https://github.com/zhang0chao0/NodeHelloWorld&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载&lt;/a&gt;来看。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="node" scheme="http://zhangchaozc.cn/categories/node/"/>
     
     
   </entry>
