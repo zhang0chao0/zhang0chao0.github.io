@@ -930,9 +930,9 @@
         
         <tags>
             
-            <tag> dynamodb </tag>
-            
             <tag> bug </tag>
+            
+            <tag> dynamodb </tag>
             
         </tags>
         
@@ -1054,9 +1054,9 @@
             
             <tag> HTTP </tag>
             
-            <tag> bug </tag>
-            
             <tag> timeout </tag>
+            
+            <tag> bug </tag>
             
         </tags>
         
