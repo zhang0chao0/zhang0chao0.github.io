@@ -141,7 +141,7 @@
     <link href="http://zhangchaozc.cn/2018/02/12/linux/linux%E5%9F%BA%E7%A1%803-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"/>
     <id>http://zhangchaozc.cn/2018/02/12/linux/linux基础3-权限管理/</id>
     <published>2018-02-12T14:33:27.000Z</published>
-    <updated>2018-02-13T05:37:14.643Z</updated>
+    <updated>2018-02-13T05:37:14.644Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>介绍一下linux中关于权限的操作。在文件管理中谈到，linux权限人分为：所有者，所属组和其他人，对文件的操作分为<code>r</code>读权限，<code>w</code>写权限和<code>x</code>执行权限，这节细说权限和讲如何更改权限。<br>截一张图细说<code>rwx</code>区别：</p>
 <div align="center"><br><img src="/images/linux_rwx.PNG" alt="linux_rwx"><br></div>
@@ -175,7 +175,7 @@
     <link href="http://zhangchaozc.cn/2018/02/12/linux/linux%E5%9F%BA%E7%A1%802-%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91/"/>
     <id>http://zhangchaozc.cn/2018/02/12/linux/linux基础2-文件编辑/</id>
     <published>2018-02-12T14:19:00.000Z</published>
-    <updated>2018-02-13T06:03:18.686Z</updated>
+    <updated>2018-02-13T06:03:18.687Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>文件查看、浏览、编辑的命令有很多，这里就当做个笔记了。</p>
 <h3 id="文件浏览或编辑"><a href="#文件浏览或编辑" class="headerlink" title="文件浏览或编辑"></a>文件浏览或编辑</h3><h5 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h5><p>创建一个文件，关于带空格的文件名，不建议创建。<br>如果文件名必须带空格，可以用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch &quot;pro files&quot;</div></pre></td></tr></table></figure></p>
@@ -226,7 +226,7 @@
     <link href="http://zhangchaozc.cn/2018/02/12/linux/linux%E5%9F%BA%E7%A1%801-%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/"/>
     <id>http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/</id>
     <published>2018-02-12T13:21:39.000Z</published>
-    <updated>2018-02-13T05:25:52.723Z</updated>
+    <updated>2018-02-13T05:25:52.724Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前linux基础太差，干啥都要百度，很不方便，所以决定系统化的学习一下，恶补恶补。这几个系列也算是我的学习笔记了。</p>
 <h3 id="基础常识"><a href="#基础常识" class="headerlink" title="基础常识"></a>基础常识</h3><p>windows文件系统格式有：FAT16，FAT32，NTFS；linux有：EXT2，EXT3，EXT4。<br>Linux不区分文件扩展名，有的特殊文件（压缩包）有扩展名是为了管理员区分方便。这个跟windows不一样。</p>
@@ -326,7 +326,7 @@
     <link href="http://zhangchaozc.cn/2018/01/01/spring/spring%E5%9B%9E%E9%A1%BE/"/>
     <id>http://zhangchaozc.cn/2018/01/01/spring/spring回顾/</id>
     <published>2018-01-01T14:54:54.000Z</published>
-    <updated>2018-01-01T14:58:24.452Z</updated>
+    <updated>2018-01-01T14:58:24.453Z</updated>
     
     <content type="html"><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>控制反转，脱离在代码中new对象，用什么对象去xml中配置，去取。</p>
 <h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>依赖注入，IOC的一种实现方式</p>
@@ -368,7 +368,7 @@
     <link href="http://zhangchaozc.cn/2018/01/01/maven/webxml%E4%B8%ADfilter%E9%85%8D%E7%BD%AE%E6%8A%A5%E7%BA%A2%E7%BA%BF/"/>
     <id>http://zhangchaozc.cn/2018/01/01/maven/webxml中filter配置报红线/</id>
     <published>2018-01-01T14:48:11.000Z</published>
-    <updated>2018-01-01T14:53:05.059Z</updated>
+    <updated>2018-01-01T14:53:05.060Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>用maven新建一个web项目后，配置web.xml，很常见的一段配置（编码配置）：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>如图：</p>
@@ -599,7 +599,7 @@
     <link href="http://zhangchaozc.cn/2017/10/20/%E6%95%B0%E6%8D%AE%E5%BA%93/%E8%BF%9E%E6%8E%A5oracle%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://zhangchaozc.cn/2017/10/20/数据库/连接oracle的问题/</id>
     <published>2017-10-20T14:52:00.000Z</published>
-    <updated>2017-10-20T14:57:48.872Z</updated>
+    <updated>2017-10-20T14:57:48.873Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本人连接数据库oracle喜欢用navacat，如图，当然还有其它工具，都OK。</p>
 <div align="center"><br><img src="/images/navicat1.PNG" alt="navicat1"><br></div>
@@ -651,7 +651,7 @@
     <link href="http://zhangchaozc.cn/2017/10/20/%E6%95%B0%E6%8D%AE%E5%BA%93/oracle%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/"/>
     <id>http://zhangchaozc.cn/2017/10/20/数据库/oracle编码问题/</id>
     <published>2017-10-20T14:51:43.000Z</published>
-    <updated>2017-10-20T14:57:49.007Z</updated>
+    <updated>2017-10-20T14:57:49.008Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本人电脑上装的oracle 11g，这个软件默认编码为<code>GBK</code>，很伤脑筋，我讨厌除了<code>UTF-8</code>以外的其它编码。</p>
 <h3 id="修改编码"><a href="#修改编码" class="headerlink" title="修改编码"></a>修改编码</h3><p>你必须要有管理员的权限才行，打开sqlplus，以管理员的方式登录。</p>
@@ -685,7 +685,7 @@
     <link href="http://zhangchaozc.cn/2017/10/20/maven/maven%E5%BC%80%E5%8F%91/"/>
     <id>http://zhangchaozc.cn/2017/10/20/maven/maven开发/</id>
     <published>2017-10-20T14:51:18.000Z</published>
-    <updated>2017-10-20T14:57:48.988Z</updated>
+    <updated>2017-10-20T14:57:48.989Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>搭建好mvn环境后，命令行<code>mvn -v</code>查看maven的版本号，结果正确说明环境已经弄好。</p>
 <h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><ol>
@@ -757,7 +757,7 @@
     <link href="http://zhangchaozc.cn/2017/10/20/maven/maven%E4%B8%AD%E8%87%AA%E5%B7%B1%E5%AF%BC%E5%85%A5%E5%8C%85/"/>
     <id>http://zhangchaozc.cn/2017/10/20/maven/maven中自己导入包/</id>
     <published>2017-10-20T14:51:00.000Z</published>
-    <updated>2017-10-20T14:57:48.944Z</updated>
+    <updated>2017-10-20T14:57:48.945Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有一种情况，有时候会遇到，你去maven中找一个jar包，居然找不到，尴尬不?也许是因为这个包太老了。</p>
 <h3 id="自己下载"><a href="#自己下载" class="headerlink" title="自己下载"></a>自己下载</h3><p>maven仓库里面没有，不代表别处没有，此时可以通过各种途径，把jar包下载下来，但是如何把这个包融入到maven环境呢？</p>
@@ -834,7 +834,7 @@
     <link href="http://zhangchaozc.cn/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E9%A2%98/"/>
     <id>http://zhangchaozc.cn/2017/09/18/面经积累/算法题/</id>
     <published>2017-09-18T03:39:25.000Z</published>
-    <updated>2017-09-18T03:45:08.333Z</updated>
+    <updated>2017-09-18T03:45:08.334Z</updated>
     
     <content type="html"><![CDATA[<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="title">struct</span> <span class="title">Node</span></div><div class="line">&#123;</div><div class="line">    T data;</div><div class="line">    Node&lt;T&gt;* next;</div><div class="line">    Node()</div><div class="line">    &#123;</div><div class="line">        next=<span class="literal">nullptr</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h5 id="插入节点node"><a href="#插入节点node" class="headerlink" title="插入节点node"></a>插入节点node</h5><h6 id="头插法（first为头指针，last为尾指针）："><a href="#头插法（first为头指针，last为尾指针）：" class="headerlink" title="头插法（first为头指针，last为尾指针）："></a>头插法（first为头指针，last为尾指针）：</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node-&gt;next=first-&gt;next;</div><div class="line">first-&gt;next=node;</div></pre></td></tr></table></figure>
@@ -875,7 +875,7 @@
     <link href="http://zhangchaozc.cn/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/"/>
     <id>http://zhangchaozc.cn/2017/09/18/面经积累/数据库索引/</id>
     <published>2017-09-18T03:36:30.000Z</published>
-    <updated>2017-09-18T03:38:57.888Z</updated>
+    <updated>2017-09-18T03:38:57.889Z</updated>
     
     <content type="html"><![CDATA[<h3 id="悲观锁-amp-乐观锁"><a href="#悲观锁-amp-乐观锁" class="headerlink" title="悲观锁&amp;乐观锁"></a>悲观锁&amp;乐观锁</h3><ul>
 <li>行锁：在<code>主键</code>确定的查询下，查询的数据能确定到某一行，此时用行锁锁数据。</li>
@@ -945,7 +945,7 @@
     <link href="http://zhangchaozc.cn/2017/09/18/%E9%9D%A2%E7%BB%8F%E7%A7%AF%E7%B4%AF/%E7%BA%A2%E9%BB%91%E6%A0%91/"/>
     <id>http://zhangchaozc.cn/2017/09/18/面经积累/红黑树/</id>
     <published>2017-09-18T03:30:49.000Z</published>
-    <updated>2017-09-18T03:35:51.625Z</updated>
+    <updated>2017-09-18T03:35:51.626Z</updated>
     
     <content type="html"><![CDATA[<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a><a href="http://www.cnblogs.com/fornever/archive/2011/12/02/2270692.html" target="_blank" rel="external">红黑树</a></h3><p>红黑树是一颗<code>平衡二叉树</code>，图示：</p>
 <div align="center"><br><img src="/images/red_black1.png" alt="red_black1"><br></div>
