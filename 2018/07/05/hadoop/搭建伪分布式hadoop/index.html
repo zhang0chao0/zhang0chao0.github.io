@@ -110,16 +110,16 @@
 <meta property="og:site_name" content="指向指针的指针-博客">
 <meta property="og:description" content="前言学习hadoop的第一课，先搭建好伪分布式环境。 hadoop是什么，能干什么？解决问题：  海量数据的存储（HDFS），分布式存储系统 海量数据的分析（MapReduce），分布式计算模型  能干什么？大数据存储，大数据分析 hadoop2.x提供了YERN（资源调度系统），可以运行各种计算模型。可以运行自家的MapReduce（处理离线数据），也可以运行Storm、Spark等处理实时数据">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://zhangchaozc.cn/images/VW01.PNG">
-<meta property="og:image" content="http://zhangchaozc.cn/images/VW02.PNG">
-<meta property="og:image" content="http://zhangchaozc.cn/images/VW03.PNG">
+<meta property="og:image" content="http://zhangchaozc.cn/images/VM01.PNG">
+<meta property="og:image" content="http://zhangchaozc.cn/images/VM02.PNG">
+<meta property="og:image" content="http://zhangchaozc.cn/images/VM03.PNG">
 <meta property="og:image" content="http://zhangchaozc.cn/images/hadoop1-1.PNG">
 <meta property="og:image" content="http://zhangchaozc.cn/images/hadoop1-2.PNG">
-<meta property="og:updated_time" content="2018-07-05T13:52:06.178Z">
+<meta property="og:updated_time" content="2018-10-12T01:51:01.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建伪分布式hadoop">
 <meta name="twitter:description" content="前言学习hadoop的第一课，先搭建好伪分布式环境。 hadoop是什么，能干什么？解决问题：  海量数据的存储（HDFS），分布式存储系统 海量数据的分析（MapReduce），分布式计算模型  能干什么？大数据存储，大数据分析 hadoop2.x提供了YERN（资源调度系统），可以运行各种计算模型。可以运行自家的MapReduce（处理离线数据），也可以运行Storm、Spark等处理实时数据">
-<meta name="twitter:image" content="http://zhangchaozc.cn/images/VW01.PNG">
+<meta name="twitter:image" content="http://zhangchaozc.cn/images/VM01.PNG">
 
 
 
@@ -465,14 +465,14 @@
 <p>修改主机名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/network</div><div class="line">HOSTNAME=zc01    ###</div></pre></td></tr></table></figure></p>
 <p>修改IP与主机名的映射关系（host文件）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim /etc/hosts</div><div class="line">192.168.8.88	zc01</div></pre></td></tr></table></figure></p>
 <p>为了确保主机能与虚拟机进行通信，虚拟机的配置应使用<code>hostonly</code>模式：</p>
-<div align="center"><br><img src="/images/VW01.PNG" alt="VM01"><br></div>
+<div align="center"><br><img src="/images/VM01.PNG" alt="VM01"><br></div>
 
 <p>设置网络配置的vmnetcfg.exe和VW启动的exe在同一目录。</p>
 <p>设置里面也要进行配置：</p>
-<div align="center"><br><img src="/images/VW02.PNG" alt="VM02"><br></div>
+<div align="center"><br><img src="/images/VM02.PNG" alt="VM02"><br></div>
 
 <p>设置Win10的IP就是走VMnet1这个网卡，需要设置Win10的IP：</p>
-<div align="center"><br><img src="/images/VW03.PNG" alt="VM03"><br></div>
+<div align="center"><br><img src="/images/VM03.PNG" alt="VM03"><br></div>
 
 <p>虚拟机的IP为192.168.8.88，Win10的IP为192.168.8.100。<br>设置完成后相互能<code>ping</code>通，说明可以通信。</p>
 <h5 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h5><p>为了集群之间能更好的通信。</p>
@@ -667,7 +667,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -689,7 +689,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -3,6 +3,40 @@
   
     
     <entry>
+      <title><![CDATA[Linux安装MySQL并远程连接]]></title>
+      <url>/2018/10/12/%E6%95%B0%E6%8D%AE%E5%BA%93/Linux%E5%AE%89%E8%A3%85MySQL%E5%B9%B6%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/</url>
+      <content type="html"><![CDATA[<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>64位的机器，先去官网下载安装包<code>mysql-5.5.61-linux-glibc2.12-x86_64.tar.gz</code><br>将安装包上传到Linux机器上<br>移动到目录，<code>mv xxx /usr/local</code><br>解压，<code>tar -zxvf xxx</code><br>多了一个<code>mysql-5.5.61-linux-glibc2.12-x86_64</code>的目录<br>将目录重命名成mysql，<code>mv xxx mysql</code>，这样更方便操作</p>
+<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">groupadd mysql</div><div class="line">useradd -g mysql mysql</div></pre></td></tr></table></figure>
+<p>添加了一个mysql的用户组和全局的用户</p>
+<a id="more"></a>
+<h3 id="初始化命令"><a href="#初始化命令" class="headerlink" title="初始化命令"></a>初始化命令</h3><p>cd到mysql目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 新建一个文件夹放数据</div><div class="line">mkdir ./data/mysql</div><div class="line"># 更改当前目录的权限</div><div class="line">chown -R mysql:mysql ./</div><div class="line"># 初始化数据库</div><div class="line">./scripts/mysql_install_db --user=mysql --datadir=/usr/local/mysql/data/mysql</div></pre></td></tr></table></figure></p>
+<p>记住临时密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[Note] A temporary password is generated for root@localhost: o*s#gqh)F4Ck</div></pre></td></tr></table></figure></p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># 拷贝后可以用service命令来启动数据库</div><div class="line">cp support-files/mysql.server /etc/init.d/mysqld</div><div class="line">chmod 755 /etc/init.d/mysqld</div><div class="line"># 删除默认的配置文件或者将mysql里面的cnf文件拷贝一份到etc下，没什么影响</div><div class="line">rm -rf /etc/my.cnf</div><div class="line"># 修改启动脚本</div><div class="line">vim /etc/init.d/mysqld</div><div class="line">basedir=/usr/local/mysql/</div><div class="line">datadir=/usr/local/mysql/data/mysql</div></pre></td></tr></table></figure>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 启动mysql</div><div class="line">service mysqld start</div><div class="line"># 关闭mysql</div><div class="line">service mysqld stop</div><div class="line"># 查看运行状态</div><div class="line">service mysqld status</div></pre></td></tr></table></figure>
+<h3 id="加入环境变量"><a href="#加入环境变量" class="headerlink" title="加入环境变量"></a>加入环境变量</h3><p>可以在任意目录下使用mysql命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># G跳到文件末尾行</div><div class="line">vim /etc/profile</div><div class="line">export PATH=$PATH:/usr/local/mysql/bin</div><div class="line">source /etc/profile</div></pre></td></tr></table></figure></p>
+<h3 id="修改一下密码"><a href="#修改一下密码" class="headerlink" title="修改一下密码"></a>修改一下密码</h3><p>用临时密码登录，<code>mysql -u root -p</code><br>或者直接<code>mysql uroot</code>登录<br>执行修改密码，<code>set password for root@localhost = password(&#39;123456&#39;);</code></p>
+<h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>命令行可以登录，但是同局域网下的Windows无法用Navicat连接</p>
+<p>登录mysql后输入如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># &apos;123456&apos;是密码</div><div class="line">grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;123456&apos;;</div><div class="line">flush privileges;</div></pre></td></tr></table></figure></p>
+<p>防火墙设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 开放3306端口并重启防火墙</div><div class="line">/sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT</div><div class="line"># 保存配置</div><div class="line">/etc/rc.d/init.d/iptables save</div><div class="line">#重启服务</div><div class="line">/etc/rc.d/init.d/iptables restart</div><div class="line"># 查看已开放端口</div><div class="line">/etc/init.d/iptables status</div></pre></td></tr></table></figure></p>
+<p>在Navicat上就可以连接了</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据库 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[hadoop入门wc程序]]></title>
       <url>/2018/07/05/hadoop/hadoop%E5%85%A5%E9%97%A8wc%E7%A8%8B%E5%BA%8F/</url>
       <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>安装好hadoop后，需要测试启动，这里就跑一个例子。WC指的是Linux的一条指令wordcount，用来统计文件中的单词数。</p>
@@ -84,14 +118,14 @@
 <p>修改主机名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/network</div><div class="line">HOSTNAME=zc01    ###</div></pre></td></tr></table></figure></p>
 <p>修改IP与主机名的映射关系（host文件）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim /etc/hosts</div><div class="line">192.168.8.88	zc01</div></pre></td></tr></table></figure></p>
 <p>为了确保主机能与虚拟机进行通信，虚拟机的配置应使用<code>hostonly</code>模式：</p>
-<div align="center"><br><img src="/images/VW01.PNG" alt="VM01"><br></div>
+<div align="center"><br><img src="/images/VM01.PNG" alt="VM01"><br></div>
 
 <p>设置网络配置的vmnetcfg.exe和VW启动的exe在同一目录。</p>
 <p>设置里面也要进行配置：</p>
-<div align="center"><br><img src="/images/VW02.PNG" alt="VM02"><br></div>
+<div align="center"><br><img src="/images/VM02.PNG" alt="VM02"><br></div>
 
 <p>设置Win10的IP就是走VMnet1这个网卡，需要设置Win10的IP：</p>
-<div align="center"><br><img src="/images/VW03.PNG" alt="VM03"><br></div>
+<div align="center"><br><img src="/images/VM03.PNG" alt="VM03"><br></div>
 
 <p>虚拟机的IP为192.168.8.88，Win10的IP为192.168.8.100。<br>设置完成后相互能<code>ping</code>通，说明可以通信。</p>
 <h5 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h5><p>为了集群之间能更好的通信。</p>
