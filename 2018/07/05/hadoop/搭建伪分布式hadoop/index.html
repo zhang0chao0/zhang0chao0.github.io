@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://zhangchaozc.cn/images/VM03.PNG">
 <meta property="og:image" content="http://zhangchaozc.cn/images/hadoop1-1.PNG">
 <meta property="og:image" content="http://zhangchaozc.cn/images/hadoop1-2.PNG">
-<meta property="og:updated_time" content="2018-10-12T01:51:01.425Z">
+<meta property="og:updated_time" content="2018-10-16T08:20:59.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建伪分布式hadoop">
 <meta name="twitter:description" content="前言学习hadoop的第一课，先搭建好伪分布式环境。 hadoop是什么，能干什么？解决问题：  海量数据的存储（HDFS），分布式存储系统 海量数据的分析（MapReduce），分布式计算模型  能干什么？大数据存储，大数据分析 hadoop2.x提供了YERN（资源调度系统），可以运行各种计算模型。可以运行自家的MapReduce（处理离线数据），也可以运行Storm、Spark等处理实时数据">
@@ -503,9 +503,9 @@
 <h6 id="mapred-site-xml"><a href="#mapred-site-xml" class="headerlink" title="mapred-site.xml"></a>mapred-site.xml</h6><p>此文件不存在，先重命名一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mv mapred-site.xml.template mapred-site.xml</div><div class="line">vim mapred-site.xml</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 指定mr运行在yarn上 --&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</div><div class="line">    &lt;value&gt;yarn&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
 <h6 id="yarn-site-xml"><a href="#yarn-site-xml" class="headerlink" title="yarn-site.xml"></a>yarn-site.xml</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;!-- reducer取数据的方式是mapreduce_shuffle --&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</div><div class="line">    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;!--指定YARN的老大ResourceManager的地址--&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</div><div class="line">    &lt;value&gt;zc01&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
-<p>最后将hadoop添加到环境变量中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div><div class="line">export HADOOP_HOME=/hadoop/hadoop-2.8.4</div><div class="line">export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin</div><div class="line">source /etc/profile</div></pre></td></tr></table></figure></p>
+<p>最后将hadoop添加到环境变量中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div><div class="line">export HADOOP_HOME=/hadoop/hadoop-2.8.4</div><div class="line">export PATH=$PATH:$HADOOP_HOME/bin</div><div class="line">source /etc/profile</div></pre></td></tr></table></figure></p>
 <p>至此，已经完成了hadoop的安装工作。</p>
-<h3 id="启动hadoop"><a href="#启动hadoop" class="headerlink" title="启动hadoop"></a>启动hadoop</h3><p>初始化HDFS（namenode）第一次使用时要格式化：<br><code>hdfs namenode -format</code>，打印出如下说明格式化成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">18/07/04 19:47:06 INFO common.Storage: Storage directory /hadoop/hadoop-2.8.4/tmp/dfs/name has been successfully formatted.</div></pre></td></tr></table></figure></p>
+<h3 id="启动hadoop"><a href="#启动hadoop" class="headerlink" title="启动hadoop"></a>启动hadoop</h3><p>初始化HDFS（namenode）第一次使用时要格式化：<br><code>hadoop namenode -format</code>，打印出如下说明格式化成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">18/07/04 19:47:06 INFO common.Storage: Storage directory /hadoop/hadoop-2.8.4/tmp/dfs/name has been successfully formatted.</div></pre></td></tr></table></figure></p>
 <p>启动hadoop，先启动HDFS，<code>cd /hadoop/hadoop-2.8.4</code>切换到hadoop目录：<br><code>sbin/start-dfs.sh</code>启动DFS，<code>sbin/start-yarn.sh</code>再启动YARN。</p>
 <p>也可以直接启动全部：<code>sbin/start-all.sh</code>（过时）</p>
 <p>判断是否启动成功？<br>命令<code>jps</code>打印出Java进程，共有如下进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">6624 SecondaryNameNode</div><div class="line">7042 NodeManager</div><div class="line">6394 DataNode</div><div class="line">6301 NameNode</div><div class="line">6766 ResourceManager</div><div class="line">7070 Jps</div></pre></td></tr></table></figure></p>
@@ -667,7 +667,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
