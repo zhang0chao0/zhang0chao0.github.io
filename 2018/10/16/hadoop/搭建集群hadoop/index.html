@@ -102,22 +102,22 @@
 
 
 
-<meta name="description" content="准备工作在单机的hadoop的基础上搭建集群的hadoop 先克隆3台虚拟机：在VMware中，右键虚拟机（已关闭状态），依次选择1[管理]-&amp;gt;[克隆]-&amp;gt;[下一步]-&amp;gt;[虚拟机中当前状态]-&amp;gt;[下一步] 如图所示  选择位置后克隆机器，克隆2~3台虚拟机即可 修改网卡IP主机名克隆的机器叫做02，先右键机器-&amp;gt;设置-&amp;gt;网络适配器-&amp;gt;高级，给02生成一个新">
+<meta name="description" content="准备工作在单机的hadoop的基础上搭建集群的hadoop 先克隆3台虚拟机：在VMware中，右键虚拟机（已关闭状态），依次选择1[管理]-&amp;gt;[克隆]-&amp;gt;[下一步]-&amp;gt;[虚拟机中当前状态]-&amp;gt;[下一步] 如图所示   选择位置后克隆机器，克隆2~3台虚拟机即可 修改网卡IP主机名克隆的机器叫做02，先右键机器-&amp;gt;设置-&amp;gt;网络适配器-&amp;gt;高级，给02生成一个">
 <meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搭建集群hadoop">
 <meta property="og:url" content="http://zhangchaozc.cn/2018/10/16/hadoop/搭建集群hadoop/index.html">
 <meta property="og:site_name" content="指向指针的指针-博客">
-<meta property="og:description" content="准备工作在单机的hadoop的基础上搭建集群的hadoop 先克隆3台虚拟机：在VMware中，右键虚拟机（已关闭状态），依次选择1[管理]-&amp;gt;[克隆]-&amp;gt;[下一步]-&amp;gt;[虚拟机中当前状态]-&amp;gt;[下一步] 如图所示  选择位置后克隆机器，克隆2~3台虚拟机即可 修改网卡IP主机名克隆的机器叫做02，先右键机器-&amp;gt;设置-&amp;gt;网络适配器-&amp;gt;高级，给02生成一个新">
+<meta property="og:description" content="准备工作在单机的hadoop的基础上搭建集群的hadoop 先克隆3台虚拟机：在VMware中，右键虚拟机（已关闭状态），依次选择1[管理]-&amp;gt;[克隆]-&amp;gt;[下一步]-&amp;gt;[虚拟机中当前状态]-&amp;gt;[下一步] 如图所示   选择位置后克隆机器，克隆2~3台虚拟机即可 修改网卡IP主机名克隆的机器叫做02，先右键机器-&amp;gt;设置-&amp;gt;网络适配器-&amp;gt;高级，给02生成一个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://zhangchaozc.cn/2018/10/16/hadoop/images/hadoop_001.PNG">
-<meta property="og:image" content="http://zhangchaozc.cn/2018/10/16/hadoop/images/hadoop_002.PNG">
-<meta property="og:image" content="http://zhangchaozc.cn/2018/10/16/hadoop/images/hadoop_003.PNG">
-<meta property="og:updated_time" content="2018-10-16T08:23:52.099Z">
+<meta property="og:image" content="http://zhangchaozc.cn/images/hadoop_001.PNG">
+<meta property="og:image" content="http://zhangchaozc.cn/images/hadoop_002.PNG">
+<meta property="og:image" content="http://zhangchaozc.cn/images/hadoop_003.PNG">
+<meta property="og:updated_time" content="2018-10-16T08:30:03.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建集群hadoop">
-<meta name="twitter:description" content="准备工作在单机的hadoop的基础上搭建集群的hadoop 先克隆3台虚拟机：在VMware中，右键虚拟机（已关闭状态），依次选择1[管理]-&amp;gt;[克隆]-&amp;gt;[下一步]-&amp;gt;[虚拟机中当前状态]-&amp;gt;[下一步] 如图所示  选择位置后克隆机器，克隆2~3台虚拟机即可 修改网卡IP主机名克隆的机器叫做02，先右键机器-&amp;gt;设置-&amp;gt;网络适配器-&amp;gt;高级，给02生成一个新">
-<meta name="twitter:image" content="http://zhangchaozc.cn/2018/10/16/hadoop/images/hadoop_001.PNG">
+<meta name="twitter:description" content="准备工作在单机的hadoop的基础上搭建集群的hadoop 先克隆3台虚拟机：在VMware中，右键虚拟机（已关闭状态），依次选择1[管理]-&amp;gt;[克隆]-&amp;gt;[下一步]-&amp;gt;[虚拟机中当前状态]-&amp;gt;[下一步] 如图所示   选择位置后克隆机器，克隆2~3台虚拟机即可 修改网卡IP主机名克隆的机器叫做02，先右键机器-&amp;gt;设置-&amp;gt;网络适配器-&amp;gt;高级，给02生成一个">
+<meta name="twitter:image" content="http://zhangchaozc.cn/images/hadoop_001.PNG">
 
 
 
@@ -424,12 +424,15 @@
         <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>在单机的hadoop的基础上搭建集群的hadoop</p>
 <p>先克隆3台虚拟机：<br>在VMware中，右键虚拟机（已关闭状态），依次选择<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[管理]-&gt;[克隆]-&gt;[下一步]-&gt;[虚拟机中当前状态]-&gt;[下一步]</div></pre></td></tr></table></figure></p>
 <p>如图所示</p>
-<p><img src="../images/hadoop_001.PNG" alt="hadoop_001"></p>
+<div align="center"><br><img src="/images/hadoop_001.PNG" alt="hadoop_001"><br></div>
+
 <p>选择位置后克隆机器，克隆2~3台虚拟机即可</p>
 <h3 id="修改网卡IP主机名"><a href="#修改网卡IP主机名" class="headerlink" title="修改网卡IP主机名"></a>修改网卡IP主机名</h3><p>克隆的机器叫做02，先右键机器-&gt;设置-&gt;网络适配器-&gt;高级，给02生成一个新的mac地址</p>
-<p><img src="../images/hadoop_002.PNG" alt="hadoop_002"></p>
+<div align="center"><br><img src="/images/hadoop_002.PNG" alt="hadoop_002"><br></div>
+
 <p>更改规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/udev/rules.d/70-persistent-net.rules</div></pre></td></tr></table></figure></p>
-<p><img src="../images/hadoop_003.PNG" alt="hadoop_003"></p>
+<div align="center"><br><img src="/images/hadoop_003.PNG" alt="hadoop_003"><br></div>
+
 <p>删除多余的网卡，将第二个网卡的NAME改为eth0</p>
 <p>配置IP地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/network-scripts/ifcfg-eth0</div></pre></td></tr></table></figure></p>
 <p>将IP地址修改为和01机器在同一个网段下，保证01和02相互能ping通<br>重启网络<code>service network restart</code>，测试一下ping，02与Windows和01都能互相ping通</p>
@@ -535,6 +538,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/10/27/hadoop/hadoop之HDFS/" rel="prev" title="hadoop之HDFS">
+                hadoop之HDFS <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -608,7 +615,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-count">62</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -742,7 +749,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div class="copyright" >
   
   &copy; 

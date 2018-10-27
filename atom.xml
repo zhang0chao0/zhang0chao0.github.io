@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2018-10-16T08:23:52.099Z</updated>
+  <updated>2018-10-27T14:09:52.839Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -16,21 +16,113 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>hadoop之HDFS</title>
+    <link href="http://zhangchaozc.cn/2018/10/27/hadoop/hadoop%E4%B9%8BHDFS/"/>
+    <id>http://zhangchaozc.cn/2018/10/27/hadoop/hadoop之HDFS/</id>
+    <published>2018-10-27T14:02:14.000Z</published>
+    <updated>2018-10-27T14:09:52.839Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习HDFS文件系统</p>
+<h3 id="分布式文件系统"><a href="#分布式文件系统" class="headerlink" title="分布式文件系统"></a>分布式文件系统</h3><ul>
+<li>数据量很多，一台机器放不下，需要多台机器共同存储</li>
+<li>允许文件通过网络在多台主机上分享</li>
+<li>通透性，对于用户来说，使用存储和普通单机没什么区别</li>
+<li>容错，某些机器挂了，对系统没有影响</li>
+</ul>
+<h3 id="hadoop文件系统"><a href="#hadoop文件系统" class="headerlink" title="hadoop文件系统"></a>hadoop文件系统</h3><ul>
+<li>对Linux文件系统的抽象。抽象类为<code>org.apache.hadoop.fs.FileSystem</code>，HDFS只是一个实例</li>
+<li>丰富的Shell命令</li>
+<li>提供JAVA API编程接口</li>
+</ul>
+<p><img src="/images/hadoop_004.PNG" alt="hadoop_004"></p>
+<a id="more"></a>
+<h3 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h3><ul>
+<li>主从结构，通过心跳机制维持</li>
+<li>NameNode是master，DataNode是slave</li>
+<li>处理超大文件</li>
+<li>机器不要很好的性能</li>
+<li>不适合处理小文件</li>
+<li>不适合任意修改文件</li>
+</ul>
+<h3 id="命令行（整体设计与Linux命令行相似）"><a href="#命令行（整体设计与Linux命令行相似）" class="headerlink" title="命令行（整体设计与Linux命令行相似）"></a>命令行（整体设计与Linux命令行相似）</h3><p>列出所有文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop fs -ls /</div></pre></td></tr></table></figure></p>
+<p>本地文件上传到hdfs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hadoop fs -copyFromLocal /root/xxx hdfs:/hadoop01:9000/xxx</div><div class="line">hadoop fs -put /root/xxx hdfs:/hadoop01:9000/xxx</div></pre></td></tr></table></figure></p>
+<p>下载文件，是否加校验和<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hadoop fs -copyToLocal [-ignorecrc] [-crc] /root/xxx hdfs:/hadoop01:9000/xxx</div><div class="line">hadoop fs -get [-ignorecrc] [-crc] /root/xxx hdfs:/hadoop01:9000/xxx</div></pre></td></tr></table></figure></p>
+<p>删除文件，文件夹多加<code>-r</code>参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop fs -rm hdfs://hadoop01:9000/wc_test_01</div></pre></td></tr></table></figure></p>
+<h3 id="Java-API"><a href="#Java-API" class="headerlink" title="Java API"></a>Java API</h3><ul>
+<li>Configuration类，封装了所有的配置</li>
+<li>FileSystem类，是个抽象类，DistributedFileSystem是它的实现之一</li>
+<li>FSDataInputStream和FSDataOutputStream是HDFS的输入和输出流，分别通过FileSystem的open方法和create方法获得</li>
+</ul>
+<h3 id="如何从HDFS读数据？"><a href="#如何从HDFS读数据？" class="headerlink" title="如何从HDFS读数据？"></a>如何从HDFS读数据？</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileSystemCat</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        String url = <span class="string">"hdfs://hadoop01:9000/wc_test_01"</span>;</div><div class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</div><div class="line">        FileSystem fs = FileSystem.get(URI.create(url), conf);</div><div class="line">        InputStream in = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            in = fs.open(<span class="keyword">new</span> Path(url));</div><div class="line">            IOUtils.copyBytes(in, System.out, <span class="number">4</span> * <span class="number">1024</span>, <span class="keyword">false</span>);</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            IOUtils.closeStream(in);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>文件内容将打印在控制台上</p>
+<h3 id="如何从HDFS写数据？"><a href="#如何从HDFS写数据？" class="headerlink" title="如何从HDFS写数据？"></a>如何从HDFS写数据？</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileCopy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        String local = <span class="string">"D:/1.txt"</span>;</div><div class="line">        String dst = <span class="string">"hdfs://hadoop01:9000/1.txt"</span>;</div><div class="line"><span class="comment">//        String local = args[0];</span></div><div class="line"><span class="comment">//        String dst = args[1];</span></div><div class="line">        InputStream in = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(local));</div><div class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</div><div class="line">        FileSystem fs = FileSystem.get(URI.create(dst), conf, <span class="string">"root"</span>);</div><div class="line">        OutputStream out = fs.create(<span class="keyword">new</span> Path(dst));</div><div class="line">        IOUtils.copyBytes(in, out, <span class="number">4</span> * <span class="number">1024</span>, <span class="keyword">true</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不能直接上传Windows的文件，权限不够；但可以伪装成root用户，这样就可以上传</p>
+<h3 id="如何创建目录"><a href="#如何创建目录" class="headerlink" title="如何创建目录"></a>如何创建目录</h3><p>这个方法会创建不存在的父目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public boolen mkdirs(Path f) throws IOException</div></pre></td></tr></table></figure></p>
+<h3 id="如何查询文件系统"><a href="#如何查询文件系统" class="headerlink" title="如何查询文件系统"></a>如何查询文件系统</h3><p>查询元数据和目录结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FileStatus  getFileStatus( Path f) throws IOException</div></pre></td></tr></table></figure></p>
+<p>FileSystem的listStatus提供了列出文件目录内容的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FileStatus[]  listStatus( Path f) throws IOException</div><div class="line">FileStatus[]  listStatus( Path f, PathFilter filter) throws IOException</div><div class="line">FileStatus[]  listStatus( Path[] files) throws IOException </div><div class="line">FileStatus[]  listStatus( Path[] files, PathFilter filter) throws IOException</div></pre></td></tr></table></figure></p>
+<p>显示文件元数据信息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShowFileStatus</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        String url = <span class="string">"hdfs://hadoop01:9000/wc_test_01"</span>;</div><div class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</div><div class="line">        FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(url), conf);</div><div class="line">        Path path = <span class="keyword">new</span> Path(url);</div><div class="line">        FileStatus stat = fs.getFileStatus(path);</div><div class="line">        System.out.println(<span class="string">"Full path:"</span> + stat.getPath().toUri().getPath());</div><div class="line">        <span class="keyword">if</span> (stat.isDirectory()) &#123;</div><div class="line">            System.out.println(<span class="string">"is dir"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            System.out.println(<span class="string">"is file"</span>);</div><div class="line">        &#125;</div><div class="line">        System.out.println(<span class="string">"Length:"</span> + stat.getLen());</div><div class="line">        System.out.println(<span class="string">"Last modified time:"</span> + stat.getModificationTime());</div><div class="line">        System.out.println(<span class="string">"Replication:"</span> + stat.getReplication());</div><div class="line">        System.out.println(<span class="string">"Block size:"</span> + stat.getBlockSize());</div><div class="line">        System.out.println(<span class="string">"Owner:"</span> + stat.getOwner());</div><div class="line">        System.out.println(<span class="string">"Group:"</span> + stat.getGroup());</div><div class="line">        System.out.println(<span class="string">"Permission:"</span> + stat.getPermission());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>列出目录内容<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListStatus</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        String url = <span class="string">"hdfs://hadoop01:9000/tmp"</span>;</div><div class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</div><div class="line">        FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(url), conf, <span class="string">"root"</span>);</div><div class="line">        Path path = <span class="keyword">new</span> Path(url);</div><div class="line">        FileStatus[] statuses = fs.listStatus(path);</div><div class="line">        Path[] paths = FileUtil.stat2Paths(statuses);</div><div class="line">        <span class="keyword">for</span> (Path p : paths) &#123;</div><div class="line">            System.out.println(p);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="利用通配符来实现文件的筛选"><a href="#利用通配符来实现文件的筛选" class="headerlink" title="利用通配符来实现文件的筛选"></a>利用通配符来实现文件的筛选</h3><p>利用<code>*</code>或者<code>?</code>来匹配文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FileStatus[]  globStatus( Path pathPattern) throws IOException</div><div class="line">FileStatus[]  globStatus( Path pathPattern, PathFilter filter) throws IOException</div></pre></td></tr></table></figure></p>
+<h3 id="利用正则式来筛选文件"><a href="#利用正则式来筛选文件" class="headerlink" title="利用正则式来筛选文件"></a>利用正则式来筛选文件</h3><p>实现接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PathFilter</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(Path path)</span></span>; <span class="comment">//如果接受该path，则返回true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="HDFS写文件原理"><a href="#HDFS写文件原理" class="headerlink" title="HDFS写文件原理"></a>HDFS写文件原理</h3><p>原理图如下</p>
+<p><img src="/images/hadoop_005.PNG" alt="hadoop_005"></p>
+<h3 id="HDFS读文件原理"><a href="#HDFS读文件原理" class="headerlink" title="HDFS读文件原理"></a>HDFS读文件原理</h3><p>原理图如下</p>
+<p><img src="/images/hadoop_006.PNG" alt="hadoop_006"></p>
+<p>原理过程先放着，以后再看..</p>
+<h3 id="网络距离"><a href="#网络距离" class="headerlink" title="网络距离"></a>网络距离</h3><p>就是两个节点的物理距离。当文件需要拷贝时，距离近的节点优先，以提高性能</p>
+<h3 id="HDFS一致性模型"><a href="#HDFS一致性模型" class="headerlink" title="HDFS一致性模型"></a>HDFS一致性模型</h3><p>HDFS提供了一个同步函数，这个方法是FSDataOutputStream类的sync()函数。当sync()函数返回成功时，HDFS就可以保证此时写入的文件数据文件是一致的并且对于所有用户是可见的。关闭一个文件时也隐式执行了sync()函数</p>
+<h3 id="HDFS文件系统结构"><a href="#HDFS文件系统结构" class="headerlink" title="HDFS文件系统结构"></a>HDFS文件系统结构</h3><h3 id="HDFS文件镜像和编辑日志"><a href="#HDFS文件镜像和编辑日志" class="headerlink" title="HDFS文件镜像和编辑日志"></a>HDFS文件镜像和编辑日志</h3><ul>
+<li>通常情况下，辅助namenode每隔一个小时(通过fs.checkpoint.period属性设置，以秒为单位)创建检查点</li>
+<li>当编辑日志大小达到64MB(由fs.checkpoint.size属性设置，以字节为单位)创建检查点。系统每隔五分钟检查一次编辑日志大小</li>
+</ul>
+<p>用于误操作的恢复，和文件系统的备份</p>
+<h3 id="归档文件（Archive）"><a href="#归档文件（Archive）" class="headerlink" title="归档文件（Archive）"></a>归档文件（Archive）</h3><p>HDFS不利于小文件的存储，浪费性能。可以将小文件打包成大文件存储<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop archive -archiveName files.har 1.txt 2.txt 3.txt</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;学习HDFS文件系统&lt;/p&gt;
+&lt;h3 id=&quot;分布式文件系统&quot;&gt;&lt;a href=&quot;#分布式文件系统&quot; class=&quot;headerlink&quot; title=&quot;分布式文件系统&quot;&gt;&lt;/a&gt;分布式文件系统&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;数据量很多，一台机器放不下，需要多台机器共同存储&lt;/li&gt;
+&lt;li&gt;允许文件通过网络在多台主机上分享&lt;/li&gt;
+&lt;li&gt;通透性，对于用户来说，使用存储和普通单机没什么区别&lt;/li&gt;
+&lt;li&gt;容错，某些机器挂了，对系统没有影响&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;hadoop文件系统&quot;&gt;&lt;a href=&quot;#hadoop文件系统&quot; class=&quot;headerlink&quot; title=&quot;hadoop文件系统&quot;&gt;&lt;/a&gt;hadoop文件系统&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;对Linux文件系统的抽象。抽象类为&lt;code&gt;org.apache.hadoop.fs.FileSystem&lt;/code&gt;，HDFS只是一个实例&lt;/li&gt;
+&lt;li&gt;丰富的Shell命令&lt;/li&gt;
+&lt;li&gt;提供JAVA API编程接口&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/images/hadoop_004.PNG&quot; alt=&quot;hadoop_004&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="hadoop" scheme="http://zhangchaozc.cn/categories/hadoop/"/>
+    
+    
+      <category term="大数据" scheme="http://zhangchaozc.cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>搭建集群hadoop</title>
     <link href="http://zhangchaozc.cn/2018/10/16/hadoop/%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4hadoop/"/>
     <id>http://zhangchaozc.cn/2018/10/16/hadoop/搭建集群hadoop/</id>
     <published>2018-10-16T08:19:14.000Z</published>
-    <updated>2018-10-16T08:23:52.099Z</updated>
+    <updated>2018-10-16T08:30:03.487Z</updated>
     
     <content type="html"><![CDATA[<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>在单机的hadoop的基础上搭建集群的hadoop</p>
 <p>先克隆3台虚拟机：<br>在VMware中，右键虚拟机（已关闭状态），依次选择<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[管理]-&gt;[克隆]-&gt;[下一步]-&gt;[虚拟机中当前状态]-&gt;[下一步]</div></pre></td></tr></table></figure></p>
 <p>如图所示</p>
-<p><img src="../images/hadoop_001.PNG" alt="hadoop_001"></p>
+<div align="center"><br><img src="/images/hadoop_001.PNG" alt="hadoop_001"><br></div>
+
 <p>选择位置后克隆机器，克隆2~3台虚拟机即可</p>
 <h3 id="修改网卡IP主机名"><a href="#修改网卡IP主机名" class="headerlink" title="修改网卡IP主机名"></a>修改网卡IP主机名</h3><p>克隆的机器叫做02，先右键机器-&gt;设置-&gt;网络适配器-&gt;高级，给02生成一个新的mac地址</p>
-<p><img src="../images/hadoop_002.PNG" alt="hadoop_002"></p>
+<div align="center"><br><img src="/images/hadoop_002.PNG" alt="hadoop_002"><br></div>
+
 <p>更改规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/udev/rules.d/70-persistent-net.rules</div></pre></td></tr></table></figure></p>
-<p><img src="../images/hadoop_003.PNG" alt="hadoop_003"></p>
+<div align="center"><br><img src="/images/hadoop_003.PNG" alt="hadoop_003"><br></div>
+
 <p>删除多余的网卡，将第二个网卡的NAME改为eth0</p>
 <p>配置IP地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/network-scripts/ifcfg-eth0</div></pre></td></tr></table></figure></p>
 <p>将IP地址修改为和01机器在同一个网段下，保证01和02相互能ping通<br>重启网络<code>service network restart</code>，测试一下ping，02与Windows和01都能互相ping通</p>
@@ -76,12 +168,15 @@
       &lt;h3 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h3&gt;&lt;p&gt;在单机的hadoop的基础上搭建集群的hadoop&lt;/p&gt;
 &lt;p&gt;先克隆3台虚拟机：&lt;br&gt;在VMware中，右键虚拟机（已关闭状态），依次选择&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[管理]-&amp;gt;[克隆]-&amp;gt;[下一步]-&amp;gt;[虚拟机中当前状态]-&amp;gt;[下一步]&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;如图所示&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/hadoop_001.PNG&quot; alt=&quot;hadoop_001&quot;&gt;&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/hadoop_001.PNG&quot; alt=&quot;hadoop_001&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
 &lt;p&gt;选择位置后克隆机器，克隆2~3台虚拟机即可&lt;/p&gt;
 &lt;h3 id=&quot;修改网卡IP主机名&quot;&gt;&lt;a href=&quot;#修改网卡IP主机名&quot; class=&quot;headerlink&quot; title=&quot;修改网卡IP主机名&quot;&gt;&lt;/a&gt;修改网卡IP主机名&lt;/h3&gt;&lt;p&gt;克隆的机器叫做02，先右键机器-&amp;gt;设置-&amp;gt;网络适配器-&amp;gt;高级，给02生成一个新的mac地址&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/hadoop_002.PNG&quot; alt=&quot;hadoop_002&quot;&gt;&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/hadoop_002.PNG&quot; alt=&quot;hadoop_002&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
 &lt;p&gt;更改规则&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;vim /etc/udev/rules.d/70-persistent-net.rules&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/hadoop_003.PNG&quot; alt=&quot;hadoop_003&quot;&gt;&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/hadoop_003.PNG&quot; alt=&quot;hadoop_003&quot;&gt;&lt;br&gt;&lt;/div&gt;
+
 &lt;p&gt;删除多余的网卡，将第二个网卡的NAME改为eth0&lt;/p&gt;
 &lt;p&gt;配置IP地址&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;vim /etc/sysconfig/network-scripts/ifcfg-eth0&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;将IP地址修改为和01机器在同一个网段下，保证01和02相互能ping通&lt;br&gt;重启网络&lt;code&gt;service network restart&lt;/code&gt;，测试一下ping，02与Windows和01都能互相ping通&lt;/p&gt;
@@ -139,7 +234,7 @@
     <link href="http://zhangchaozc.cn/2018/07/05/hadoop/hadoop%E5%85%A5%E9%97%A8wc%E7%A8%8B%E5%BA%8F/"/>
     <id>http://zhangchaozc.cn/2018/07/05/hadoop/hadoop入门wc程序/</id>
     <published>2018-07-05T13:40:13.000Z</published>
-    <updated>2018-07-05T14:12:09.934Z</updated>
+    <updated>2018-10-27T14:05:34.963Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>安装好hadoop后，需要测试启动，这里就跑一个例子。WC指的是Linux的一条指令wordcount，用来统计文件中的单词数。</p>
 <p>命令：<br><code>wc [文件名]</code></p>
@@ -158,6 +253,11 @@
 
 <p>下载计算结果时浏览器无法解析主机名，应该在hosts文件（C:\Windows\System32\drivers\etc\hosts）中添加映射（相当于本机的DNS）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.8.88	zc01</div></pre></td></tr></table></figure></p>
 <p>下载part-r-00000文件，打开后即是wc统计的结果。</p>
+<h3 id="自己写一个简单的WordCount程序"><a href="#自己写一个简单的WordCount程序" class="headerlink" title="自己写一个简单的WordCount程序"></a>自己写一个简单的WordCount程序</h3><p>新建maven程序，pom依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">hadoopVersion</span>&gt;</span>2.8.4<span class="tag">&lt;/<span class="name">hadoopVersion</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Hadoop start --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-common<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;hadoopVersion&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-hdfs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;hadoopVersion&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-mapreduce-client-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;hadoopVersion&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;hadoopVersion&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>自己写一个WordCount类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCount</span> </span>&#123;</div><div class="line">    <span class="comment">//实现一个Mapper类</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">Object</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> IntWritable one = <span class="keyword">new</span> IntWritable(<span class="number">1</span>);</div><div class="line">        <span class="keyword">private</span> Text word = <span class="keyword">new</span> Text();</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</div><div class="line">            StringTokenizer itr = <span class="keyword">new</span> StringTokenizer(value.toString());</div><div class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</div><div class="line">                word.set(itr.nextToken());</div><div class="line">                context.write(word, one);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//实现一个Reducer类</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">IntSumReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</div><div class="line">        <span class="keyword">private</span> IntWritable result = <span class="keyword">new</span> IntWritable();</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</div><div class="line">            <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</div><div class="line">                sum += val.get();</div><div class="line">            &#125;</div><div class="line">            result.set(sum);</div><div class="line">            context.write(key, result);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</div><div class="line">        String[] otherArgs = <span class="keyword">new</span> GenericOptionsParser(conf, args).getRemainingArgs();</div><div class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</div><div class="line">            System.err.println(<span class="string">"Error in args"</span>);</div><div class="line">            System.exit(<span class="number">2</span>);</div><div class="line">        &#125;</div><div class="line">        Job job = Job.getInstance(conf, <span class="string">"word count"</span>);</div><div class="line">        job.setJarByClass(WordCount.class);</div><div class="line">        job.setMapperClass(TokenizerMapper.class);</div><div class="line">        job.setReducerClass(IntSumReducer.class);</div><div class="line">        job.setOutputKeyClass(Text.class);</div><div class="line">        job.setOutputValueClass(IntWritable.class);</div><div class="line">        <span class="comment">//输入目录</span></div><div class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(otherArgs[<span class="number">0</span>]));</div><div class="line">        <span class="comment">//输出目录</span></div><div class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(otherArgs[<span class="number">1</span>]));</div><div class="line">        System.exit(job.waitForCompletion(<span class="keyword">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在弄清楚MapReduce的原理的基础上，自己实现一个Map类和Reducer类。</p>
+<p>将项目打包成jar文件，上传到hdfs中，利用命令行运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop jar hadoop01.jar demo01.WordCount hdfs://hadoop01:9000/wc_test_01 hdfs://hadoop01:9000/wc_out2</div></pre></td></tr></table></figure></p>
+<p>执行结果与example包中计算的结果一样（程序无误的前提下），这样，就完成了简单的WordCount程序</p>
 ]]></content>
     
     <summary type="html">
@@ -1056,35 +1156,6 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;当然，直接用工具创建的话，&lt;code&gt;groupId&lt;/code&gt;和&lt;code&gt;artifactId&lt;/code&gt;按要求填即可。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="maven" scheme="http://zhangchaozc.cn/categories/maven/"/>
-    
-    
-      <category term="Java项目" scheme="http://zhangchaozc.cn/tags/Java%E9%A1%B9%E7%9B%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>maven中自己导入包</title>
-    <link href="http://zhangchaozc.cn/2017/10/20/maven/maven%E4%B8%AD%E8%87%AA%E5%B7%B1%E5%AF%BC%E5%85%A5%E5%8C%85/"/>
-    <id>http://zhangchaozc.cn/2017/10/20/maven/maven中自己导入包/</id>
-    <published>2017-10-20T14:51:00.000Z</published>
-    <updated>2017-10-20T14:57:48.945Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有一种情况，有时候会遇到，你去maven中找一个jar包，居然找不到，尴尬不?也许是因为这个包太老了。</p>
-<h3 id="自己下载"><a href="#自己下载" class="headerlink" title="自己下载"></a>自己下载</h3><p>maven仓库里面没有，不代表别处没有，此时可以通过各种途径，把jar包下载下来，但是如何把这个包融入到maven环境呢？</p>
-<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><p>其实也是一行命令（groupId和artifactId自己填）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn install:install-file -DgroupId=oracle.xdb -DartifactId=oracle.xdb -Dversion=1.0 -Dpackaging=jar -Dfile=xdb.jar -DgeneratePom=true</div></pre></td></tr></table></figure></p>
-<p>Dfile填jar包所在的位置，相对位置或者绝对位置都可以。</p>
-<p>此时在pom中写：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>oracle.xdb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>oracle.xdb<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>就可以了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;有一种情况，有时候会遇到，你去maven中找一个jar包，居然找不到，尴尬不?也许是因为这个包太老了。&lt;/p&gt;
-&lt;h3 id=&quot;自己下载&quot;&gt;
     
     </summary>
     
