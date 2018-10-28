@@ -320,6 +320,324 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/10/28/hadoop/hadoop之MapReduce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="指向指针的指针">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="指向指针的指针-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/28/hadoop/hadoop之MapReduce/" itemprop="url">hadoop之MapReduce</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-28T23:30:08+08:00">
+                2018-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/10/28/hadoop/hadoop之MapReduce/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://zhangchaozc.cn/2018/10/28/hadoop/hadoop之MapReduce/" class="cy_cmt_count" data-xid="2018/10/28/hadoop/hadoop之MapReduce/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习MapReduce</p>
+<h3 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h3><ul>
+<li>map，输入（k1,v1&gt;），输出（k2,v2）</li>
+<li>reduce，输入就是将map的输出按key值group起来，（k2,list(v2)），输出需要得到的结果（k3,v3）</li>
+</ul>
+<p>对于WordCound程序而言，例如文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hello hadoop</div><div class="line">hello map</div><div class="line">hello reduce</div></pre></td></tr></table></figure></p>
+<p>默认按行读数据，即每读入一行数据，调用一次map方法，map输入的key值意义不大，可以是行号，可以是字符偏移，默认是字符偏移，即map的输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;0,&quot;hello hadoop&quot;&gt;</div><div class="line">&lt;13,&quot;hello map&quot;&gt;</div><div class="line">&lt;23,&quot;hello reduce&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>即要调用3次map函数，对于WC程序而言，就是统计每个单词出现的次数，那么map的输出就是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;&quot;hello&quot;,1&gt;,&lt;&quot;hadoop&quot;,1&gt;</div><div class="line">&lt;&quot;hello&quot;,1&gt;,&lt;&quot;map&quot;,1&gt;</div><div class="line">&lt;&quot;hello&quot;,1&gt;,&lt;&quot;reduce&quot;,1&gt;</div></pre></td></tr></table></figure></p>
+<p>reduce的输入就是将map输出的值相同的key值group成list，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;&quot;hello&quot;,list(1,1,1)&gt;</div><div class="line">&lt;&quot;hadoop&quot;,list(1)&gt;</div><div class="line">&lt;&quot;map&quot;,list(1)&gt;</div><div class="line">&lt;&quot;reduce&quot;,list(1)&gt;</div></pre></td></tr></table></figure></p>
+<p>输出的结果就是WC的计算结果，将list的数据累加就行</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/28/hadoop/hadoop之MapReduce/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/10/28/hadoop/hadoop之IO操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="指向指针的指针">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="指向指针的指针-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/28/hadoop/hadoop之IO操作/" itemprop="url">hadoop之IO操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-28T23:29:42+08:00">
+                2018-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/10/28/hadoop/hadoop之IO操作/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://zhangchaozc.cn/2018/10/28/hadoop/hadoop之IO操作/" class="cy_cmt_count" data-xid="2018/10/28/hadoop/hadoop之IO操作/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习hadoop的IO</p>
+<h3 id="main"><a href="#main" class="headerlink" title="main"></a>main</h3><ul>
+<li>数据完整性检查</li>
+<li>数据压缩</li>
+<li>数据序列化</li>
+<li>基于文件的数据结构</li>
+</ul>
+<h3 id="数据完整性"><a href="#数据完整性" class="headerlink" title="数据完整性"></a>数据完整性</h3><p>hadoop采用CRC-32校验和检查数据完整性</p>
+<h4 id="本地文件系统的数据完整性"><a href="#本地文件系统的数据完整性" class="headerlink" title="本地文件系统的数据完整性"></a>本地文件系统的数据完整性</h4><p>在创建文件a的同时，会创建隐藏的文件a.crc记录了文件的校验和，默认每512个字节就产生32位的校验和</p>
+<p>可以自定义配置core-site.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span>　　　</div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>io.bytes.per.checksum<span class="tag">&lt;/<span class="name">name</span>&gt;</span>　　</div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>512<span class="tag">&lt;/<span class="name">value</span>&gt;</span>　　</div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>也可以自定义是否启用校验和<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span>　　　</div><div class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.file.impl<span class="tag">&lt;/<span class="name">name</span>&gt;</span>　　</div><div class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.fs.LocalFileSystem<span class="tag">&lt;/<span class="name">value</span>&gt;</span>　　</div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--上面启用校验和，下面禁用--&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span>　　　</div><div class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.file.impl<span class="tag">&lt;/<span class="name">name</span>&gt;</span>　　</div><div class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.fs.RawLocalFileSystem<span class="tag">&lt;/<span class="name">value</span>&gt;</span>　　</div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>任何在配置文件中修改的配置都可以通过Java代码在Configuration类中局部的配置</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/28/hadoop/hadoop之IO操作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/10/27/hadoop/hadoop之HDFS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1581,318 +1899,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/02/12/linux/linux基础2-文件编辑/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="指向指针的指针">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="指向指针的指针-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/12/linux/linux基础2-文件编辑/" itemprop="url">linux基础2-文件编辑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-12T22:19:00+08:00">
-                2018-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/02/12/linux/linux基础2-文件编辑/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://zhangchaozc.cn/2018/02/12/linux/linux基础2-文件编辑/" class="cy_cmt_count" data-xid="2018/02/12/linux/linux基础2-文件编辑/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>文件查看、浏览、编辑的命令有很多，这里就当做个笔记了。</p>
-<h3 id="文件浏览或编辑"><a href="#文件浏览或编辑" class="headerlink" title="文件浏览或编辑"></a>文件浏览或编辑</h3><h5 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h5><p>创建一个文件，关于带空格的文件名，不建议创建。<br>如果文件名必须带空格，可以用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch &quot;pro files&quot;</div></pre></td></tr></table></figure></p>
-<p>用双引号包含。所有命令中对带空格的文件名，都必须用双引号括住。</p>
-<h5 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h5><p><code>cat [文件名]</code>：查看文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat -n：查看行号</div></pre></td></tr></table></figure></p>
-<h5 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h5><p><code>tac [文件名]</code>：倒着查看文件</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/02/12/linux/linux基础2-文件编辑/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="指向指针的指针">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="指向指针的指针-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/12/linux/linux基础1-文件管理/" itemprop="url">linux基础1-文件管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-12T21:21:39+08:00">
-                2018-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/02/12/linux/linux基础1-文件管理/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/" class="cy_cmt_count" data-xid="2018/02/12/linux/linux基础1-文件管理/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前linux基础太差，干啥都要百度，很不方便，所以决定系统化的学习一下，恶补恶补。这几个系列也算是我的学习笔记了。</p>
-<h3 id="基础常识"><a href="#基础常识" class="headerlink" title="基础常识"></a>基础常识</h3><p>windows文件系统格式有：FAT16，FAT32，NTFS；linux有：EXT2，EXT3，EXT4。<br>Linux不区分文件扩展名，有的特殊文件（压缩包）有扩展名是为了管理员区分方便。这个跟windows不一样。</p>
-<h3 id="运营者需要了解的"><a href="#运营者需要了解的" class="headerlink" title="运营者需要了解的"></a>运营者需要了解的</h3><ol>
-<li>远程服务器不允许关机，只能重启。（某种情况远程关了，打开麻烦）</li>
-<li>重启时应该关闭所有服务。</li>
-<li>不在访问高峰期执行高负载命令。</li>
-<li>远程配置防火墙时不要把自己踢出服务器。</li>
-<li>指定合理的密码规范并定期更新。</li>
-<li>合理分配权限。</li>
-<li>定期备份重要数据和日志。</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/02/12/linux/linux基础1-文件管理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1943,7 +1949,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
