@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangchaozc.cn/"/>
-  <updated>2018-10-28T15:32:04.508Z</updated>
+  <updated>2018-11-03T02:51:10.309Z</updated>
   <id>http://zhangchaozc.cn/</id>
   
   <author>
@@ -14,6 +14,117 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HBase</title>
+    <link href="http://zhangchaozc.cn/2018/11/03/hadoop/HBase/"/>
+    <id>http://zhangchaozc.cn/2018/11/03/hadoop/HBase/</id>
+    <published>2018-11-03T02:48:06.000Z</published>
+    <updated>2018-11-03T02:51:10.309Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习HBase</p>
+<ul>
+<li>HBase基础知识</li>
+<li>HBase的伪分布的搭建</li>
+<li>HBase Shell</li>
+<li>HBase的批量导入</li>
+<li>HBase的Java API</li>
+</ul>
+<p>简介<br>高可靠、高性能、面向列、可伸缩的分布式存储系统。HBase利用HDFS作为底层的文件系统，利用MapReduce来处理数据，Zookeeper为协调工具</p>
+<p>逻辑视图如下图所示：</p>
+<p><img src="/images/hadoop_010.PNG" alt="hadoop_010"></p>
+<p>数据模型，行</p>
+<ul>
+<li>每行有可排序关键字和任意列</li>
+<li>字符串、二进制串都可以作为行键</li>
+<li>表按照行键有序处理</li>
+<li>可以只对一行上锁，对行的写操作是原子的</li>
+</ul>
+<p>数据模型，列</p>
+<ul>
+<li>列族，定义为“族：标签”</li>
+<li>数据通过时间戳分版本</li>
+<li>列族在建表后不能改变，但是一个列族中列标签可以任意增加</li>
+</ul>
+<a id="more"></a>
+<p>系统总体结构图</p>
+<p><img src="/images/hadoop_011.PNG" alt="hadoop_011"></p>
+<ul>
+<li>主从结构</li>
+<li>可以有多个Master，但Zookeeper的选举机制保证有一个Master运行</li>
+<li>HBase建立在HDFS之上</li>
+</ul>
+<h3 id="安装HBase"><a href="#安装HBase" class="headerlink" title="安装HBase"></a>安装HBase</h3><p>下载，<a href="http://mirrors.hust.edu.cn/apache/hbase/2.1.1/hbase-2.1.1-bin.tar.gz" target="_blank" rel="external">http://mirrors.hust.edu.cn/apache/hbase/2.1.1/hbase-2.1.1-bin.tar.gz</a></p>
+<p>复制到虚拟机，解压安装包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxvf hbase-2.1.1-bin.tar.gz</div></pre></td></tr></table></figure></p>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><p><code>vim /etc/profile</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># hbase</div><div class="line">export HBASE_HOME=/hadoop/hbase-2.1.1</div><div class="line">export PATH=$PATH:$HBASE_HOME/bin</div></pre></td></tr></table></figure></p>
+<p><code>source /etc/profile</code></p>
+<h4 id="vim-hbase-env-sh"><a href="#vim-hbase-env-sh" class="headerlink" title="vim hbase-env.sh"></a>vim hbase-env.sh</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/java/jdk1.8.0_171</div><div class="line"># 设置由hbase自己管理zookeeper，不需要安装单独的zookeeper</div><div class="line">export HBASE_MANAGES_ZK=true</div></pre></td></tr></table></figure>
+<h4 id="vim-hbase-site-xml"><a href="#vim-hbase-site-xml" class="headerlink" title="vim hbase-site.xml"></a>vim hbase-site.xml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">     &lt;property&gt;</div><div class="line">          &lt;name&gt;hbase.rootdir&lt;/name&gt;</div><div class="line">          &lt;value&gt;hdfs://hadoop01:9000/hbase&lt;/value&gt;</div><div class="line">     &lt;/property&gt;</div><div class="line">	 &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</div><div class="line">        &lt;value&gt;true&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.master&lt;/name&gt;</div><div class="line">        &lt;value&gt;hadoop01&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;</div><div class="line">        &lt;value&gt;hadoop01,hadoop02&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">	&lt;property&gt;</div><div class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</div><div class="line">        &lt;value&gt;1&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<h4 id="vim-regionservers"><a href="#vim-regionservers" class="headerlink" title="vim regionservers"></a>vim regionservers</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop02</div></pre></td></tr></table></figure>
+<h4 id="拷贝已经配置好的机器"><a href="#拷贝已经配置好的机器" class="headerlink" title="拷贝已经配置好的机器"></a>拷贝已经配置好的机器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp -r /hadoop/hbase-2.1.1 hadoop02:/hadoop/</div></pre></td></tr></table></figure>
+<p>拷贝前可以删除HBASE_HOME下的docs目录</p>
+<p>拷贝完后在hadoop02上配置一下环境变量</p>
+<h4 id="启动HBase"><a href="#启动HBase" class="headerlink" title="启动HBase"></a>启动HBase</h4><p>进入bin目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./start-hbase.sh</div></pre></td></tr></table></figure></p>
+<p>启动完成，查看HDFS下是否有hbase目录，发现没有，启动失败</p>
+<h4 id="查看错误"><a href="#查看错误" class="headerlink" title="查看错误"></a>查看错误</h4><p>进入logs目录，查看文件<code>hbase-root-master-hadoop01</code>，发现错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">java.lang.NoClassDefFoundError: org/apache/htrace/SamplerBuilder</div><div class="line">	at org.apache.hadoop.hdfs.DFSClient.&lt;init&gt;(DFSClient.java:644)</div><div class="line">	at org.apache.hadoop.hdfs.DFSClient.&lt;init&gt;(DFSClient.java:628)</div><div class="line">	at org.apache.hadoop.hdfs.DistributedFileSystem.initialize(DistributedFileSystem.java:149)</div><div class="line">	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:2667)</div></pre></td></tr></table></figure></p>
+<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><p>百度了一下，拷贝一下jar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /hadoop/hbase-2.1.1/lib/client-facing-thirdparty/htrace-core-3.1.0-incubating.jar /hadoop/hbase-2.1.1/lib/</div></pre></td></tr></table></figure></p>
+<p>两个节点都执行这个命令，重新启动，OK，hbase目录有了</p>
+<h4 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h4><p>master<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">7072 ResourceManager</div><div class="line">16817 HRegionServer</div><div class="line">6837 SecondaryNameNode</div><div class="line">6358 NameNode</div><div class="line">30118 Jps</div><div class="line">25755 HQuorumPeer</div><div class="line">28187 HMaster</div><div class="line">30015 HBaseConfTool</div></pre></td></tr></table></figure></p>
+<p>slave<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">7314 NodeManager</div><div class="line">22612 HQuorumPeer</div><div class="line">16362 HRegionServer</div><div class="line">6858 DataNode</div><div class="line">26079 Jps</div></pre></td></tr></table></figure></p>
+<p>一切正常</p>
+<h3 id="Hbase-Shell"><a href="#Hbase-Shell" class="headerlink" title="Hbase Shell"></a>Hbase Shell</h3><p>提供了基本的增删改查，如下图所示：</p>
+<p><img src="/images/hadoop_012.PNG" alt="hadoop_012"></p>
+<h4 id="基本增删改查"><a href="#基本增删改查" class="headerlink" title="基本增删改查"></a>基本增删改查</h4><p>创建表，列出所有的表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">hbase(main):002:0&gt; create &apos;user&apos;,&apos;user_id&apos;,&apos;address&apos;,&apos;info&apos;</div><div class="line">Created table user</div><div class="line">Took 25.6470 seconds                                                                                                                                         </div><div class="line">=&gt; Hbase::Table - user</div><div class="line">hbase(main):003:0&gt; list</div><div class="line">TABLE                                                                                                                                                        </div><div class="line">user                                                                                                                                                         </div><div class="line">1 row(s)</div><div class="line">Took 0.2597 seconds                                                                                                                                          </div><div class="line">=&gt; [&quot;user&quot;]</div></pre></td></tr></table></figure></p>
+<p>得到表的信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">describe &apos;user&apos;</div></pre></td></tr></table></figure></p>
+<p>删除表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">disable &apos;user&apos;，或者</div><div class="line">drop &apos;user&apos;</div></pre></td></tr></table></figure></p>
+<p>添加信息，在一个列族上可以无限扩展<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hbase(main):005:0&gt; put &apos;user&apos;,&apos;xiaoming&apos;,&apos;info:age&apos;,&apos;24&apos;</div><div class="line">Took 2.7663 seconds                                                                                                                                          </div><div class="line">hbase(main):006:0&gt; put &apos;user&apos;,&apos;xiaoming&apos;,&apos;info:company&apos;,&apos;alibaba&apos;</div><div class="line">Took 0.0777 seconds</div></pre></td></tr></table></figure></p>
+<p>获取一条记录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//获取一个ID下所有数据</div><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;</div><div class="line">//获取一个列族</div><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;,&apos;info&apos;</div><div class="line">//获取一个列</div><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;,&apos;info:age&apos;</div></pre></td></tr></table></figure></p>
+<p>更新记录，和put一个记录一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">put &apos;user&apos;,&apos;xiaoming&apos;,&apos;info:age&apos; ,&apos;29&apos;</div><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;,&apos;info:age&apos;</div><div class="line">put &apos;user&apos;,&apos;xiaoming&apos;,&apos;info:age&apos; ,&apos;30&apos;</div><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;,&apos;info:age&apos;</div></pre></td></tr></table></figure></p>
+<p>被覆盖的数据也能查到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;,&#123;COLUMN=&gt;&apos;info:age&apos;,VERSIONS=&gt;1&#125;</div><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;,&#123;COLUMN=&gt;&apos;info:age&apos;,VERSIONS=&gt;2&#125;</div><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;,&#123;COLUMN=&gt;&apos;info:age&apos;,VERSIONS=&gt;3&#125;</div></pre></td></tr></table></figure></p>
+<p>获取某个时间戳下的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;,&#123;COLUMN=&gt;&apos;info:age&apos;,TIMESTAMP=&gt;1364874937056&#125;</div></pre></td></tr></table></figure></p>
+<p>全表扫描<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scan &apos;user&apos;</div></pre></td></tr></table></figure></p>
+<p>删除列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">delete &apos;user&apos;,&apos;xiaoming&apos;,&apos;info:age&apos;</div><div class="line">get &apos;user&apos;,&apos;xiaoming&apos;</div></pre></td></tr></table></figure></p>
+<p>删除整行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">deleteall &apos;user&apos;,&apos;xiaoming&apos;</div></pre></td></tr></table></figure></p>
+<p>统计表的行数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">count &apos;user&apos;</div></pre></td></tr></table></figure></p>
+<p>清空表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">truncate &apos;user&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="Java-API"><a href="#Java-API" class="headerlink" title="Java API"></a>Java API</h4><p>导入hbase-client包，函数有点过时了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;学习HBase&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HBase基础知识&lt;/li&gt;
+&lt;li&gt;HBase的伪分布的搭建&lt;/li&gt;
+&lt;li&gt;HBase Shell&lt;/li&gt;
+&lt;li&gt;HBase的批量导入&lt;/li&gt;
+&lt;li&gt;HBase的Java API&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;简介&lt;br&gt;高可靠、高性能、面向列、可伸缩的分布式存储系统。HBase利用HDFS作为底层的文件系统，利用MapReduce来处理数据，Zookeeper为协调工具&lt;/p&gt;
+&lt;p&gt;逻辑视图如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/hadoop_010.PNG&quot; alt=&quot;hadoop_010&quot;&gt;&lt;/p&gt;
+&lt;p&gt;数据模型，行&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每行有可排序关键字和任意列&lt;/li&gt;
+&lt;li&gt;字符串、二进制串都可以作为行键&lt;/li&gt;
+&lt;li&gt;表按照行键有序处理&lt;/li&gt;
+&lt;li&gt;可以只对一行上锁，对行的写操作是原子的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;数据模型，列&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;列族，定义为“族：标签”&lt;/li&gt;
+&lt;li&gt;数据通过时间戳分版本&lt;/li&gt;
+&lt;li&gt;列族在建表后不能改变，但是一个列族中列标签可以任意增加&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="hadoop" scheme="http://zhangchaozc.cn/categories/hadoop/"/>
+    
+    
+      <category term="大数据" scheme="http://zhangchaozc.cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>hadoop之MapReduce</title>
@@ -1152,58 +1263,6 @@
     
     
       <category term="Java项目" scheme="http://zhangchaozc.cn/tags/Java%E9%A1%B9%E7%9B%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>连接oracle的问题</title>
-    <link href="http://zhangchaozc.cn/2017/10/20/%E6%95%B0%E6%8D%AE%E5%BA%93/%E8%BF%9E%E6%8E%A5oracle%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>http://zhangchaozc.cn/2017/10/20/数据库/连接oracle的问题/</id>
-    <published>2017-10-20T14:52:00.000Z</published>
-    <updated>2017-10-20T14:57:48.873Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本人连接数据库oracle喜欢用navacat，如图，当然还有其它工具，都OK。</p>
-<div align="center"><br><img src="/images/navicat1.PNG" alt="navicat1"><br></div>
-
-<h3 id="普通情况"><a href="#普通情况" class="headerlink" title="普通情况"></a>普通情况</h3><p>之前用navicat连接过mysql，很OK，一下子就连上了，但是第一次做oracle课设的时候（大三），连接oracle连接不上，难道oracle牛叉一点？</p>
-<p>这个是要配置的，如图：</p>
-<div align="center"><br><img src="/images/navicat2.PNG" alt="navicat2"><br></div>
-
-<p>具体的配置路径跟你的安装位置有关，我的是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F:\app\Administrator\product\11.2.0\dbhome_1\BIN\oci.dll</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>这样不出意外就能连上了：</p>
-<div align="center"><br><img src="/images/navicat3.PNG" alt="navicat3"><br></div>
-
-<p>但是，如果写的都是对的，还连上，就要考虑其它的因素了。</p>
-<h3 id="复杂情况"><a href="#复杂情况" class="headerlink" title="复杂情况"></a>复杂情况</h3><p>看一下监听服务有没有开启，如图：</p>
-<div align="center"><br><img src="/images/oracle2.PNG" alt="oracle2"><br></div>
-
-<p><code>services.msc</code>打开服务，主要是看看这两个服务有没有开启：</p>
-<div align="center"><br><img src="/images/oracle3.PNG" alt="oracle3"><br></div>
-
-<p>如果没有监听服务，就需要自己配置监听服务了，打开自带的软件：</p>
-<div align="center"><br><img src="/images/oracle1.PNG" alt="oracle1"><br></div>
-
-<p>添加或者重新配置监听服务，并启动监听服务，就OK了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;本人连接数据库oracle喜欢用navacat，如图，当然还有其它工具，都OK。&lt;/p&gt;
-&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/navicat1.PNG&quot; alt=&quot;navicat1&quot;&gt;&lt;br&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;普通情况&quot;&gt;&lt;a href=&quot;#普通情况&quot; class=&quot;headerlink&quot; title=&quot;普通情况&quot;&gt;&lt;/a&gt;普通情况&lt;/h3&gt;&lt;p&gt;之前用navicat连接过mysql，很OK，一下子就连上了，但是第一次做oracle课设的时候（大三），连接oracle连接不上，难道oracle牛叉一点？&lt;/p&gt;
-&lt;p&gt;这个是要配置的，如图：&lt;/p&gt;
-&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;img src=&quot;/images/navicat2.PNG&quot; alt=&quot;navicat2&quot;&gt;&lt;br&gt;&lt;/div&gt;
-
-&lt;p&gt;具体的配置路径跟你的安装位置有关，我的是：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;F:\app\Administrator\product\11.2.0\dbhome_1\BIN\oci.dll&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据库" scheme="http://zhangchaozc.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="oracle" scheme="http://zhangchaozc.cn/tags/oracle/"/>
     
   </entry>
   
