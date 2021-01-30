@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>指向指针的指针-博客</title>
+  <title>积极向上好青年-博客</title>
   
   <link href="/atom.xml" rel="self"/>
   
@@ -9,7 +9,7 @@
   <id>http://zhangchaozc.cn/</id>
   
   <author>
-    <name>指向指针的指针</name>
+    <name>积极向上好青年</name>
     
   </author>
   
