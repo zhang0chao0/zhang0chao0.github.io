@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="指向指针的指针-博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言之前linux基础太差，干啥都要百度，很不方便，所以决定系统化的学习一下，恶补恶补。这几个系列也算是我的学习笔记了。 基础常识windows文件系统格式有：FAT16，FAT32，NTFS；linux有：EXT2，EXT3，EXT4。Linux不区分文件扩展名，有的特殊文件（压缩包）有扩展名是为了管理员区分方便。这个跟windows不一样。 运营者需要了解的 远程服务器不允许关机，只能重启。（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux基础1-文件管理">
+<meta property="og:url" content="http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/index.html">
+<meta property="og:site_name" content="指向指针的指针-博客">
+<meta property="og:description" content="前言之前linux基础太差，干啥都要百度，很不方便，所以决定系统化的学习一下，恶补恶补。这几个系列也算是我的学习笔记了。 基础常识windows文件系统格式有：FAT16，FAT32，NTFS；linux有：EXT2，EXT3，EXT4。Linux不区分文件扩展名，有的特殊文件（压缩包）有扩展名是为了管理员区分方便。这个跟windows不一样。 运营者需要了解的 远程服务器不允许关机，只能重启。（">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhangchaozc.cn/images/linux_dir1.PNG">
+<meta property="og:image" content="http://zhangchaozc.cn/images/linux_dir2.PNG">
+<meta property="og:image" content="http://zhangchaozc.cn/images/linux_dir3.PNG">
+<meta property="og:updated_time" content="2018-02-13T05:25:52.724Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux基础1-文件管理">
+<meta name="twitter:description" content="前言之前linux基础太差，干啥都要百度，很不方便，所以决定系统化的学习一下，恶补恶补。这几个系列也算是我的学习笔记了。 基础常识windows文件系统格式有：FAT16，FAT32，NTFS；linux有：EXT2，EXT3，EXT4。Linux不区分文件扩展名，有的特殊文件（压缩包）有扩展名是为了管理员区分方便。这个跟windows不一样。 运营者需要了解的 远程服务器不允许关机，只能重启。（">
+<meta name="twitter:image" content="http://zhangchaozc.cn/images/linux_dir1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/"/>
+
+
+
+
+
+  <title>linux基础1-文件管理 | 指向指针的指针-博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">指向指针的指针-博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="指向指针的指针">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="指向指针的指针-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">linux基础1-文件管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-12T21:21:39+08:00">
+                2018-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/02/12/linux/linux基础1-文件管理/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/02/12/linux/linux基础1-文件管理/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前linux基础太差，干啥都要百度，很不方便，所以决定系统化的学习一下，恶补恶补。这几个系列也算是我的学习笔记了。</p>
+<h3 id="基础常识"><a href="#基础常识" class="headerlink" title="基础常识"></a>基础常识</h3><p>windows文件系统格式有：FAT16，FAT32，NTFS；linux有：EXT2，EXT3，EXT4。<br>Linux不区分文件扩展名，有的特殊文件（压缩包）有扩展名是为了管理员区分方便。这个跟windows不一样。</p>
+<h3 id="运营者需要了解的"><a href="#运营者需要了解的" class="headerlink" title="运营者需要了解的"></a>运营者需要了解的</h3><ol>
+<li>远程服务器不允许关机，只能重启。（某种情况远程关了，打开麻烦）</li>
+<li>重启时应该关闭所有服务。</li>
+<li>不在访问高峰期执行高负载命令。</li>
+<li>远程配置防火墙时不要把自己踢出服务器。</li>
+<li>指定合理的密码规范并定期更新。</li>
+<li>合理分配权限。</li>
+<li>定期备份重要数据和日志。</li>
+</ol>
+<a id="more"></a>
+<h3 id="Linux各个目录的含义"><a href="#Linux各个目录的含义" class="headerlink" title="Linux各个目录的含义"></a>Linux各个目录的含义</h3><p>这里截了几张图片：</p>
+<div align="center"><br><img src="/images/linux_dir1.PNG" alt="linux_dir1"><br></div>
+
+<div align="center"><br><img src="/images/linux_dir2.PNG" alt="linux_dir2"><br></div>
+
+<div align="center"><br><img src="/images/linux_dir3.PNG" alt="linux_dir3"><br></div>
+
+<h3 id="命令规则"><a href="#命令规则" class="headerlink" title="命令规则"></a>命令规则</h3><p>命令格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">命令 [-选项] [参数]</div><div class="line">举例： ls -la /etc</div></pre></td></tr></table></figure></p>
+<p>简化选项与完整选项：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-a 等于 --all</div><div class="line">简化选项：- 加 简化字母</div><div class="line">完整选项：-- 加 完整字母</div></pre></td></tr></table></figure></p>
+<h3 id="基础的文件管理命令"><a href="#基础的文件管理命令" class="headerlink" title="基础的文件管理命令"></a>基础的文件管理命令</h3><h5 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h5><p>作用：列出所有的文件和目录。<br>常用选项：<br>-a 显示所有文件，包括隐藏文件<br>-l 显示详细信息<br>-d 查看目录属性（只查看这个目录，而不查看目录下的文件信息）<br>-h 更友好的显示，例如 ls -lh，文件大小会帮你换算为K<br>-i 查看文件的节点序号（相当于id号，linux中任何文件或目录都有唯一标识的id号，便于系统管理）</p>
+<p>举例：<br>输入<code>ls -l</code>，结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-rw-rw-r--. 1 zhangchao zhangchao   22 Feb  6 20:17 hh</div></pre></td></tr></table></figure></p>
+<p>依次表示的信息是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- 开头代表一个文件，d 开头代表是一个目录，l开头代表一个软链接</div><div class="line">rw-rw-r--. 代表权限信息，3个一拆分，[rw-]、[rw-]和[r--]，分别是所有者，所属组，其他人的权限</div><div class="line">1 代表调用次数</div><div class="line">后面两个用户代表：所有者，所有组</div><div class="line">文件大小</div><div class="line">最后一次修改时间/创建时间</div><div class="line">文件名</div></pre></td></tr></table></figure></p>
+<p>关于linux的权限的小知识：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">u 所有者</div><div class="line">g 所有组</div><div class="line">o 其他人</div><div class="line">r 读</div><div class="line">w 写</div><div class="line">x 执行</div><div class="line"></div><div class="line">-rw-rw-r--. 的意思是</div><div class="line">-：这是一个文件</div><div class="line">rw-：它的所有者有读写权限</div><div class="line">rw-：它的所有组有读写权限</div><div class="line">r--：其他人有读权限</div></pre></td></tr></table></figure></p>
+<h5 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h5><p>作用：创建一个目录<br>如果我要创建/a/b/c目录，本身a目录是不存在的，即如何递归创建？<br><code>mkdir -p</code>即可递归创建。<br>创建目录可以同时创建多个目录，用空格隔开。</p>
+<p>有关的小命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd 切换到某个目录（基础之基础）</div><div class="line">pwd 显示当前目录的完整路径（现在cd的是哪个目录？）</div><div class="line">rmdir 删除空目录（只能删除空目录）</div></pre></td></tr></table></figure></p>
+<h5 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h5><p>作用：原意copy，即文件的复制。可以复制多个文件，复制的同时可以给文件重命名。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cp [原文件] [新的位置]</div><div class="line">cp -r 复制目录</div><div class="line">cp -p 保留原文件的属性</div></pre></td></tr></table></figure></p>
+<h5 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h5><p>作用：移动/剪切文件或目录（不需要加<code>-r</code>），文件的重命名。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mv [原文件] [新的位置]</div><div class="line">mv [原文件] [新名字]</div></pre></td></tr></table></figure></p>
+<h5 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h5><p>作用：删除一个文件、目录。<br>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rm [文件]</div><div class="line">rm -r [目录]</div><div class="line">-f 强制执行</div><div class="line">rm -rf [目录] 递归的删除目录和目录里面的所有</div></pre></td></tr></table></figure></p>
+<p>如果一不小心<code>rm -rf /</code>，就gg了。</p>
+<h5 id="find"><a href="#find" class="headerlink" title="find"></a>find</h5><p>文件搜索命令（windows下文件搜索工具everything）<br>基本语法：<code>find [搜索范围] [匹配条件]</code><br><code>find /home -name xxx</code>：根据名字搜索<br>如何模糊搜索？利用通配符，*匹配任意字符，?匹配单个字符，举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find /home -name *xxx*  （查找多个值需要&quot;*xxx*&quot;，双引号引起来）</div></pre></td></tr></table></figure></p>
+<p><code>find /home -iname xxx</code>：不区分大小写搜索<br>如何按文件大小来筛选？（+代表大于，-代表小于，否则等于），举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find /home -size +204800  （查找大于100MB的数据，注意数据格式为数据块，1数据块=512B=0.5KB）</div></pre></td></tr></table></figure></p>
+<p><code>find /home -user zhangchao</code>：按用户来查找，同理用户组为<code>-group</code></p>
+<h6 id="高级查找"><a href="#高级查找" class="headerlink" title="高级查找"></a>高级查找</h6><p><code>find /home -cmin -5</code>：在home目录下查找5分钟内被修改过属性的文件和目录，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-amin 访问时间</div><div class="line">-cmin 文件属性</div><div class="line">-mmin 文件内容</div></pre></td></tr></table></figure></p>
+<p><code>find /home -size +163840 -a -size -204800</code>：查找文件大于80MB小于100MB的文件，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-a 表示两个条件同时满足，记作and</div><div class="line">-o 表示满足任意一个条件即可，记作or</div></pre></td></tr></table></figure></p>
+<p>如何根据类型查找？<br><code>-type</code>根据文件类型查找，其中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f：文件</div><div class="line">d：目录</div><div class="line">l：软链接</div></pre></td></tr></table></figure></p>
+<p>如何对查找出来的结果做进一步的操作？<br><code>find /home -name xxx -exec ls -l {} \;</code>：对查找出来的结果进行批量的ls -l操作，其中后面的<code>[-exec ls -l {} \;]</code>是一个固定的格式<code>-exec</code>可以用<code>-ok</code>代替，只是每个文件都要询问一下。<br>根据i节点查找？举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">找到当前目录下，i节点为12345的文件并删掉它</div><div class="line">find . -inum 12345 -exec rm &#123;&#125; \;</div></pre></td></tr></table></figure></p>
+<h5 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h5><p><code>find</code>命令需要遍历查找文件夹，浪费大量资源，如何高效查找？<br><code>locate</code>命令在文件库中查找文件，不在硬盘中查找，所以速度很快，语法<code>locate [文件名]</code></p>
+<p>如果一个文件新建不久，资料库中没有，就无法找到<br>可以使用命令<code>updatedb</code>更新资料库，<code>不会</code>更新系统的<code>/tmp</code>文件夹中的内容</p>
+<p><code>locate -i [文件名]</code>：不区分大小写的搜寻</p>
+<h5 id="which"><a href="#which" class="headerlink" title="which"></a>which</h5><p>特殊查找，查找命令在哪个文件夹。<br>语法：<code>which [命令名]</code><br>例如：<code>which ls</code><br>除了显示命令的地址所在，还可以显示命令的别名。例如普通的<code>ls</code>可以显示文件、文件夹的颜色，其实<code>ls</code>是<code>ls --color</code>的别名，如果要执行底层的<code>ls</code>，可以用<code>\ls</code>。</p>
+<h5 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h5><p>语法：<code>whereis [命令名]</code><br>和<code>which</code>功能一样，<code>whereis</code>还可以查到该命令的帮助文档所在地址。</p>
+<h5 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h5><p>查找某个确定文件中是否有某某关键字。<br>语法：<code>grep [指定匹配字符串] [文件名]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-i：不区分大小写</div><div class="line">-v：排除指定字符串</div></pre></td></tr></table></figure></p>
+<p>例：<br><code>grep -v ^# /xxx.txt</code>：排除#开头的内容</p>
+<h5 id="man"><a href="#man" class="headerlink" title="man"></a>man</h5><p>查看指定命令的帮助手册<br>语法：<code>man [命令名]</code><br>例如：<code>man ls</code><br>如果直接查看配置文件信息，可以<code>man [配置文件名]</code><br>例如：<code>man services</code></p>
+<blockquote>
+<p>小知识，帮助文档的<code>文件名</code>中含有<code>1</code>代表命令的帮助，<code>5</code>代表配置文件的帮助</p>
+</blockquote>
+<p>其他查看帮助信息的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">whatis [命令名]</div><div class="line">apropos [配置文件名]</div></pre></td></tr></table></figure></p>
+<p>还有命令加上 –help，查看帮助<br>例如<code>ls --help</code></p>
+<p>注意：内置shell命令（例如<code>cd</code>）无法<code>man</code>，<code>which</code>等，这时查看帮助可以用<code>help [命令名]</code><br>例如：<code>help cd</code></p>
+<h3 id="压缩-amp-解压命令"><a href="#压缩-amp-解压命令" class="headerlink" title="压缩&amp;解压命令"></a>压缩&amp;解压命令</h3><h5 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h5><p>压缩成<code>.gz</code>格式的压缩包<br>语法：<code>gzip [文件名]</code>，生成<code>.gz</code>压缩文件<br>解压缩：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gunzip [压缩文件]</div><div class="line">gzip -d [压缩文件]</div></pre></td></tr></table></figure></p>
+<p>这种方法压缩，解压后，<code>不保留原文件</code>；<code>只能压缩文件，不能压缩目录</code>。</p>
+<h5 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h5><p>另一种方法打包压缩<br>语法：<code>tar [选项] [压缩后文件名] [目录]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-c 打包</div><div class="line">-v 显示详细信息</div><div class="line">-f 指定文件名</div><div class="line">-z 打包的同时压缩/解压缩</div><div class="line">-x 解压缩</div></pre></td></tr></table></figure></p>
+<p>例如<br><code>tar -cvf subtemp.tar subtemp</code>：仅打包<br><code>tar -cvzf subtemp.tar.gz subtemp</code>：打包并压缩，这个是最常见的压缩包<code>.tar.gz</code><br>解压时候把<code>-c</code>换成<code>-x</code>即可</p>
+<p>注意<code>f</code>字母要写在最后，不能<code>-zcfv</code>等，<code>z</code>跟gz压缩格式有关</p>
+<h5 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h5><p>语法：<code>zip [选项] [压缩后文件名] [文件或目录]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-r：压缩目录</div></pre></td></tr></table></figure></p>
+<p>解压：<code>unzip [压缩文件名]</code></p>
+<h5 id="bzip2"><a href="#bzip2" class="headerlink" title="bzip2"></a>bzip2</h5><p>gzip的升级版，bzip2<br>语法：<code>bzip2 [选项] [文件]</code>，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-k：产生压缩文件后保留原文件</div></pre></td></tr></table></figure></p>
+<p>跟tar一起使用<br><code>tar -cvjf subtemp.tar.bz2 subtemp</code>：打包并压缩</p>
+<p>把<code>z</code>换成<code>j</code>压缩成<code>.bz2</code>格式的压缩包，解压同理<code>-c</code>换成<code>-x</code></p>
+<p>解压缩：<br>语法：<code>bunzip2 [压缩文件名]</code></p>
+<p>总结一下（文件后缀只是方便人区分，linux系统不认后缀的）：</p>
+<ol>
+<li><code>.gz</code>是<code>gzip</code>命令压缩产生的，这个只能压缩单个文件</li>
+<li><code>.tar</code>是<code>tar</code>命令产生的，可以打包多个文件，文件夹</li>
+<li><code>.zip</code>是<code>zip</code>命令，其余同<code>tar</code></li>
+<li><code>.bz2</code>是<code>gzip</code>的升级版，除了能加<code>-k</code>参数保留原文件以外，其它没功能加强</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      指向指针的指针
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/" title="linux基础1-文件管理">http://zhangchaozc.cn/2018/02/12/linux/linux基础1-文件管理/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/01/spring/spring回顾/" rel="next" title="spring回顾">
+                <i class="fa fa-chevron-left"></i> spring回顾
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/12/linux/linux基础2-文件编辑/" rel="prev" title="linux基础2-文件编辑">
+                linux基础2-文件编辑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="指向指针的指针" />
+          <p class="site-author-name" itemprop="name">指向指针的指针</p>
+           
+              <p class="site-description motion-element" itemprop="description">一只程序猿~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhang0chao0" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/32216121ae32" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-heartbeat"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.junwuhui.cn/" title="君无悔的博客" target="_blank">君无悔的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.taoxiaolin.com/" title="风满楼的博客" target="_blank">风满楼的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jiaxiaojunjxj.cn/" title="一只高傲的小黑猫" target="_blank">一只高傲的小黑猫</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://loveyue1.sinaapp.com/love/index.html" title="用代码表白" target="_blank">用代码表白</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://man.linuxde.net/" title="Linux干货" target="_blank">Linux干货</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础常识"><span class="nav-number">2.</span> <span class="nav-text">基础常识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运营者需要了解的"><span class="nav-number">3.</span> <span class="nav-text">运营者需要了解的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux各个目录的含义"><span class="nav-number">4.</span> <span class="nav-text">Linux各个目录的含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令规则"><span class="nav-number">5.</span> <span class="nav-text">命令规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础的文件管理命令"><span class="nav-number">6.</span> <span class="nav-text">基础的文件管理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ls"><span class="nav-number">6.0.1.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mkdir"><span class="nav-number">6.0.2.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cp"><span class="nav-number">6.0.3.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mv"><span class="nav-number">6.0.4.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rm"><span class="nav-number">6.0.5.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#find"><span class="nav-number">6.0.6.</span> <span class="nav-text">find</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#高级查找"><span class="nav-number">6.0.6.1.</span> <span class="nav-text">高级查找</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#locate"><span class="nav-number">6.0.7.</span> <span class="nav-text">locate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#which"><span class="nav-number">6.0.8.</span> <span class="nav-text">which</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#whereis"><span class="nav-number">6.0.9.</span> <span class="nav-text">whereis</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#grep"><span class="nav-number">6.0.10.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#man"><span class="nav-number">6.0.11.</span> <span class="nav-text">man</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩-amp-解压命令"><span class="nav-number">7.</span> <span class="nav-text">压缩&解压命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#gzip"><span class="nav-number">7.0.1.</span> <span class="nav-text">gzip</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tar"><span class="nav-number">7.0.2.</span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#zip"><span class="nav-number">7.0.3.</span> <span class="nav-text">zip</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bzip2"><span class="nav-number">7.0.4.</span> <span class="nav-text">bzip2</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">指向指针的指针</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站总访客数：<span id="busuanzi_value_site_uv"></span>
+</span>|
+<span id="busuanzi_container_site_pv">
+    本站总点击量：<span id="busuanzi_value_site_pv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt5L09cj';
+      var conf = '50e1e1a365634476040bc7d8177e8021';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>
