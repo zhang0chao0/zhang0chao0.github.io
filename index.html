@@ -320,6 +320,1105 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2021/04/10/flink/flink文档学习8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="积极向上好青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积极向上好青年-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/10/flink/flink文档学习8/" itemprop="url">flink文档学习8</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T16:04:33+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index">
+                    <span itemprop="name">flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="flink-sql"><a href="#flink-sql" class="headerlink" title="flink sql"></a>flink sql</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">SQL</div><div class="line">数据类型</div><div class="line">保留关键字</div><div class="line"></div><div class="line">// 查询后，指定一个 TableSink，输出到外部文件系统</div><div class="line">// SQL 查询一个已经注册的表</div><div class="line">// 根据视图 "Orders" 创建一个 DataStream</div><div class="line">tableEnv.createTemporaryView("Orders", ds, $("user"), $("product"), $("amount"));</div><div class="line">// 在表上执行 SQL 查询并得到以新表返回的结果</div><div class="line">Table result2 = tableEnv.sqlQuery(</div><div class="line">  "SELECT product, amount FROM Orders WHERE product LIKE '%Rubber%'");</div><div class="line">// 创建并注册一个 TableSink</div><div class="line">final Schema schema = new Schema()</div><div class="line">    .field("product", DataTypes.STRING())</div><div class="line">    .field("amount", DataTypes.INT());</div><div class="line">tableEnv.connect(new FileSystem().path("/path/to/file"))</div><div class="line">    .withFormat(...)</div><div class="line">    .withSchema(schema)</div><div class="line">    .createTemporaryTable("RubberOrders");</div><div class="line">// 在表上执行插入语句并把结果发出到 TableSink</div><div class="line">tableEnv.executeSql(</div><div class="line">  "INSERT INTO RubberOrders SELECT product, amount FROM Orders WHERE product LIKE '%Rubber%'");</div><div class="line"></div><div class="line">// 执行 SQL</div><div class="line">tableEnv.executeSql("CREATE TABLE Orders (`user` BIGINT, product STRING, amount INT) WITH (...)");</div><div class="line">// 执行 SELECT</div><div class="line">TableResult tableResult1 = tableEnv.executeSql("SELECT * FROM Orders");</div><div class="line">// 返回结果迭代</div><div class="line">try (CloseableIterator&lt;Row&gt; it = tableResult1.collect()) &#123;</div><div class="line">    while(it.hasNext()) &#123;</div><div class="line">        Row row = it.next();</div><div class="line">        // handle row</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">// 返回结果也可以直接打印</div><div class="line">TableResult tableResult2 = tableEnv.sqlQuery("SELECT * FROM Orders").execute();</div><div class="line">tableResult2.print();</div><div class="line"></div><div class="line">// 查询 ---------- 基本的 SQL 语句</div><div class="line">// 查询</div><div class="line">SELECT * FROM Orders</div><div class="line">SELECT a, c AS d FROM Orders</div><div class="line">SELECT * FROM Orders WHERE b = 'red'</div><div class="line">SELECT * FROM Orders WHERE a % 2 = 0</div><div class="line">// 自定义函数</div><div class="line">SELECT PRETTY_PRINT(user) FROM Orders</div><div class="line">// 聚合</div><div class="line">SELECT a, SUM(b) as d</div><div class="line">FROM Orders</div><div class="line">GROUP BY a</div><div class="line">// 窗口</div><div class="line">SELECT user, SUM(amount)</div><div class="line">FROM Orders</div><div class="line">GROUP BY TUMBLE(rowtime, INTERVAL '1' DAY), user</div><div class="line">// OVER</div><div class="line">SELECT COUNT(amount) OVER (</div><div class="line">  PARTITION BY user</div><div class="line">  ORDER BY proctime</div><div class="line">  ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)</div><div class="line">FROM Orders</div><div class="line"></div><div class="line">SELECT COUNT(amount) OVER w, SUM(amount) OVER w</div><div class="line">FROM Orders</div><div class="line">WINDOW w AS (</div><div class="line">  PARTITION BY user</div><div class="line">  ORDER BY proctime</div><div class="line">  ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)</div><div class="line"></div><div class="line">// 去重</div><div class="line">SELECT DISTINCT users FROM Orders</div><div class="line">// 分组</div><div class="line">SELECT SUM(amount)</div><div class="line">FROM Orders</div><div class="line">GROUP BY GROUPING SETS ((user), (product))</div><div class="line"></div><div class="line">SELECT SUM(amount)</div><div class="line">FROM Orders</div><div class="line">GROUP BY users</div><div class="line">HAVING SUM(amount) &gt; 50</div><div class="line">// 自定义聚合函数</div><div class="line">SELECT MyAggregate(amount)</div><div class="line">FROM Orders</div><div class="line">GROUP BY users</div><div class="line"></div><div class="line">// join</div><div class="line">SELECT *</div><div class="line">FROM Orders INNER JOIN Product ON Orders.productId = Product.id</div><div class="line"></div><div class="line">SELECT *</div><div class="line">FROM Orders LEFT JOIN Product ON Orders.productId = Product.id</div><div class="line"></div><div class="line">SELECT *</div><div class="line">FROM Orders RIGHT JOIN Product ON Orders.productId = Product.id</div><div class="line"></div><div class="line">SELECT *</div><div class="line">FROM Orders FULL OUTER JOIN Product ON Orders.productId = Product.id</div><div class="line"></div><div class="line">// 时区关联 join</div><div class="line">SELECT *</div><div class="line">FROM Orders o, Shipments s</div><div class="line">WHERE o.id = s.orderId AND</div><div class="line">      o.ordertime BETWEEN s.shiptime - INTERVAL '4' HOUR AND s.shiptime</div><div class="line"></div><div class="line">SELECT users, tag</div><div class="line">FROM Orders CROSS JOIN UNNEST(tags) AS t (tag)</div><div class="line"></div><div class="line">// join 表函数</div><div class="line">SELECT users, tag</div><div class="line">FROM Orders, LATERAL TABLE(unnest_udtf(tags)) AS t(tag)</div><div class="line">-- 从1.11开始，也可以使用下面的方式：</div><div class="line">SELECT users, tag</div><div class="line">FROM Orders, LATERAL TABLE(unnest_udtf(tags)) AS t(tag)</div><div class="line"></div><div class="line">SELECT users, tag</div><div class="line">FROM Orders LEFT JOIN LATERAL TABLE(unnest_udtf(tags)) AS t(tag) ON TRUE</div><div class="line">-- 从1.11开始，也可以使用下面的方式：</div><div class="line">SELECT users, tag</div><div class="line">FROM Orders LEFT JOIN LATERAL TABLE(unnest_udtf(tags)) AS t(tag) ON TRUE</div><div class="line"></div><div class="line">// join 临时表</div><div class="line">SELECT</div><div class="line">  o.amount, o.currency, r.rate, o.amount * r.rate</div><div class="line">FROM</div><div class="line">  Orders AS o</div><div class="line">  JOIN LatestRates FOR SYSTEM_TIME AS OF o.proctime AS r</div><div class="line">  ON r.currency = o.currency</div><div class="line"></div><div class="line">SELECT</div><div class="line">  o_amount, r_rate</div><div class="line">FROM</div><div class="line">  Orders,</div><div class="line">  LATERAL TABLE (Rates(o_proctime))</div><div class="line">WHERE</div><div class="line">  r_currency = o_currency</div><div class="line"></div><div class="line">// 集合操作</div><div class="line">// union</div><div class="line">SELECT *</div><div class="line">FROM (</div><div class="line">    (SELECT user FROM Orders WHERE a % 2 = 0)</div><div class="line">  UNION</div><div class="line">    (SELECT user FROM Orders WHERE b = 0)</div><div class="line">)</div><div class="line">// UnionAll</div><div class="line">SELECT *</div><div class="line">FROM (</div><div class="line">    (SELECT user FROM Orders WHERE a % 2 = 0)</div><div class="line">  UNION ALL</div><div class="line">    (SELECT user FROM Orders WHERE b = 0)</div><div class="line">)</div><div class="line">// Intersect / Except</div><div class="line">SELECT *</div><div class="line">FROM (</div><div class="line">    (SELECT user FROM Orders WHERE a % 2 = 0)</div><div class="line">  INTERSECT</div><div class="line">    (SELECT user FROM Orders WHERE b = 0)</div><div class="line">)</div><div class="line"></div><div class="line">SELECT *</div><div class="line">FROM (</div><div class="line">    (SELECT user FROM Orders WHERE a % 2 = 0)</div><div class="line">  EXCEPT</div><div class="line">    (SELECT user FROM Orders WHERE b = 0)</div><div class="line">)</div><div class="line">// in</div><div class="line">SELECT user, amount</div><div class="line">FROM Orders</div><div class="line">WHERE product IN (</div><div class="line">    SELECT product FROM NewProducts</div><div class="line">)</div><div class="line">// Exists</div><div class="line">SELECT user, amount</div><div class="line">FROM Orders</div><div class="line">WHERE product EXISTS (</div><div class="line">    SELECT product FROM NewProducts</div><div class="line">)</div><div class="line"></div><div class="line">// OrderBy &amp; Limit</div><div class="line">SELECT *</div><div class="line">FROM Orders</div><div class="line">ORDER BY orderTime</div><div class="line"></div><div class="line">SELECT *</div><div class="line">FROM Orders</div><div class="line">ORDER BY orderTime</div><div class="line">LIMIT 3</div><div class="line"></div><div class="line">//  Blink 计划器支持 Top-N</div><div class="line"></div><div class="line">// 其它增删改查语句参考文档</div><div class="line"></div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableTest5</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);</div><div class="line">        DataStream&lt;WebSite&gt; dataStream = env</div><div class="line">                .readTextFile(<span class="string">"stream.txt"</span>)</div><div class="line">                .map(<span class="keyword">new</span> MapFunction&lt;String, WebSite&gt;() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> WebSite <span class="title">map</span><span class="params">(String s)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                        <span class="keyword">return</span> JSON.parseObject(s, WebSite.class);</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">                .assignTimestampsAndWatermarks(</div><div class="line">                        WatermarkStrategy.&lt;WebSite&gt;forBoundedOutOfOrderness(Duration.ofSeconds(<span class="number">10</span>))</div><div class="line">                                .withTimestampAssigner((record, ts) -&gt; &#123;</div><div class="line">                                    <span class="keyword">return</span> record.getEventTime();</div><div class="line">                                &#125;).withIdleness(Duration.ofMinutes(<span class="number">5</span>)) <span class="comment">// 空闲时间</span></div><div class="line">                );</div><div class="line">        <span class="comment">// 流转表，表名，字段映射，字段类型如何知道？</span></div><div class="line">        Table table = tableEnv.fromDataStream(dataStream);</div><div class="line">        <span class="comment">// 执行查询</span></div><div class="line">        Table result = tableEnv.sqlQuery(</div><div class="line">                <span class="string">"select method,count(*) from website group by method"</span></div><div class="line">        );</div><div class="line">        env.execute();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/10/flink/flink文档学习8/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2021/04/10/flink/flink文档学习7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="积极向上好青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积极向上好青年-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/10/flink/flink文档学习7/" itemprop="url">flink文档学习7</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T16:02:03+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index">
+                    <span itemprop="name">flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Table-API"><a href="#Table-API" class="headerlink" title="Table API"></a>Table API</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">Table API</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableTest4</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">// 基本 table api 示例</span></div><div class="line">        <span class="comment">// 准备环境</span></div><div class="line">        ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        BatchTableEnvironment tEnv = BatchTableEnvironment.create(env);</div><div class="line">        <span class="comment">// 注册表</span></div><div class="line">        <span class="comment">// specify table program</span></div><div class="line">        Table orders = tEnv.from(<span class="string">"Orders"</span>); <span class="comment">// schema (a, b, c, rowtime)</span></div><div class="line">        Table counts = orders</div><div class="line">                .groupBy($(<span class="string">"a"</span>))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>).count().as(<span class="string">"cnt"</span>));</div><div class="line">        <span class="comment">// 转化 to DataSet</span></div><div class="line">        DataSet&lt;Row&gt; result = tEnv.toDataSet(counts, Row.class);</div><div class="line">        result.print();</div><div class="line">        <span class="comment">// 复杂点的示例</span></div><div class="line">        Table orders2 = tEnv.from(<span class="string">"Orders"</span>); <span class="comment">// schema (a, b, c, rowtime)</span></div><div class="line">        <span class="comment">/*</span></div><div class="line">        就是查询的语句，window，select，groupBy 配上 $ 符号</div><div class="line">         */</div><div class="line">        Table result2 = orders2</div><div class="line">                .filter(</div><div class="line">                        and(</div><div class="line">                                $(<span class="string">"a"</span>).isNotNull(),</div><div class="line">                                $(<span class="string">"b"</span>).isNotNull(),</div><div class="line">                                $(<span class="string">"c"</span>).isNotNull()</div><div class="line">                        ))</div><div class="line">                .select($(<span class="string">"a"</span>).lowerCase().as(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"rowtime"</span>))</div><div class="line">                .window(Tumble.over(lit(<span class="number">1</span>).hours()).on($(<span class="string">"rowtime"</span>)).as(<span class="string">"hourlyWindow"</span>))</div><div class="line">                .groupBy($(<span class="string">"hourlyWindow"</span>), $(<span class="string">"a"</span>))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"hourlyWindow"</span>).end().as(<span class="string">"hour"</span>), $(<span class="string">"b"</span>).avg().as(<span class="string">"avgBillingAmount"</span>));</div><div class="line">        <span class="comment">/*</span></div><div class="line">        详细用例</div><div class="line">         */</div><div class="line">        <span class="comment">// 从已注册的表中获取</span></div><div class="line">        Table orders1 = tEnv.from(<span class="string">"Orders"</span>);</div><div class="line">        <span class="comment">// 从元素获取</span></div><div class="line">        Table table = tEnv.fromValues(</div><div class="line">                row(<span class="number">1</span>, <span class="string">"ABC"</span>),</div><div class="line">                row(<span class="number">2L</span>, <span class="string">"ABCDE"</span>)</div><div class="line">        );</div><div class="line">        <span class="comment">/*</span></div><div class="line">        root</div><div class="line">        |-- f0: BIGINT NOT NULL     // 字段名 f0，类型也会自己搞个默认值</div><div class="line">        |-- f1: VARCHAR(5) NOT NULL // 字段名 f1</div><div class="line">        或者可以指定字段名和类型</div><div class="line">         */</div><div class="line">        Table table2 = tEnv.fromValues(</div><div class="line">                DataTypes.ROW(</div><div class="line">                        DataTypes.FIELD(<span class="string">"id"</span>, DataTypes.DECIMAL(<span class="number">10</span>, <span class="number">2</span>)),</div><div class="line">                        DataTypes.FIELD(<span class="string">"name"</span>, DataTypes.STRING())</div><div class="line">                ),</div><div class="line">                row(<span class="number">1</span>, <span class="string">"ABC"</span>),</div><div class="line">                row(<span class="number">2L</span>, <span class="string">"ABCDE"</span>)</div><div class="line">        );</div><div class="line">        <span class="comment">// 查询</span></div><div class="line">        Table orders3 = tEnv.from(<span class="string">"Orders"</span>);</div><div class="line">        Table result3 = orders.select($(<span class="string">"a"</span>), $(<span class="string">"c"</span>).as(<span class="string">"d"</span>));</div><div class="line">        <span class="comment">// 通配符</span></div><div class="line">        Table result4 = orders.select($(<span class="string">"*"</span>));</div><div class="line">        Table orders5 = tEnv.from(<span class="string">"Orders"</span>);</div><div class="line">        <span class="comment">// 重命名</span></div><div class="line">        Table result5 = orders.as(<span class="string">"x, y, z, t"</span>);</div><div class="line">        <span class="comment">// 筛选</span></div><div class="line">        Table result6 = orders.where($(<span class="string">"b"</span>).isEqual(<span class="string">"red"</span>));</div><div class="line">        Table result7 = orders.filter($(<span class="string">"a"</span>).mod(<span class="number">2</span>).isEqual(<span class="number">0</span>));</div><div class="line">        <span class="comment">// --- 列操作</span></div><div class="line">        <span class="comment">// 添加列</span></div><div class="line">        Table result8 = orders.addColumns(concat($(<span class="string">"c"</span>), <span class="string">"sunny"</span>));</div><div class="line">        Table result9 = orders.addOrReplaceColumns(concat($(<span class="string">"c"</span>), <span class="string">"sunny"</span>).as(<span class="string">"desc"</span>));</div><div class="line">        <span class="comment">// 删除列</span></div><div class="line">        Table result10 = orders.dropColumns($(<span class="string">"b"</span>), $(<span class="string">"c"</span>));</div><div class="line">        <span class="comment">// 重命名列</span></div><div class="line">        Table result11 = orders.renameColumns($(<span class="string">"b"</span>).as(<span class="string">"b2"</span>), $(<span class="string">"c"</span>).as(<span class="string">"c2"</span>));</div><div class="line">        <span class="comment">// --- 集合体</span></div><div class="line">        <span class="comment">// 分组</span></div><div class="line">        Table result12 = orders.groupBy($(<span class="string">"a"</span>)).select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>).sum().as(<span class="string">"d"</span>));</div><div class="line">        <span class="comment">// 窗口</span></div><div class="line">        Table result13 = orders</div><div class="line">                .window(Tumble.over(lit(<span class="number">5</span>).minutes()).on($(<span class="string">"rowtime"</span>)).as(<span class="string">"w"</span>)) <span class="comment">// define window</span></div><div class="line">                .groupBy($(<span class="string">"a"</span>), $(<span class="string">"w"</span>)) <span class="comment">// group by key and window</span></div><div class="line">                <span class="comment">// access window properties and aggregate</span></div><div class="line">                .select(</div><div class="line">                        $(<span class="string">"a"</span>),</div><div class="line">                        $(<span class="string">"w"</span>).start(),</div><div class="line">                        $(<span class="string">"w"</span>).end(),</div><div class="line">                        $(<span class="string">"w"</span>).rowtime(),</div><div class="line">                        $(<span class="string">"b"</span>).sum().as(<span class="string">"d"</span>)</div><div class="line">                );</div><div class="line">        Table result14 = orders</div><div class="line">                .window(Tumble.over(lit(<span class="number">5</span>).minutes()).on($(<span class="string">"rowtime"</span>)).as(<span class="string">"w"</span>)) <span class="comment">// define window</span></div><div class="line">                .groupBy($(<span class="string">"a"</span>), $(<span class="string">"w"</span>)) <span class="comment">// group by key and window</span></div><div class="line">                <span class="comment">// access window properties and aggregate</span></div><div class="line">                .select(</div><div class="line">                        $(<span class="string">"a"</span>),</div><div class="line">                        $(<span class="string">"w"</span>).start(),</div><div class="line">                        $(<span class="string">"w"</span>).end(),</div><div class="line">                        $(<span class="string">"w"</span>).rowtime(),</div><div class="line">                        $(<span class="string">"b"</span>).sum().as(<span class="string">"d"</span>)</div><div class="line">                );</div><div class="line">        Table result15 = orders</div><div class="line">                <span class="comment">// define window</span></div><div class="line">                .window(</div><div class="line">                        Over</div><div class="line">                                .partitionBy($(<span class="string">"a"</span>))</div><div class="line">                                .orderBy($(<span class="string">"rowtime"</span>))</div><div class="line">                                .preceding(UNBOUNDED_RANGE)</div><div class="line">                                .following(CURRENT_RANGE)</div><div class="line">                                .as(<span class="string">"w"</span>))</div><div class="line">                <span class="comment">// sliding aggregate</span></div><div class="line">                .select(</div><div class="line">                        $(<span class="string">"a"</span>),</div><div class="line">                        $(<span class="string">"b"</span>).avg().over($(<span class="string">"w"</span>)),</div><div class="line">                        $(<span class="string">"b"</span>).max().over($(<span class="string">"w"</span>)),</div><div class="line">                        $(<span class="string">"b"</span>).min().over($(<span class="string">"w"</span>))</div><div class="line">                );</div><div class="line">        <span class="comment">// 不同流之间的聚合</span></div><div class="line">        Table groupByDistinctResult = orders</div><div class="line">                .groupBy($(<span class="string">"a"</span>))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>).sum().distinct().as(<span class="string">"d"</span>));</div><div class="line"><span class="comment">// Distinct aggregation on time window group by</span></div><div class="line">        Table groupByWindowDistinctResult = orders</div><div class="line">                .window(Tumble</div><div class="line">                        .over(lit(<span class="number">5</span>).minutes())</div><div class="line">                        .on($(<span class="string">"rowtime"</span>))</div><div class="line">                        .as(<span class="string">"w"</span>)</div><div class="line">                )</div><div class="line">                .groupBy($(<span class="string">"a"</span>), $(<span class="string">"w"</span>))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>).sum().distinct().as(<span class="string">"d"</span>));</div><div class="line">        Table result16 = orders</div><div class="line">                .window(Over</div><div class="line">                        .partitionBy($(<span class="string">"a"</span>))</div><div class="line">                        .orderBy($(<span class="string">"rowtime"</span>))</div><div class="line">                        .preceding(UNBOUNDED_RANGE)</div><div class="line">                        .as(<span class="string">"w"</span>))</div><div class="line">                .select(</div><div class="line">                        $(<span class="string">"a"</span>), $(<span class="string">"b"</span>).avg().distinct().over($(<span class="string">"w"</span>)),</div><div class="line">                        $(<span class="string">"b"</span>).max().over($(<span class="string">"w"</span>)),</div><div class="line">                        $(<span class="string">"b"</span>).min().over($(<span class="string">"w"</span>))</div><div class="line">                );</div><div class="line">        <span class="comment">// 自定义聚合函数</span></div><div class="line">        <span class="comment">// tEnv.registerFunction("myUdagg", new MyUdagg());</span></div><div class="line">        orders.groupBy(<span class="string">"users"</span>)</div><div class="line">                .select(</div><div class="line">                        $(<span class="string">"users"</span>),</div><div class="line">                        call(<span class="string">"myUdagg"</span>, $(<span class="string">"points"</span>)).distinct().as(<span class="string">"myDistinctResult"</span>)</div><div class="line">                );</div><div class="line">        <span class="comment">// 去重</span></div><div class="line">        Table result17 = orders.distinct();</div><div class="line">        <span class="comment">// ---- 连接</span></div><div class="line">        <span class="comment">// 内连接</span></div><div class="line">        Table left = tEnv.fromDataSet(<span class="keyword">null</span>, <span class="string">"a, b, c"</span>);</div><div class="line">        Table right = tEnv.fromDataSet(<span class="keyword">null</span>, <span class="string">"d, e, f"</span>);</div><div class="line">        Table result18 = left.join(right)</div><div class="line">                .where($(<span class="string">"a"</span>).isEqual($(<span class="string">"d"</span>)))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"e"</span>));</div><div class="line">        <span class="comment">// 外连接</span></div><div class="line">        Table left2 = tEnv.fromDataSet(<span class="keyword">null</span>, <span class="string">"a, b, c"</span>);</div><div class="line">        Table right2 = tEnv.fromDataSet(<span class="keyword">null</span>, <span class="string">"d, e, f"</span>);</div><div class="line">        Table leftOuterResult = left2.leftOuterJoin(right2, $(<span class="string">"a"</span>).isEqual($(<span class="string">"d"</span>)))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"e"</span>));</div><div class="line">        Table rightOuterResult = left2.rightOuterJoin(right2, $(<span class="string">"a"</span>).isEqual($(<span class="string">"d"</span>)))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"e"</span>));</div><div class="line">        Table fullOuterResult = left2.fullOuterJoin(right2, $(<span class="string">"a"</span>).isEqual($(<span class="string">"d"</span>)))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"e"</span>));</div><div class="line">        <span class="comment">// 间隔加入，加上时间条件的 join</span></div><div class="line">        Table left3 = tEnv.fromDataSet(<span class="keyword">null</span>, $(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"c"</span>), $(<span class="string">"ltime"</span>).rowtime());</div><div class="line">        Table right3 = tEnv.fromDataSet(<span class="keyword">null</span>, $(<span class="string">"d"</span>), $(<span class="string">"e"</span>), $(<span class="string">"f"</span>), $(<span class="string">"rtime"</span>).rowtime());</div><div class="line">        Table result19 = left3.join(right3)</div><div class="line">                .where(</div><div class="line">                        and(</div><div class="line">                                $(<span class="string">"a"</span>).isEqual($(<span class="string">"d"</span>)),</div><div class="line">                                $(<span class="string">"ltime"</span>).isGreaterOrEqual($(<span class="string">"rtime"</span>).minus(lit(<span class="number">5</span>).minutes())),</div><div class="line">                                $(<span class="string">"ltime"</span>).isLess($(<span class="string">"rtime"</span>).plus(lit(<span class="number">10</span>).minutes()))</div><div class="line">                        ))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"e"</span>), $(<span class="string">"ltime"</span>));</div><div class="line">        <span class="comment">// 内联表，UDTF</span></div><div class="line">        TableFunction&lt;String&gt; split = <span class="keyword">new</span> MySplitUDTF();</div><div class="line">        tEnv.registerFunction(<span class="string">"split"</span>, split);</div><div class="line">        Table result20 = orders</div><div class="line">                .joinLateral(call(<span class="string">"split"</span>, $(<span class="string">"c"</span>)).as(<span class="string">"s"</span>, <span class="string">"t"</span>, <span class="string">"v"</span>))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"s"</span>), $(<span class="string">"t"</span>), $(<span class="string">"v"</span>));</div><div class="line">        <span class="comment">// 左外连接</span></div><div class="line">        TableFunction&lt;String&gt; split2 = <span class="keyword">new</span> MySplitUDTF();</div><div class="line">        tEnv.registerFunction(<span class="string">"split"</span>, split2);</div><div class="line">        Table result21 = orders</div><div class="line">                .leftOuterJoinLateral(call(<span class="string">"split2"</span>, $(<span class="string">"c"</span>)).as(<span class="string">"s"</span>, <span class="string">"t"</span>, <span class="string">"v"</span>))</div><div class="line">                .select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"s"</span>), $(<span class="string">"t"</span>), $(<span class="string">"v"</span>));</div><div class="line">        <span class="comment">// 加入时态表？什么是时态表，还是有点模糊</span></div><div class="line">        Table ratesHistory = tEnv.from(<span class="string">"RatesHistory"</span>);</div><div class="line">        <span class="comment">// register temporal table function with a time attribute and primary key</span></div><div class="line">        TemporalTableFunction rates = ratesHistory.createTemporalTableFunction(</div><div class="line">                <span class="string">"r_proctime"</span>,</div><div class="line">                <span class="string">"r_currency"</span>);</div><div class="line">        tEnv.registerFunction(<span class="string">"rates"</span>, rates);</div><div class="line">        <span class="comment">// join with "Orders" based on the time attribute and key</span></div><div class="line">        Table result22 = orders</div><div class="line">                .joinLateral(call(<span class="string">"rates"</span>, $(<span class="string">"o_proctime"</span>)), $(<span class="string">"o_currency"</span>).isEqual($(<span class="string">"r_currency"</span>)));</div><div class="line">        <span class="comment">// ---- 联合，集合的操作</span></div><div class="line">        Table left4 = tEnv.fromDataSet(<span class="keyword">null</span>, <span class="string">"a, b, c"</span>);</div><div class="line">        Table right4 = tEnv.fromDataSet(<span class="keyword">null</span>, <span class="string">"a, b, c"</span>);</div><div class="line">        Table result23 = left4.union(right4);</div><div class="line">        Table result24 = left4.unionAll(right4);</div><div class="line">        <span class="comment">// 相交，取交集</span></div><div class="line">        Table result25 = left4.intersect(right4);</div><div class="line">        Table result26 = left4.intersectAll(right4);</div><div class="line">        <span class="comment">// 差集</span></div><div class="line">        Table result27 = left.minus(right);</div><div class="line">        Table result28 = left.minusAll(right);</div><div class="line">        <span class="comment">// in</span></div><div class="line">        Table result29 = left.select($(<span class="string">"a"</span>), $(<span class="string">"b"</span>), $(<span class="string">"c"</span>)).where($(<span class="string">"a"</span>).in(right));</div><div class="line">        <span class="comment">// ---- 排序</span></div><div class="line">        Table in = tEnv.fromDataSet(<span class="keyword">null</span>, <span class="string">"a, b, c"</span>);</div><div class="line">        Table result30 = in.orderBy($(<span class="string">"a"</span>).asc());</div><div class="line">        <span class="comment">// 偏移</span></div><div class="line">        <span class="comment">// returns the first 5 records from the sorted result</span></div><div class="line">        Table result31 = in.orderBy($(<span class="string">"a"</span>).asc()).fetch(<span class="number">5</span>);</div><div class="line">        <span class="comment">// skips the first 3 records and returns all following records from the sorted result</span></div><div class="line">        Table result32 = in.orderBy($(<span class="string">"a"</span>).asc()).offset(<span class="number">3</span>);</div><div class="line">        <span class="comment">// skips the first 10 records and returns the next 5 records from the sorted result</span></div><div class="line">        Table result33 = in.orderBy($(<span class="string">"a"</span>).asc()).offset(<span class="number">10</span>).fetch(<span class="number">5</span>);</div><div class="line">        <span class="comment">// --- 插入</span></div><div class="line">        orders.executeInsert(<span class="string">"OutOrders"</span>);</div><div class="line">        <span class="comment">// 窗口合集</span></div><div class="line">        <span class="comment">/*</span></div><div class="line">        单聚合</div><div class="line">        Table table = input</div><div class="line">                .window([GroupWindow w].as("w"))  // define window with alias w</div><div class="line">                .groupBy($("w"))  // group the table by window w</div><div class="line">                .select($("b").sum());  // aggregate</div><div class="line"></div><div class="line">        多聚合</div><div class="line">        Table table = input</div><div class="line">                  .window([GroupWindow w].as("w"))  // define window with alias w</div><div class="line">                  .groupBy($("w"), $("a"))  // group the table by attribute a and window w</div><div class="line">                  .select($("a"), $("b").sum());  // aggregate</div><div class="line"></div><div class="line">        多聚合 + 输出窗口时间</div><div class="line">        Table table = input</div><div class="line">                  .window([GroupWindow w].as("w"))  // define window with alias w</div><div class="line">                  .groupBy($("w"), $("a"))  // group the table by attribute a and window w</div><div class="line">                  .select($("a"), $("w").start(), $("w").end(), $("w").rowtime(), $("b").count()); // aggregate and add window start, end, and rowtime timestamps</div><div class="line"></div><div class="line">         */</div><div class="line">        <span class="comment">/*</span></div><div class="line">        滚动窗口</div><div class="line">        over : 窗口长度，时间间隔，或者计数间隔</div><div class="line">        on : 指定时间属性</div><div class="line">        as : 为窗口分配别名</div><div class="line"></div><div class="line">        // Tumbling Event-time Window</div><div class="line">        .window(Tumble.over(lit(10).minutes()).on($("rowtime")).as("w"));</div><div class="line"></div><div class="line">        // Tumbling Processing-time Window (assuming a processing-time attribute "proctime")</div><div class="line">        .window(Tumble.over(lit(10).minutes()).on($("proctime")).as("w"));</div><div class="line"></div><div class="line">        // Tumbling Row-count Window (assuming a processing-time attribute "proctime")</div><div class="line">        .window(Tumble.over(rowInterval(10)).on($("proctime")).as("w"));</div><div class="line"></div><div class="line">         */</div><div class="line">        <span class="comment">/*</span></div><div class="line">        滑动窗口</div><div class="line">        over : 窗口长度，时间间隔，或者计数间隔</div><div class="line">        every : 滑动时间间隔</div><div class="line">        on : 指定时间属性</div><div class="line">        as : 为窗口分配别名</div><div class="line"></div><div class="line">        // Sliding Event-time Window</div><div class="line">        .window(Slide.over(lit(10).minutes())</div><div class="line">                    .every(lit(5).minutes())</div><div class="line">                    .on($("rowtime"))</div><div class="line">                    .as("w"));</div><div class="line"></div><div class="line">        // Sliding Processing-time window (assuming a processing-time attribute "proctime")</div><div class="line">        .window(Slide.over(lit(10).minutes())</div><div class="line">                    .every(lit(5).minutes())</div><div class="line">                    .on($("proctime"))</div><div class="line">                    .as("w"));</div><div class="line"></div><div class="line">        // Sliding Row-count window (assuming a processing-time attribute "proctime")</div><div class="line">        .window(Slide.over(rowInterval(10)).every(rowInterval(5)).on($("proctime")).as("w"));</div><div class="line"></div><div class="line">         */</div><div class="line">        <span class="comment">/*</span></div><div class="line">        会话窗口</div><div class="line">        withGap : 窗口之间的时间间隔</div><div class="line">        on : 指定时间属性</div><div class="line">        as : 为窗口分配别名</div><div class="line"></div><div class="line">        // Session Event-time Window</div><div class="line">        .window(Session.withGap(lit(10).minutes()).on($("rowtime")).as("w"));</div><div class="line"></div><div class="line">        // Session Processing-time Window (assuming a processing-time attribute "proctime")</div><div class="line">        .window(Session.withGap(lit(10).minutes()).on($("proctime")).as("w"));</div><div class="line"></div><div class="line">         */</div><div class="line">        <span class="comment">/*</span></div><div class="line">        Over Windows</div><div class="line">        Unbounded Over Windows</div><div class="line">        Bounded Over Windows</div><div class="line">         */</div><div class="line">        <span class="comment">/*</span></div><div class="line">        基于行的操作</div><div class="line">         */</div><div class="line">        <span class="comment">// map</span></div><div class="line">        ScalarFunction func = <span class="keyword">new</span> MyMapFunction2();</div><div class="line">        tEnv.registerFunction(<span class="string">"func"</span>, func);</div><div class="line">        Table input = <span class="keyword">null</span>;</div><div class="line">        Table table3 = input</div><div class="line">                .map(call(<span class="string">"func"</span>, $(<span class="string">"c"</span>)).as(<span class="string">"a"</span>, <span class="string">"b"</span>));</div><div class="line">        <span class="comment">// flat map , 聚合函数等</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySplitUDTF</span> <span class="keyword">extends</span> <span class="title">TableFunction</span>&lt;<span class="title">String</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyMapFunction2</span> <span class="keyword">extends</span> <span class="title">ScalarFunction</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Row <span class="title">eval</span><span class="params">(String a)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Row.of(a, <span class="string">"pre-"</span> + a);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> TypeInformation&lt;?&gt; getResultType(Class&lt;?&gt;[] signature) &#123;</div><div class="line">        <span class="keyword">return</span> Types.ROW(STRING(), STRING());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2021/04/10/flink/flink文档学习6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="积极向上好青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积极向上好青年-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/10/flink/flink文档学习6/" itemprop="url">flink文档学习6</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T15:58:27+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index">
+                    <span itemprop="name">flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="动态表"><a href="#动态表" class="headerlink" title="动态表"></a>动态表</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">动态表</div><div class="line"></div><div class="line">对流数据进行 SQL 查询，本质是什么？</div><div class="line">本质上是对一个 INSERT-only 的 changelog 流构建表，这张表在不断的进行插入数据操作</div><div class="line"></div><div class="line">查询限制</div><div class="line">合理的时间滚动可以存储中间数据的成本，和流数据的窗口是一致的</div><div class="line"></div><div class="line">表到流之间的转换</div><div class="line">1. Append-only 流</div><div class="line">2. Retract 流</div><div class="line">3. Upsert 流</div><div class="line"></div><div class="line">时间属性</div><div class="line"></div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableTest2</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="keyword">final</span> StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        <span class="comment">// 已经被废弃了呀</span></div><div class="line">        env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);</div><div class="line">        <span class="comment">/*</span></div><div class="line">        创建表的时候指定时间</div><div class="line">        CREATE TABLE user_actions (</div><div class="line">          user_name STRING,</div><div class="line">          data STRING,</div><div class="line">          user_action_time AS PROCTIME() -- 声明一个额外的列作为处理时间属性</div><div class="line">        ) WITH (</div><div class="line">          ...</div><div class="line">        );</div><div class="line">        查询的时候指定窗口大小</div><div class="line">        SELECT TUMBLE_START(user_action_time, INTERVAL '10' MINUTE), COUNT(DISTINCT user_name)</div><div class="line">        FROM user_actions</div><div class="line">        GROUP BY TUMBLE(user_action_time, INTERVAL '10' MINUTE);</div><div class="line"></div><div class="line">        PS: 文档有些过时了</div><div class="line"></div><div class="line">        无论是基于什么时间，都要指定时间参数和水位生成方式，和 MySQL 的区别就是多加了</div><div class="line">        时间参数而已</div><div class="line"></div><div class="line">         */</div><div class="line">        <span class="comment">/*</span></div><div class="line">        在 DataStream 到 Table 转换时定义</div><div class="line"></div><div class="line">         */</div><div class="line">        StreamTableEnvironment tEnv = <span class="keyword">null</span>;</div><div class="line">        DataStream&lt;Tuple2&lt;String, String&gt;&gt; stream = <span class="keyword">null</span>;</div><div class="line">        Table table = tEnv.fromDataStream(</div><div class="line">                stream,</div><div class="line">                $(<span class="string">"user_name"</span>),</div><div class="line">                $(<span class="string">"data"</span>),</div><div class="line">                $(<span class="string">"user_action_time"</span>).proctime()</div><div class="line">        );</div><div class="line">        GroupWindowedTable windowedTable = table.window(</div><div class="line">                Tumble.over(<span class="string">"10"</span>)</div><div class="line">                        .on($(<span class="string">"user_action_time"</span>))</div><div class="line">                        .as(<span class="string">"userActionWindow"</span>));</div><div class="line">        <span class="comment">/*</span></div><div class="line">        设计初衷：查询数据的版本</div><div class="line">        时态表，仅 Blink planner 支持此功能，不同时间查询的数据结果不同</div><div class="line">        根据当前时间而定版本</div><div class="line"></div><div class="line">        声明版本表</div><div class="line">        在 Flink 中，定义了主键约束和事件时间属性的表就是版本表</div><div class="line">        -- 定义一张版本表</div><div class="line">        CREATE TABLE product_changelog (</div><div class="line">          product_id STRING,</div><div class="line">          product_name STRING,</div><div class="line">          product_price DECIMAL(10, 4),</div><div class="line">          # 从每条 changelog 中抽取 changelog 对应的数据库表中操作的执行时间</div><div class="line">          update_time TIMESTAMP(3) METADATA FROM 'value.source.timestamp' VIRTUAL,</div><div class="line">          PRIMARY KEY(product_id) NOT ENFORCED,      -- (1) 定义主键约束</div><div class="line">          WATERMARK FOR update_time AS update_time   -- (2) 通过 watermark 定义事件时间</div><div class="line">        ) WITH (</div><div class="line">          'connector' = 'kafka',</div><div class="line">          'topic' = 'products',</div><div class="line">          'scan.startup.mode' = 'earliest-offset',</div><div class="line">          'properties.bootstrap.servers' = 'localhost:9092',</div><div class="line">          'value.format' = 'debezium-json'</div><div class="line">        );</div><div class="line"></div><div class="line">        声明版本视图</div><div class="line">        Flink 也支持定义版本视图只要一个视图包含主键和事件时间便是一个版本视图</div><div class="line">        -- 定义一张 append-only 表</div><div class="line">        CREATE TABLE RatesHistory (</div><div class="line">            currency_time TIMESTAMP(3),</div><div class="line">            currency STRING,</div><div class="line">            rate DECIMAL(38, 10),</div><div class="line">            WATERMARK FOR currency_time AS currency_time   -- 定义事件时间</div><div class="line">        ) WITH (</div><div class="line">          'connector' = 'kafka',</div><div class="line">          'topic' = 'rates',</div><div class="line">          'scan.startup.mode' = 'earliest-offset',</div><div class="line">          'properties.bootstrap.servers' = 'localhost:9092',</div><div class="line">          'format' = 'json'                                -- 普通的 append-only 流</div><div class="line">        )</div><div class="line"></div><div class="line">        时态表函数</div><div class="line">        时态表的 Join</div><div class="line"></div><div class="line">        表中的模式检测</div><div class="line">        MATCH_RECOGNIZE 定义更高级的用法：</div><div class="line">        1. 使用 PARTITION BY 和 ORDER BY 子句对数据进行逻辑分区和排序。</div><div class="line">        2. 使用 PATTERN 子句定义要查找的行模式。这些模式使用类似于正则表达式的语法。</div><div class="line">        3. 在 DEFINE 子句中指定行模式变量的逻辑组合。</div><div class="line">        4. measures 是指在 MEASURES 子句中定义的表达式，这些表达式可用于 SQL 查询中的其他部分</div><div class="line">        需要引用 cep 库</div><div class="line"></div><div class="line">        SQL 语句，语法</div><div class="line">        PARTITION BY - 定义表的逻辑分区；类似于 GROUP BY 操作</div><div class="line">        ORDER BY - 指定传入行的排序方式；这是必须的，因为模式依赖于顺序</div><div class="line">        MEASURES - 定义子句的输出；类似于 SELECT 子句</div><div class="line">        ONE ROW PER MATCH - 输出方式，定义每个匹配项应产生多少行</div><div class="line">        AFTER MATCH SKIP - 指定下一个匹配的开始位置；这也是控制单个事件可以属于多少个不同匹配项的方法</div><div class="line">        PATTERN - 允许使用类似于 正则表达式 的语法构造搜索的模式</div><div class="line">        DEFINE - 本部分定义了模式变量必须满足的条件</div><div class="line">        定义更复杂的 SQL 查询，语法和查询看文档就行</div><div class="line"></div><div class="line">        查询配置，和流计算一样，表的查询也有配置</div><div class="line"></div><div class="line">         */</div><div class="line">        StreamExecutionEnvironment env2 = StreamExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env2);</div><div class="line">        TableConfig tConfig = tableEnv.getConfig();</div><div class="line">        tConfig.setIdleStateRetentionTime(Time.hours(<span class="number">12</span>), Time.hours(<span class="number">24</span>));</div><div class="line">        Table result = <span class="keyword">null</span>;</div><div class="line">        TableSink&lt;Row&gt; sink = <span class="keyword">null</span>;</div><div class="line">        <span class="comment">// API 文档都不是太新</span></div><div class="line"><span class="comment">//        tableEnv.registerTableSink(</span></div><div class="line"><span class="comment">//                "outputTable",               // table name</span></div><div class="line"><span class="comment">//                new String[]&#123;&#125;,           // field names</span></div><div class="line"><span class="comment">//                new TypeInformation[]&#123;&#125;,  // field types</span></div><div class="line"><span class="comment">//                sink);                       // table sink</span></div><div class="line">        result.executeInsert(<span class="string">"outputTable"</span>);</div><div class="line">        DataStream&lt;Row&gt; stream2 = tableEnv.toAppendStream(result, Row.class);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/10/flink/flink文档学习6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2021/04/10/flink/flink文档学习5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="积极向上好青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积极向上好青年-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/10/flink/flink文档学习5/" itemprop="url">flink文档学习5</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T15:55:03+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index">
+                    <span itemprop="name">flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Table-API-amp-SQL"><a href="#Table-API-amp-SQL" class="headerlink" title="Table API &amp; SQL"></a>Table API &amp; SQL</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">Table API &amp; SQL</div><div class="line"></div><div class="line">Planner 的作用主要是把关系型的SQL翻译成可执行的、经过优化的 Flink 任务</div><div class="line">flink-table-planner : 1.9 版本之前</div><div class="line">flink-table-planner-blink_2.11 : 最新的版本</div><div class="line">两种 planner 的区别：</div><div class="line">Blink 将批处理作业视作流处理的一种特例</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableTest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">/*</span></div><div class="line">        通用的程序结构</div><div class="line">         */</div><div class="line">        <span class="comment">// 创建环境</span></div><div class="line">        <span class="comment">// TableEnvironment tableEnv = TableEnvironment.create(..);</span></div><div class="line">        TableEnvironment tableEnv = <span class="keyword">null</span>;</div><div class="line">        <span class="comment">// 创建输入表</span></div><div class="line">        tableEnv.executeSql(</div><div class="line">                <span class="string">"CREATE TEMPORARY TABLE table1 ... WITH ('connect' = ... )"</span></div><div class="line">        );</div><div class="line">        <span class="comment">// 创建输出表</span></div><div class="line">        tableEnv.executeSql(</div><div class="line">                <span class="string">"CREATE TEMPORARY outputTable ... WITH ('connect' = ... )"</span></div><div class="line">        );</div><div class="line">        <span class="comment">// 查询</span></div><div class="line">        Table table2 = tableEnv.from(<span class="string">"table1"</span>).select(<span class="string">""</span>);</div><div class="line">        Table table3 = tableEnv.sqlQuery(<span class="string">"SELECT ... FROM table1 ..."</span>);</div><div class="line">        <span class="comment">// 输出到外部环境</span></div><div class="line">        TableResult tableResult = table2.executeInsert(<span class="string">"outputTable"</span>);</div><div class="line">        <span class="comment">/*</span></div><div class="line">        TableEnvironment 是核心类</div><div class="line">        1. 注册内外部的 catalog (好像就是元数据)</div><div class="line">        2. 注册自定义函数，执行查询</div><div class="line">        3. 将 DataStream 或 DataSet 转换为 Table</div><div class="line">        你要明确的指出用实时还是离线</div><div class="line">        BatchTableEnvironment.create()</div><div class="line">        StreamTableEnvironment.create()</div><div class="line">        TableConfig 可配置查询优化</div><div class="line"></div><div class="line">         */</div><div class="line">        EnvironmentSettings fsSetting = EnvironmentSettings</div><div class="line">                .newInstance()</div><div class="line">                .useOldPlanner() <span class="comment">// old,blink,或者 any 让程序自己选择合适的</span></div><div class="line">                .inStreamingMode() <span class="comment">// 实时模式</span></div><div class="line">                .build();</div><div class="line">        <span class="comment">// 实时环境</span></div><div class="line">        StreamExecutionEnvironment fsEnv = StreamExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        StreamTableEnvironment fsTableEnv = StreamTableEnvironment.create(fsEnv, fsSetting);</div><div class="line">        <span class="comment">// or TableEnvironment fsTableEnv = TableEnvironment.create(fsSettings);</span></div><div class="line">        <span class="comment">// 离线环境</span></div><div class="line">        ExecutionEnvironment fbEnv = ExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        BatchTableEnvironment fbTableEnv = BatchTableEnvironment.create(fbEnv);</div><div class="line">        <span class="comment">// blink 实时</span></div><div class="line">        StreamExecutionEnvironment bsEnv = StreamExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        EnvironmentSettings bsSettings = EnvironmentSettings.newInstance().useBlinkPlanner().inStreamingMode().build();</div><div class="line">        StreamTableEnvironment bsTableEnv = StreamTableEnvironment.create(bsEnv, bsSettings);</div><div class="line">        <span class="comment">// blink 离线</span></div><div class="line">        EnvironmentSettings bbSettings = EnvironmentSettings.newInstance().useBlinkPlanner().inBatchMode().build();</div><div class="line">        TableEnvironment bbTableEnv = TableEnvironment.create(bbSettings);</div><div class="line">        <span class="comment">// 如果/lib目录中只有一种计划器的 jar 包，则可以使用useAnyPlanner（python 使用 use any_u_planner）创建 EnvironmentSettings</span></div><div class="line">        <span class="comment">/*</span></div><div class="line">        TableEnvironment 维护着 catalog</div><div class="line">        catalog 名称，数据库名称，对象名称</div><div class="line">        表可以是虚拟（放一些查询结果）的，也可以是实体（真正的对应外部消息队列啥的）的</div><div class="line">        可以是临时的，也可以是永久的</div><div class="line">        永久的表会注册元数据信息：</div><div class="line">        一旦永久表被创建，它对任何的会话都是生效的，直到明确删除</div><div class="line">        临时表只在自己的内存中可见，其它会话不可见</div><div class="line">        同名的临时表会屏蔽永久表（全局变量和局部变量的区别嘛！可见性）</div><div class="line"></div><div class="line">         */</div><div class="line">        <span class="comment">// 简单的查询</span></div><div class="line">        Table projTable = fsTableEnv.from(<span class="string">"X"</span>).select();</div><div class="line">        <span class="comment">// 注册表</span></div><div class="line">        fsTableEnv.createTemporaryView(<span class="string">"projectedTable"</span>, projTable);</div><div class="line">        <span class="comment">// 与外部系统的链接</span></div><div class="line">        fsTableEnv.connect(<span class="keyword">null</span>)</div><div class="line">                .withFormat(<span class="keyword">null</span>)</div><div class="line">                .withSchema(<span class="keyword">null</span>)</div><div class="line">                .inAppendMode()</div><div class="line">                .createTemporaryTable(<span class="string">"MyTable"</span>);</div><div class="line">        <span class="comment">// 表注册信息 ： &lt;catalog 名、数据库名和表名&gt;</span></div><div class="line">        <span class="comment">// 通过 . 来指定层级关系</span></div><div class="line">        fsTableEnv.useCatalog(<span class="string">"custom_catalog"</span>);</div><div class="line">        fsTableEnv.useDatabase(<span class="string">"custom_database"</span>);</div><div class="line">        tableEnv.createTemporaryView(<span class="string">"exampleView"</span>, projTable);</div><div class="line">        tableEnv.createTemporaryView(<span class="string">"other_database.exampleView"</span>, projTable);</div><div class="line">        tableEnv.createTemporaryView(<span class="string">"`example.View`"</span>, projTable);</div><div class="line">        tableEnv.createTemporaryView(<span class="string">"other_catalog.other_database.exampleView"</span>, projTable);</div><div class="line">        <span class="comment">// 查询表，假设之前有注册过订单表</span></div><div class="line">        Table orders = fsTableEnv.from(<span class="string">"orders"</span>);</div><div class="line">        <span class="comment">// Table API</span></div><div class="line">        Table revenue = orders</div><div class="line">                .filter($(<span class="string">"cCountry"</span>).isEqual(<span class="string">"FRANCE"</span>))</div><div class="line">                .groupBy($(<span class="string">"cID"</span>), $(<span class="string">"cName"</span>))</div><div class="line">                .select($(<span class="string">"cID"</span>), $(<span class="string">"cName"</span>), $(<span class="string">"revenue"</span>).sum().as(<span class="string">"revSum"</span>));</div><div class="line">        <span class="comment">// SQL</span></div><div class="line">        <span class="comment">// 查询语句</span></div><div class="line">        Table revenue2 = fsTableEnv.sqlQuery(</div><div class="line">                <span class="string">"select cID, cName, SUM(revenue) as revSum "</span> +</div><div class="line">                        <span class="string">"from orders where cCountry = 'FRANCE' "</span> +</div><div class="line">                        <span class="string">"group by cID, cName"</span></div><div class="line">        );</div><div class="line">        <span class="comment">// 更新语句</span></div><div class="line">        tableEnv.executeSql(</div><div class="line">                <span class="string">"INSERT INTO RevenueFrance "</span> +</div><div class="line">                        <span class="string">"SELECT cID, cName, SUM(revenue) AS revSum "</span> +</div><div class="line">                        <span class="string">"FROM Orders "</span> +</div><div class="line">                        <span class="string">"WHERE cCountry = 'FRANCE' "</span> +</div><div class="line">                        <span class="string">"GROUP BY cID, cName"</span></div><div class="line">        );</div><div class="line">        <span class="comment">/*</span></div><div class="line">        Table Sink</div><div class="line">        批处理 Table 只能写入 BatchTableSink，</div><div class="line">        而流处理 Table 需要指定写入 AppendStreamTableSink，RetractStreamTableSink</div><div class="line">        或者 UpsertStreamTableSink</div><div class="line">         */</div><div class="line">        <span class="keyword">final</span> Schema schema = <span class="keyword">new</span> Schema()</div><div class="line">                .field(<span class="string">"a"</span>, DataTypes.INT())</div><div class="line">                .field(<span class="string">"b"</span>, DataTypes.STRING())</div><div class="line">                .field(<span class="string">"c"</span>, DataTypes.BIGINT());</div><div class="line">        fsTableEnv.connect(<span class="keyword">new</span> FileSystem().path(<span class="string">"/path/to/file"</span>))</div><div class="line">                .withFormat(<span class="keyword">new</span> OldCsv().fieldDelimiter(<span class="string">"|"</span>).deriveSchema())</div><div class="line">                .withSchema(schema)</div><div class="line">                .createTemporaryTable(<span class="string">"CsvSinkTable"</span>);</div><div class="line">        Table result = <span class="keyword">null</span>;</div><div class="line">        result.executeInsert(<span class="string">"CsvSinkTable"</span>);</div><div class="line">        <span class="comment">/*</span></div><div class="line">        不论输入数据源是流式的还是批式的，Table API 和 SQL 查询都会被转换成 DataStream 程序。</div><div class="line">        查询在内部表示为逻辑查询计划，并被翻译成两个阶段：</div><div class="line">        1. 优化逻辑执行计划</div><div class="line">        2. 翻译成 DataStream 程序</div><div class="line"></div><div class="line">        在流处理方面两种计划器都可以与 DataStream API 结合</div><div class="line">        只有 Old 计划器可以与 DataSet API 结合!!!!!!!</div><div class="line">        在批处理方面，Blink 计划器不能同两种计划器中的任何一个结合</div><div class="line"></div><div class="line">        DataStream/DataSet 和 Table 之间的相互转换</div><div class="line">        (DataSet 只 针对 older planner)</div><div class="line"></div><div class="line">        两种模式：</div><div class="line">        1. Append Mode: 仅当动态 Table 仅通过INSERT更改进行修改时，才可以使用此模式，即，</div><div class="line">            它仅是追加操作，并且之前输出的结果永远不会更新</div><div class="line">        2. Retract Mode: 任何情形都可以使用此模式</div><div class="line">            它使用 boolean 值对 INSERT 和 DELETE 操作的数据进行标记</div><div class="line">        */</div><div class="line">        <span class="comment">// 流 -&gt; 视图，表</span></div><div class="line">        StreamTableEnvironment tableEnv1 = <span class="keyword">null</span>;</div><div class="line">        DataStream&lt;Tuple2&lt;Long, String&gt;&gt; stream = <span class="keyword">null</span>;</div><div class="line">        tableEnv1.createTemporaryView(<span class="string">"myTable"</span>, stream);</div><div class="line">        tableEnv1.createTemporaryView(<span class="string">"myTable2"</span>, stream, $(<span class="string">"myLong"</span>), $(<span class="string">"myString"</span>));</div><div class="line">        Table table1 = tableEnv1.fromDataStream(stream);</div><div class="line">        Table table22 = tableEnv1.fromDataStream(stream, $(<span class="string">"myLong"</span>), $(<span class="string">"myString"</span>));</div><div class="line">        <span class="comment">// 表 -&gt; 流</span></div><div class="line">        DataStream&lt;Row&gt; dsRow = tableEnv1.toAppendStream(table1, Row.class);</div><div class="line">        TupleTypeInfo&lt;Tuple2&lt;String, Integer&gt;&gt; tupleType = <span class="keyword">new</span> TupleTypeInfo&lt;&gt;(</div><div class="line">                Types.STRING(),</div><div class="line">                Types.INT());</div><div class="line">        DataStream&lt;Tuple2&lt;String, Integer&gt;&gt; dsTuple =</div><div class="line">                tableEnv1.toAppendStream(table1, tupleType);</div><div class="line">        <span class="comment">// True is INSERT, false is DELETE.</span></div><div class="line">        DataStream&lt;Tuple2&lt;Boolean, Row&gt;&gt; retractStream =</div><div class="line">                tableEnv1.toRetractStream(table1, Row.class);</div><div class="line">        <span class="comment">/*</span></div><div class="line">        名称映射，就是选择表中的列的时候</div><div class="line">        $("myLong") : 确定到列</div><div class="line">        $("f1") : 对于 Tuple 类型，也可以这样指定</div><div class="line">        Row 类型支持任意数量的字段以及具有 null 值的字段。字段名称可以通过 RowTypeInfo 指定，</div><div class="line">        也可以在将 Row 的 DataStream 或 DataSet 转换为 Table 时指定</div><div class="line"></div><div class="line">        查询优化：</div><div class="line">            基于 Apache Calcite 的子查询解相关</div><div class="line">            投影剪裁</div><div class="line">            分区剪裁</div><div class="line">            过滤器下推</div><div class="line">            子计划消除重复数据以避免重复计算</div><div class="line">            特殊子查询重写，包括两部分：</div><div class="line">            将 IN 和 EXISTS 转换为 left semi-joins</div><div class="line">            将 NOT IN 和 NOT EXISTS 转换为 left anti-join</div><div class="line">            可选 join 重新排序</div><div class="line">            通过 table.optimizer.join-reorder-enabled 启用</div><div class="line">        优化器不仅基于计划，而且还基于可从数据源获得的丰富统计信息以及每个算子（例如 io，cpu，网络和内存）的细粒度成本来做出明智的决策。</div><div class="line">        高级用户可以通过 CalciteConfig 对象提供自定义优化，可以通过调用 TableEnvironment＃getConfig＃setPlannerConfig 将其提供给 TableEnvironment</div><div class="line"></div><div class="line">         */</div><div class="line">        <span class="comment">/*</span></div><div class="line">        解释表，跟 MySQL 的 explain 关键字的意义一样</div><div class="line">        用来分析执行计划</div><div class="line">            1. 关系查询的抽象语法树（the Abstract Syntax Tree），即未优化的逻辑查询计划，</div><div class="line">            2. 优化的逻辑查询计划，以及</div><div class="line">            3. 物理执行计划</div><div class="line"></div><div class="line">         */</div><div class="line">        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        StreamTableEnvironment tEnv = StreamTableEnvironment.create(env);</div><div class="line">        DataStream&lt;Tuple2&lt;Integer, String&gt;&gt; stream1 = env.fromElements(<span class="keyword">new</span> Tuple2&lt;&gt;(<span class="number">1</span>, <span class="string">"hello"</span>));</div><div class="line">        DataStream&lt;Tuple2&lt;Integer, String&gt;&gt; stream2 = env.fromElements(<span class="keyword">new</span> Tuple2&lt;&gt;(<span class="number">1</span>, <span class="string">"hello"</span>));</div><div class="line">        Table table4 = tEnv.fromDataStream(stream1, $(<span class="string">"count"</span>), $(<span class="string">"word"</span>));</div><div class="line">        Table table5 = tEnv.fromDataStream(stream2, $(<span class="string">"count"</span>), $(<span class="string">"word"</span>));</div><div class="line">        Table table = table4</div><div class="line">                .where($(<span class="string">"word"</span>).like(<span class="string">"F%"</span>))</div><div class="line">                .unionAll(table5);</div><div class="line">        System.out.println(table.explain());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2021/04/10/flink/flink文档学习4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="积极向上好青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积极向上好青年-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/10/flink/flink文档学习4/" itemprop="url">flink文档学习4</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T15:45:40+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index">
+                    <span itemprop="name">flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="异步I-O"><a href="#异步I-O" class="headerlink" title="异步I/O"></a>异步I/O</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">异步 IO</div><div class="line">假设 function 需要访问数据库？</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataStreamTest10</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">// 创建初始 DataStream</span></div><div class="line">        DataStream&lt;String&gt; stream = <span class="keyword">null</span>;</div><div class="line">        <span class="comment">// 应用异步 I/O 转换操作</span></div><div class="line">        DataStream&lt;Tuple2&lt;String, String&gt;&gt; resultStream = AsyncDataStream</div><div class="line">                .unorderedWait(stream,</div><div class="line">                        <span class="keyword">new</span> AsyncDatabaseRequest(),</div><div class="line">                        <span class="number">1000</span>, TimeUnit.MILLISECONDS,</div><div class="line">                        <span class="number">100</span>);</div><div class="line">        <span class="comment">/*</span></div><div class="line">        指定超时时间和最大并发容量</div><div class="line">        超时后调用 timeout 函数处理</div><div class="line"></div><div class="line">        有序 orderedWait</div><div class="line">        无序 unorderedWait</div><div class="line">        以及它们的水位变化</div><div class="line">        Flink 不以多线程方式调用 AsyncFunction</div><div class="line">         */</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 假设它是一个 MySQL 连接器</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DatabaseClient</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function">Future <span class="title">query</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AsyncDatabaseRequest</span> <span class="keyword">extends</span> <span class="title">RichAsyncFunction</span>&lt;<span class="title">String</span>, <span class="title">Tuple2</span>&lt;<span class="title">String</span>, <span class="title">String</span>&gt;&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 能够利用回调函数并发发送请求的数据库客户端</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> DatabaseClient client;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">(Configuration parameters)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        client = <span class="keyword">new</span> DatabaseClient();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        client.close();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">asyncInvoke</span><span class="params">(String key, ResultFuture&lt;Tuple2&lt;String, String&gt;&gt; resultFuture)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">// 发送异步请求，接收 future 结果</span></div><div class="line">        <span class="keyword">final</span> Future&lt;String&gt; result = client.query(key);</div><div class="line"></div><div class="line">        <span class="comment">// 设置客户端完成请求后要执行的回调函数</span></div><div class="line">        <span class="comment">// 回调函数只是简单地把结果发给 future</span></div><div class="line">        CompletableFuture.supplyAsync(<span class="keyword">new</span> Supplier&lt;String&gt;() &#123;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    <span class="keyword">return</span> result.get();</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException | ExecutionException e) &#123;</div><div class="line">                    <span class="comment">// 显示地处理异常。</span></div><div class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).thenAccept((String dbResult) -&gt; &#123;</div><div class="line">            resultFuture.complete(Collections.singleton(<span class="keyword">new</span> Tuple2&lt;&gt;(key, dbResult)));</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">timeout</span><span class="params">(String input, ResultFuture&lt;Tuple2&lt;String, String&gt;&gt; resultFuture)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">// 超时处理</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/10/flink/flink文档学习4/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2021/04/10/flink/flink文档学习3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="积极向上好青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积极向上好青年-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/10/flink/flink文档学习3/" itemprop="url">flink文档学习3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T15:35:56+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index">
+                    <span itemprop="name">flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="function"><a href="#function" class="headerlink" title="function"></a>function</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">UDF，用户自定义的 function</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataStreamTest7</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        <span class="comment">/*</span></div><div class="line">        累加器，便于调试使用</div><div class="line">         */</div><div class="line">        IntCounter counter = <span class="keyword">new</span> IntCounter();</div><div class="line">        counter.add(<span class="number">1</span>);</div><div class="line">        <span class="comment">// 注册累加器，从返回结果中获取值</span></div><div class="line">        <span class="comment">// getRuntimeContext().addAccumulator("counter", counter);</span></div><div class="line">        JobExecutionResult result = env.execute();</div><div class="line">        result.getAccumulatorResult(<span class="string">"counter"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 实现相应的接口就行，或者匿名类</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyMapFunction</span> <span class="keyword">implements</span> <span class="title">MapFunction</span>&lt;<span class="title">String</span>, <span class="title">Integer</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">map</span><span class="params">(String s)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="keyword">return</span> Integer.parseInt(s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/10/flink/flink文档学习3/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2021/04/10/flink/flink文档学习2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="积极向上好青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积极向上好青年-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/10/flink/flink文档学习2/" itemprop="url">flink文档学习2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T15:16:17+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index">
+                    <span itemprop="name">flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="有状态的流计算"><a href="#有状态的流计算" class="headerlink" title="有状态的流计算"></a>有状态的流计算</h1><p>flink 状态<br>怎么理解状态？<br>首先状态的恢复，需要一个持久化的存储。只能存储在磁盘而不是内存<br>flink 状态就是一个全局变量，猜测：flatMap 被发到各个机器上执行，有些编程环境需要有全局变量来支持<br>同样，可以设置状态的过期时间</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataStreamTest4</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line"><span class="comment">//        final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</span></div><div class="line"><span class="comment">//        env.fromElements(Tuple2.of(1L, 3L), Tuple2.of(1L, 5L), Tuple2.of(1L, 7L), Tuple2.of(1L, 4L), Tuple2.of(1L, 2L))</span></div><div class="line"><span class="comment">//                .keyBy(value -&gt; value.f0)</span></div><div class="line"><span class="comment">//                .flatMap(new CountWindowAverage())</span></div><div class="line"><span class="comment">//                .print();</span></div><div class="line"><span class="comment">//        env.execute();</span></div><div class="line">        <span class="comment">/*</span></div><div class="line">        状态的过期时间</div><div class="line">         */</div><div class="line">        StateTtlConfig config = StateTtlConfig</div><div class="line">                .newBuilder(Time.seconds(<span class="number">1</span>))</div><div class="line">                <span class="comment">// 什么时候更新 TTL？创建、写、或者读的时候</span></div><div class="line">                .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite)</div><div class="line">                <span class="comment">// 变量已经过期了，能否继续使用？NeverReturnExpired</span></div><div class="line">                .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired)</div><div class="line">                <span class="comment">// 禁用后台清理，即使它已经过期</span></div><div class="line">                .disableCleanupInBackground()</div><div class="line">                .cleanupInRocksdbCompactFilter(<span class="number">1000</span>)</div><div class="line">                .build();</div><div class="line">        ValueStateDescriptor&lt;String&gt; descriptor = <span class="keyword">new</span> ValueStateDescriptor&lt;String&gt;(</div><div class="line">                <span class="string">"text statue"</span>,</div><div class="line">                String.class</div><div class="line">        );</div><div class="line">        <span class="comment">// 给状态变量设置一些配置</span></div><div class="line">        descriptor.enableTimeToLive(config);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/10/flink/flink文档学习2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2021/04/10/flink/flink文档学习1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="积极向上好青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积极向上好青年-博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/10/flink/flink文档学习1/" itemprop="url">flink文档学习1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T14:46:33+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flink/" itemprop="url" rel="index">
+                    <span itemprop="name">flink</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>flink官网文档学习记录<br><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.12/zh/dev/datastream_api.html" target="_blank" rel="external">官方文档</a></p>
+<h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><p>基本的流式程序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataStreamTest</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="keyword">final</span> StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();</div><div class="line">        <span class="comment">// 默认是按行读取文件</span></div><div class="line">        DataStream&lt;String&gt; text = env.readTextFile(<span class="string">"stream.txt"</span>);</div><div class="line">        <span class="comment">// 把每行读取的文件反序列化为对象</span></div><div class="line">        DataStream&lt;WebSite&gt; webSiteDataStream = text.map(<span class="keyword">new</span> MapFunction&lt;String, WebSite&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> WebSite <span class="title">map</span><span class="params">(String s)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">                <span class="keyword">return</span> JSON.parseObject(s, WebSite.class);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        <span class="comment">// 输出的顺序不一样，有多个线程在读取文件</span></div><div class="line">        webSiteDataStream.print();</div><div class="line">        <span class="keyword">final</span> JobExecutionResult result = env.execute(<span class="string">"data stream test"</span>);</div><div class="line">        <span class="comment">/*</span></div><div class="line">        JobExecutionResult 返回执行时间和计算结果（如果有的话）</div><div class="line">        如果不想等待作业完成，可以调用 executeAsync() 获取异步结果</div><div class="line">        程序的执行：</div><div class="line">        所有的 flink 程序都是异步执行的，执行 main 方法的时候，不会直接进行数据加载和转换。而是创建数据</div><div class="line">        流图（DataFlow），最后通过 execute 显示执行</div><div class="line">        好处：如果是构建的复杂的程序， flink 会帮你列成整体计划并且优化执行</div><div class="line"></div><div class="line">         */</div><div class="line">        <span class="keyword">final</span> JobClient jobClient = env.executeAsync();</div><div class="line">        <span class="keyword">final</span> JobExecutionResult jobExecutionResult = jobClient.getJobExecutionResult().get();</div><div class="line">        <span class="comment">/*</span></div><div class="line">        数据源：</div><div class="line">        可以自己实现 SourceFunction，ParallelSourceFunction，RichParallelSourceFunction</div><div class="line">        来编写自己的数据源</div><div class="line"></div><div class="line">        迭代次数：IterativeStream，可以反复的迭代，设置一个停止迭代的条件 closeWith</div><div class="line"></div><div class="line">        控制延迟</div><div class="line">        可以通过配置文件来设置缓冲区大小（数据不是1v1发送，而是累积到一定数量再发送），可以在客户端设置缓冲的超时时间</div><div class="line">        未满但超时也可以发送</div><div class="line"></div><div class="line">        调试</div><div class="line">        createLocalEnvironment() 可以在本地打断点并调试</div><div class="line">        输出可以使用 DataStreamUtils 工具</div><div class="line"></div><div class="line">         */</div><div class="line">        env.setBufferTimeout(<span class="number">100</span>);</div><div class="line">        env.setBufferTimeout(-<span class="number">1</span>); <span class="comment">// 消除超时时间，只等缓冲区满</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/10/flink/flink文档学习1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2019/01/01/hadoop/SparkSQL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -594,1221 +1693,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/11/03/hadoop/HBase/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="积极向上好青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="积极向上好青年-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/03/hadoop/HBase/" itemprop="url">HBase</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T10:48:06+08:00">
-                2018-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习HBase</p>
-<ul>
-<li>HBase基础知识</li>
-<li>HBase分布式搭建</li>
-<li>HBase Shell</li>
-<li>HBase的批量导入</li>
-<li>HBase的Java API</li>
-</ul>
-<p>简介<br>高可靠、高性能、面向列、可伸缩的分布式存储系统。HBase利用HDFS作为底层的文件系统，利用MapReduce来处理数据，Zookeeper为协调工具</p>
-<p>逻辑视图如下图所示：</p>
-<p><img src="/images/hadoop_010.PNG" alt="hadoop_010"></p>
-<p>数据模型，行</p>
-<ul>
-<li>每行有可排序关键字和任意列</li>
-<li>字符串、二进制串都可以作为行键</li>
-<li>表按照行键有序处理</li>
-<li>可以只对一行上锁，对行的写操作是原子的</li>
-</ul>
-<p>数据模型，列</p>
-<ul>
-<li>列族，定义为“族：标签”</li>
-<li>数据通过时间戳分版本</li>
-<li>列族在建表后不能改变，但是一个列族中列标签可以任意增加</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/hadoop/HBase/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/10/28/hadoop/hadoop之MapReduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="积极向上好青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="积极向上好青年-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/28/hadoop/hadoop之MapReduce/" itemprop="url">hadoop之MapReduce</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-28T23:30:08+08:00">
-                2018-10-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习MapReduce</p>
-<h3 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h3><ul>
-<li>map，输入（k1,v1&gt;），输出（k2,v2）</li>
-<li>reduce，输入就是将map的输出按key值group起来，（k2,list(v2)），输出需要得到的结果（k3,v3）</li>
-</ul>
-<p>对于WordCound程序而言，例如文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hello hadoop</div><div class="line">hello map</div><div class="line">hello reduce</div></pre></td></tr></table></figure></p>
-<p>默认按行读数据，即每读入一行数据，调用一次map方法，map输入的key值意义不大，可以是行号，可以是字符偏移，默认是字符偏移，即map的输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;0,&quot;hello hadoop&quot;&gt;</div><div class="line">&lt;13,&quot;hello map&quot;&gt;</div><div class="line">&lt;23,&quot;hello reduce&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>即要调用3次map函数，对于WC程序而言，就是统计每个单词出现的次数，那么map的输出就是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;&quot;hello&quot;,1&gt;,&lt;&quot;hadoop&quot;,1&gt;</div><div class="line">&lt;&quot;hello&quot;,1&gt;,&lt;&quot;map&quot;,1&gt;</div><div class="line">&lt;&quot;hello&quot;,1&gt;,&lt;&quot;reduce&quot;,1&gt;</div></pre></td></tr></table></figure></p>
-<p>reduce的输入就是将map输出的值相同的key值group成list，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;&quot;hello&quot;,list(1,1,1)&gt;</div><div class="line">&lt;&quot;hadoop&quot;,list(1)&gt;</div><div class="line">&lt;&quot;map&quot;,list(1)&gt;</div><div class="line">&lt;&quot;reduce&quot;,list(1)&gt;</div></pre></td></tr></table></figure></p>
-<p>输出的结果就是WC的计算结果，将list的数据累加就行</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/28/hadoop/hadoop之MapReduce/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/10/28/hadoop/hadoop之IO操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="积极向上好青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="积极向上好青年-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/28/hadoop/hadoop之IO操作/" itemprop="url">hadoop之IO操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-28T23:29:42+08:00">
-                2018-10-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习hadoop的IO</p>
-<h3 id="main"><a href="#main" class="headerlink" title="main"></a>main</h3><ul>
-<li>数据完整性检查</li>
-<li>数据压缩</li>
-<li>数据序列化</li>
-<li>基于文件的数据结构</li>
-</ul>
-<h3 id="数据完整性"><a href="#数据完整性" class="headerlink" title="数据完整性"></a>数据完整性</h3><p>hadoop采用CRC-32校验和检查数据完整性</p>
-<h4 id="本地文件系统的数据完整性"><a href="#本地文件系统的数据完整性" class="headerlink" title="本地文件系统的数据完整性"></a>本地文件系统的数据完整性</h4><p>在创建文件a的同时，会创建隐藏的文件a.crc记录了文件的校验和，默认每512个字节就产生32位的校验和</p>
-<p>可以自定义配置core-site.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span>　　　</div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>io.bytes.per.checksum<span class="tag">&lt;/<span class="name">name</span>&gt;</span>　　</div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>512<span class="tag">&lt;/<span class="name">value</span>&gt;</span>　　</div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>也可以自定义是否启用校验和<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span>　　　</div><div class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.file.impl<span class="tag">&lt;/<span class="name">name</span>&gt;</span>　　</div><div class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.fs.LocalFileSystem<span class="tag">&lt;/<span class="name">value</span>&gt;</span>　　</div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--上面启用校验和，下面禁用--&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span>　　　</div><div class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.file.impl<span class="tag">&lt;/<span class="name">name</span>&gt;</span>　　</div><div class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.fs.RawLocalFileSystem<span class="tag">&lt;/<span class="name">value</span>&gt;</span>　　</div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>任何在配置文件中修改的配置都可以通过Java代码在Configuration类中局部的配置</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/28/hadoop/hadoop之IO操作/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/10/27/hadoop/hadoop之HDFS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="积极向上好青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="积极向上好青年-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/27/hadoop/hadoop之HDFS/" itemprop="url">hadoop之HDFS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-27T22:02:14+08:00">
-                2018-10-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习HDFS文件系统</p>
-<h3 id="分布式文件系统"><a href="#分布式文件系统" class="headerlink" title="分布式文件系统"></a>分布式文件系统</h3><ul>
-<li>数据量很多，一台机器放不下，需要多台机器共同存储</li>
-<li>允许文件通过网络在多台主机上分享</li>
-<li>通透性，对于用户来说，使用存储和普通单机没什么区别</li>
-<li>容错，某些机器挂了，对系统没有影响</li>
-</ul>
-<h3 id="hadoop文件系统"><a href="#hadoop文件系统" class="headerlink" title="hadoop文件系统"></a>hadoop文件系统</h3><ul>
-<li>对Linux文件系统的抽象。抽象类为<code>org.apache.hadoop.fs.FileSystem</code>，HDFS只是一个实例</li>
-<li>丰富的Shell命令</li>
-<li>提供JAVA API编程接口</li>
-</ul>
-<p><img src="/images/hadoop_004.PNG" alt="hadoop_004"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/27/hadoop/hadoop之HDFS/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/10/16/hadoop/搭建集群hadoop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="积极向上好青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="积极向上好青年-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/16/hadoop/搭建集群hadoop/" itemprop="url">搭建集群hadoop</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T16:19:14+08:00">
-                2018-10-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>在单机的hadoop的基础上搭建集群的hadoop</p>
-<p>先克隆3台虚拟机：<br>在VMware中，右键虚拟机（已关闭状态），依次选择<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[管理]-&gt;[克隆]-&gt;[下一步]-&gt;[虚拟机中当前状态]-&gt;[下一步]</div></pre></td></tr></table></figure></p>
-<p>如图所示</p>
-<div align="center"><br><img src="/images/hadoop_001.PNG" alt="hadoop_001"><br></div>
-
-<p>选择位置后克隆机器，克隆2~3台虚拟机即可</p>
-<h3 id="修改网卡IP主机名"><a href="#修改网卡IP主机名" class="headerlink" title="修改网卡IP主机名"></a>修改网卡IP主机名</h3><p>克隆的机器叫做02，先右键机器-&gt;设置-&gt;网络适配器-&gt;高级，给02生成一个新的mac地址</p>
-<div align="center"><br><img src="/images/hadoop_002.PNG" alt="hadoop_002"><br></div>
-
-<p>更改规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/udev/rules.d/70-persistent-net.rules</div></pre></td></tr></table></figure></p>
-<div align="center"><br><img src="/images/hadoop_003.PNG" alt="hadoop_003"><br></div>
-
-<p>删除多余的网卡，将第二个网卡的NAME改为eth0</p>
-<p>配置IP地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/network-scripts/ifcfg-eth0</div></pre></td></tr></table></figure></p>
-<p>将IP地址修改为和01机器在同一个网段下，保证01和02相互能ping通<br>重启网络<code>service network restart</code>，测试一下ping，02与Windows和01都能互相ping通</p>
-<p>和搭建伪分布式一样，修改主机名和hosts文件，修改完成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/network</div><div class="line">vim /etc/hosts</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/16/hadoop/搭建集群hadoop/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/10/12/数据库/Linux安装MySQL并远程连接/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="积极向上好青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="积极向上好青年-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/12/数据库/Linux安装MySQL并远程连接/" itemprop="url">Linux安装MySQL并远程连接</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-12T09:55:09+08:00">
-                2018-10-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>64位的机器，先去官网下载安装包<code>mysql-5.5.61-linux-glibc2.12-x86_64.tar.gz</code><br>将安装包上传到Linux机器上<br>移动到目录，<code>mv xxx /usr/local</code><br>解压，<code>tar -zxvf xxx</code><br>多了一个<code>mysql-5.5.61-linux-glibc2.12-x86_64</code>的目录<br>将目录重命名成mysql，<code>mv xxx mysql</code>，这样更方便操作</p>
-<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">groupadd mysql</div><div class="line">useradd -g mysql mysql</div></pre></td></tr></table></figure>
-<p>添加了一个mysql的用户组和全局的用户</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/12/数据库/Linux安装MySQL并远程连接/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/07/05/hadoop/hadoop入门wc程序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="积极向上好青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="积极向上好青年-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/05/hadoop/hadoop入门wc程序/" itemprop="url">hadoop入门wc程序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T21:40:13+08:00">
-                2018-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>安装好hadoop后，需要测试启动，这里就跑一个例子。WC指的是Linux的一条指令wordcount，用来统计文件中的单词数。</p>
-<p>命令：<br><code>wc [文件名]</code></p>
-<p>那么如何做大数据的统计？利用hadoop来做统计，指令在<code>hadoop-mapreduce-examples-2.8.4.jar</code>包中。</p>
-<h3 id="上传-下载-删除文件"><a href="#上传-下载-删除文件" class="headerlink" title="上传/下载/删除文件"></a>上传/下载/删除文件</h3><p>启动hadoop后，先传一个文件test到HDFS上：<br><code>hadoop fs -put /root/Desktop/test.tar.gz hdfs://zc01:9000/test</code></p>
-<p>下载某个文件可以用界面或者命令行：<br><code>hadoop fs -get hdfs://zc01:9000/test /home</code> # 下载到home文件夹</p>
-<p>删除文件（夹）：<br><code>hadoop fs -rm hdfs://zc01:9000/test</code></p>
-<p>这是基础知识。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/05/hadoop/hadoop入门wc程序/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zhangchaozc.cn/2018/07/05/hadoop/搭建伪分布式hadoop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="积极向上好青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="积极向上好青年-博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/05/hadoop/搭建伪分布式hadoop/" itemprop="url">搭建伪分布式hadoop</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T21:39:33+08:00">
-                2018-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习hadoop的第一课，先搭建好伪分布式环境。</p>
-<h5 id="hadoop是什么，能干什么？"><a href="#hadoop是什么，能干什么？" class="headerlink" title="hadoop是什么，能干什么？"></a>hadoop是什么，能干什么？</h5><p>解决问题：</p>
-<ul>
-<li>海量数据的存储（HDFS），分布式存储系统</li>
-<li>海量数据的分析（MapReduce），分布式计算模型</li>
-</ul>
-<p>能干什么？<br>大数据存储，大数据分析</p>
-<h5 id="hadoop2-x"><a href="#hadoop2-x" class="headerlink" title="hadoop2.x"></a>hadoop2.x</h5><p>提供了YERN（资源调度系统），可以运行各种计算模型。<br>可以运行自家的MapReduce（处理离线数据），也可以运行Storm、Spark等处理实时数据。</p>
-<h3 id="基础理论"><a href="#基础理论" class="headerlink" title="基础理论"></a>基础理论</h3><h5 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h5><p>主节点，只有一个：namenode，2.0版本之后有多个，相当于老大，作用：</p>
-<ul>
-<li>接收用户操作请求</li>
-<li>维护文件系统的目录结构</li>
-<li>管理文件与block之间关系、block与datanode之间关系</li>
-</ul>
-<p>从节点，有很多个：datanodes，作用：</p>
-<ul>
-<li>存储文件，文件被分成block存储在磁盘上</li>
-<li>为保证数据安全，文件会有多个副本</li>
-</ul>
-<h5 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h5><ul>
-<li>本地模式</li>
-<li>伪分布式模式</li>
-<li>集群模式</li>
-</ul>
-<h3 id="安装步骤："><a href="#安装步骤：" class="headerlink" title="安装步骤："></a>安装步骤：</h3><ol>
-<li>准备工作（关防火墙，改ip、hostname）</li>
-<li>安装（JDK、hadoop）</li>
-<li>启动测试（ssh免登陆等）</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/05/hadoop/搭建伪分布式hadoop/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1854,7 +1743,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1865,7 +1754,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1876,7 +1765,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
