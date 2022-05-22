@@ -1,0 +1,729 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="积极向上好青年">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Table API &amp; SQL1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flink文档学习5">
+<meta property="og:url" content="http://zhangchaozc.cn/2021/04/10/flink/flink%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A05/index.html">
+<meta property="og:site_name" content="积极向上好青年">
+<meta property="og:description" content="Table API &amp; SQL1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-10T07:55:03.000Z">
+<meta property="article:modified_time" content="2021-04-10T07:58:13.435Z">
+<meta property="article:author" content="积极向上好青年">
+<meta property="article:tag" content="实时计算">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>flink文档学习5 - 积极向上好青年</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zhangchaozc.cn","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>积极向上好青年</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="flink文档学习5"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-04-10 15:55" pubdate>
+          2021年4月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">flink文档学习5</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="Table-API-amp-SQL"><a href="#Table-API-amp-SQL" class="headerlink" title="Table API &amp; SQL"></a>Table API &amp; SQL</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">Table API &amp; SQL</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">Planner 的作用主要是把关系型的SQL翻译成可执行的、经过优化的 Flink 任务</span><br><span class="hljs-comment">flink-table-planner : 1.9 版本之前</span><br><span class="hljs-comment">flink-table-planner-blink_2.11 : 最新的版本</span><br><span class="hljs-comment">两种 planner 的区别：</span><br><span class="hljs-comment">Blink 将批处理作业视作流处理的一种特例</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TableTest</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        通用的程序结构</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-comment">// 创建环境</span><br>        <span class="hljs-comment">// TableEnvironment tableEnv = TableEnvironment.create(..);</span><br>        <span class="hljs-type">TableEnvironment</span> <span class="hljs-variable">tableEnv</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-comment">// 创建输入表</span><br>        tableEnv.executeSql(<br>                <span class="hljs-string">&quot;CREATE TEMPORARY TABLE table1 ... WITH (&#x27;connect&#x27; = ... )&quot;</span><br>        );<br>        <span class="hljs-comment">// 创建输出表</span><br>        tableEnv.executeSql(<br>                <span class="hljs-string">&quot;CREATE TEMPORARY outputTable ... WITH (&#x27;connect&#x27; = ... )&quot;</span><br>        );<br>        <span class="hljs-comment">// 查询</span><br>        <span class="hljs-type">Table</span> <span class="hljs-variable">table2</span> <span class="hljs-operator">=</span> tableEnv.from(<span class="hljs-string">&quot;table1&quot;</span>).select(<span class="hljs-string">&quot;&quot;</span>);<br>        <span class="hljs-type">Table</span> <span class="hljs-variable">table3</span> <span class="hljs-operator">=</span> tableEnv.sqlQuery(<span class="hljs-string">&quot;SELECT ... FROM table1 ...&quot;</span>);<br>        <span class="hljs-comment">// 输出到外部环境</span><br>        <span class="hljs-type">TableResult</span> <span class="hljs-variable">tableResult</span> <span class="hljs-operator">=</span> table2.executeInsert(<span class="hljs-string">&quot;outputTable&quot;</span>);<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        TableEnvironment 是核心类</span><br><span class="hljs-comment">        1. 注册内外部的 catalog (好像就是元数据)</span><br><span class="hljs-comment">        2. 注册自定义函数，执行查询</span><br><span class="hljs-comment">        3. 将 DataStream 或 DataSet 转换为 Table</span><br><span class="hljs-comment">        你要明确的指出用实时还是离线</span><br><span class="hljs-comment">        BatchTableEnvironment.create()</span><br><span class="hljs-comment">        StreamTableEnvironment.create()</span><br><span class="hljs-comment">        TableConfig 可配置查询优化</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-type">EnvironmentSettings</span> <span class="hljs-variable">fsSetting</span> <span class="hljs-operator">=</span> EnvironmentSettings<br>                .newInstance()<br>                .useOldPlanner() <span class="hljs-comment">// old,blink,或者 any 让程序自己选择合适的</span><br>                .inStreamingMode() <span class="hljs-comment">// 实时模式</span><br>                .build();<br>        <span class="hljs-comment">// 实时环境</span><br>        <span class="hljs-type">StreamExecutionEnvironment</span> <span class="hljs-variable">fsEnv</span> <span class="hljs-operator">=</span> StreamExecutionEnvironment.getExecutionEnvironment();<br>        <span class="hljs-type">StreamTableEnvironment</span> <span class="hljs-variable">fsTableEnv</span> <span class="hljs-operator">=</span> StreamTableEnvironment.create(fsEnv, fsSetting);<br>        <span class="hljs-comment">// or TableEnvironment fsTableEnv = TableEnvironment.create(fsSettings);</span><br>        <span class="hljs-comment">// 离线环境</span><br>        <span class="hljs-type">ExecutionEnvironment</span> <span class="hljs-variable">fbEnv</span> <span class="hljs-operator">=</span> ExecutionEnvironment.getExecutionEnvironment();<br>        <span class="hljs-type">BatchTableEnvironment</span> <span class="hljs-variable">fbTableEnv</span> <span class="hljs-operator">=</span> BatchTableEnvironment.create(fbEnv);<br>        <span class="hljs-comment">// blink 实时</span><br>        <span class="hljs-type">StreamExecutionEnvironment</span> <span class="hljs-variable">bsEnv</span> <span class="hljs-operator">=</span> StreamExecutionEnvironment.getExecutionEnvironment();<br>        <span class="hljs-type">EnvironmentSettings</span> <span class="hljs-variable">bsSettings</span> <span class="hljs-operator">=</span> EnvironmentSettings.newInstance().useBlinkPlanner().inStreamingMode().build();<br>        <span class="hljs-type">StreamTableEnvironment</span> <span class="hljs-variable">bsTableEnv</span> <span class="hljs-operator">=</span> StreamTableEnvironment.create(bsEnv, bsSettings);<br>        <span class="hljs-comment">// blink 离线</span><br>        <span class="hljs-type">EnvironmentSettings</span> <span class="hljs-variable">bbSettings</span> <span class="hljs-operator">=</span> EnvironmentSettings.newInstance().useBlinkPlanner().inBatchMode().build();<br>        <span class="hljs-type">TableEnvironment</span> <span class="hljs-variable">bbTableEnv</span> <span class="hljs-operator">=</span> TableEnvironment.create(bbSettings);<br>        <span class="hljs-comment">// 如果/lib目录中只有一种计划器的 jar 包，则可以使用useAnyPlanner（python 使用 use any_u_planner）创建 EnvironmentSettings</span><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        TableEnvironment 维护着 catalog</span><br><span class="hljs-comment">        catalog 名称，数据库名称，对象名称</span><br><span class="hljs-comment">        表可以是虚拟（放一些查询结果）的，也可以是实体（真正的对应外部消息队列啥的）的</span><br><span class="hljs-comment">        可以是临时的，也可以是永久的</span><br><span class="hljs-comment">        永久的表会注册元数据信息：</span><br><span class="hljs-comment">        一旦永久表被创建，它对任何的会话都是生效的，直到明确删除</span><br><span class="hljs-comment">        临时表只在自己的内存中可见，其它会话不可见</span><br><span class="hljs-comment">        同名的临时表会屏蔽永久表（全局变量和局部变量的区别嘛！可见性）</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-comment">// 简单的查询</span><br>        <span class="hljs-type">Table</span> <span class="hljs-variable">projTable</span> <span class="hljs-operator">=</span> fsTableEnv.from(<span class="hljs-string">&quot;X&quot;</span>).select();<br>        <span class="hljs-comment">// 注册表</span><br>        fsTableEnv.createTemporaryView(<span class="hljs-string">&quot;projectedTable&quot;</span>, projTable);<br>        <span class="hljs-comment">// 与外部系统的链接</span><br>        fsTableEnv.connect(<span class="hljs-literal">null</span>)<br>                .withFormat(<span class="hljs-literal">null</span>)<br>                .withSchema(<span class="hljs-literal">null</span>)<br>                .inAppendMode()<br>                .createTemporaryTable(<span class="hljs-string">&quot;MyTable&quot;</span>);<br>        <span class="hljs-comment">// 表注册信息 ： &lt;catalog 名、数据库名和表名&gt;</span><br>        <span class="hljs-comment">// 通过 . 来指定层级关系</span><br>        fsTableEnv.useCatalog(<span class="hljs-string">&quot;custom_catalog&quot;</span>);<br>        fsTableEnv.useDatabase(<span class="hljs-string">&quot;custom_database&quot;</span>);<br>        tableEnv.createTemporaryView(<span class="hljs-string">&quot;exampleView&quot;</span>, projTable);<br>        tableEnv.createTemporaryView(<span class="hljs-string">&quot;other_database.exampleView&quot;</span>, projTable);<br>        tableEnv.createTemporaryView(<span class="hljs-string">&quot;`example.View`&quot;</span>, projTable);<br>        tableEnv.createTemporaryView(<span class="hljs-string">&quot;other_catalog.other_database.exampleView&quot;</span>, projTable);<br>        <span class="hljs-comment">// 查询表，假设之前有注册过订单表</span><br>        <span class="hljs-type">Table</span> <span class="hljs-variable">orders</span> <span class="hljs-operator">=</span> fsTableEnv.from(<span class="hljs-string">&quot;orders&quot;</span>);<br>        <span class="hljs-comment">// Table API</span><br>        <span class="hljs-type">Table</span> <span class="hljs-variable">revenue</span> <span class="hljs-operator">=</span> orders<br>                .filter($(<span class="hljs-string">&quot;cCountry&quot;</span>).isEqual(<span class="hljs-string">&quot;FRANCE&quot;</span>))<br>                .groupBy($(<span class="hljs-string">&quot;cID&quot;</span>), $(<span class="hljs-string">&quot;cName&quot;</span>))<br>                .select($(<span class="hljs-string">&quot;cID&quot;</span>), $(<span class="hljs-string">&quot;cName&quot;</span>), $(<span class="hljs-string">&quot;revenue&quot;</span>).sum().as(<span class="hljs-string">&quot;revSum&quot;</span>));<br>        <span class="hljs-comment">// SQL</span><br>        <span class="hljs-comment">// 查询语句</span><br>        <span class="hljs-type">Table</span> <span class="hljs-variable">revenue2</span> <span class="hljs-operator">=</span> fsTableEnv.sqlQuery(<br>                <span class="hljs-string">&quot;select cID, cName, SUM(revenue) as revSum &quot;</span> +<br>                        <span class="hljs-string">&quot;from orders where cCountry = &#x27;FRANCE&#x27; &quot;</span> +<br>                        <span class="hljs-string">&quot;group by cID, cName&quot;</span><br>        );<br>        <span class="hljs-comment">// 更新语句</span><br>        tableEnv.executeSql(<br>                <span class="hljs-string">&quot;INSERT INTO RevenueFrance &quot;</span> +<br>                        <span class="hljs-string">&quot;SELECT cID, cName, SUM(revenue) AS revSum &quot;</span> +<br>                        <span class="hljs-string">&quot;FROM Orders &quot;</span> +<br>                        <span class="hljs-string">&quot;WHERE cCountry = &#x27;FRANCE&#x27; &quot;</span> +<br>                        <span class="hljs-string">&quot;GROUP BY cID, cName&quot;</span><br>        );<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        Table Sink</span><br><span class="hljs-comment">        批处理 Table 只能写入 BatchTableSink，</span><br><span class="hljs-comment">        而流处理 Table 需要指定写入 AppendStreamTableSink，RetractStreamTableSink</span><br><span class="hljs-comment">        或者 UpsertStreamTableSink</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-keyword">final</span> <span class="hljs-type">Schema</span> <span class="hljs-variable">schema</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Schema</span>()<br>                .field(<span class="hljs-string">&quot;a&quot;</span>, DataTypes.INT())<br>                .field(<span class="hljs-string">&quot;b&quot;</span>, DataTypes.STRING())<br>                .field(<span class="hljs-string">&quot;c&quot;</span>, DataTypes.BIGINT());<br>        fsTableEnv.connect(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>().path(<span class="hljs-string">&quot;/path/to/file&quot;</span>))<br>                .withFormat(<span class="hljs-keyword">new</span> <span class="hljs-title class_">OldCsv</span>().fieldDelimiter(<span class="hljs-string">&quot;|&quot;</span>).deriveSchema())<br>                .withSchema(schema)<br>                .createTemporaryTable(<span class="hljs-string">&quot;CsvSinkTable&quot;</span>);<br>        <span class="hljs-type">Table</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        result.executeInsert(<span class="hljs-string">&quot;CsvSinkTable&quot;</span>);<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        不论输入数据源是流式的还是批式的，Table API 和 SQL 查询都会被转换成 DataStream 程序。</span><br><span class="hljs-comment">        查询在内部表示为逻辑查询计划，并被翻译成两个阶段：</span><br><span class="hljs-comment">        1. 优化逻辑执行计划</span><br><span class="hljs-comment">        2. 翻译成 DataStream 程序</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">        在流处理方面两种计划器都可以与 DataStream API 结合</span><br><span class="hljs-comment">        只有 Old 计划器可以与 DataSet API 结合!!!!!!!</span><br><span class="hljs-comment">        在批处理方面，Blink 计划器不能同两种计划器中的任何一个结合</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">        DataStream/DataSet 和 Table 之间的相互转换</span><br><span class="hljs-comment">        (DataSet 只 针对 older planner)</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">        两种模式：</span><br><span class="hljs-comment">        1. Append Mode: 仅当动态 Table 仅通过INSERT更改进行修改时，才可以使用此模式，即，</span><br><span class="hljs-comment">            它仅是追加操作，并且之前输出的结果永远不会更新</span><br><span class="hljs-comment">        2. Retract Mode: 任何情形都可以使用此模式</span><br><span class="hljs-comment">            它使用 boolean 值对 INSERT 和 DELETE 操作的数据进行标记</span><br><span class="hljs-comment">        */</span><br>        <span class="hljs-comment">// 流 -&gt; 视图，表</span><br>        <span class="hljs-type">StreamTableEnvironment</span> <span class="hljs-variable">tableEnv1</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        DataStream&lt;Tuple2&lt;Long, String&gt;&gt; stream = <span class="hljs-literal">null</span>;<br>        tableEnv1.createTemporaryView(<span class="hljs-string">&quot;myTable&quot;</span>, stream);<br>        tableEnv1.createTemporaryView(<span class="hljs-string">&quot;myTable2&quot;</span>, stream, $(<span class="hljs-string">&quot;myLong&quot;</span>), $(<span class="hljs-string">&quot;myString&quot;</span>));<br>        <span class="hljs-type">Table</span> <span class="hljs-variable">table1</span> <span class="hljs-operator">=</span> tableEnv1.fromDataStream(stream);<br>        <span class="hljs-type">Table</span> <span class="hljs-variable">table22</span> <span class="hljs-operator">=</span> tableEnv1.fromDataStream(stream, $(<span class="hljs-string">&quot;myLong&quot;</span>), $(<span class="hljs-string">&quot;myString&quot;</span>));<br>        <span class="hljs-comment">// 表 -&gt; 流</span><br>        DataStream&lt;Row&gt; dsRow = tableEnv1.toAppendStream(table1, Row.class);<br>        TupleTypeInfo&lt;Tuple2&lt;String, Integer&gt;&gt; tupleType = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TupleTypeInfo</span>&lt;&gt;(<br>                Types.STRING(),<br>                Types.INT());<br>        DataStream&lt;Tuple2&lt;String, Integer&gt;&gt; dsTuple =<br>                tableEnv1.toAppendStream(table1, tupleType);<br>        <span class="hljs-comment">// True is INSERT, false is DELETE.</span><br>        DataStream&lt;Tuple2&lt;Boolean, Row&gt;&gt; retractStream =<br>                tableEnv1.toRetractStream(table1, Row.class);<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        名称映射，就是选择表中的列的时候</span><br><span class="hljs-comment">        $(&quot;myLong&quot;) : 确定到列</span><br><span class="hljs-comment">        $(&quot;f1&quot;) : 对于 Tuple 类型，也可以这样指定</span><br><span class="hljs-comment">        Row 类型支持任意数量的字段以及具有 null 值的字段。字段名称可以通过 RowTypeInfo 指定，</span><br><span class="hljs-comment">        也可以在将 Row 的 DataStream 或 DataSet 转换为 Table 时指定</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">        查询优化：</span><br><span class="hljs-comment">            基于 Apache Calcite 的子查询解相关</span><br><span class="hljs-comment">            投影剪裁</span><br><span class="hljs-comment">            分区剪裁</span><br><span class="hljs-comment">            过滤器下推</span><br><span class="hljs-comment">            子计划消除重复数据以避免重复计算</span><br><span class="hljs-comment">            特殊子查询重写，包括两部分：</span><br><span class="hljs-comment">            将 IN 和 EXISTS 转换为 left semi-joins</span><br><span class="hljs-comment">            将 NOT IN 和 NOT EXISTS 转换为 left anti-join</span><br><span class="hljs-comment">            可选 join 重新排序</span><br><span class="hljs-comment">            通过 table.optimizer.join-reorder-enabled 启用</span><br><span class="hljs-comment">        优化器不仅基于计划，而且还基于可从数据源获得的丰富统计信息以及每个算子（例如 io，cpu，网络和内存）的细粒度成本来做出明智的决策。</span><br><span class="hljs-comment">        高级用户可以通过 CalciteConfig 对象提供自定义优化，可以通过调用 TableEnvironment＃getConfig＃setPlannerConfig 将其提供给 TableEnvironment</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        解释表，跟 MySQL 的 explain 关键字的意义一样</span><br><span class="hljs-comment">        用来分析执行计划</span><br><span class="hljs-comment">            1. 关系查询的抽象语法树（the Abstract Syntax Tree），即未优化的逻辑查询计划，</span><br><span class="hljs-comment">            2. 优化的逻辑查询计划，以及</span><br><span class="hljs-comment">            3. 物理执行计划</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-type">StreamExecutionEnvironment</span> <span class="hljs-variable">env</span> <span class="hljs-operator">=</span> StreamExecutionEnvironment.getExecutionEnvironment();<br>        <span class="hljs-type">StreamTableEnvironment</span> <span class="hljs-variable">tEnv</span> <span class="hljs-operator">=</span> StreamTableEnvironment.create(env);<br>        DataStream&lt;Tuple2&lt;Integer, String&gt;&gt; stream1 = env.fromElements(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Tuple2</span>&lt;&gt;(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;hello&quot;</span>));<br>        DataStream&lt;Tuple2&lt;Integer, String&gt;&gt; stream2 = env.fromElements(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Tuple2</span>&lt;&gt;(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;hello&quot;</span>));<br>        <span class="hljs-type">Table</span> <span class="hljs-variable">table4</span> <span class="hljs-operator">=</span> tEnv.fromDataStream(stream1, $(<span class="hljs-string">&quot;count&quot;</span>), $(<span class="hljs-string">&quot;word&quot;</span>));<br>        <span class="hljs-type">Table</span> <span class="hljs-variable">table5</span> <span class="hljs-operator">=</span> tEnv.fromDataStream(stream2, $(<span class="hljs-string">&quot;count&quot;</span>), $(<span class="hljs-string">&quot;word&quot;</span>));<br>        <span class="hljs-type">Table</span> <span class="hljs-variable">table</span> <span class="hljs-operator">=</span> table4<br>                .where($(<span class="hljs-string">&quot;word&quot;</span>).like(<span class="hljs-string">&quot;F%&quot;</span>))<br>                .unionAll(table5);<br>        System.out.println(table.explain());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/flink/" class="category-chain-item">flink</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AE%9E%E6%97%B6%E8%AE%A1%E7%AE%97/">#实时计算</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>flink文档学习5</div>
+      <div>http://zhangchaozc.cn/2021/04/10/flink/flink文档学习5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>积极向上好青年</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年4月10日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/10/flink/flink%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A06/" title="flink文档学习6">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">flink文档学习6</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/10/flink/flink%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A04/" title="flink文档学习4">
+                        <span class="hidden-mobile">flink文档学习4</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'http://zhangchaozc.cn/2021/04/10/flink/flink%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A05/';
+          this.page.identifier = '/2021/04/10/flink/flink%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A05/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'fluid' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
