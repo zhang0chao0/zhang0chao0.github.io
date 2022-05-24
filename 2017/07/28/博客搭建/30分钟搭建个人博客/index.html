@@ -16,24 +16,26 @@
   <meta name="author" content="积极向上好青年">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress很难移植，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。 基础 玩过github，至少上传过一个自己的项目&#x2F;工程。 有一定的node.js基础，至少安装过node环境，熟悉npm命令。">
+    <meta name="description" content="1. 前言一个不需要购买服务器的博客网站：Hexo基础：  玩过 github，至少上传过一个自己的项目&#x2F;工程  有一定的 node.js 基础，至少安装过 node 环境，了解 npm 命令 2. 环境准备 2.1 NodeJs官方网站，下载安装即可常用的命令： 12345678910# 查看是否安装好了，查看版本信息node -v# 本地安装依赖# 安装到项目的 node_modu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建hexo博客(1)">
-<meta property="og:url" content="http://zhangchaozc.cn/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/index.html">
+<meta property="og:title" content="30分钟搭建个人博客">
+<meta property="og:url" content="http://zhangchaozc.cn/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/30%E5%88%86%E9%92%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="积极向上好青年">
-<meta property="og:description" content="前言我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress很难移植，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。 基础 玩过github，至少上传过一个自己的项目&#x2F;工程。 有一定的node.js基础，至少安装过node环境，熟悉npm命令。">
+<meta property="og:description" content="1. 前言一个不需要购买服务器的博客网站：Hexo基础：  玩过 github，至少上传过一个自己的项目&#x2F;工程  有一定的 node.js 基础，至少安装过 node 环境，了解 npm 命令 2. 环境准备 2.1 NodeJs官方网站，下载安装即可常用的命令： 12345678910# 查看是否安装好了，查看版本信息node -v# 本地安装依赖# 安装到项目的 node_modu">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653408295492-70f68a4f-003f-40c1-b182-2db814f5256a.png#clientId=u64112c0f-2f74-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=247&id=u9ff73f18&margin=%5Bobject%20Object%5D&name=zhangchaozc.PNG&originHeight=371&originWidth=1073&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36350&status=done&style=none&taskId=u840c0080-617f-430f-963a-fa0dae64707&title=&width=715.3333333333334">
 <meta property="article:published_time" content="2017-07-28T08:42:49.000Z">
-<meta property="article:modified_time" content="2017-09-28T08:54:06.480Z">
+<meta property="article:modified_time" content="2022-05-24T16:16:27.196Z">
 <meta property="article:author" content="积极向上好青年">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653408295492-70f68a4f-003f-40c1-b182-2db814f5256a.png#clientId=u64112c0f-2f74-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=247&id=u9ff73f18&margin=%5Bobject%20Object%5D&name=zhangchaozc.PNG&originHeight=371&originWidth=1073&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36350&status=done&style=none&taskId=u840c0080-617f-430f-963a-fa0dae64707&title=&width=715.3333333333334">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>搭建hexo博客(1) - 积极向上好青年</title>
+  <title>30分钟搭建个人博客 - 积极向上好青年</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -190,13 +192,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://s1.ax1x.com/2022/05/24/X9bXFg.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://s3.bmp.ovh/imgs/2022/05/24/2e670aaebc54c655.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="搭建hexo博客(1)"></span>
+            <span id="subtitle" data-typed-text="30分钟搭建个人博客"></span>
           
         </div>
 
@@ -219,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          2.4k 字
         
       </span>
     
@@ -230,7 +232,7 @@
         
         
         
-          9 分钟
+          21 分钟
         
       </span>
     
@@ -268,62 +270,82 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">搭建hexo博客(1)</h1>
+            <h1 style="display: none">30分钟搭建个人博客</h1>
             
             <div class="markdown-body">
               
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我之前的博客是用的wordpress，但是后来摒弃了。因为wordpress<code>很难移植</code>，我之前的博客死掉了，我以为是数据库的问题，我把sql文件都导出后，想重新搭建起来。但是发现很难从sql文件中还原出来，所以我就摒弃了wordpress，改用hexo博客。</p>
-<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ol>
-<li>玩过github，至少上传过一个自己的项目&#x2F;工程。</li>
-<li>有一定的node.js基础，至少安装过node环境，熟悉npm命令。</li>
-</ol>
-<p>如果没有基础的请看<code>git入门</code>和<code>node入门</code>两篇文章。</p>
-<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h4><p>因为npm默认访问国外的仓库，要想正常安装hexo，要么配置代理，要么换仓库。</p>
-<ul>
-<li><p>配置代理</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">npm config set proxy http:<span class="hljs-comment">//127.0.0.1:1080</span><br></code></pre></td></tr></table></figure>
+              <p><a name="ctaL4"></a></p>
+<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h1><p>一个不需要购买服务器的博客网站：Hexo<br />基础：</p>
+<ol>
+<li><p>玩过 github，至少上传过一个自己的项目&#x2F;工程</p>
 </li>
-<li><p>更换仓库（<code>推荐</code>）</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">npm config set registry https:<span class="hljs-comment">//registry.npm.taobao.org</span><br></code></pre></td></tr></table></figure></li>
-</ul>
-<p>此后会发现<code>C:\Users\xxx</code>（本人Win10）多了<code>.npmrc</code>文件，这就是你的npm配置文件。</p>
-<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> -g hexo<br></code></pre></td></tr></table></figure>
-
-<p>-g是全局安装，安装成功后可以使用<code>hexo</code>指令。</p>
-<span id="more"></span>
-
-<h4 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h4><p>进入你想放博客的目录：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">hexo <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
-
-<p>生成博客：</p>
-<div align=center>
-![blogroot](/images/blogroot.PNG)
-</div>
-
-<p>安装依赖包：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span><br>npm <span class="hljs-keyword">install</span> hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
-
-<p>生成静态网页：</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">hexo <span class="hljs-keyword">generate</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h4><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">hexo <span class="hljs-keyword">server</span><br></code></pre></td></tr></table></figure>
-
-<p>这时在浏览器中输入localhost:4000&#x2F;就可以看到本地的博客了。</p>
-<h3 id="关联github"><a href="#关联github" class="headerlink" title="关联github"></a>关联github</h3><h4 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h4><p>仓库名一定是：</p>
-<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">zha<span class="hljs-symbol">ng0</span>cha<span class="hljs-meta">o0</span>.github.io  <span class="hljs-comment">//zhang0chao0换成yourname</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="编辑配置"><a href="#编辑配置" class="headerlink" title="编辑配置"></a>编辑配置</h4><p>在你的hexo根目录下有一个_config_yml文件，就是站点的配置文件，在最后加上：</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">deploy:</span><br><span class="hljs-symbol">  type:</span> git<br><span class="hljs-symbol">  repository:</span> git@github.com:zhang0chao0/zhang0chao0.github.io.git<br><span class="hljs-symbol">  branch:</span> master<br></code></pre></td></tr></table></figure>
-
-<p>zhang0chao0换成yourname即可。</p>
-<h4 id="上传博客"><a href="#上传博客" class="headerlink" title="上传博客"></a>上传博客</h4><p>在hexo根目录下，用指令：</p>
+<li><p>有一定的 node.js 基础，至少安装过 node 环境，了解 npm 命令<br><a name="XHqcf"></a></p>
+<h1 id="2-环境准备"><a href="#2-环境准备" class="headerlink" title="2. 环境准备"></a>2. 环境准备</h1><p><a name="UUPjm"></a></p>
+<h2 id="2-1-NodeJs"><a href="#2-1-NodeJs" class="headerlink" title="2.1 NodeJs"></a>2.1 NodeJs</h2><p><a target="_blank" rel="noopener" href="http://nodejs.cn/">官方网站</a>，下载安装即可<br />常用的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">查看是否安装好了，查看版本信息</span><br>node -v<br><span class="hljs-meta prompt_"># </span><span class="language-bash">本地安装依赖</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装到项目的 node_modules 文件夹中，具体依赖会写到 package.json 中</span><br>npm install xxx --save<br><span class="hljs-meta prompt_"># </span><span class="language-bash">所有的依赖包从 package.json 中读取并安装好，自动生成 node_modules 文件夹</span><br>npm install<br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装一个依赖（全局）</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">这个包会安装到`C:\Users\xx\AppData\Roaming\npm\node_modules`中，对所有的node项目都有效</span><br>npm install xxx -g<br></code></pre></td></tr></table></figure>
+<p>为了安装依赖更快，设置仓库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm config set registry https://registry.npm.taobao.org<br></code></pre></td></tr></table></figure>
+<p>此后会发现 <code>C:\Users\xxx</code>（本人Win10）多了 <code>.npmrc</code>文件，这就是你的 npm 配置文件<br><a name="ku79W"></a></p>
+<h2 id="2-2-Git"><a href="#2-2-Git" class="headerlink" title="2.2 Git"></a>2.2 Git</h2><p><a target="_blank" rel="noopener" href="https://git-scm.com/">官方网站</a><br /><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600/896067074338496">安装教程</a><br />设置个人信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">git config --global user.name &quot;Your Name&quot;<br>git config --global user.email &quot;email@example.com&quot;<br></code></pre></td></tr></table></figure>
+<p>生成公钥：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">执行命令，一直按回车，生成公钥</span><br>ssh-keygen -t rsa -C &quot;邮箱地址&quot;<br></code></pre></td></tr></table></figure>
+<p>生成后查看目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">C:\Users\&#123;你的电脑&#125;\.ssh<br></code></pre></td></tr></table></figure>
+<p>有 id_rsa、id_rsa.pub 文件。<code>C:\Users\&#123;你的电脑&#125;</code>目录下有 <code>.gitconfig</code>配置文件<br />需要将公钥拷贝到你的 github 上，否则无法上传项目<br><a name="DHaDF"></a></p>
+<h1 id="3-开始安装"><a href="#3-开始安装" class="headerlink" title="3. 开始安装"></a>3. 开始安装</h1><p><a name="o37GZ"></a></p>
+<h2 id="3-1-生成博客项目"><a href="#3-1-生成博客项目" class="headerlink" title="3.1 生成博客项目"></a>3.1 生成博客项目</h2></li>
+<li><p>全局安装 Hexo</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install -g hexo<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>进入一个空文件夹，初始化项目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo init<br></code></pre></td></tr></table></figure>
+<p>可以看到你的博客项目了</p>
+</li>
+<li><p>安装依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">初始化所有依赖</span><br>npm install<br><span class="hljs-meta prompt_"># </span><span class="language-bash">没有这个依赖无法推送博客到 github，需要安装</span><br>npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>本地跑起来看看</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">生成静态文件</span><br>hexo generate<br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动本地服务</span><br>hexo server<br></code></pre></td></tr></table></figure>
+<p>在浏览器中输入 localhost:4000 就可以看到本地的博客了</p>
+</li>
+<li><p>把个人博客推送到 github 上，让其他人访问</p>
+</li>
+</ol>
+<p>在自己的 github 上新建仓库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zhang0chao0.github.io  // zhang0chao0 换成 yourname<br></code></pre></td></tr></table></figure>
+<p>编辑博客配置文件，在你的 Hexo 根目录下有一个 _config_yml 文件，就是站点的配置文件，在最后加上：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>  <span class="hljs-attr">repository:</span> <span class="hljs-string">git@github.com:zhang0chao0/zhang0chao0.github.io.git</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span><br></code></pre></td></tr></table></figure>
+<p>zhang0chao0 换成 yourname 即可<br />开始上传博客：<br />在hexo根目录下，用指令发布：</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo deploy</span><br></code></pre></td></tr></table></figure>
-
-<p>即可，然后在浏览器输入：</p>
+<p>在浏览器输入：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua">yourname.github.<span class="hljs-built_in">io</span><br></code></pre></td></tr></table></figure>
-
-<p>就能看到你自己的的博客了~</p>
-<p>搭建博客已完成，后续会写怎么切换主题以及写文章。（遇到问题可以评论或者联系我）</p>
+<p>就能看到你自己的的博客了<br><a name="xDa3y"></a></p>
+<h2 id="3-2-开始写第一篇文章"><a href="#3-2-开始写第一篇文章" class="headerlink" title="3.2 开始写第一篇文章"></a>3.2 开始写第一篇文章</h2><p><a target="_blank" rel="noopener" href="https://www.zybuluo.com/mdeditor">简单的学习一下MarkDown语法</a></p>
+<ol>
+<li><p>新建第一篇文章</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">hexo</span> <span class="hljs-string">new</span> <span class="hljs-string">&quot;第一篇文章&quot;</span><br></code></pre></td></tr></table></figure>
+<p>可以看到<code>source/_posts</code>目录下已经有了 md 文件<br />给文档归类和增加标签：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">title:</span> <span class="hljs-string">第一篇文章</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2017-07-26 10:02:58</span><br><span class="hljs-attr">categories:</span> <span class="hljs-string">Java</span><br><span class="hljs-attr">tags:</span> [<span class="hljs-string">Think</span> <span class="hljs-string">in</span> <span class="hljs-string">Java</span>]<br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>发表自己的文章到 github</p>
+</li>
+</ol>
+<p>命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">先清空上次生成的静态文件</span><br>hexo clean<br><span class="hljs-meta prompt_"># </span><span class="language-bash">生成新的静态文件</span><br>hexo generate<br><span class="hljs-meta prompt_"># </span><span class="language-bash">推送到 github</span><br>hexo deploy<br></code></pre></td></tr></table></figure>
+<p>发布前想预览下，可以用<code>hexo server</code>在本地预览<br />常用的命名汇总：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo new &quot;postName&quot; # 新建文章<br>hexo new page &quot;pageName&quot; # 新建页面<br>hexo generate # 生成静态页面至 public 目录<br>hexo server # 开启预览访问端口（默认端口4000，&#x27;ctrl + c&#x27;关闭server）<br>hexo deploy # 将 .deploy 目录部署到 GitHub<br>hexo help  # 查看帮助<br>hexo version  #查看 Hexo 的版本<br></code></pre></td></tr></table></figure>
+<p><a name="Fr5tM"></a></p>
+<h2 id="3-3-让博客更美观"><a href="#3-3-让博客更美观" class="headerlink" title="3.3 让博客更美观"></a>3.3 让博客更美观</h2><p>主题推荐<br><a name="Qnurt"></a></p>
+<h3 id="3-3-1-Hexo-Fluid（正在使用）"><a href="#3-3-1-Hexo-Fluid（正在使用）" class="headerlink" title="3.3.1 Hexo-Fluid（正在使用）"></a>3.3.1 Hexo-Fluid（正在使用）</h3><p><a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/start/">官方用户手册</a><br><a name="MJr7o"></a></p>
+<h3 id="3-3-2-Next"><a href="#3-3-2-Next" class="headerlink" title="3.3.2 Next"></a>3.3.2 Next</h3><p><a target="_blank" rel="noopener" href="http://theme-next.iissnan.com/getting-started.html">Next用户手册</a>，一款非常简洁的主题<br /><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000009544924">好文，让Next主题更炫酷</a><br><a name="oiQWb"></a></p>
+<h2 id="3-4-替换域名"><a href="#3-4-替换域名" class="headerlink" title="3.4 替换域名"></a>3.4 替换域名</h2><p>替换 yourname.github.io 为自己的域名，在有域名的基础上，配置解析规则即可：<br /><img src="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653408295492-70f68a4f-003f-40c1-b182-2db814f5256a.png#clientId=u64112c0f-2f74-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=247&id=u9ff73f18&margin=%5Bobject%20Object%5D&name=zhangchaozc.PNG&originHeight=371&originWidth=1073&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36350&status=done&style=none&taskId=u840c0080-617f-430f-963a-fa0dae64707&title=&width=715.3333333333334" srcset="/img/loading.gif" lazyload alt="zhangchaozc.PNG"><br />同时在博客项目 <code>source</code>目录下新建文件：CNAMA，内容为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">zhangchaozc.cn<br></code></pre></td></tr></table></figure>
+<p>重新部署即可<br><a name="s4bup"></a></p>
+<h1 id="4-优化项目"><a href="#4-优化项目" class="headerlink" title="4. 优化项目"></a>4. 优化项目</h1><p><a name="p18Pa"></a></p>
+<h2 id="4-1-访问速度"><a href="#4-1-访问速度" class="headerlink" title="4.1 访问速度"></a>4.1 访问速度</h2><p>Hexo-Fluid 博客中有大量的图片，影响加载，且 github 图片访问速度堪忧<br />图片工具：<a target="_blank" rel="noopener" href="https://www.imgurl.org/vip/manage/upload">ImgURL图床</a><br />将图片上传到图床，获取图片链接，进行配置，例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">---------------------------</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">首页</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Home Page</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">---------------------------</span><br>index:<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">首页 Banner 头图，可以是相对路径或绝对路径，以下相同</span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">Path of Banner image, can be a relative path or an absolute path, the same on other pages</span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">pic 1</span><br>  banner_img: https://s3.bmp.ovh/imgs/2022/05/24/09aca3dfddf7eb4a.jpg<br></code></pre></td></tr></table></figure>
+<p>替换掉原有的配置</p>
 
               
             </div>
@@ -368,8 +390,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>搭建hexo博客(1)</div>
-      <div>http://zhangchaozc.cn/2017/07/28/博客搭建/搭建hexo博客-1/</div>
+      <div>30分钟搭建个人博客</div>
+      <div>http://zhangchaozc.cn/2017/07/28/博客搭建/30分钟搭建个人博客/</div>
     </div>
     <div class="license-meta">
       
@@ -411,12 +433,6 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2017/07/30/java/%E5%8F%8D%E5%B0%84/" title="反射">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">反射</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
@@ -434,8 +450,8 @@
     
       <script type="text/javascript">
         var disqus_config = function() {
-          this.page.url = 'http://zhangchaozc.cn/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/';
-          this.page.identifier = '/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2-1/';
+          this.page.url = 'http://zhangchaozc.cn/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/30%E5%88%86%E9%92%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/';
+          this.page.identifier = '/2017/07/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/30%E5%88%86%E9%92%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/';
         };
         Fluid.utils.loadComments('#disqus_thread', function() {
           var d = document, s = d.createElement('script');
