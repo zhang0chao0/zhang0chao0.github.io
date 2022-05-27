@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653668376979-16ec20c9-ff08-4879-9aa1-5e6e0c7ef8d1.png#clientId=uadd86808-607a-4&crop=0&crop=0&crop=1&crop=1&from=ui&id=uc0d50775&margin=%5Bobject%20Object%5D&name=linux_rpm2.PNG&originHeight=205&originWidth=500&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57191&status=done&style=none&taskId=ub067a614-c1b1-40e4-a26d-36adbab4b90&title=">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653668440368-ec197b40-d89e-487f-9710-f4caa281d482.png#clientId=uadd86808-607a-4&crop=0&crop=0&crop=1&crop=1&from=ui&id=u115aa04c&margin=%5Bobject%20Object%5D&name=linux_yum.PNG&originHeight=224&originWidth=500&originalType=binary&ratio=1&rotation=0&showTitle=false&size=99043&status=done&style=none&taskId=ued1cc0fd-3a26-4271-909e-7d9e1a33617&title=">
 <meta property="article:published_time" content="2018-08-17T07:02:36.000Z">
-<meta property="article:modified_time" content="2022-05-27T16:36:46.691Z">
+<meta property="article:modified_time" content="2022-05-27T16:46:38.704Z">
 <meta property="article:author" content="积极向上好青年">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary_large_image">
@@ -359,12 +359,23 @@
 <li><code>.gz</code>是<code>gzip</code>命令压缩产生的，这个只能压缩单个文件</li>
 <li><code>.tar</code>是<code>tar</code>命令产生的，可以打包多个文件，文件夹</li>
 <li><code>.zip</code>是<code>zip</code>命令，其余同<code>tar</code></li>
-<li><code>.bz2</code>是<code>gzip</code>的升级版，除了能加<code>-k</code>参数保留原文件以外，其它没功能加强<br><a name="ENbPj"></a><h1 id="3-文件浏览编辑"><a href="#3-文件浏览编辑" class="headerlink" title="3. 文件浏览编辑"></a>3. 文件浏览编辑</h1><a name="avUZk"></a><h2 id="3-1-touch"><a href="#3-1-touch" class="headerlink" title="3.1 touch"></a>3.1 touch</h2>创建一个文件，关于带空格的文件名，不建议创建<br />如果文件名必须带空格，可以用：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">touch &quot;pro files&quot;<br></code></pre></td></tr></table></figure>
-用双引号包含。所有命令中对带空格的文件名，都必须用双引号括住<br><a name="i4sgM"></a><h2 id="3-2-cat"><a href="#3-2-cat" class="headerlink" title="3.2 cat"></a>3.2 cat</h2><code>cat [文件名]</code>：查看文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat -n：查看行号<br></code></pre></td></tr></table></figure>
-<a name="yLJMK"></a><h2 id="3-3-tac"><a href="#3-3-tac" class="headerlink" title="3.3 tac"></a>3.3 tac</h2><code>tac [文件名]</code>：倒着查看文件<br><a name="JHNnV"></a><h2 id="3-4-more"><a href="#3-4-more" class="headerlink" title="3.4 more"></a>3.4 more</h2>如何浏览大文件？<br /><code>more [文件名]</code>：浏览大文件（分页）<br />技巧：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">空格，f：翻页查看（下一页）<br>回车：一行一行查看<br>q：退出浏览<br></code></pre></td></tr></table></figure>
-<a name="X8UG3"></a><h2 id="3-5-less"><a href="#3-5-less" class="headerlink" title="3.5 less"></a>3.5 less</h2>相比more，如何搜索，向上翻页？<br /><code>less [文件名]</code>：分页查看大文件<br />在more命令的基础上：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">PgUp向上翻页<br>/搜索关键字，按键n，跳至下一个关键字<br></code></pre></td></tr></table></figure>
-<a name="w26en"></a><h2 id="3-6-head"><a href="#3-6-head" class="headerlink" title="3.6 head"></a>3.6 head</h2>只想看前几行？<br /><code>head -n xx [文件名]</code><br />默认显示前10行</li>
+<li><code>.bz2</code>是<code>gzip</code>的升级版，除了能加<code>-k</code>参数保留原文件以外，其它没功能加强<br><a name="ENbPj"></a></li>
 </ol>
+<h1 id="3-文件浏览编辑"><a href="#3-文件浏览编辑" class="headerlink" title="3. 文件浏览编辑"></a>3. 文件浏览编辑</h1><p><a name="avUZk"></a></p>
+<h2 id="3-1-touch"><a href="#3-1-touch" class="headerlink" title="3.1 touch"></a>3.1 touch</h2><p>创建一个文件，关于带空格的文件名，不建议创建<br />如果文件名必须带空格，可以用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">touch &quot;pro files&quot;<br></code></pre></td></tr></table></figure>
+<p>用双引号包含。所有命令中对带空格的文件名，都必须用双引号括住<br><a name="i4sgM"></a></p>
+<h2 id="3-2-cat"><a href="#3-2-cat" class="headerlink" title="3.2 cat"></a>3.2 cat</h2><p><code>cat [文件名]</code>：查看文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat -n：查看行号<br></code></pre></td></tr></table></figure>
+<p><a name="yLJMK"></a></p>
+<h2 id="3-3-tac"><a href="#3-3-tac" class="headerlink" title="3.3 tac"></a>3.3 tac</h2><p><code>tac [文件名]</code>：倒着查看文件<br><a name="JHNnV"></a></p>
+<h2 id="3-4-more"><a href="#3-4-more" class="headerlink" title="3.4 more"></a>3.4 more</h2><p>如何浏览大文件？<br /><code>more [文件名]</code>：浏览大文件（分页）<br />技巧：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">空格，f：翻页查看（下一页）<br>回车：一行一行查看<br>q：退出浏览<br></code></pre></td></tr></table></figure>
+<p><a name="X8UG3"></a></p>
+<h2 id="3-5-less"><a href="#3-5-less" class="headerlink" title="3.5 less"></a>3.5 less</h2><p>相比more，如何搜索，向上翻页？<br /><code>less [文件名]</code>：分页查看大文件<br />在more命令的基础上：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">PgUp向上翻页<br>/搜索关键字，按键n，跳至下一个关键字<br></code></pre></td></tr></table></figure>
+<p><a name="w26en"></a></p>
+<h2 id="3-6-head"><a href="#3-6-head" class="headerlink" title="3.6 head"></a>3.6 head</h2><p>只想看前几行？<br /><code>head -n xx [文件名]</code><br />默认显示前10行</p>
 <p>反之，想看后几行？<br /><code>tail -n xx [文件名]</code><br />默认10行<br /><code>tail -f</code>可以动态查看<br><a name="dg8P5"></a></p>
 <h2 id="3-7-链接"><a href="#3-7-链接" class="headerlink" title="3.7 链接"></a>3.7 链接</h2><p>软链接：<code>ln -s [原文件] [链接文件]</code><br />硬链接：<code>ln [原文件] [链接文件]</code><br />软链接相当于原文件的快捷方式。权限都是rwx。<br />硬链接相当于原文件的拷贝，但是这两个文件可以同步更新，且这两个文件的i节点相同。硬链接不能跨分区生成<br><a name="UqaWN"></a></p>
 <h2 id="3-8-vim"><a href="#3-8-vim" class="headerlink" title="3.8 vim"></a>3.8 vim</h2><p>强大的文本编辑器<br />语法：<code>vim [文件名]</code><br />编辑模式：<code>i，a，o，I，A，O</code>，退出编辑模式按<code>Esc</code><br /><img src="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653667843601-fe8cdb99-f3dd-4620-b6a2-94489cbee3a3.png#clientId=uadd86808-607a-4&crop=0&crop=0&crop=1&crop=1&from=ui&id=ub4e0530a&margin=%5Bobject%20Object%5D&name=linux_vim1.PNG&originHeight=261&originWidth=300&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46549&status=done&style=none&taskId=u2dca43c0-6b6e-4eae-8e3e-9c44b908efa&title=" srcset="/img/loading.gif" lazyload alt="linux_vim1.PNG"><br />命令模式：</p>
@@ -392,10 +403,13 @@
 <h1 id="5-软件包管理"><a href="#5-软件包管理" class="headerlink" title="5. 软件包管理"></a>5. 软件包管理</h1><p>软件包分为：</p>
 <ol>
 <li>源代码包</li>
-<li>二进制包（RPM包、系统默认包）<br><a name="z6Z92"></a><h2 id="5-1-rpm"><a href="#5-1-rpm" class="headerlink" title="5.1 rpm"></a>5.1 rpm</h2>RPM包的依赖性查询：<code>www.rpmfind.net</code><br />手动安装rpm包的最大坏处：<br />一个包的依赖太多，a-&gt;b-&gt;c树形依赖，或者a-&gt;b-&gt;c-&gt;a环形依赖，使得安装rpm包变得很复杂<br />RPM安装：<br />语法：<code>rpm -ivh [包全名]</code>，参数：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">-i（install）：安装<br>-v（verbose）：显示详细信息<br>-h（hash）：显示进度<br>--nodeps：不检测依赖性<br></code></pre></td></tr></table></figure>
-RPM包升级：<br />语法：<code>rpm -Uvh [包全名]</code>，参数：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">-U：升级<br></code></pre></td></tr></table></figure>
-RPM包卸载：<br />语法：<code>rpm -e [包名]</code> （这个是包名而不是全名）</li>
+<li>二进制包（RPM包、系统默认包）<br><a name="z6Z92"></a></li>
 </ol>
+<h2 id="5-1-rpm"><a href="#5-1-rpm" class="headerlink" title="5.1 rpm"></a>5.1 rpm</h2><p>RPM包的依赖性查询：<code>www.rpmfind.net</code><br />手动安装rpm包的最大坏处：<br />一个包的依赖太多，a-&gt;b-&gt;c树形依赖，或者a-&gt;b-&gt;c-&gt;a环形依赖，使得安装rpm包变得很复杂<br />RPM安装：<br />语法：<code>rpm -ivh [包全名]</code>，参数：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">-i（install）：安装<br>-v（verbose）：显示详细信息<br>-h（hash）：显示进度<br>--nodeps：不检测依赖性<br></code></pre></td></tr></table></figure>
+<p>RPM包升级：<br />语法：<code>rpm -Uvh [包全名]</code>，参数：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">-U：升级<br></code></pre></td></tr></table></figure>
+<p>RPM包卸载：<br />语法：<code>rpm -e [包名]</code> （这个是包名而不是全名）</p>
 <p>RPM包查询：</p>
 <ol>
 <li>查询是否安装：<code>rpm -q [包名]</code></li>
