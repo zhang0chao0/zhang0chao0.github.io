@@ -16,19 +16,19 @@
   <meta name="author" content="积极向上好青年">
   <meta name="keywords" content="">
   
-    <meta name="description" content="分布式理论CAP分布式系统不可能同时满足一致性、可用性和分区容忍性，最多只能满足其中的两项  Consistency一致性：指的是多个副本能否保持一致；对某个数据进行更新后，如果所有用户都能读取到最新的值，那么认为该系统具有强一致性  Availability可用性：系统在面对各种异常时可以提供正常服务的能力，&#x3D; 系统可用时间 &#x2F; 总时间，4 个 9 的可用性表示系统 99">
+    <meta name="description" content="分布式理论CAP分布式系统不可能同时满足一致性、可用性和分区容忍性，最多只能满足其中的两项  Consistency一致性：指的是多个副本能否保持一致；对某个数据进行更新后，如果所有用户都能读取到最新的值，那么认为该系统具有强一致性 Availability可用性：系统在面对各种异常时可以提供正常服务的能力，&#x3D; 系统可用时间 &#x2F; 总时间，4 个 9 的可用性表示系统 99.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据面试总结">
 <meta property="og:url" content="http://zhangchaozc.cn/2021/01/24/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="积极向上好青年">
-<meta property="og:description" content="分布式理论CAP分布式系统不可能同时满足一致性、可用性和分区容忍性，最多只能满足其中的两项  Consistency一致性：指的是多个副本能否保持一致；对某个数据进行更新后，如果所有用户都能读取到最新的值，那么认为该系统具有强一致性  Availability可用性：系统在面对各种异常时可以提供正常服务的能力，&#x3D; 系统可用时间 &#x2F; 总时间，4 个 9 的可用性表示系统 99">
+<meta property="og:description" content="分布式理论CAP分布式系统不可能同时满足一致性、可用性和分区容忍性，最多只能满足其中的两项  Consistency一致性：指的是多个副本能否保持一致；对某个数据进行更新后，如果所有用户都能读取到最新的值，那么认为该系统具有强一致性 Availability可用性：系统在面对各种异常时可以提供正常服务的能力，&#x3D; 系统可用时间 &#x2F; 总时间，4 个 9 的可用性表示系统 99.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653114741379-0a3f9138-107e-452e-a38d-14833856f930.png#clientId=ua8a8020e-04b7-4&crop=0&crop=0&crop=1&crop=1&from=ui&id=u53391230&margin=%5Bobject%20Object%5D&name=Hadoop%E7%94%9F%E6%80%81.png&originHeight=716&originWidth=1076&originalType=binary&ratio=1&rotation=0&showTitle=false&size=212658&status=done&style=none&taskId=u72ccfe53-fd03-4ef2-9672-3034006aa35&title=">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/svg/22879930/1653114773290-02e943fc-c2b7-49d6-b052-e533bb0eb7a3.svg#clientId=ua8a8020e-04b7-4&crop=0&crop=0&crop=1&crop=1&from=ui&height=421&id=u792f9a06&margin=%5Bobject%20Object%5D&name=Flink%E6%9E%B6%E6%9E%84.svg&originHeight=613&originWidth=851&originalType=binary&ratio=1&rotation=0&showTitle=false&size=78238&status=done&style=none&taskId=u6ff9c5d4-4542-4345-a652-a80984615e4&title=&width=584">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/svg/22879930/1653114817284-38d7d6c3-0fe8-4d39-9dc4-074ca3d4d308.svg#clientId=ua8a8020e-04b7-4&crop=0&crop=0&crop=1&crop=1&from=ui&id=u37bf7c00&margin=%5Bobject%20Object%5D&name=checkpoint%E6%9C%BA%E5%88%B6.svg&originHeight=200&originWidth=553&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15460&status=done&style=none&taskId=u7db3b7ec-a05b-48ff-a453-cd80865346f&title=">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653114862184-99a607b1-41a0-44c7-b6e0-41646b573291.png#clientId=ua8a8020e-04b7-4&crop=0&crop=0&crop=1&crop=1&from=ui&height=265&id=udb886aef&margin=%5Bobject%20Object%5D&name=kafka%E6%9E%B6%E6%9E%84%E5%9B%BE.png&originHeight=376&originWidth=819&originalType=binary&ratio=1&rotation=0&showTitle=false&size=214381&status=done&style=none&taskId=uda7c8c21-e03e-472c-9dd6-8df394680cd&title=&width=578">
 <meta property="article:published_time" content="2021-01-24T03:23:09.000Z">
-<meta property="article:modified_time" content="2022-05-27T17:38:17.496Z">
+<meta property="article:modified_time" content="2022-05-27T17:47:19.143Z">
 <meta property="article:author" content="积极向上好青年">
 <meta property="article:tag" content="大数据">
 <meta property="article:tag" content="校招">
@@ -236,7 +236,7 @@
         
         
         
-          110 分钟
+          111 分钟
         
       </span>
     
@@ -282,19 +282,16 @@
 
 <h1 id="分布式理论"><a href="#分布式理论" class="headerlink" title="分布式理论"></a>分布式理论</h1><h2 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h2><p>分布式系统不可能同时满足一致性、可用性和分区容忍性，最多只能满足其中的两项</p>
 <ul>
-<li><p>Consistency一致性：指的是多个副本能否保持一致；对某个数据进行更新后，如果所有用户都能读取到最新的值，那么认为该系统具有强一致性</p>
-</li>
-<li><p>Availability可用性：系统在面对各种异常时可以提供正常服务的能力，&#x3D; 系统可用时间 &#x2F; 总时间，4 个 9 的可用性表示系统 99.99% 的时间是可用的</p>
-</li>
-<li><p>网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信</p>
+<li>Consistency一致性：指的是多个副本能否保持一致；对某个数据进行更新后，如果所有用户都能读取到最新的值，那么认为该系统具有强一致性</li>
+<li>Availability可用性：系统在面对各种异常时可以提供正常服务的能力，&#x3D; 系统可用时间 &#x2F; 总时间，4 个 9 的可用性表示系统 99.99% 的时间是可用的</li>
+<li>网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信</li>
+</ul>
 <h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>远程过程调用。<br>两个不同的进程，一个如何调用另一个的函数？基于socket的网络传输，将需要调用的类，方法，参数通过socket传输到另一个进程上。通过反射机制生成实例，再调用函数</p>
 <h1 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h1><p>Hadoop生态<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653114741379-0a3f9138-107e-452e-a38d-14833856f930.png#clientId=ua8a8020e-04b7-4&crop=0&crop=0&crop=1&crop=1&from=ui&id=u53391230&margin=%5Bobject%20Object%5D&name=Hadoop%E7%94%9F%E6%80%81.png&originHeight=716&originWidth=1076&originalType=binary&ratio=1&rotation=0&showTitle=false&size=212658&status=done&style=none&taskId=u72ccfe53-fd03-4ef2-9672-3034006aa35&title=" srcset="/img/loading.gif" lazyload alt="Hadoop生态.png"></p>
 <h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>主从结构，只有一个NameNode，有很多DataNode<br>NameNode：接收用户的操作请求；维护文件系统的目录结构；管理文件与block之间的关系，block与DataNode之间的关系；存储元数据，元数据保存在内存中<br>DataNode：文件被分为block存储在磁盘上，有多个副本；存储文件内容，保存在磁盘中<br>NameNode的离线备份：SecondaryNameNode<br>文件切分为块，默认大小每个版本不一样，可配置；副本数量默认为3，可配置<br>DataNode通过心跳机制（周期为3秒，可配置）和NameNode进行联系，除了发送心跳包以外，还发一些信息等<br>分布式文件系统：</p>
-</li>
-<li><p>通透性，让用户看起来就是像访问磁盘一样</p>
-</li>
-<li><p>容错性，某个节点的宕机不影响整个系统的运作</p>
-</li>
+<ul>
+<li>通透性，让用户看起来就是像访问磁盘一样</li>
+<li>容错性，某个节点的宕机不影响整个系统的运作</li>
 </ul>
 <p>在Hadoop中，有一个文件系统的抽象，它提供了文件系统实现的各类接口，HDFS只是这个抽象文件系统的一个实例：org.apache.hadoop.fs.FileSystem<br>心跳每3秒一次，如果超过10分钟没有收到某个DataNode 的心跳，则认为该节点不可用。伴随DataNode的心跳，还发送有块报告，包含datanode上所有数据块的列表。NameNode回复心跳，也伴随着相关指令等<br>特点：</p>
 <ul>
@@ -359,8 +356,9 @@
 <li>增加Reduce的个数（还是没有根本的解决问题）</li>
 <li>自定义分区，自己写一个partition类用来分区（可取）</li>
 <li>重新设计Key，在map阶段给Key加一个随机数，reduce阶段再去掉（可用）</li>
-<li>使用combinner合并，combinner是在map阶段、reduce之前的一个中间阶段，在这个阶段可以选择性的把大量的相同key数据先进行一个合并，减轻reduce的工作（可用）<h3 id="MR的Shuffle和Spark的Shuffle"><a href="#MR的Shuffle和Spark的Shuffle" class="headerlink" title="MR的Shuffle和Spark的Shuffle"></a>MR的Shuffle和Spark的Shuffle</h3><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ba2c67897fc1">https://www.jianshu.com/p/ba2c67897fc1</a><br>从Map端输出K-V，到Reduce端接收K-V，整个中间的过程可以称之为Shuffle；Shuffle分为两个部分：<br>Map端：</li>
+<li>使用combinner合并，combinner是在map阶段、reduce之前的一个中间阶段，在这个阶段可以选择性的把大量的相同key数据先进行一个合并，减轻reduce的工作（可用）</li>
 </ul>
+<h3 id="MR的Shuffle和Spark的Shuffle"><a href="#MR的Shuffle和Spark的Shuffle" class="headerlink" title="MR的Shuffle和Spark的Shuffle"></a>MR的Shuffle和Spark的Shuffle</h3><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ba2c67897fc1">https://www.jianshu.com/p/ba2c67897fc1</a><br>从Map端输出K-V，到Reduce端接收K-V，整个中间的过程可以称之为Shuffle；Shuffle分为两个部分：<br>Map端：</p>
 <ol>
 <li>在map task执行时，它的输入数据来源于HDFS的block，假设map的输入数据都是像”aaa”这样的字符串</li>
 <li>key是”aaa”， value是数值1；假设现在有3个reducer，key交给哪个去处理？默认对key hash后再以reduce task数量取模，从而确定；当然，有提供Partitioner接口，可以自定义这个逻辑</li>
@@ -383,8 +381,10 @@
 </ul>
 <p><strong>TaskManager</strong>：负责资源的提供<br>资源调度的最小单位是 task _slot_。TaskManager 中 task slot 的数量表示并发处理 task 的数量。请注意一个 task slot 中可以执行多个算子<br>每个 worker（TaskManager）都是一个 <em>JVM 进程</em><br>注意：slot 是资源管理的最小单位，是有多个线程的</p>
 <ul>
-<li>Shuffle管理。<strong>Shuffle本质是数据在不同的节点中，传输和交换的过程</strong><h2 id="Flink和Spark-Streaming区别？"><a href="#Flink和Spark-Streaming区别？" class="headerlink" title="Flink和Spark Streaming区别？"></a>Flink和Spark Streaming区别？</h2>设计理念不一样，Spark主要是批处理，它认为流是一种特殊的批次。Spark Streaming 是微批处理，运行的时候需要指定批处理的时间，每次运行 job 时处理一个批次的数据<br>Flink主要是流处理，当然也可以进行批处理（认为批是一种特殊的流）。更适合处理流数据，支持多种时间：事件时间、处理时间<h2 id="为什么是Flink？"><a href="#为什么是Flink？" class="headerlink" title="为什么是Flink？"></a>为什么是Flink？</h2>Apache Flink是一个面向分布式数据流处理和批量数据处理的开源计算平台，提供支持<strong>流处理</strong>和<strong>批处理</strong>两种类型应用的功能<br>Flink是完全支持流处理，当处理流数据时，数据被定义为是无界的；而批处理作为一种特殊的流处理，输入数据流被定义为有界的<br>从目前来看，有状态的流计算架构模式，只有Flink满足。具体优势有以下几点：</li>
+<li>Shuffle管理。<strong>Shuffle本质是数据在不同的节点中，传输和交换的过程</strong></li>
 </ul>
+<h2 id="Flink和Spark-Streaming区别？"><a href="#Flink和Spark-Streaming区别？" class="headerlink" title="Flink和Spark Streaming区别？"></a>Flink和Spark Streaming区别？</h2><p>设计理念不一样，Spark主要是批处理，它认为流是一种特殊的批次。Spark Streaming 是微批处理，运行的时候需要指定批处理的时间，每次运行 job 时处理一个批次的数据<br>Flink主要是流处理，当然也可以进行批处理（认为批是一种特殊的流）。更适合处理流数据，支持多种时间：事件时间、处理时间</p>
+<h2 id="为什么是Flink？"><a href="#为什么是Flink？" class="headerlink" title="为什么是Flink？"></a>为什么是Flink？</h2><p>Apache Flink是一个面向分布式数据流处理和批量数据处理的开源计算平台，提供支持<strong>流处理</strong>和<strong>批处理</strong>两种类型应用的功能<br>Flink是完全支持流处理，当处理流数据时，数据被定义为是无界的；而批处理作为一种特殊的流处理，输入数据流被定义为有界的<br>从目前来看，有状态的流计算架构模式，只有Flink满足。具体优势有以下几点：</p>
 <ol>
 <li>同时支持高吞吐、低延迟、高性能</li>
 <li>支持事件时间的概念。使用事件产生的时间，基于事件驱动的机制，即使事件乱序到达，流系统也能保证计算出正确的结果</li>
@@ -420,15 +420,13 @@ void initializeState(FunctionInitializationContext context) throws Exception;
 <p>异步：<br>对于后台系统，用户一个请求可能需要做很多事情（对接各种系统），用户等待的时间太长了。把消息放队列中，然后再慢慢的去做<br>对于大数据：<br>解耦：<br>总线模块和计算模块分开。数据源只关注有无Kafka，计算的输出可以当做下次计算的输入<br>削峰：<br>数据量峰值很大，也不会引起下游入库的宕机。有消息队列在，慢慢写</p>
 <p><strong>缺点：</strong><br>所有的系统，都依赖它。保证MQ是高可用的。系统维护度、复杂度会变高<br><strong>常用的MQ：</strong></p>
 <ul>
-<li><p>10w级别的：Kafka，RocketMQ</p>
-</li>
-<li><p>1w级别的：ActiveMQ，RabbitMQ</p>
+<li>10w级别的：Kafka，RocketMQ</li>
+<li>1w级别的：ActiveMQ，RabbitMQ</li>
+</ul>
 <h2 id="Kafka如何做到高可用？"><a href="#Kafka如何做到高可用？" class="headerlink" title="Kafka如何做到高可用？"></a>Kafka如何做到高可用？</h2><p>架构图：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/22879930/1653114862184-99a607b1-41a0-44c7-b6e0-41646b573291.png#clientId=ua8a8020e-04b7-4&crop=0&crop=0&crop=1&crop=1&from=ui&height=265&id=udb886aef&margin=%5Bobject%20Object%5D&name=kafka%E6%9E%B6%E6%9E%84%E5%9B%BE.png&originHeight=376&originWidth=819&originalType=binary&ratio=1&rotation=0&showTitle=false&size=214381&status=done&style=none&taskId=uda7c8c21-e03e-472c-9dd6-8df394680cd&title=&width=578" srcset="/img/loading.gif" lazyload alt="kafka架构图.png"></p>
-</li>
-<li><p>Kafka由多个broker组成（服务器，一个节点上可以有多个，每个都要配置端口和自己的日志目录）</p>
-</li>
-<li><p>创建一个topic，每个topic划分成多个partition分布在不同的broker上</p>
-</li>
+<ul>
+<li>Kafka由多个broker组成（服务器，一个节点上可以有多个，每个都要配置端口和自己的日志目录）</li>
+<li>创建一个topic，每个topic划分成多个partition分布在不同的broker上</li>
 </ul>
 <p>你可以指定topic有几个副本。假设有3副本，其中1个leader，两个follower<br><strong>写数据</strong>的时候，生产者就写 leader，然后 leader 将数据落地写本地磁盘，接着其他 follower 自己主动从 leader 来 pull 数据。一旦所有 follower 同步好数据了，就会发送 ack 给 leader，leader 收到所有 follower 的 ack 之后，就会返回写成功的消息给生产者。（当然，这只是其中一种模式，还可以适当调整这个行为）<br><strong>消费</strong>的时候，只会从 leader 去读，但是只有当一个消息已经被所有 follower 都同步成功返回 ack 的时候，这个消息才会被消费者读到<br>如果某台节点宕机，剩下的follower再选举出一个leader。用来接收读写请求。做到高可用</p>
 <h2 id="Zookeeper有什么用？"><a href="#Zookeeper有什么用？" class="headerlink" title="Zookeeper有什么用？"></a>Zookeeper有什么用？</h2><p>一句话：负责集群的协调和稳定</p>
@@ -437,21 +435,18 @@ void initializeState(FunctionInitializationContext context) throws Exception;
 </ul>
 <p>Kafka 使用 ZooKeeper ：</p>
 <ul>
-<li><p>存放集群元数据</p>
-</li>
-<li><p>成员管理</p>
-</li>
-<li><p>选举</p>
-</li>
-<li><p>消费状态，offset管理，消费组管理</p>
+<li>存放集群元数据</li>
+<li>成员管理</li>
+<li>选举</li>
+<li>消费状态，offset管理，消费组管理</li>
+</ul>
 <h2 id="什么是消费组？"><a href="#什么是消费组？" class="headerlink" title="什么是消费组？"></a>什么是消费组？</h2><p>Kafka 中，消费者组是一个由多个消费者实例 构成的组。多个实例共同订阅若干个主题，实现<strong>共同消费</strong>。同一个组下的每个实例都配置有 相同的组 ID，被分配不同的订阅分区。当某个实例挂掉的时候，其他实例会自动地承担起 它负责消费的分区</p>
 <h2 id="Kafka中offset的作用？怎么保证数据有序？"><a href="#Kafka中offset的作用？怎么保证数据有序？" class="headerlink" title="Kafka中offset的作用？怎么保证数据有序？"></a>Kafka中offset的作用？怎么保证数据有序？</h2><p>在 Kafka 中，每个 主题分区下的每条消息都被赋予了一个唯一的 ID 数值，用于标识它在分区中的位置。这个 ID 数值，就被称为位移，或者叫偏移量。一旦消息被写入到分区日志，它的位移值将不能 被修改<br>kafka每个partition中的消息在写入时都是有序的，消费时，<strong>每个partition只能被每一个group中的一个消费者消费，保证了消费时也是有序</strong>的。整个topic不保证有序。如果为了保证topic整个有序，那么将partition调整为1.<br>消费者提交消费位移时提交的是当前消费到的最新消息的offset+1</p>
 <h2 id="为什么Kafka不支持读写分离？"><a href="#为什么Kafka不支持读写分离？" class="headerlink" title="为什么Kafka不支持读写分离？"></a>为什么Kafka不支持读写分离？</h2><p>在 Kafka 中，生产者写入消息、消费者读取消息的操作都是与 leader 副本进行交互的，从 而实现的是一种<strong>主写主读</strong>的生产消费模型</p>
-</li>
-<li><p>延时导致的数据一致性问题。同步需要时间，这个时候去读副本，可能是脏数据</p>
-<h2 id="Kafka怎么保证数据不重复？"><a href="#Kafka怎么保证数据不重复？" class="headerlink" title="Kafka怎么保证数据不重复？"></a>Kafka怎么保证数据不重复？</h2><p>什么情况下数据会重复消费？数据被消费了，被处理了，但是还没有提交offset，这个时候挂了<br>再次重启消费，数据就重复了。怎么办？</p>
-</li>
+<ul>
+<li>延时导致的数据一致性问题。同步需要时间，这个时候去读副本，可能是脏数据</li>
 </ul>
+<h2 id="Kafka怎么保证数据不重复？"><a href="#Kafka怎么保证数据不重复？" class="headerlink" title="Kafka怎么保证数据不重复？"></a>Kafka怎么保证数据不重复？</h2><p>什么情况下数据会重复消费？数据被消费了，被处理了，但是还没有提交offset，这个时候挂了<br>再次重启消费，数据就重复了。怎么办？</p>
 <ol>
 <li>数据的输出是否是幂等的，比如有主键，即使重复产生了数据，也不会写两次。因为会主键冲突，我们只要判断一下是否存在，存在则更新</li>
 <li>双写数据库，比如已经消费的数据，另写一份到外部存储，比如Redis。每次只要判断Redis中是否有即可，这样不会保存重复的数据</li>
@@ -463,26 +458,27 @@ void initializeState(FunctionInitializationContext context) throws Exception;
 </ol>
 <p>回复Ack：<br>分为两个，一是leader收到了，就认为成功发送；二是所有的副本都同步了，才认为数据成功发送。<br>设置ack&#x3D;all，副本都同步了，才算成功<br>此外：</p>
 <ul>
-<li><p>设置 replication.factor 参数：这个值必须大于 1，要求每个 partition 必须有至少 2 个副本</p>
-</li>
-<li><p>在 Kafka 服务端设置 min.insync.replicas 参数：这个值必须大于 1，这个是要求一个 leader 至少感知到有至少一个 follower 还跟自己保持联系，没掉队，这样才能确保 leader 挂了还有一个 follower 吧</p>
+<li>设置 replication.factor 参数：这个值必须大于 1，要求每个 partition 必须有至少 2 个副本</li>
+<li>在 Kafka 服务端设置 min.insync.replicas 参数：这个值必须大于 1，这个是要求一个 leader 至少感知到有至少一个 follower 还跟自己保持联系，没掉队，这样才能确保 leader 挂了还有一个 follower 吧</li>
+</ul>
 <h2 id="MQ消息过期？消息积压？怎么处理"><a href="#MQ消息过期？消息积压？怎么处理" class="headerlink" title="MQ消息过期？消息积压？怎么处理"></a>MQ消息过期？消息积压？怎么处理</h2><p>消息过期了，导致数据丢了？批量重导入，从业务数据再导入到MQ，补上<br>消息积压：</p>
-</li>
-<li><p>提高消费者的并行度，临时新建一个topic，扩partition为原来的10倍（可以支持并行度是原来的10倍）</p>
-</li>
-<li><p>把旧topic数据搬到新topic，再以10倍的速度进行消费</p>
+<ul>
+<li>提高消费者的并行度，临时新建一个topic，扩partition为原来的10倍（可以支持并行度是原来的10倍）</li>
+<li>把旧topic数据搬到新topic，再以10倍的速度进行消费</li>
+</ul>
 <h1 id="场景题"><a href="#场景题" class="headerlink" title="场景题"></a>场景题</h1><p>进阶知识合集<br><a target="_blank" rel="noopener" href="https://github.com/doocs/advanced-java">进阶面试连环炮</a></p>
 <h2 id="JVM调优问题"><a href="#JVM调优问题" class="headerlink" title="JVM调优问题"></a>JVM调优问题</h2><h3 id="基本的参数知识"><a href="#基本的参数知识" class="headerlink" title="基本的参数知识"></a>基本的参数知识</h3><p>JVM参数，标准参数：<br>java -help<br>java -server<br>java -client<br>java -version<br>java -help<br>java -help<br><strong>标准参数一般在各个版本中都是稳定不变的</strong><br>X参数，非标准化参数：<br>java -Xint：完全解释执行<br>java -Xcomp：第一次使用就编译成本地代码（完全编译执行）<br>java -Xmixed：混合模式，JVM自己来决定是否编译成本地代码<br>XX参数：<br>java -XX:[+-]<name>表示启用或者禁用某个属性</p>
 <h1 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h1><p>java -XX:+UseG1GC 使用G1垃圾收集器</p>
-<h1 id="kv对"><a href="#kv对" class="headerlink" title="kv对"></a>kv对</h1><p>java -XX:<name>&#x3D;<value> KV类型，设置Key-Value属性对</p>
-<h1 id="常用，设置最大堆，最小堆"><a href="#常用，设置最大堆，最小堆" class="headerlink" title="常用，设置最大堆，最小堆"></a>常用，设置最大堆，最小堆</h1></li>
-</ul>
-<h1 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h1><p>-Xmx和-Xms：<br>-Xms等价于：-XX:InitialHeapSize，初始堆大小<br>-Xmx等价于：-XX:MaxHeapSize，最大堆大小</p>
+<h1 id="kv对"><a href="#kv对" class="headerlink" title="kv对"></a>kv对</h1><p>java -XX:<name>&#x3D;<value> KV类型，设置Key-Value属性对<br>常用，设置最大堆，最小堆</p>
+<p>简写<br>-Xmx和-Xms：<br>-Xms等价于：-XX:InitialHeapSize，初始堆大小<br>-Xmx等价于：-XX:MaxHeapSize，最大堆大小</p>
 <h3 id="查看当前的JVM参数"><a href="#查看当前的JVM参数" class="headerlink" title="查看当前的JVM参数"></a>查看当前的JVM参数</h3><p>直接打印出当前JVM的配置参数：</p>
 <blockquote>
 <p>java -XX:+PrintFlagsFinal &gt; D:&#x2F;jvm_param.txt<br>一部分内容：</p>
 </blockquote>
-<h1 id="x3D-代表就是默认值没有变-x3D-代表是修改过的值-intx-CICompilerCount-x3D-4-product-bool-CICompilerCountPerCPU-x3D-true-product-bool-CITime-x3D-false-product-bool-CMSAbortSemantics-x3D-false-product-uintx-CMSAbortablePrecleanMinWorkPerIteration-x3D-100-product-intx-CMSAbortablePrecleanWaitMillis-x3D-100-manageable-uintx-CMSBitMapYieldQuantum-x3D-10485760-product"><a href="#x3D-代表就是默认值没有变-x3D-代表是修改过的值-intx-CICompilerCount-x3D-4-product-bool-CICompilerCountPerCPU-x3D-true-product-bool-CITime-x3D-false-product-bool-CMSAbortSemantics-x3D-false-product-uintx-CMSAbortablePrecleanMinWorkPerIteration-x3D-100-product-intx-CMSAbortablePrecleanWaitMillis-x3D-100-manageable-uintx-CMSBitMapYieldQuantum-x3D-10485760-product" class="headerlink" title="&#x3D; 代表就是默认值没有变      # :&#x3D; 代表是修改过的值      intx CICompilerCount                          :&#x3D; 4                                   {product}      bool CICompilerCountPerCPU                     &#x3D; true                                {product}      bool CITime                                    &#x3D; false                               {product}      bool CMSAbortSemantics                         &#x3D; false                               {product}     uintx CMSAbortablePrecleanMinWorkPerIteration   &#x3D; 100                                 {product}      intx CMSAbortablePrecleanWaitMillis            &#x3D; 100                                 {manageable}     uintx CMSBitMapYieldQuantum                     &#x3D; 10485760                            {product}"></a>&#x3D; 代表就是默认值没有变      # :&#x3D; 代表是修改过的值      intx CICompilerCount                          :&#x3D; 4                                   {product}      bool CICompilerCountPerCPU                     &#x3D; true                                {product}      bool CITime                                    &#x3D; false                               {product}      bool CMSAbortSemantics                         &#x3D; false                               {product}     uintx CMSAbortablePrecleanMinWorkPerIteration   &#x3D; 100                                 {product}      intx CMSAbortablePrecleanWaitMillis            &#x3D; 100                                 {manageable}     uintx CMSBitMapYieldQuantum                     &#x3D; 10485760                            {product}</h1><p><strong>查看当前进程的JVM参数：</strong></p>
+<p>&#x3D; 代表就是默认值没有变<br>:&#x3D; 代表是修改过的值</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">intx <span class="hljs-built_in">CICompilerCount</span>                          := <span class="hljs-number">4</span>                                   &#123;product&#125;      <span class="hljs-type">bool</span> <span class="hljs-built_in">CICompilerCountPerCPU</span>                     = <span class="hljs-literal">true</span>                                &#123;product&#125;      <span class="hljs-type">bool</span> <span class="hljs-built_in">CITime</span>                                    = <span class="hljs-literal">false</span>                               &#123;product&#125;      <span class="hljs-type">bool</span> <span class="hljs-built_in">CMSAbortSemantics</span>                         = <span class="hljs-literal">false</span>                               &#123;product&#125;     uintx <span class="hljs-built_in">CMSAbortablePrecleanMinWorkPerIteration</span>   = <span class="hljs-number">100</span>                                 &#123;product&#125;      intx <span class="hljs-built_in">CMSAbortablePrecleanWaitMillis</span>            = <span class="hljs-number">100</span>                                 &#123;manageable&#125;     uintx <span class="hljs-built_in">CMSBitMapYieldQuantum</span>                     = <span class="hljs-number">10485760</span>                            &#123;product&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>查看当前进程的JVM参数：</strong></p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clean"># <span class="hljs-number">1.</span> jps，找到 pid，假设为 <span class="hljs-number">16024</span> # <span class="hljs-number">2.</span> 查看堆内存大小，查看是否使用了 G1 jinfo -flag MaxHeapSize <span class="hljs-number">16024</span> # -XX:MaxHeapSize=<span class="hljs-number">4127195136</span> jinfo -flag UseG1GC <span class="hljs-number">16024</span> # -XX:-UseG1GC，- 减号代表没用<br></code></pre></td></tr></table></figure>
 <h4 id="统计"><a href="#统计" class="headerlink" title="统计"></a>统计</h4><p>每 3 秒输出一次 GC 信息<br>C:\Users\zhangchao&gt;jstat -gc 16024 3000  S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT     GCT 10240.0 10240.0  0.0    0.0   63488.0   6382.3   167936.0     0.0     4480.0 770.2  384.0   75.9       0    0.000   0      0.000    0.000 10240.0 10240.0  0.0    0.0   63488.0   6382.3   167936.0     0.0     4480.0 770.2  384.0   75.9       0    0.000   0      0.000    0.000 10240.0 10240.0  0.0    0.0   63488.0   6382.3   167936.0     0.0     4480.0 770.2  384.0   75.9       0    0.000   0      0.000    0.000 # 显示堆中各区域大小，但是不太直观<br>每 3 秒输出一次 GC 信息（比例信息）<br>C:\Users\zhangchao&gt;jstat -gcutil 16024 3000   S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT   0.00   0.00  10.05   0.00  17.19  19.76      0    0.000     0    0.000    0.000   0.00   0.00  10.05   0.00  17.19  19.76      0    0.000     0    0.000    0.000   0.00   0.00  10.05   0.00  17.19  19.76      0    0.000     0    0.000    0.000   0.00   0.00  10.05   0.00  17.19  19.76      0    0.000     0    0.000    0.000   0.00   0.00  10.05   0.00  17.19  19.76      0    0.000     0    0.000    0.000   0.00   0.00  10.05   0.00  17.19  19.76      0    0.000     0    0.000    0.000<br>变量解释：<br>NGCMN：新生代最小容量 NGCMX：新生代最大容量 NGC：当前新生代容量 S0C：第一个幸存区大小 S1C：第二个幸存区的大小 OGCMN：老年代最小容量 OGCMX：老年代最大容量 OGC：当前老年代大小 OC:当前老年代大小 YGC：年轻代gc次数 FGC：老年代GC次数</p>
 <h3 id="如何排查Java程序死锁？"><a href="#如何排查Java程序死锁？" class="headerlink" title="如何排查Java程序死锁？"></a>如何排查Java程序死锁？</h3><p>使用 jstack<br>C:\Users\zhangchao&gt;jps 11856 12804 Jps 17016 Launcher C:\Users\zhangchao&gt;jstack 17016 &gt; D:&#x2F;jstack.txt<br>内容：<br>“DestroyJavaVM” #14 prio&#x3D;5 os_prio&#x3D;0 tid&#x3D;0x0000000002d77800 nid&#x3D;0x27d4 waiting on condition [0x0000000000000000]    java.lang.Thread.State: RUNNABLE “JPS event loop” #11 prio&#x3D;5 os_prio&#x3D;0 tid&#x3D;0x0000000018871000 nid&#x3D;0x3ed4 runnable [0x0000000018d7e000]    java.lang.Thread.State: RUNNABLE 	at sun.nio.ch.WindowsSelectorImpl$SubSelector.poll0(Native Method) 	at sun.nio.ch.WindowsSelectorImpl$SubSelector.poll(WindowsSelectorImpl.java:296) 	at sun.nio.ch.WindowsSelectorImpl$SubSelector.access$400(WindowsSelectorImpl.java:278) 	at sun.nio.ch.WindowsSelectorImpl.doSelect(WindowsSelectorImpl.java:159) # 如果出现 DeadThread.run 说明死锁 # found deadlock，直接定位到死锁</p>
@@ -508,7 +504,10 @@ void initializeState(FunctionInitializationContext context) throws Exception;
 <ul>
 <li>循环创建对象</li>
 <li>静态变量或其它存活期很长的变量，是否太大，占用太多空间</li>
-<li>没有打开“空间分配担保”，导致Full GC<h2 id="SQL调优"><a href="#SQL调优" class="headerlink" title="SQL调优"></a>SQL调优</h2><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62941196">一条SQL语句执行得很慢的原因有哪些</a><br>碰到这种，无非分类讨论：</li>
+<li>没有打开“空间分配担保”，导致Full GC</li>
+</ul>
+<h2 id="SQL调优"><a href="#SQL调优" class="headerlink" title="SQL调优"></a>SQL调优</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62941196">一条SQL语句执行得很慢的原因有哪些</a><br>碰到这种，无非分类讨论：</p>
+<ul>
 <li>其它的进程占用 CPU （使用 top 命令查看，确定系统资源） - 自己当前进程很慢 	- 偶尔很慢 		- 当前数据库正在同步数据 		- 其它 sql 语句锁表了，正好是你查询的表 	- 一直很慢，考虑优化 sql 语句</li>
 </ul>
 <ol>
